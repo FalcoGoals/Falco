@@ -1,6 +1,0 @@
-framework module Pods_PegasusUITests {
-  umbrella header "Pods-PegasusUITests-umbrella.h"
-
-  export *
-  module * { export * }
-}

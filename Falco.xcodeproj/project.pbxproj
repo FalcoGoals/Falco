@@ -1,0 +1,626 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		03DF53D9DF1F5E7CE6B01D84 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 225D0CE31F3B3D71CA54D89A /* Pods.framework */; };
+		7424B0FA1C9A96310071B78B /* GoalsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424B0F91C9A96310071B78B /* GoalsLayout.swift */; };
+		7459577F1C9841DE00C3D3C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7459577E1C9841DE00C3D3C0 /* AppDelegate.swift */; };
+		745957811C9841DE00C3D3C0 /* PersonalGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745957801C9841DE00C3D3C0 /* PersonalGoalViewController.swift */; };
+		745957841C9841DE00C3D3C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 745957821C9841DE00C3D3C0 /* Main.storyboard */; };
+		745957861C9841DE00C3D3C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 745957851C9841DE00C3D3C0 /* Assets.xcassets */; };
+		745957891C9841DE00C3D3C0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 745957871C9841DE00C3D3C0 /* LaunchScreen.storyboard */; };
+		745957941C9841DE00C3D3C0 /* FalcoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745957931C9841DE00C3D3C0 /* FalcoTests.swift */; };
+		7459579F1C9841DE00C3D3C0 /* FalcoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7459579E1C9841DE00C3D3C0 /* FalcoUITests.swift */; };
+		745BC9731C994BFD00204231 /* BubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745BC9721C994BFD00204231 /* BubbleCell.swift */; };
+		74B995B81C9E706B0005A7CB /* GoalBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B995B71C9E706B0005A7CB /* GoalBubble.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		745957901C9841DE00C3D3C0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 745957731C9841DE00C3D3C0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7459577A1C9841DE00C3D3C0;
+			remoteInfo = Pegasus;
+		};
+		7459579B1C9841DE00C3D3C0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 745957731C9841DE00C3D3C0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7459577A1C9841DE00C3D3C0;
+			remoteInfo = Pegasus;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		225D0CE31F3B3D71CA54D89A /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7424B0F91C9A96310071B78B /* GoalsLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalsLayout.swift; sourceTree = "<group>"; };
+		7459577B1C9841DE00C3D3C0 /* Falco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Falco.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7459577E1C9841DE00C3D3C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		745957801C9841DE00C3D3C0 /* PersonalGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalGoalViewController.swift; sourceTree = "<group>"; };
+		745957831C9841DE00C3D3C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		745957851C9841DE00C3D3C0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		745957881C9841DE00C3D3C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		7459578A1C9841DE00C3D3C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7459578F1C9841DE00C3D3C0 /* Falco.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Falco.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		745957931C9841DE00C3D3C0 /* FalcoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FalcoTests.swift; sourceTree = "<group>"; };
+		745957951C9841DE00C3D3C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7459579A1C9841DE00C3D3C0 /* Falco.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Falco.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7459579E1C9841DE00C3D3C0 /* FalcoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FalcoUITests.swift; sourceTree = "<group>"; };
+		745957A01C9841DE00C3D3C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		745BC9721C994BFD00204231 /* BubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleCell.swift; sourceTree = "<group>"; };
+		74B995B71C9E706B0005A7CB /* GoalBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalBubble.swift; sourceTree = "<group>"; };
+		BD369289AFEF04402F8D94D1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		F3EDF817BF16E83523A638C6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		745957781C9841DE00C3D3C0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03DF53D9DF1F5E7CE6B01D84 /* Pods.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7459578C1C9841DE00C3D3C0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		745957971C9841DE00C3D3C0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0597EFC1977300F9857845E9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				225D0CE31F3B3D71CA54D89A /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		745957721C9841DE00C3D3C0 = {
+			isa = PBXGroup;
+			children = (
+				7459577D1C9841DE00C3D3C0 /* Falco */,
+				745957921C9841DE00C3D3C0 /* FalcoTests */,
+				7459579D1C9841DE00C3D3C0 /* FalcoUITests */,
+				7459577C1C9841DE00C3D3C0 /* Products */,
+				F2EDCE1A3A149C99D33C88D1 /* Pods */,
+				0597EFC1977300F9857845E9 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		7459577C1C9841DE00C3D3C0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7459577B1C9841DE00C3D3C0 /* Falco.app */,
+				7459578F1C9841DE00C3D3C0 /* Falco.xctest */,
+				7459579A1C9841DE00C3D3C0 /* Falco.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7459577D1C9841DE00C3D3C0 /* Falco */ = {
+			isa = PBXGroup;
+			children = (
+				74C0860F1C9AD70200BA50C9 /* model */,
+				74C086111C9AD71300BA50C9 /* controller */,
+				74C086131C9AD72600BA50C9 /* view */,
+				745957821C9841DE00C3D3C0 /* Main.storyboard */,
+				7459577E1C9841DE00C3D3C0 /* AppDelegate.swift */,
+				745957851C9841DE00C3D3C0 /* Assets.xcassets */,
+				745957871C9841DE00C3D3C0 /* LaunchScreen.storyboard */,
+				7459578A1C9841DE00C3D3C0 /* Info.plist */,
+			);
+			path = Falco;
+			sourceTree = "<group>";
+		};
+		745957921C9841DE00C3D3C0 /* FalcoTests */ = {
+			isa = PBXGroup;
+			children = (
+				745957931C9841DE00C3D3C0 /* FalcoTests.swift */,
+				745957951C9841DE00C3D3C0 /* Info.plist */,
+			);
+			path = FalcoTests;
+			sourceTree = "<group>";
+		};
+		7459579D1C9841DE00C3D3C0 /* FalcoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				7459579E1C9841DE00C3D3C0 /* FalcoUITests.swift */,
+				745957A01C9841DE00C3D3C0 /* Info.plist */,
+			);
+			path = FalcoUITests;
+			sourceTree = "<group>";
+		};
+		74C0860F1C9AD70200BA50C9 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				74B995B71C9E706B0005A7CB /* GoalBubble.swift */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		74C086111C9AD71300BA50C9 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				745957801C9841DE00C3D3C0 /* PersonalGoalViewController.swift */,
+			);
+			name = controller;
+			sourceTree = "<group>";
+		};
+		74C086131C9AD72600BA50C9 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				7424B0F91C9A96310071B78B /* GoalsLayout.swift */,
+				745BC9721C994BFD00204231 /* BubbleCell.swift */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		F2EDCE1A3A149C99D33C88D1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F3EDF817BF16E83523A638C6 /* Pods.debug.xcconfig */,
+				BD369289AFEF04402F8D94D1 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7459577A1C9841DE00C3D3C0 /* Falco */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 745957A31C9841DE00C3D3C0 /* Build configuration list for PBXNativeTarget "Falco" */;
+			buildPhases = (
+				FA2800DEE06FD248F2FDE935 /* Check Pods Manifest.lock */,
+				745957771C9841DE00C3D3C0 /* Sources */,
+				745957781C9841DE00C3D3C0 /* Frameworks */,
+				745957791C9841DE00C3D3C0 /* Resources */,
+				C027919F56E4375C025A51E0 /* Embed Pods Frameworks */,
+				657F91EED3FDD4B03CCEADBF /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Falco;
+			productName = Pegasus;
+			productReference = 7459577B1C9841DE00C3D3C0 /* Falco.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7459578E1C9841DE00C3D3C0 /* FalcoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 745957A61C9841DE00C3D3C0 /* Build configuration list for PBXNativeTarget "FalcoTests" */;
+			buildPhases = (
+				7459578B1C9841DE00C3D3C0 /* Sources */,
+				7459578C1C9841DE00C3D3C0 /* Frameworks */,
+				7459578D1C9841DE00C3D3C0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				745957911C9841DE00C3D3C0 /* PBXTargetDependency */,
+			);
+			name = FalcoTests;
+			productName = PegasusTests;
+			productReference = 7459578F1C9841DE00C3D3C0 /* Falco.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		745957991C9841DE00C3D3C0 /* FalcoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 745957A91C9841DE00C3D3C0 /* Build configuration list for PBXNativeTarget "FalcoUITests" */;
+			buildPhases = (
+				745957961C9841DE00C3D3C0 /* Sources */,
+				745957971C9841DE00C3D3C0 /* Frameworks */,
+				745957981C9841DE00C3D3C0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7459579C1C9841DE00C3D3C0 /* PBXTargetDependency */,
+			);
+			name = FalcoUITests;
+			productName = PegasusUITests;
+			productReference = 7459579A1C9841DE00C3D3C0 /* Falco.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		745957731C9841DE00C3D3C0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = nus.cs3217.group04;
+				TargetAttributes = {
+					7459577A1C9841DE00C3D3C0 = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = ZTP9RF6M6K;
+					};
+					7459578E1C9841DE00C3D3C0 = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = ZTP9RF6M6K;
+						TestTargetID = 7459577A1C9841DE00C3D3C0;
+					};
+					745957991C9841DE00C3D3C0 = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = ZTP9RF6M6K;
+						TestTargetID = 7459577A1C9841DE00C3D3C0;
+					};
+				};
+			};
+			buildConfigurationList = 745957761C9841DE00C3D3C0 /* Build configuration list for PBXProject "Falco" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 745957721C9841DE00C3D3C0;
+			productRefGroup = 7459577C1C9841DE00C3D3C0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7459577A1C9841DE00C3D3C0 /* Falco */,
+				7459578E1C9841DE00C3D3C0 /* FalcoTests */,
+				745957991C9841DE00C3D3C0 /* FalcoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		745957791C9841DE00C3D3C0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				745957891C9841DE00C3D3C0 /* LaunchScreen.storyboard in Resources */,
+				745957861C9841DE00C3D3C0 /* Assets.xcassets in Resources */,
+				745957841C9841DE00C3D3C0 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7459578D1C9841DE00C3D3C0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		745957981C9841DE00C3D3C0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		657F91EED3FDD4B03CCEADBF /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C027919F56E4375C025A51E0 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FA2800DEE06FD248F2FDE935 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		745957771C9841DE00C3D3C0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				74B995B81C9E706B0005A7CB /* GoalBubble.swift in Sources */,
+				745957811C9841DE00C3D3C0 /* PersonalGoalViewController.swift in Sources */,
+				745BC9731C994BFD00204231 /* BubbleCell.swift in Sources */,
+				7424B0FA1C9A96310071B78B /* GoalsLayout.swift in Sources */,
+				7459577F1C9841DE00C3D3C0 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7459578B1C9841DE00C3D3C0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				745957941C9841DE00C3D3C0 /* FalcoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		745957961C9841DE00C3D3C0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7459579F1C9841DE00C3D3C0 /* FalcoUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		745957911C9841DE00C3D3C0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7459577A1C9841DE00C3D3C0 /* Falco */;
+			targetProxy = 745957901C9841DE00C3D3C0 /* PBXContainerItemProxy */;
+		};
+		7459579C1C9841DE00C3D3C0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7459577A1C9841DE00C3D3C0 /* Falco */;
+			targetProxy = 7459579B1C9841DE00C3D3C0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		745957821C9841DE00C3D3C0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				745957831C9841DE00C3D3C0 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		745957871C9841DE00C3D3C0 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				745957881C9841DE00C3D3C0 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		745957A11C9841DE00C3D3C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		745957A21C9841DE00C3D3C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		745957A41C9841DE00C3D3C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F3EDF817BF16E83523A638C6 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "$(SRCROOT)/Falco/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.Falco;
+				PRODUCT_NAME = Falco;
+			};
+			name = Debug;
+		};
+		745957A51C9841DE00C3D3C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BD369289AFEF04402F8D94D1 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "$(SRCROOT)/Falco/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.Falco;
+				PRODUCT_NAME = Falco;
+			};
+			name = Release;
+		};
+		745957A71C9841DE00C3D3C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = PegasusTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.PegasusTests;
+				PRODUCT_NAME = Falco;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Falco.app/Falco";
+			};
+			name = Debug;
+		};
+		745957A81C9841DE00C3D3C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = PegasusTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.PegasusTests;
+				PRODUCT_NAME = Falco;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Falco.app/Falco";
+			};
+			name = Release;
+		};
+		745957AA1C9841DE00C3D3C0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = PegasusUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.PegasusUITests;
+				PRODUCT_NAME = Falco;
+				TEST_TARGET_NAME = Pegasus;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		745957AB1C9841DE00C3D3C0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = PegasusUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.PegasusUITests;
+				PRODUCT_NAME = Falco;
+				TEST_TARGET_NAME = Pegasus;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		745957761C9841DE00C3D3C0 /* Build configuration list for PBXProject "Falco" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				745957A11C9841DE00C3D3C0 /* Debug */,
+				745957A21C9841DE00C3D3C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		745957A31C9841DE00C3D3C0 /* Build configuration list for PBXNativeTarget "Falco" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				745957A41C9841DE00C3D3C0 /* Debug */,
+				745957A51C9841DE00C3D3C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		745957A61C9841DE00C3D3C0 /* Build configuration list for PBXNativeTarget "FalcoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				745957A71C9841DE00C3D3C0 /* Debug */,
+				745957A81C9841DE00C3D3C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		745957A91C9841DE00C3D3C0 /* Build configuration list for PBXNativeTarget "FalcoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				745957AA1C9841DE00C3D3C0 /* Debug */,
+				745957AB1C9841DE00C3D3C0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 745957731C9841DE00C3D3C0 /* Project object */;
+}

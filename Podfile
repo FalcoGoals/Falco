@@ -5,15 +5,15 @@ use_frameworks!
 
 pod 'Firebase', '>= 2.5.0'
 
-target 'Pegasus' do
+target 'Falco' do
 
 end
 
-target 'PegasusTests' do
+target 'FalcoTests' do
 
 end
 
-target 'PegasusUITests' do
+target 'FalcoUITests' do
 
 end
 
