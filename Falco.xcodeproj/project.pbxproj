@@ -18,6 +18,10 @@
 		7459579F1C9841DE00C3D3C0 /* FalcoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7459579E1C9841DE00C3D3C0 /* FalcoUITests.swift */; };
 		745BC9731C994BFD00204231 /* BubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745BC9721C994BFD00204231 /* BubbleCell.swift */; };
 		74B995B81C9E706B0005A7CB /* GoalBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B995B71C9E706B0005A7CB /* GoalBubble.swift */; };
+		A24F37C81C9EA1C9001148FD /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A24F37C51C9EA1C9001148FD /* FBSDKCoreKit.framework */; };
+		A24F37C91C9EA1C9001148FD /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A24F37C61C9EA1C9001148FD /* FBSDKLoginKit.framework */; };
+		A24F37CA1C9EA1C9001148FD /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A24F37C71C9EA1C9001148FD /* FBSDKShareKit.framework */; };
+		A24F37CC1C9EA468001148FD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24F37CB1C9EA468001148FD /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +59,10 @@
 		745957A01C9841DE00C3D3C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		745BC9721C994BFD00204231 /* BubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleCell.swift; sourceTree = "<group>"; };
 		74B995B71C9E706B0005A7CB /* GoalBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalBubble.swift; sourceTree = "<group>"; };
+		A24F37C51C9EA1C9001148FD /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		A24F37C61C9EA1C9001148FD /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		A24F37C71C9EA1C9001148FD /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		A24F37CB1C9EA468001148FD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BD369289AFEF04402F8D94D1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F3EDF817BF16E83523A638C6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -64,7 +72,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A24F37CA1C9EA1C9001148FD /* FBSDKShareKit.framework in Frameworks */,
 				03DF53D9DF1F5E7CE6B01D84 /* Pods.framework in Frameworks */,
+				A24F37C81C9EA1C9001148FD /* FBSDKCoreKit.framework in Frameworks */,
+				A24F37C91C9EA1C9001148FD /* FBSDKLoginKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,6 +99,9 @@
 		0597EFC1977300F9857845E9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A24F37C51C9EA1C9001148FD /* FBSDKCoreKit.framework */,
+				A24F37C61C9EA1C9001148FD /* FBSDKLoginKit.framework */,
+				A24F37C71C9EA1C9001148FD /* FBSDKShareKit.framework */,
 				225D0CE31F3B3D71CA54D89A /* Pods.framework */,
 			);
 			name = Frameworks;
@@ -122,6 +136,7 @@
 				74C086111C9AD71300BA50C9 /* controller */,
 				74C086131C9AD72600BA50C9 /* view */,
 				745957821C9841DE00C3D3C0 /* Main.storyboard */,
+				A24F37CB1C9EA468001148FD /* LoginViewController.swift */,
 				7459577E1C9841DE00C3D3C0 /* AppDelegate.swift */,
 				745957851C9841DE00C3D3C0 /* Assets.xcassets */,
 				745957871C9841DE00C3D3C0 /* LaunchScreen.storyboard */,
@@ -367,6 +382,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A24F37CC1C9EA468001148FD /* LoginViewController.swift in Sources */,
 				74B995B81C9E706B0005A7CB /* GoalBubble.swift in Sources */,
 				745957811C9841DE00C3D3C0 /* PersonalGoalViewController.swift in Sources */,
 				745BC9731C994BFD00204231 /* BubbleCell.swift in Sources */,
@@ -514,7 +530,12 @@
 			baseConfigurationReference = F3EDF817BF16E83523A638C6 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Falco/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.Falco;
 				PRODUCT_NAME = Falco;
@@ -526,7 +547,12 @@
 			baseConfigurationReference = BD369289AFEF04402F8D94D1 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "$(SRCROOT)/Falco/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.Falco;
 				PRODUCT_NAME = Falco;
