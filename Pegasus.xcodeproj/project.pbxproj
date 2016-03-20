@@ -16,7 +16,7 @@
 		745957941C9841DE00C3D3C0 /* PegasusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745957931C9841DE00C3D3C0 /* PegasusTests.swift */; };
 		7459579F1C9841DE00C3D3C0 /* PegasusUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7459579E1C9841DE00C3D3C0 /* PegasusUITests.swift */; };
 		745BC9731C994BFD00204231 /* BubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745BC9721C994BFD00204231 /* BubbleCell.swift */; };
-		749884E91C9AD6A700676E9C /* GoalBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749884E81C9AD6A700676E9C /* GoalBubble.swift */; };
+		74B995B81C9E706B0005A7CB /* GoalBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B995B71C9E706B0005A7CB /* GoalBubble.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +52,7 @@
 		7459579E1C9841DE00C3D3C0 /* PegasusUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PegasusUITests.swift; sourceTree = "<group>"; };
 		745957A01C9841DE00C3D3C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		745BC9721C994BFD00204231 /* BubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleCell.swift; sourceTree = "<group>"; };
-		749884E81C9AD6A700676E9C /* GoalBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalBubble.swift; sourceTree = SOURCE_ROOT; };
+		74B995B71C9E706B0005A7CB /* GoalBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalBubble.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,7 +136,7 @@
 		74C0860F1C9AD70200BA50C9 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				749884E81C9AD6A700676E9C /* GoalBubble.swift */,
+				74B995B71C9E706B0005A7CB /* GoalBubble.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -292,7 +292,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				749884E91C9AD6A700676E9C /* GoalBubble.swift in Sources */,
+				74B995B81C9E706B0005A7CB /* GoalBubble.swift in Sources */,
 				745957811C9841DE00C3D3C0 /* PersonalGoalViewController.swift in Sources */,
 				745BC9731C994BFD00204231 /* BubbleCell.swift in Sources */,
 				7424B0FA1C9A96310071B78B /* GoalsLayout.swift in Sources */,
