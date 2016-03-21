@@ -67,8 +67,20 @@
                     <view key="view" contentMode="scaleToFill" id="p7O-Yj-Oay">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fZW-B0-H4L">
+                                <rect key="frame" x="268" y="256" width="160" height="41"/>
+                                <state key="normal" title="Login with Facebook"/>
+                                <connections>
+                                    <action selector="loginTapped:" destination="NhK-jS-PLZ" eventType="touchUpInside" id="hID-iv-w2a"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="loginButton" destination="fZW-B0-H4L" id="gjW-6C-O1E"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ua-rC-Q23" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

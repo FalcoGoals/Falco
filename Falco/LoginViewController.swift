@@ -11,6 +11,7 @@ import Firebase
 import FBSDKLoginKit
 
 class LoginViewController: UIViewController {
+    @IBOutlet var loginButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,13 +19,7 @@ class LoginViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    override func viewDidAppear(animated: Bool) {
-        print("fblogin")
+    @IBAction func loginTapped(sender: AnyObject) {
         let ref = Firebase(url: "https://amber-torch-6648.firebaseio.com")
         let facebookLogin = FBSDKLoginManager()
         facebookLogin.logInWithReadPermissions(["email"], fromViewController: self, handler: {
@@ -34,6 +29,7 @@ class LoginViewController: UIViewController {
             } else if facebookResult.isCancelled {
                 print("Facebook login was cancelled.")
             } else {
+                self.loginButton.titleLabel?.text = "Login success!"
                 let accessToken = FBSDKAccessToken.currentAccessToken().tokenString
                 ref.authWithOAuthProvider("facebook", token: accessToken,
                     withCompletionBlock: { error, authData in

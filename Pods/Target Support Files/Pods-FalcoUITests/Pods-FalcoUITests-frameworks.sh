@@ -84,8 +84,16 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-FalcoUITests/Bolts.framework"
+  install_framework "Pods-FalcoUITests/FBSDKCoreKit.framework"
+  install_framework "Pods-FalcoUITests/FBSDKLoginKit.framework"
+  install_framework "Pods-FalcoUITests/FBSDKShareKit.framework"
   install_framework "Pods-FalcoUITests/Firebase.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-FalcoUITests/Bolts.framework"
+  install_framework "Pods-FalcoUITests/FBSDKCoreKit.framework"
+  install_framework "Pods-FalcoUITests/FBSDKLoginKit.framework"
+  install_framework "Pods-FalcoUITests/FBSDKShareKit.framework"
   install_framework "Pods-FalcoUITests/Firebase.framework"
 fi
