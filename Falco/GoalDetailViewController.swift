@@ -15,7 +15,10 @@ class GoalDetailViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    view.backgroundColor = UIColor.clearColor()
+
     label.text = goalDetail
+    label.backgroundColor = UIColor.whiteColor()
   }
 
   override func didReceiveMemoryWarning() {

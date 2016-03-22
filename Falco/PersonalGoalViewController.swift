@@ -68,6 +68,9 @@ class PersonalGoalViewController: UIViewController {
       if let index = goalsCollectionView.indexPathForCell(cell) {
         detailViewController.goalDetail = goalModel[index.item].name
       }
+
+      detailViewController.modalPresentationStyle = .OverCurrentContext
+      detailViewController.modalTransitionStyle = .CrossDissolve
     }
   }
 }
