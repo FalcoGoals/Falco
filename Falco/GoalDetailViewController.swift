@@ -9,6 +9,8 @@
 import UIKit
 
 class GoalDetailViewController: UIViewController {
+  @IBOutlet var label: UILabel!
+
   override func viewDidLoad() {
     super.viewDidLoad()
   }

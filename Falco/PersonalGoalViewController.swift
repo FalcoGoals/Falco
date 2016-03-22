@@ -58,5 +58,12 @@ class PersonalGoalViewController: UIViewController {
       return CGSize(width: dimension, height: dimension)
   }
 
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if (segue.identifier == "PersonalGoalToDetails") {
+      let detailViewController = segue.destinationViewController as! GoalDetailViewController
+      let sender = sender as! BubbleCell
+      detailViewController.label.text = sender.label.text
+    }
+  }
 }
 

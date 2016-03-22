@@ -50,6 +50,7 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="label" destination="fh6-8v-oPK" id="71L-ON-d41"/>
+                                            <segue destination="RfB-fr-mpw" kind="presentation" identifier="PersonalGoalToDetails" id="Rkf-4Q-5hn"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -70,11 +71,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="591" y="258"/>
         </scene>
         <!--Goal Detail View Controller-->
         <scene sceneID="Iph-La-VKW">
             <objects>
-                <viewController storyboardIdentifier="GoalDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RfB-fr-mpw" userLabel="Goal Detail View Controller" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GoalDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RfB-fr-mpw" userLabel="Goal Detail View Controller" customClass="GoalDetailViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mYJ-GP-KjP"/>
                         <viewControllerLayoutGuide type="bottom" id="m30-Ni-3Nl"/>
@@ -96,10 +98,13 @@
                             <constraint firstItem="Rse-Uu-Bgh" firstAttribute="centerY" secondItem="ums-fl-85d" secondAttribute="centerY" id="hT8-XT-Wnf"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="label" destination="Rse-Uu-Bgh" id="slS-Ke-lq9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ARS-QF-ImC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="881" y="80"/>
+            <point key="canvasLocation" x="1518" y="258"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="OV1-Rn-aHs">
