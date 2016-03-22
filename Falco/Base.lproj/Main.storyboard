@@ -34,8 +34,23 @@
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fh6-8v-oPK">
+                                                    <rect key="frame" x="4" y="14.5" width="42" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <constraints>
+                                            <constraint firstItem="fh6-8v-oPK" firstAttribute="centerX" secondItem="Uo7-qq-jfW" secondAttribute="centerX" id="5ik-rP-455"/>
+                                            <constraint firstItem="fh6-8v-oPK" firstAttribute="centerY" secondItem="Uo7-qq-jfW" secondAttribute="centerY" id="cBZ-PV-Jxo"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="label" destination="fh6-8v-oPK" id="71L-ON-d41"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>

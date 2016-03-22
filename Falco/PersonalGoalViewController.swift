@@ -46,6 +46,8 @@ class PersonalGoalViewController: UIViewController {
 
     cell.layer.cornerRadius = cell.bounds.size.width / 2 // halving makes it a circle
 
+    cell.label.text = goalModel[indexPath.item].name
+
     return cell
   }
 
