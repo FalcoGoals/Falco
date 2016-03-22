@@ -9,6 +9,8 @@
 import UIKit
 
 class PersonalGoalViewController: UIViewController {
+  @IBOutlet weak var goalsCollectionView: UICollectionView!
+
   private let reuseIdentifier = "bubble"
   private var goalModel: [GoalBubble]!
 
@@ -61,8 +63,11 @@ class PersonalGoalViewController: UIViewController {
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if (segue.identifier == "PersonalGoalToDetails") {
       let detailViewController = segue.destinationViewController as! GoalDetailViewController
-      let sender = sender as! BubbleCell
-      detailViewController.label.text = sender.label.text
+      let cell = sender as! UICollectionViewCell
+
+      if let index = goalsCollectionView.indexPathForCell(cell) {
+        detailViewController.goalDetail = goalModel[index.item].name
+      }
     }
   }
 }

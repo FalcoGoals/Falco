@@ -9,10 +9,13 @@
 import UIKit
 
 class GoalDetailViewController: UIViewController {
-  @IBOutlet var label: UILabel!
+  @IBOutlet weak var label: UILabel!
+  var goalDetail: String? = nil
 
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    label.text = goalDetail
   }
 
   override func didReceiveMemoryWarning() {
