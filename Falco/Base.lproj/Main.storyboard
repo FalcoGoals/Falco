@@ -56,6 +56,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
+        <!--Goal Detail View Controller-->
+        <scene sceneID="Iph-La-VKW">
+            <objects>
+                <viewController storyboardIdentifier="GoalDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RfB-fr-mpw" userLabel="Goal Detail View Controller" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mYJ-GP-KjP"/>
+                        <viewControllerLayoutGuide type="bottom" id="m30-Ni-3Nl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ums-fl-85d">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rse-Uu-Bgh">
+                                <rect key="frame" x="279" y="289" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Rse-Uu-Bgh" firstAttribute="centerX" secondItem="ums-fl-85d" secondAttribute="centerX" id="frZ-Ix-mQV"/>
+                            <constraint firstItem="Rse-Uu-Bgh" firstAttribute="centerY" secondItem="ums-fl-85d" secondAttribute="centerY" id="hT8-XT-Wnf"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ARS-QF-ImC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="881" y="80"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="OV1-Rn-aHs">
             <objects>
