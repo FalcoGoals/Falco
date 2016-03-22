@@ -9,6 +9,7 @@
 import UIKit
 
 class BubbleCell: UICollectionViewCell {
+  @IBOutlet var label: UILabel!
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
 

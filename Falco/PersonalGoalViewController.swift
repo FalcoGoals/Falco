@@ -9,6 +9,8 @@
 import UIKit
 
 class PersonalGoalViewController: UIViewController {
+  @IBOutlet weak var goalsCollectionView: UICollectionView!
+
   private let reuseIdentifier = "bubble"
   private var goalModel: [GoalBubble]!
 
@@ -46,6 +48,8 @@ class PersonalGoalViewController: UIViewController {
 
     cell.layer.cornerRadius = cell.bounds.size.width / 2 // halving makes it a circle
 
+    cell.label.text = goalModel[indexPath.item].name
+
     return cell
   }
 
@@ -56,5 +60,18 @@ class PersonalGoalViewController: UIViewController {
       return CGSize(width: dimension, height: dimension)
   }
 
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if (segue.identifier == "PersonalGoalToDetails") {
+      let detailViewController = segue.destinationViewController as! GoalDetailViewController
+      let cell = sender as! UICollectionViewCell
+
+      if let index = goalsCollectionView.indexPathForCell(cell) {
+        detailViewController.goalDetail = goalModel[index.item].name
+      }
+
+      detailViewController.modalPresentationStyle = .OverCurrentContext
+      detailViewController.modalTransitionStyle = .CrossDissolve
+    }
+  }
 }
 
