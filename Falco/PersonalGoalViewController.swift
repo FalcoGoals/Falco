@@ -26,11 +26,16 @@ class PersonalGoalViewController: UIViewController {
 
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
-    goalModel = [GoalBubble(name: "1", weight: 100), GoalBubble(name: "2", weight: 200),
-                 GoalBubble(name: "3", weight: 300), GoalBubble(name: "4", weight: 10),
-                 GoalBubble(name: "5", weight: 20), GoalBubble(name: "6", weight: 50),
-                 GoalBubble(name: "7", weight: 100), GoalBubble(name: "8", weight: 121),
-                 GoalBubble(name: "9", weight: 17), GoalBubble(name: "10", weight: 100)]
+    goalModel = [GoalBubble(name: "1", details: "my goal", priority: 100),
+                  GoalBubble(name: "2", details: "my goal", priority: 200),
+                  GoalBubble(name: "3", details: "my goal", priority: 300),
+                  GoalBubble(name: "4", details: "my goal", priority: 10),
+                  GoalBubble(name: "5", details: "my goal", priority: 20),
+                  GoalBubble(name: "6", details: "my goal", priority: 50),
+                  GoalBubble(name: "7", details: "my goal", priority: 100),
+                  GoalBubble(name: "8", details: "my goal", priority: 121),
+                  GoalBubble(name: "9", details: "my goal", priority: 17),
+                  GoalBubble(name: "10", details: "my goal", priority: 100)]
   }
 
   // MARK: UICollectionViewDataSource
@@ -66,11 +71,11 @@ class PersonalGoalViewController: UIViewController {
       let cell = sender as! UICollectionViewCell
 
       if let index = goalsCollectionView.indexPathForCell(cell) {
-        detailViewController.goalDetail = goalModel[index.item].name
-      }
+        detailViewController.goalDetail = goalModel[index.item].details
 
-      detailViewController.modalPresentationStyle = .OverCurrentContext
-      detailViewController.modalTransitionStyle = .CrossDissolve
+        detailViewController.modalPresentationStyle = .FormSheet
+        detailViewController.modalTransitionStyle = .CrossDissolve
+      }
     }
   }
 }
