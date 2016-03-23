@@ -10,15 +10,20 @@ import UIKit
 
 // Model for GoalBubble
 class GoalBubble {
-  private var _weight: Int!
-  private var _name: String!
-  private var _timestamp: NSDate!
+  var name: String!
+  var details: String!
+  var priority: Int!
+  var deadline: NSDate!
 
-  var weight: Int { return _weight }
-  var name: String { return _name }
+  private var timestamp: NSDate!
 
-  init(name: String, weight: Int = 50) {
-    self._name = name
-    self._weight = weight
+  var weight: Int {
+    return priority
+  }
+
+  init(name: String, details: String, priority: Int) {
+    self.name = name
+    self.details = details
+    self.priority = priority
   }
 }
