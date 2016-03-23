@@ -1,3 +1,11 @@
-master branch for demo ready version
+Falco
 
-dev branch for any devlopment
+Fly over a sea of goals
+
+We use cocoapods to manage all the dependecies. To install the dependecies locally, 
+
+`sudo gem install cocoapods`
+
+`pod setup`
+
+`pod install`
