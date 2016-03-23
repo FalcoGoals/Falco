@@ -1,6 +1,0 @@
-framework module Pods_FalcoTests {
-  umbrella header "Pods-FalcoTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
