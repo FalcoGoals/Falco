@@ -71,7 +71,10 @@ class PersonalGoalViewController: UIViewController {
       let cell = sender as! UICollectionViewCell
 
       if let index = goalsCollectionView.indexPathForCell(cell) {
-        detailViewController.goalDetail = goalModel[index.item].details
+        detailViewController.name = goalModel[index.item].name
+        detailViewController.detail = goalModel[index.item].details
+        detailViewController.priority = goalModel[index.item].priority
+        detailViewController.deadline = goalModel[index.item].deadline
 
         detailViewController.modalPresentationStyle = .FormSheet
         detailViewController.modalTransitionStyle = .CrossDissolve

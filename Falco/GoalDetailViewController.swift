@@ -9,14 +9,22 @@
 import UIKit
 
 class GoalDetailViewController: UIViewController {
-  @IBOutlet weak var label: UILabel!
-  var goalDetail: String? = nil
+  var name: String? = nil
+  var detail: String? = nil
+  var deadline: NSDate? = nil
+  var priority: Int? = nil
+
+  @IBOutlet weak var nameLabel: UILabel!
+  @IBOutlet weak var detailLabel: UITextField!
+  @IBOutlet weak var deadlineField: UILabel!
+  @IBOutlet weak var priorityLabel: UILabel!
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    label.text = goalDetail
-    label.backgroundColor = UIColor.whiteColor()
+    nameLabel.text = name
+    detailLabel.text = detail
+    priorityLabel.text = String(priority!)
   }
 
   override func didReceiveMemoryWarning() {
