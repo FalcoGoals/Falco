@@ -63,6 +63,7 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource {
       return CGSize(width: dimension, height: dimension)
   }
 
+  // MARK: Segue
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if (segue.identifier == "PersonalGoalToDetails") {
       let navController = segue.destinationViewController as! UINavigationController
@@ -81,5 +82,7 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource {
       }
     }
   }
+
+  @IBAction func cancelDetail(segue: UIStoryboardSegue) {}
 }
 
