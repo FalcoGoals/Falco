@@ -9,20 +9,23 @@
 import UIKit
 
 class GoalDetailViewController: UIViewController {
-  var name: String? = nil
-  var detail: String? = nil
-  var deadline: NSDate? = nil
-  var priority: Int? = nil
+  var name: String!
+  var detail: String!
+  var deadline: NSDate!
+  var priority: Int!
 
-  @IBOutlet weak var nameLabel: UILabel!
+  @IBOutlet weak var navTitle: UINavigationItem!
   @IBOutlet weak var detailLabel: UITextField!
   @IBOutlet weak var deadlineField: UILabel!
+  @IBOutlet weak var priorityControl: UISegmentedControl!
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    nameLabel.text = name
+    navTitle.title = name
     detailLabel.text = detail
+    priorityControl.selectedSegmentIndex = priority
+
   }
 
   override func didReceiveMemoryWarning() {

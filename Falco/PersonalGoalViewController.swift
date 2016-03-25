@@ -17,16 +17,16 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource {
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
-    goalModel = [GoalBubble(name: "1", details: "my goal", priority: 100),
-                  GoalBubble(name: "2", details: "my goal", priority: 200),
-                  GoalBubble(name: "3", details: "my goal", priority: 300),
-                  GoalBubble(name: "4", details: "my goal", priority: 10),
-                  GoalBubble(name: "5", details: "my goal", priority: 20),
-                  GoalBubble(name: "6", details: "my goal", priority: 50),
-                  GoalBubble(name: "7", details: "my goal", priority: 100),
-                  GoalBubble(name: "8", details: "my goal", priority: 121),
-                  GoalBubble(name: "9", details: "my goal", priority: 17),
-                  GoalBubble(name: "10", details: "my goal", priority: 100)]
+    goalModel = [GoalBubble(name: "1", details: "my goal", priority: 0),
+                  GoalBubble(name: "2", details: "my goal", priority: 1),
+                  GoalBubble(name: "3", details: "my goal", priority: 2),
+                  GoalBubble(name: "4", details: "my goal", priority: 1),
+                  GoalBubble(name: "5", details: "my goal", priority: 2),
+                  GoalBubble(name: "6", details: "my goal", priority: 1),
+                  GoalBubble(name: "7", details: "my goal", priority: 0),
+                  GoalBubble(name: "8", details: "my goal", priority: 1),
+                  GoalBubble(name: "9", details: "my goal", priority: 1),
+                  GoalBubble(name: "10", details: "my goal", priority: 1)]
 
   }
 
@@ -65,7 +65,9 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource {
 
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if (segue.identifier == "PersonalGoalToDetails") {
-      let detailViewController = segue.destinationViewController as! GoalDetailViewController
+      let navController = segue.destinationViewController as! UINavigationController
+      let detailViewController = navController.topViewController as! GoalDetailViewController
+
       let cell = sender as! UICollectionViewCell
 
       if let index = goalsCollectionView.indexPathForCell(cell) {

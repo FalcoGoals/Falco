@@ -168,6 +168,8 @@
                     <connections>
                         <outlet property="deadlineField" destination="54P-bB-2tO" id="SeZ-bk-DY7"/>
                         <outlet property="detailLabel" destination="n0Z-EW-kUm" id="yZN-gW-WMm"/>
+                        <outlet property="navTitle" destination="S7g-wn-aeu" id="m77-8A-7ce"/>
+                        <outlet property="priorityControl" destination="syZ-gZ-qsz" id="dzb-tv-kWu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ARS-QF-ImC" userLabel="First Responder" sceneMemberID="firstResponder"/>
