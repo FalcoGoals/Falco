@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PersonalGoalViewController: UIViewController {
+class PersonalGoalViewController: UIViewController, UICollectionViewDataSource {
   @IBOutlet weak var goalsCollectionView: UICollectionView!
 
   private let reuseIdentifier = "bubble"
@@ -17,15 +17,6 @@ class PersonalGoalViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
-  }
-
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
-
-  override func viewWillAppear(animated: Bool) {
-    super.viewWillAppear(animated)
     goalModel = [GoalBubble(name: "1", details: "my goal", priority: 100),
                   GoalBubble(name: "2", details: "my goal", priority: 200),
                   GoalBubble(name: "3", details: "my goal", priority: 300),
@@ -36,6 +27,12 @@ class PersonalGoalViewController: UIViewController {
                   GoalBubble(name: "8", details: "my goal", priority: 121),
                   GoalBubble(name: "9", details: "my goal", priority: 17),
                   GoalBubble(name: "10", details: "my goal", priority: 100)]
+
+  }
+
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
   }
 
   // MARK: UICollectionViewDataSource
@@ -61,6 +58,7 @@ class PersonalGoalViewController: UIViewController {
   func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
     sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
       // adjust size of bubble
+      print("size")
       let dimension = goalModel[indexPath.item].weight
       return CGSize(width: dimension, height: dimension)
   }

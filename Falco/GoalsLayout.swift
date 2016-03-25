@@ -23,6 +23,7 @@ class GoalsLayout: UICollectionViewLayout {
 
   // perform prior calculation for layout. like a setup phase
   override func prepareLayout() {
+    print("preparing layout")
     if cache.isEmpty {
       let numSections = collectionView!.numberOfSections()
       let numItemsInLastSection = collectionView!.numberOfItemsInSection(numSections - 1)
@@ -56,13 +57,13 @@ class GoalsLayout: UICollectionViewLayout {
           var y = yOffset[rowNumber]
           var x = xOffset[itemIndex % numberOfColumns]
 
-//          if rowNumber % 2 != 0 {
-//            x += oddRowOffset
-//          }
-//
-//          if rowNumber != 0 {
-//            y -= yAdjustment * CGFloat(rowNumber)
-//          }
+          if rowNumber % 2 != 0 {
+            x += oddRowOffset
+          }
+
+          if rowNumber != 0 {
+            y -= yAdjustment * CGFloat(rowNumber)
+          }
 
           attributes.frame = CGRect(x: x, y: y, width: columnWidth, height: rowHeight)
           cache.append(attributes)

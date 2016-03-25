@@ -17,6 +17,5 @@ class BubbleCell: UICollectionViewCell {
     contentView.layer.borderColor = UIColor.whiteColor().CGColor
     contentView.layer.borderWidth = CGFloat(1)
     contentView.backgroundColor = UIColor.whiteColor()
-
   }
 }

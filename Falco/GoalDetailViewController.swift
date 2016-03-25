@@ -17,14 +17,12 @@ class GoalDetailViewController: UIViewController {
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var detailLabel: UITextField!
   @IBOutlet weak var deadlineField: UILabel!
-  @IBOutlet weak var priorityLabel: UILabel!
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
     nameLabel.text = name
     detailLabel.text = detail
-    priorityLabel.text = String(priority!)
   }
 
   override func didReceiveMemoryWarning() {
