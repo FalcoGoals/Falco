@@ -167,7 +167,11 @@
                                 <segue destination="iqA-gh-9EV" kind="unwind" unwindAction="cancelDetail:" id="8tp-QA-dgo"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="ZMh-TM-Zq0"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="ZMh-TM-Zq0">
+                            <connections>
+                                <segue destination="iqA-gh-9EV" kind="unwind" unwindAction="saveDetail:" id="ZWp-1R-PT1"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="deadlineField" destination="54P-bB-2tO" id="SeZ-bk-DY7"/>
