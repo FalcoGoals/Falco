@@ -1,6 +1,6 @@
 //
 //  GoalsLayout.swift
-//  Pegasus
+//  Falco
 //
 //  Created by Gerald on 17/3/16.
 //  Copyright © 2016 nus.cs3217.group04. All rights reserved.
@@ -8,9 +8,15 @@
 
 import UIKit
 
+protocol GoalLayoutDelegate {
+    func collectionView(collectionView:UICollectionView, diameterForGoalAtIndexPath indexPath:NSIndexPath) -> CGFloat
+}
+
 class GoalsLayout: UICollectionViewLayout {
+    var delegate: GoalLayoutDelegate!
   let numberOfColumns = 12
   var numberOfRows = 0
+    var circlePosition = [[Int]]()
 
   private var cache = [UICollectionViewLayoutAttributes]()
 
@@ -54,22 +60,27 @@ class GoalsLayout: UICollectionViewLayout {
           let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
           let rowNumber = itemIndex < numberOfColumns ? sectionIndex * 2 : sectionIndex * 2 + 1
 
-          var y = yOffset[rowNumber]
-          var x = xOffset[itemIndex % numberOfColumns]
+//          var y = yOffset[rowNumber]
+//          var x = xOffset[itemIndex % numberOfColumns]
+//
+//          if rowNumber % 2 != 0 {
+//            x += oddRowOffset
+//          }
+//
+//          if rowNumber != 0 {
+//            y -= yAdjustment * CGFloat(rowNumber)
+//          }
+            
+            
+            let diameter = delegate.collectionView(collectionView!, diameterForGoalAtIndexPath: indexPath)
+            let (x, y) = calculateNextPosition(Int(diameter))
 
-          if rowNumber % 2 != 0 {
-            x += oddRowOffset
-          }
-
-          if rowNumber != 0 {
-            y -= yAdjustment * CGFloat(rowNumber)
-          }
-
-          attributes.frame = CGRect(x: x, y: y, width: columnWidth, height: rowHeight)
+          attributes.frame = CGRect(x: CGFloat(x), y: CGFloat(y), width: diameter, height: diameter)
+            circlePosition.append([x, y, Int(diameter)])
           cache.append(attributes)
+            contentHeight =  max(contentHeight, CGFloat(y) + diameter)
         }
       }
-      contentHeight =  CGFloat(numberOfRows) * (rowHeight - yAdjustment)
     }
 
   }
@@ -97,4 +108,46 @@ class GoalsLayout: UICollectionViewLayout {
     let yAdjustment = CGFloat(cos(atan(heightWidthRatio))) * cellCornerToNearestArcDistance
     return yAdjustment
   }
+    
+    private func calculateNextPosition(diameter: Int) -> (Int, Int){
+        var xValue = 0
+        var minYValue = Int(contentHeight)
+        let maxXValue = Int(contentWidth) - diameter
+        
+        for currX in 0..<maxXValue {
+            var currY = minYValue
+            var intersection = false
+            while (currY >= 0) {
+                for circle in circlePosition {
+                    if (circleIntersection(circle[0]+circle[2]/2, y1: circle[1]+circle[2]/2, r1: circle[2]/2, x2: currX+diameter/2, y2: currY+diameter/2, r2: diameter/2)) {
+                        intersection = true
+                        break
+                    }
+                }
+                if (intersection) {
+                    break
+                } else {
+                    currY -= 1
+                }
+            }
+            if (currY < minYValue) {
+                xValue = currX
+                minYValue = currY
+            }
+        }
+        
+        return (xValue, minYValue)
+    }
+    
+    func circleIntersection(x1: Int, y1: Int, r1: Int, x2: Int, y2: Int, r2: Int) -> Bool {
+        let dx = Double(x1) - Double(x2);
+        let dy = Double(y1) - Double(y2);
+        let distance = sqrt(dx * dx + dy * dy);
+        
+        if distance <= (Double(r1) + Double(r2)) {
+            return true
+        } else {
+            return false
+        }
+    }
 }

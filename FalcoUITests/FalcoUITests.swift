@@ -1,6 +1,6 @@
 //
-//  PegasusUITests.swift
-//  PegasusUITests
+//  FalcoUITests.swift
+//  FalcoUITests
 //
 //  Created by Gerald on 15/3/16.
 //  Copyright © 2016 nus.cs3217.group04. All rights reserved.

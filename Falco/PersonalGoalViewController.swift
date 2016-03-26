@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Pegasus
+//  Falco
 //
 //  Created by Gerald on 15/3/16.
 //  Copyright © 2016 nus.cs3217.group04. All rights reserved.
@@ -26,7 +26,17 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
                   GoalBubble(name: "7", details: "my goal", priority: 0),
                   GoalBubble(name: "8", details: "my goal", priority: 1),
                   GoalBubble(name: "9", details: "my goal", priority: 1),
-                  GoalBubble(name: "10", details: "my goal", priority: 1)]
+                  GoalBubble(name: "10", details: "my goal", priority: 1),
+                  GoalBubble(name: "11", details: "my goal", priority: 1),
+                  GoalBubble(name: "12", details: "my goal", priority: 1),
+                  GoalBubble(name: "13", details: "my goal", priority: 1),
+                  GoalBubble(name: "14", details: "my goal", priority: 1)]
+    self.goalModel.sortInPlace {
+        return $0.priority > $1.priority
+    }
+    if let layout = goalsCollectionView?.collectionViewLayout as? GoalsLayout {
+        layout.delegate = self
+    }
 
   }
 
@@ -97,5 +107,12 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
 
   @IBAction func cancelDetail(segue: UIStoryboardSegue) {}
   @IBAction func saveDetail(segue: UIStoryboardSegue) {}
+}
+
+extension PersonalGoalViewController: GoalLayoutDelegate {
+    func collectionView(collectionView: UICollectionView, diameterForGoalAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        let dimension = (goalModel[indexPath.item].weight + 1) * 50
+        return CGFloat(dimension)
+    }
 }
 
