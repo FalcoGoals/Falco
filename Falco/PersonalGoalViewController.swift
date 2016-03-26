@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PersonalGoalViewController: UIViewController, UICollectionViewDataSource {
+class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, GoalDetailDelegate {
   @IBOutlet weak var goalsCollectionView: UICollectionView!
 
   private let reuseIdentifier = "bubble"
@@ -63,6 +63,15 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource {
       return CGSize(width: dimension, height: dimension)
   }
 
+  func didSave(detailController: GoalDetailViewController, indexPath: NSIndexPath) {
+    let itemNumber = indexPath.item
+    let goal = goalModel[itemNumber]
+//    goal.name = detailController.name
+    goal.details = detailController.details
+    goal.priority = detailController.priority
+    goalsCollectionView.reloadData()
+  }
+
   // MARK: Segue
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if (segue.identifier == "PersonalGoalToDetails") {
@@ -72,10 +81,13 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource {
       let cell = sender as! UICollectionViewCell
 
       if let index = goalsCollectionView.indexPathForCell(cell) {
-        detailViewController.name = goalModel[index.item].name
-        detailViewController.detail = goalModel[index.item].details
-        detailViewController.priority = goalModel[index.item].priority
-        detailViewController.deadline = goalModel[index.item].deadline
+        detailViewController.delegate = self
+        detailViewController.selectedIndexpath = index
+        let goal = goalModel[index.item]
+        detailViewController.name = goal.name
+        detailViewController.details = goal.details
+        detailViewController.priority = goal.priority
+        detailViewController.deadline = goal.deadline
 
         detailViewController.modalPresentationStyle = .FormSheet
         detailViewController.modalTransitionStyle = .CrossDissolve
@@ -84,7 +96,6 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource {
   }
 
   @IBAction func cancelDetail(segue: UIStoryboardSegue) {}
-
   @IBAction func saveDetail(segue: UIStoryboardSegue) {}
 }
 

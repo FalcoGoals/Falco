@@ -8,11 +8,17 @@
 
 import UIKit
 
+protocol GoalDetailDelegate {
+  func didSave(detailController: GoalDetailViewController, indexPath: NSIndexPath)
+}
+
 class GoalDetailViewController: UIViewController {
   var name: String!
-  var detail: String!
+  var details: String!
   var deadline: NSDate!
   var priority: Int!
+  var selectedIndexpath: NSIndexPath!
+  var delegate: GoalDetailDelegate!
 
   @IBOutlet weak var navTitle: UINavigationItem!
   @IBOutlet weak var detailLabel: UITextField!
@@ -23,12 +29,25 @@ class GoalDetailViewController: UIViewController {
     super.viewDidLoad()
 
     navTitle.title = name
-    detailLabel.text = detail
+    detailLabel.text = details
     priorityControl.selectedSegmentIndex = priority
 
   }
 
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
+  }
+
+  // MARK: Action
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if (segue.identifier == "saveDetailSegue") {
+      save()
+    }
+  }
+  func save() {
+    details = detailLabel.text
+    priority = priorityControl.selectedSegmentIndex
+
+    delegate.didSave(self, indexPath: selectedIndexpath)
   }
 }

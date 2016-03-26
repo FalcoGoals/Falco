@@ -164,12 +164,12 @@
                     <navigationItem key="navigationItem" title="Goal Title" id="S7g-wn-aeu">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="ggD-Xf-rj0">
                             <connections>
-                                <segue destination="iqA-gh-9EV" kind="unwind" unwindAction="cancelDetail:" id="8tp-QA-dgo"/>
+                                <segue destination="iqA-gh-9EV" kind="unwind" identifier="cancelDetailSegue" unwindAction="cancelDetail:" id="8tp-QA-dgo"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="ZMh-TM-Zq0">
                             <connections>
-                                <segue destination="iqA-gh-9EV" kind="unwind" unwindAction="saveDetail:" id="ZWp-1R-PT1"/>
+                                <segue destination="iqA-gh-9EV" kind="unwind" identifier="saveDetailSegue" unwindAction="saveDetail:" id="ONw-fb-qtz"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
