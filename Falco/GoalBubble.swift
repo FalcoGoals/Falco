@@ -21,9 +21,10 @@ class GoalBubble {
     return priority
   }
 
-  init(name: String, details: String, priority: Int) {
+  init(name: String, details: String, priority: Int, deadline: NSDate) {
     self.name = name
     self.details = details
     self.priority = priority
+    self.deadline = deadline
   }
 }
