@@ -8,6 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		03DF53D9DF1F5E7CE6B01D84 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 225D0CE31F3B3D71CA54D89A /* Pods.framework */; };
+		2528BAED1CA702DD007332FA /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAE71CA702DD007332FA /* Goal.swift */; };
+		2528BAEE1CA702DD007332FA /* GoalCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAE81CA702DD007332FA /* GoalCollection.swift */; };
+		2528BAEF1CA702DD007332FA /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAE91CA702DD007332FA /* Group.swift */; };
+		2528BAF01CA702DD007332FA /* GroupGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAEA1CA702DD007332FA /* GroupGoal.swift */; };
+		2528BAF11CA702DD007332FA /* PersonalGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAEB1CA702DD007332FA /* PersonalGoal.swift */; };
+		2528BAF21CA702DD007332FA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAEC1CA702DD007332FA /* User.swift */; };
+		2528BAF91CA702F2007332FA /* ModelTest_Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAF31CA702F2007332FA /* ModelTest_Goal.swift */; };
+		2528BAFA1CA702F2007332FA /* ModelTest_GoalCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAF41CA702F2007332FA /* ModelTest_GoalCollection.swift */; };
+		2528BAFB1CA702F2007332FA /* ModelTest_Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAF51CA702F2007332FA /* ModelTest_Group.swift */; };
+		2528BAFC1CA702F2007332FA /* ModelTest_GroupGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAF61CA702F2007332FA /* ModelTest_GroupGoal.swift */; };
+		2528BAFD1CA702F2007332FA /* ModelTest_PersonalGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAF71CA702F2007332FA /* ModelTest_PersonalGoal.swift */; };
+		2528BAFE1CA702F2007332FA /* ModelTest_User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAF81CA702F2007332FA /* ModelTest_User.swift */; };
+		2528BB031CA7055E007332FA /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAE71CA702DD007332FA /* Goal.swift */; };
+		2528BB041CA70568007332FA /* GoalCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAE81CA702DD007332FA /* GoalCollection.swift */; };
+		2528BB051CA7056B007332FA /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAE91CA702DD007332FA /* Group.swift */; };
+		2528BB061CA70572007332FA /* GroupGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAEA1CA702DD007332FA /* GroupGoal.swift */; };
+		2528BB071CA70576007332FA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAEC1CA702DD007332FA /* User.swift */; };
+		2528BB081CA70579007332FA /* PersonalGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAEB1CA702DD007332FA /* PersonalGoal.swift */; };
 		7424B0FA1C9A96310071B78B /* GoalsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424B0F91C9A96310071B78B /* GoalsLayout.swift */; };
 		7459577F1C9841DE00C3D3C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7459577E1C9841DE00C3D3C0 /* AppDelegate.swift */; };
 		745957811C9841DE00C3D3C0 /* PersonalGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745957801C9841DE00C3D3C0 /* PersonalGoalViewController.swift */; };
@@ -41,6 +59,18 @@
 
 /* Begin PBXFileReference section */
 		225D0CE31F3B3D71CA54D89A /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2528BAE71CA702DD007332FA /* Goal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		2528BAE81CA702DD007332FA /* GoalCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalCollection.swift; sourceTree = "<group>"; };
+		2528BAE91CA702DD007332FA /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		2528BAEA1CA702DD007332FA /* GroupGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupGoal.swift; sourceTree = "<group>"; };
+		2528BAEB1CA702DD007332FA /* PersonalGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalGoal.swift; sourceTree = "<group>"; };
+		2528BAEC1CA702DD007332FA /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		2528BAF31CA702F2007332FA /* ModelTest_Goal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTest_Goal.swift; sourceTree = "<group>"; };
+		2528BAF41CA702F2007332FA /* ModelTest_GoalCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTest_GoalCollection.swift; sourceTree = "<group>"; };
+		2528BAF51CA702F2007332FA /* ModelTest_Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTest_Group.swift; sourceTree = "<group>"; };
+		2528BAF61CA702F2007332FA /* ModelTest_GroupGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTest_GroupGoal.swift; sourceTree = "<group>"; };
+		2528BAF71CA702F2007332FA /* ModelTest_PersonalGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTest_PersonalGoal.swift; sourceTree = "<group>"; };
+		2528BAF81CA702F2007332FA /* ModelTest_User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTest_User.swift; sourceTree = "<group>"; };
 		7424B0F91C9A96310071B78B /* GoalsLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalsLayout.swift; sourceTree = "<group>"; };
 		7459577B1C9841DE00C3D3C0 /* Falco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Falco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7459577E1C9841DE00C3D3C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +168,12 @@
 		745957921C9841DE00C3D3C0 /* FalcoTests */ = {
 			isa = PBXGroup;
 			children = (
+				2528BAF31CA702F2007332FA /* ModelTest_Goal.swift */,
+				2528BAF41CA702F2007332FA /* ModelTest_GoalCollection.swift */,
+				2528BAF51CA702F2007332FA /* ModelTest_Group.swift */,
+				2528BAF61CA702F2007332FA /* ModelTest_GroupGoal.swift */,
+				2528BAF71CA702F2007332FA /* ModelTest_PersonalGoal.swift */,
+				2528BAF81CA702F2007332FA /* ModelTest_User.swift */,
 				745957931C9841DE00C3D3C0 /* FalcoTests.swift */,
 				745957951C9841DE00C3D3C0 /* Info.plist */,
 			);
@@ -156,6 +192,12 @@
 		74C0860F1C9AD70200BA50C9 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				2528BAE71CA702DD007332FA /* Goal.swift */,
+				2528BAE81CA702DD007332FA /* GoalCollection.swift */,
+				2528BAE91CA702DD007332FA /* Group.swift */,
+				2528BAEA1CA702DD007332FA /* GroupGoal.swift */,
+				2528BAEB1CA702DD007332FA /* PersonalGoal.swift */,
+				2528BAEC1CA702DD007332FA /* User.swift */,
 				74B995B71C9E706B0005A7CB /* GoalBubble.swift */,
 			);
 			name = model;
@@ -373,12 +415,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2528BAF21CA702DD007332FA /* User.swift in Sources */,
+				2528BAED1CA702DD007332FA /* Goal.swift in Sources */,
 				A24F37CC1C9EA468001148FD /* LoginViewController.swift in Sources */,
 				74BB5DD71CA1848500695C24 /* GoalDetailViewController.swift in Sources */,
+				2528BAEF1CA702DD007332FA /* Group.swift in Sources */,
+				2528BAF11CA702DD007332FA /* PersonalGoal.swift in Sources */,
 				74B995B81C9E706B0005A7CB /* GoalBubble.swift in Sources */,
 				745957811C9841DE00C3D3C0 /* PersonalGoalViewController.swift in Sources */,
 				745BC9731C994BFD00204231 /* BubbleCell.swift in Sources */,
+				2528BAEE1CA702DD007332FA /* GoalCollection.swift in Sources */,
 				7424B0FA1C9A96310071B78B /* GoalsLayout.swift in Sources */,
+				2528BAF01CA702DD007332FA /* GroupGoal.swift in Sources */,
 				7459577F1C9841DE00C3D3C0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,6 +435,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2528BB031CA7055E007332FA /* Goal.swift in Sources */,
+				2528BAFE1CA702F2007332FA /* ModelTest_User.swift in Sources */,
+				2528BB081CA70579007332FA /* PersonalGoal.swift in Sources */,
+				2528BAFA1CA702F2007332FA /* ModelTest_GoalCollection.swift in Sources */,
+				2528BB051CA7056B007332FA /* Group.swift in Sources */,
+				2528BAFB1CA702F2007332FA /* ModelTest_Group.swift in Sources */,
+				2528BAFD1CA702F2007332FA /* ModelTest_PersonalGoal.swift in Sources */,
+				2528BAFC1CA702F2007332FA /* ModelTest_GroupGoal.swift in Sources */,
+				2528BB041CA70568007332FA /* GoalCollection.swift in Sources */,
+				2528BB071CA70576007332FA /* User.swift in Sources */,
+				2528BAF91CA702F2007332FA /* ModelTest_Goal.swift in Sources */,
+				2528BB061CA70572007332FA /* GroupGoal.swift in Sources */,
 				745957941C9841DE00C3D3C0 /* FalcoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -555,7 +615,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = PegasusTests/Info.plist;
+				INFOPLIST_FILE = FalcoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.PegasusTests;
 				PRODUCT_NAME = Falco;
@@ -567,7 +627,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = PegasusTests/Info.plist;
+				INFOPLIST_FILE = FalcoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.PegasusTests;
 				PRODUCT_NAME = Falco;
