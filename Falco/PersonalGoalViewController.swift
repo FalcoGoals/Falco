@@ -17,27 +17,35 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
-    goalModel = [GoalBubble(name: "1", details: "my goal", priority: 0),
-                  GoalBubble(name: "2", details: "my goal", priority: 1),
-                  GoalBubble(name: "3", details: "my goal", priority: 2),
-                  GoalBubble(name: "4", details: "my goal", priority: 1),
-                  GoalBubble(name: "5", details: "my goal", priority: 2),
-                  GoalBubble(name: "6", details: "my goal", priority: 1),
-                  GoalBubble(name: "7", details: "my goal", priority: 0),
-                  GoalBubble(name: "8", details: "my goal", priority: 1),
-                  GoalBubble(name: "9", details: "my goal", priority: 1),
-                  GoalBubble(name: "10", details: "my goal", priority: 1),
-                  GoalBubble(name: "11", details: "my goal", priority: 1),
-                  GoalBubble(name: "12", details: "my goal", priority: 1),
-                  GoalBubble(name: "13", details: "my goal", priority: 1),
-                  GoalBubble(name: "14", details: "my goal", priority: 1)]
+
+    let dateComponents = NSDateComponents()
+    dateComponents.year = 2016
+    dateComponents.month = 3
+    dateComponents.day = 10
+
+    let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+    let date = calendar?.dateFromComponents(dateComponents)
+
+    goalModel = [GoalBubble(name: "1", details: "my goal", priority: 0, deadline: date!),
+                  GoalBubble(name: "2", details: "my goal", priority: 1, deadline: date!),
+                  GoalBubble(name: "3", details: "my goal", priority: 2, deadline: date!),
+                  GoalBubble(name: "4", details: "my goal", priority: 1, deadline: date!),
+                  GoalBubble(name: "5", details: "my goal", priority: 2, deadline: date!),
+                  GoalBubble(name: "6", details: "my goal", priority: 1, deadline: date!),
+                  GoalBubble(name: "7", details: "my goal", priority: 0, deadline: date!),
+                  GoalBubble(name: "8", details: "my goal", priority: 1, deadline: date!),
+                  GoalBubble(name: "9", details: "my goal", priority: 1, deadline: date!),
+                  GoalBubble(name: "10", details: "my goal", priority: 1, deadline: date!),
+                  GoalBubble(name: "11", details: "my goal", priority: 1, deadline: date!),
+                  GoalBubble(name: "12", details: "my goal", priority: 1, deadline: date!),
+                  GoalBubble(name: "13", details: "my goal", priority: 1, deadline: date!),
+                  GoalBubble(name: "14", details: "my goal", priority: 1, deadline: date!)]
     self.goalModel.sortInPlace {
         return $0.priority > $1.priority
     }
     if let layout = goalsCollectionView?.collectionViewLayout as? GoalsLayout {
         layout.delegate = self
     }
-
   }
 
   override func didReceiveMemoryWarning() {

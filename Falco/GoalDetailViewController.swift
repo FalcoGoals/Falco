@@ -27,6 +27,7 @@ class GoalDetailViewController: UIViewController {
 
     navTitle.title = goal.name
     detailLabel.text = goal.details
+    deadlineField.text = getDateString(goal.deadline)
     priorityControl.selectedSegmentIndex = goal.priority
 
   }
@@ -46,5 +47,13 @@ class GoalDetailViewController: UIViewController {
     goal.priority = priorityControl.selectedSegmentIndex
 
     delegate.didSave(goal, indexPath: selectedIndexpath)
+  }
+
+  /// Uses medium style date
+  private func getDateString(date: NSDate) -> String {
+    let dateFormatter = NSDateFormatter()
+    dateFormatter.dateStyle = .MediumStyle
+    dateFormatter.locale = NSLocale.currentLocale()
+    return dateFormatter.stringFromDate(goal.deadline)
   }
 }
