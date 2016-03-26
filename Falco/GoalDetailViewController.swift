@@ -9,14 +9,11 @@
 import UIKit
 
 protocol GoalDetailDelegate {
-  func didSave(detailController: GoalDetailViewController, indexPath: NSIndexPath)
+  func didSave(goal: GoalBubble, indexPath: NSIndexPath)
 }
 
 class GoalDetailViewController: UIViewController {
-  var name: String!
-  var details: String!
-  var deadline: NSDate!
-  var priority: Int!
+  var goal: GoalBubble!
   var selectedIndexpath: NSIndexPath!
   var delegate: GoalDetailDelegate!
 
@@ -28,9 +25,9 @@ class GoalDetailViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    navTitle.title = name
-    detailLabel.text = details
-    priorityControl.selectedSegmentIndex = priority
+    navTitle.title = goal.name
+    detailLabel.text = goal.details
+    priorityControl.selectedSegmentIndex = goal.priority
 
   }
 
@@ -45,9 +42,9 @@ class GoalDetailViewController: UIViewController {
     }
   }
   func save() {
-    details = detailLabel.text
-    priority = priorityControl.selectedSegmentIndex
+    goal.details = detailLabel.text
+    goal.priority = priorityControl.selectedSegmentIndex
 
-    delegate.didSave(self, indexPath: selectedIndexpath)
+    delegate.didSave(goal, indexPath: selectedIndexpath)
   }
 }

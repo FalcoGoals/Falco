@@ -73,12 +73,9 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
       return CGSize(width: dimension, height: dimension)
   }
 
-  func didSave(detailController: GoalDetailViewController, indexPath: NSIndexPath) {
+  func didSave(goal: GoalBubble, indexPath: NSIndexPath) {
     let itemNumber = indexPath.item
-    let goal = goalModel[itemNumber]
-//    goal.name = detailController.name
-    goal.details = detailController.details
-    goal.priority = detailController.priority
+    goalModel[itemNumber] = goal
     goalsCollectionView.reloadData()
   }
 
@@ -93,11 +90,7 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
       if let index = goalsCollectionView.indexPathForCell(cell) {
         detailViewController.delegate = self
         detailViewController.selectedIndexpath = index
-        let goal = goalModel[index.item]
-        detailViewController.name = goal.name
-        detailViewController.details = goal.details
-        detailViewController.priority = goal.priority
-        detailViewController.deadline = goal.deadline
+        detailViewController.goal = goalModel[index.item]
 
         detailViewController.modalPresentationStyle = .FormSheet
         detailViewController.modalTransitionStyle = .CrossDissolve
