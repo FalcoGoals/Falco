@@ -17,27 +17,35 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
-    goalModel = [GoalBubble(name: "1", details: "my goal", priority: 0),
-                  GoalBubble(name: "2", details: "my goal", priority: 1),
-                  GoalBubble(name: "3", details: "my goal", priority: 2),
-                  GoalBubble(name: "4", details: "my goal", priority: 1),
-                  GoalBubble(name: "5", details: "my goal", priority: 2),
-                  GoalBubble(name: "6", details: "my goal", priority: 1),
-                  GoalBubble(name: "7", details: "my goal", priority: 0),
-                  GoalBubble(name: "8", details: "my goal", priority: 1),
-                  GoalBubble(name: "9", details: "my goal", priority: 1),
-                  GoalBubble(name: "10", details: "my goal", priority: 1),
-                  GoalBubble(name: "11", details: "my goal", priority: 1),
-                  GoalBubble(name: "12", details: "my goal", priority: 1),
-                  GoalBubble(name: "13", details: "my goal", priority: 1),
-                  GoalBubble(name: "14", details: "my goal", priority: 1)]
+
+    let dateComponents = NSDateComponents()
+    dateComponents.year = 2016
+    dateComponents.month = 3
+    dateComponents.day = 10
+
+    let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+    let date = calendar?.dateFromComponents(dateComponents)
+
+    goalModel = [GoalBubble(name: "1", details: "my goal", priority: 0, deadline: date!),
+                  GoalBubble(name: "2", details: "my goal", priority: 1, deadline: date!),
+                  GoalBubble(name: "3", details: "my goal", priority: 2, deadline: date!),
+                  GoalBubble(name: "4", details: "my goal", priority: 1, deadline: date!),
+                  GoalBubble(name: "5", details: "my goal", priority: 2, deadline: date!),
+                  GoalBubble(name: "6", details: "my goal", priority: 1, deadline: date!),
+                  GoalBubble(name: "7", details: "my goal", priority: 0, deadline: date!),
+                  GoalBubble(name: "8", details: "my goal", priority: 1, deadline: date!),
+                  GoalBubble(name: "9", details: "my goal", priority: 1, deadline: date!),
+                  GoalBubble(name: "10", details: "my goal", priority: 1, deadline: date!),
+                  GoalBubble(name: "11", details: "my goal", priority: 1, deadline: date!),
+                  GoalBubble(name: "12", details: "my goal", priority: 1, deadline: date!),
+                  GoalBubble(name: "13", details: "my goal", priority: 1, deadline: date!),
+                  GoalBubble(name: "14", details: "my goal", priority: 1, deadline: date!)]
     self.goalModel.sortInPlace {
         return $0.priority > $1.priority
     }
     if let layout = goalsCollectionView?.collectionViewLayout as? GoalsLayout {
         layout.delegate = self
     }
-
   }
 
   override func didReceiveMemoryWarning() {
@@ -73,12 +81,9 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
       return CGSize(width: dimension, height: dimension)
   }
 
-  func didSave(detailController: GoalDetailViewController, indexPath: NSIndexPath) {
+  func didSave(goal: GoalBubble, indexPath: NSIndexPath) {
     let itemNumber = indexPath.item
-    let goal = goalModel[itemNumber]
-//    goal.name = detailController.name
-    goal.details = detailController.details
-    goal.priority = detailController.priority
+    goalModel[itemNumber] = goal
     goalsCollectionView.reloadData()
   }
 
@@ -93,14 +98,7 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
       if let index = goalsCollectionView.indexPathForCell(cell) {
         detailViewController.delegate = self
         detailViewController.selectedIndexpath = index
-        let goal = goalModel[index.item]
-        detailViewController.name = goal.name
-        detailViewController.details = goal.details
-        detailViewController.priority = goal.priority
-        detailViewController.deadline = goal.deadline
-
-        detailViewController.modalPresentationStyle = .FormSheet
-        detailViewController.modalTransitionStyle = .CrossDissolve
+        detailViewController.goal = goalModel[index.item]
       }
     }
   }

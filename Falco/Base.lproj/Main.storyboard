@@ -9,7 +9,7 @@
         <!--Personal Goal View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="PersonalGoalViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" id="BYZ-38-t0r" customClass="PersonalGoalViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -75,7 +75,7 @@
         <!--Goal Detail View Controller-->
         <scene sceneID="Iph-La-VKW">
             <objects>
-                <viewController storyboardIdentifier="GoalDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RfB-fr-mpw" userLabel="Goal Detail View Controller" customClass="GoalDetailViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GoalDetailViewController" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RfB-fr-mpw" userLabel="Goal Detail View Controller" customClass="GoalDetailViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mYJ-GP-KjP"/>
                         <viewControllerLayoutGuide type="bottom" id="m30-Ni-3Nl"/>
@@ -88,7 +88,7 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="Ix0-1b-wQ5">
-                                        <rect key="frame" x="60" y="183.5" width="480" height="169.5"/>
+                                        <rect key="frame" x="60" y="150" width="480" height="169.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="03D-hP-Oxt">
                                                 <rect key="frame" x="0.0" y="0.0" width="480" height="51"/>
@@ -124,7 +124,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bZ0-lg-9P3">
-                                                <rect key="frame" x="0.0" y="120" width="480" height="49"/>
+                                                <rect key="frame" x="0.0" y="120.5" width="480" height="49"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Priority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vjb-k5-h2z" userLabel="Priority Title">
                                                         <rect key="frame" x="0.0" y="0.0" width="480" height="16"/>
@@ -147,8 +147,8 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="Ix0-1b-wQ5" firstAttribute="top" secondItem="g2y-NC-shy" secondAttribute="top" constant="150" id="AWi-RY-32z"/>
                                     <constraint firstItem="Ix0-1b-wQ5" firstAttribute="width" secondItem="g2y-NC-shy" secondAttribute="width" multiplier="4/5" id="E9h-2t-cMh"/>
-                                    <constraint firstItem="Ix0-1b-wQ5" firstAttribute="centerY" secondItem="g2y-NC-shy" secondAttribute="centerY" id="LFp-uS-JXO"/>
                                     <constraint firstItem="Ix0-1b-wQ5" firstAttribute="centerX" secondItem="g2y-NC-shy" secondAttribute="centerX" id="ecn-WN-MfO"/>
                                 </constraints>
                             </view>
