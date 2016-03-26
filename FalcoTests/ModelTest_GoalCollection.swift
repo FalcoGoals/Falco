@@ -95,6 +95,9 @@ class ModelTest_GoalCollection: XCTestCase {
     }
     
     func testSortGoalsByEndTime() {
+        goal1.setEndTime(NSDate(timeIntervalSinceNow: 10))
+        goal2.setEndTime(NSDate(timeIntervalSinceNow: 11))
+        goal3!.setEndTime(NSDate(timeIntervalSinceNow: 12))
         var array = [Goal]()
         array.append(goal1)
         array.append(goal2)
