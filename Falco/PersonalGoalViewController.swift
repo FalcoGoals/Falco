@@ -91,9 +91,6 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
         detailViewController.delegate = self
         detailViewController.selectedIndexpath = index
         detailViewController.goal = goalModel[index.item]
-
-        detailViewController.modalPresentationStyle = .FormSheet
-        detailViewController.modalTransitionStyle = .CrossDissolve
       }
     }
   }

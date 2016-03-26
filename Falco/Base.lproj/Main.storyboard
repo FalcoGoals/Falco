@@ -9,7 +9,7 @@
         <!--Personal Goal View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="PersonalGoalViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" id="BYZ-38-t0r" customClass="PersonalGoalViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -75,7 +75,7 @@
         <!--Goal Detail View Controller-->
         <scene sceneID="Iph-La-VKW">
             <objects>
-                <viewController storyboardIdentifier="GoalDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RfB-fr-mpw" userLabel="Goal Detail View Controller" customClass="GoalDetailViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GoalDetailViewController" modalTransitionStyle="crossDissolve" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RfB-fr-mpw" userLabel="Goal Detail View Controller" customClass="GoalDetailViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mYJ-GP-KjP"/>
                         <viewControllerLayoutGuide type="bottom" id="m30-Ni-3Nl"/>
