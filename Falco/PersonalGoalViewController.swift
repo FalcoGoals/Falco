@@ -75,7 +75,7 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
   }
 
   func didSave(goal: Goal, indexPath: NSIndexPath) {
-    goalModel.addGoal(goal)
+    goalModel.goals[indexPath.item] = goal
     goalsCollectionView.reloadData()
   }
 
