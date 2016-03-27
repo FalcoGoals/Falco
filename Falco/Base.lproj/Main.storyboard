@@ -188,7 +188,7 @@
         <!--Title-->
         <scene sceneID="3WW-cE-nJt">
             <objects>
-                <tableViewController id="6hr-tn-rQP" sceneMemberID="viewController">
+                <tableViewController id="6hr-tn-rQP" customClass="GoalDetailViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="cye-cd-Lbr">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
