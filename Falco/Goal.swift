@@ -12,6 +12,7 @@ import UIKit
 class Goal: Hashable {
     private var _uid: String
     private var _name: String
+    private var _details: String
     private var _endTime: NSDate
     private var _priority: PRIORITY_TYPE
     private var _goalType: GOAL_TYPE
@@ -20,15 +21,17 @@ class Goal: Hashable {
 
     var identifier: String { return _uid }
     var name: String { return _name }
+    var details: String { return _details }
     var endTime: NSDate { return _endTime }
     var priority: PRIORITY_TYPE { return _priority }
     var goalType: GOAL_TYPE { return _goalType }
     var weight: Int { return _weight }
 
     // consider adding time of creation?
-    init(uid: String, name: String, endTime: NSDate, priority: PRIORITY_TYPE, goalType: GOAL_TYPE) {
+    init(uid: String, name: String, details: String, endTime: NSDate, priority: PRIORITY_TYPE, goalType: GOAL_TYPE) {
         _uid = uid
         _name = name
+        _details = details
         _endTime = endTime
         _priority = priority
         _goalType = goalType
