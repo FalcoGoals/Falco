@@ -12,7 +12,7 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
   @IBOutlet weak var goalsCollectionView: UICollectionView!
 
   private let reuseIdentifier = "bubble"
-  private var goalModel: GoalCollection!
+    private var goalModel = GoalCollection(goals: [])
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -26,23 +26,23 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
 
     let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
     let date = calendar!.dateFromComponents(dateComponents)!
-
     let user = User(uid: NSUUID().UUIDString, name: "MrFoo")
 
-    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal1", details: "my goal", endTime: date))
-    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal2", details: "my goal", endTime: date))
-    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal3", details: "my goal", endTime: date))
-    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal4", details: "my goal", endTime: date))
-    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal5", details: "my goal", endTime: date))
-    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal6", details: "my goal", endTime: date))
-    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal7", details: "my goal", endTime: date))
-    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal8", details: "my goal", endTime: date))
-    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal9", details: "my goal", endTime: date))
-    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal10", details: "my goal", endTime: date))
-    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal11", details: "my goal", endTime: date))
-    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal12", details: "my goal", endTime: date))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal1", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal2", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal3", details: "my goal", endTime: date, priority: PRIORITY_TYPE.low))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal4", details: "my goal", endTime: date, priority: PRIORITY_TYPE.mid))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal5", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal6", details: "my goal", endTime: date, priority: PRIORITY_TYPE.mid))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal7", details: "my goal", endTime: date, priority: PRIORITY_TYPE.mid))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal8", details: "my goal", endTime: date, priority: PRIORITY_TYPE.low))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal9", details: "my goal", endTime: date, priority: PRIORITY_TYPE.low))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal10", details: "my goal", endTime: date, priority: PRIORITY_TYPE.low))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal11", details: "my goal", endTime: date, priority: PRIORITY_TYPE.mid))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal12", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
+    
+    goalModel.sortGoalsByWeight()
 
-    goalModel.sortGoalsByPriority()
 
     if let layout = goalsCollectionView?.collectionViewLayout as? GoalsLayout {
         layout.delegate = self
@@ -101,7 +101,7 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
 
 extension PersonalGoalViewController: GoalLayoutDelegate {
     func collectionView(collectionView: UICollectionView, diameterForGoalAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let dimension = (goalModel.goals[indexPath.item].weight + 1) * 50
+        let dimension = (goalModel.goals[indexPath.item].weight)
         return CGFloat(dimension)
     }
 }
