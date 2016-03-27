@@ -24,6 +24,7 @@ class GoalDetailViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    title = goal.name
     detailsField.text = goal.details
     deadlineField.textLabel?.text = getDateString(goal.endTime)
     priorityControl.selectedSegmentIndex = goal.priority.rawValue
