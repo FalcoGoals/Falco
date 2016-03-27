@@ -9,7 +9,7 @@
 import UIKit
 
 protocol GoalDetailDelegate {
-  func didSave(goal: Goal, indexPath: NSIndexPath)
+    func didSave(goal: Goal, indexPath: NSIndexPath)
 }
 
 class GoalDetailViewController: UITableViewController {
@@ -17,37 +17,37 @@ class GoalDetailViewController: UITableViewController {
     @IBOutlet weak var deadlineField: UITableViewCell!
     @IBOutlet weak var priorityControl: UISegmentedControl!
 
-  var goal: Goal!
-  var selectedIndexpath: NSIndexPath!
-  var delegate: GoalDetailDelegate!
+    var goal: Goal!
+    var selectedIndexpath: NSIndexPath!
+    var delegate: GoalDetailDelegate!
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-    title = goal.name
-    detailsField.text = goal.details
-    deadlineField.textLabel?.text = getDateString(goal.endTime)
-    priorityControl.selectedSegmentIndex = goal.priority.rawValue
+        title = goal.name
+        detailsField.text = goal.details
+        deadlineField.textLabel?.text = getDateString(goal.endTime)
+        priorityControl.selectedSegmentIndex = goal.priority.rawValue
 
-  }
-
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-  }
-
-  // MARK: Segue
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "saveDetailSegue" {
-      save()
-    } else if segue.identifier == "showDatePicker" {
-        let datePickerController = segue.destinationViewController as! DatePickerViewController
-        datePickerController.delegate = self
-        datePickerController.date = goal.endTime
-
-        datePickerController.modalPresentationStyle = .FormSheet
-        datePickerController.modalTransitionStyle = .CrossDissolve
     }
-  }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
+    // MARK: Segue
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "saveDetailSegue" {
+            save()
+        } else if segue.identifier == "showDatePicker" {
+            let datePickerController = segue.destinationViewController as! DatePickerViewController
+            datePickerController.delegate = self
+            datePickerController.date = goal.endTime
+
+            datePickerController.modalPresentationStyle = .FormSheet
+            datePickerController.modalTransitionStyle = .CrossDissolve
+        }
+    }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         guard indexPath.section == 1 && indexPath.row == 0 else {
@@ -60,20 +60,20 @@ class GoalDetailViewController: UITableViewController {
     @IBAction func cancelDate(segue: UIStoryboardSegue) {}
     @IBAction func saveDate(segue: UIStoryboardSegue) {}
 
-  func save() {
-    goal.details = detailsField.text!
-    goal.priority = PRIORITY_TYPE(rawValue: priorityControl.selectedSegmentIndex)!
+    func save() {
+        goal.details = detailsField.text!
+        goal.priority = PRIORITY_TYPE(rawValue: priorityControl.selectedSegmentIndex)!
 
-    delegate.didSave(goal, indexPath: selectedIndexpath)
-  }
+        delegate.didSave(goal, indexPath: selectedIndexpath)
+    }
 
-  /// Uses medium style date
-  private func getDateString(date: NSDate) -> String {
-    let dateFormatter = NSDateFormatter()
-    dateFormatter.dateStyle = .MediumStyle
-    dateFormatter.locale = NSLocale.currentLocale()
-    return dateFormatter.stringFromDate(goal.endTime)
-  }
+    /// Uses medium style date
+    private func getDateString(date: NSDate) -> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = .MediumStyle
+        dateFormatter.locale = NSLocale.currentLocale()
+        return dateFormatter.stringFromDate(goal.endTime)
+    }
 }
 
 extension GoalDetailViewController: DatePickerDelegate {

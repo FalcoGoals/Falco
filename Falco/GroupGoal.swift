@@ -10,34 +10,34 @@ import Foundation
 
 class GroupGoal: Goal {
     private var _assignedUsers: [User: (Bool, NSDate?)]
-    
+
     var assignedUsers: [User] { return Array(_assignedUsers.keys) }
-    
+
     init(uid: String, name: String, details: String, endTime: NSDate, priority: PRIORITY_TYPE = .low) {
         _assignedUsers = [User: (Bool, NSDate?)]()
         super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: GOAL_TYPE.group)
     }
-    
+
     /// Assigns the input user to the goal
     func addUser(user: User) {  //check if is group goal
         _assignedUsers[user] = (false, nil)
     }
-    
+
     /// Unassign the input user from the goal
     func removeUser(user: User) {
         _assignedUsers.removeValueForKey(user)
     }
-    
+
     /// Unassigns all users from the goal
     func removeAllUsers() {
         _assignedUsers.removeAll()
     }
-    
+
     /// Checks whether the goal has been assigned to the input user
     func userIsAssigned(user: User) -> Bool {
         return _assignedUsers.keys.contains(user)
     }
-    
+
     /// Marks a particular user as having completed the goal
     /// Date which param user completed the task will be stored
     /// Returns indicator whether operation was successful
@@ -48,7 +48,7 @@ class GroupGoal: Goal {
         }
         return false
     }
-    
+
     /// Marks a particular user as not having completed the goal
     /// Returns indicator whether operation was successful
     func uncompleteByUser(user: User) -> Bool {
@@ -58,7 +58,7 @@ class GroupGoal: Goal {
         }
         return false
     }
-    
+
     /// Returns whether a particular user has completed the goal
     func isCompletedByUser(user: User) -> Bool {
         if !userIsAssigned(user) {
@@ -66,7 +66,7 @@ class GroupGoal: Goal {
         }
         return _assignedUsers[user]!.0
     }
-    
+
     /// Returns the date which the last person completed the goal
     /// and nil if the goal was not completed
     func getCompletedDate() -> NSDate? {
@@ -83,7 +83,7 @@ class GroupGoal: Goal {
         }
         return latestDate
     }
-    
+
     /// Returns true if all assigned users completed the task, false otherwise
     func isCompleted() -> Bool {
         for value in _assignedUsers.values {
@@ -93,7 +93,7 @@ class GroupGoal: Goal {
         }
         return true
     }
-    
+
     /// Returns list of users who have completed the goal
     func getUsersWhoCompleted() -> [User] {
         var completedUsers = [User]()
@@ -104,7 +104,7 @@ class GroupGoal: Goal {
         }
         return completedUsers
     }
-    
+
     /// Returns the total number of users assigned to the goal
     func getNumberOfUsersAssigned() -> Int {
         return _assignedUsers.keys.count

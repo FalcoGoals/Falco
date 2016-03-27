@@ -9,13 +9,13 @@
 import UIKit
 
 class BubbleCell: UICollectionViewCell {
-  @IBOutlet var label: UILabel!
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
+    @IBOutlet var label: UILabel!
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
 
-    // configure the aesthetics of the bubble
-    contentView.layer.borderColor = UIColor.whiteColor().CGColor
-    contentView.layer.borderWidth = CGFloat(1)
-    contentView.backgroundColor = UIColor.whiteColor()
-  }
+        // configure the aesthetics of the bubble
+        contentView.layer.borderColor = UIColor.whiteColor().CGColor
+        contentView.layer.borderWidth = CGFloat(1)
+        contentView.backgroundColor = UIColor.whiteColor()
+    }
 }

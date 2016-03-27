@@ -20,7 +20,7 @@ class Goal: Hashable {
 
     private var _uid: String
     private var _goalType: GOAL_TYPE
-   // private var _timestamp: NSDate!
+    // private var _timestamp: NSDate!
     private var _weight: Int!
 
     var identifier: String { return _uid }
