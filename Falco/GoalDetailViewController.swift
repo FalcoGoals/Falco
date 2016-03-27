@@ -12,22 +12,20 @@ protocol GoalDetailDelegate {
   func didSave(goal: Goal, indexPath: NSIndexPath)
 }
 
-class GoalDetailViewController: UIViewController {
+class GoalDetailViewController: UITableViewController {
+    @IBOutlet weak var detailsField: UITableViewCell!
+    @IBOutlet weak var deadlineField: UITableViewCell!
+    @IBOutlet weak var priorityControl: UISegmentedControl!
+
   var goal: Goal!
   var selectedIndexpath: NSIndexPath!
   var delegate: GoalDetailDelegate!
 
-  @IBOutlet weak var navTitle: UINavigationItem!
-  @IBOutlet weak var detailLabel: UITextField!
-  @IBOutlet weak var deadlineField: UILabel!
-  @IBOutlet weak var priorityControl: UISegmentedControl!
-
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    navTitle.title = goal.name
-    detailLabel.text = goal.details
-    deadlineField.text = getDateString(goal.endTime)
+    detailsField.textLabel?.text = goal.details
+    deadlineField.textLabel?.text = getDateString(goal.endTime)
     priorityControl.selectedSegmentIndex = goal.priority.rawValue
 
   }
@@ -43,7 +41,7 @@ class GoalDetailViewController: UIViewController {
     }
   }
   func save() {
-    goal.details = detailLabel.text!
+    goal.details = (detailsField.textLabel?.text)!
     goal.priority = PRIORITY_TYPE(rawValue: priorityControl.selectedSegmentIndex)!
 
     delegate.didSave(goal, indexPath: selectedIndexpath)
