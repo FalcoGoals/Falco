@@ -10,46 +10,39 @@ import UIKit
 
 // Model for GoalBubble
 class Goal: Hashable {
+    var name: String
+    var details: String
+    var endTime: NSDate {
+        didSet {
+            updateWeight()
+        }
+    }
+    var priority: PRIORITY_TYPE {
+        didSet {
+            updateWeight()
+        }
+    }
+
     private var _uid: String
-    private var _name: String
-    private var _details: String
-    private var _endTime: NSDate
-    private var _priority: PRIORITY_TYPE
     private var _goalType: GOAL_TYPE
    // private var _timestamp: NSDate!
     private var _weight: Int!
 
     var identifier: String { return _uid }
-    var name: String { return _name }
-    var details: String { return _details }
-    var endTime: NSDate { return _endTime }
-    var priority: PRIORITY_TYPE { return _priority }
     var goalType: GOAL_TYPE { return _goalType }
     var weight: Int { return _weight }
 
     // consider adding time of creation?
     init(uid: String, name: String, details: String, endTime: NSDate, priority: PRIORITY_TYPE, goalType: GOAL_TYPE) {
+        self.name = name
+        self.details = details
+        self.endTime = endTime
+        self.priority = priority
         _uid = uid
-        _name = name
-        _details = details
-        _endTime = endTime
-        _priority = priority
         _goalType = goalType
         updateWeight()
     }
-    
-    /// sets the deadline of the goal
-    func setEndTime(endTime: NSDate) {
-        _endTime = endTime
-        updateWeight()
-    }
-    
-    /// Sets the priority of the goal
-    func setPriority(priority: PRIORITY_TYPE) {
-        _priority = priority
-        updateWeight()
-    }
-    
+
     /// Determines the weight of the goal based on priority and closeness of deadline
     private func updateWeight() {
         _weight = 50    //put this here first
