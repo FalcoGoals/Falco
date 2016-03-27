@@ -42,6 +42,7 @@ class GoalDetailViewController: UITableViewController {
     } else if segue.identifier == "showDatePicker" {
         let datePickerController = segue.destinationViewController as! DatePickerViewController
         datePickerController.delegate = self
+        datePickerController.date = goal.endTime
 
         datePickerController.modalPresentationStyle = .FormSheet
         datePickerController.modalTransitionStyle = .CrossDissolve

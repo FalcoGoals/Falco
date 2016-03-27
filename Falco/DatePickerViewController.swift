@@ -15,6 +15,12 @@ protocol DatePickerDelegate {
 class DatePickerViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     var delegate: DatePickerDelegate!
+    var date: NSDate!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        datePicker.date = date
+    }
 
     // MARK: Segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
