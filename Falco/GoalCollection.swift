@@ -134,6 +134,13 @@ class GoalCollection {
             return goal1.endTime.compare(goal2.endTime) != NSComparisonResult.OrderedDescending
         })
     }
+
+    /// Sorts all goals in descending weights
+    func sortGoalsByWeight() -> [Goal] {
+        return goals.sort {
+            return $0.weight > $1.weight
+        }
+    }
     
     /// Returns goals with an end time earlier than the param, not including those with the
     /// same end time as the param
