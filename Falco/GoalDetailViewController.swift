@@ -13,7 +13,7 @@ protocol GoalDetailDelegate {
 }
 
 class GoalDetailViewController: UITableViewController {
-    @IBOutlet weak var detailsField: UITableViewCell!
+    @IBOutlet weak var detailsField: UITextField!
     @IBOutlet weak var deadlineField: UITableViewCell!
     @IBOutlet weak var priorityControl: UISegmentedControl!
 
@@ -24,7 +24,7 @@ class GoalDetailViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    detailsField.textLabel?.text = goal.details
+    detailsField.text = goal.details
     deadlineField.textLabel?.text = getDateString(goal.endTime)
     priorityControl.selectedSegmentIndex = goal.priority.rawValue
 
@@ -41,7 +41,7 @@ class GoalDetailViewController: UITableViewController {
     }
   }
   func save() {
-    goal.details = (detailsField.textLabel?.text)!
+    goal.details = detailsField.text!
     goal.priority = PRIORITY_TYPE(rawValue: priorityControl.selectedSegmentIndex)!
 
     delegate.didSave(goal, indexPath: selectedIndexpath)

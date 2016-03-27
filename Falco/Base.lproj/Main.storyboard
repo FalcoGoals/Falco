@@ -202,6 +202,19 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wS3-z3-wRy" id="kc6-bV-WSO">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6NO-8f-RCC">
+                                                    <rect key="frame" x="8" y="8" width="584" height="27.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="6NO-8f-RCC" firstAttribute="top" secondItem="kc6-bV-WSO" secondAttribute="topMargin" id="Obl-hn-Jpd"/>
+                                                <constraint firstItem="6NO-8f-RCC" firstAttribute="leading" secondItem="kc6-bV-WSO" secondAttribute="leadingMargin" id="T2H-1C-jj0"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="6NO-8f-RCC" secondAttribute="bottom" id="fp0-lf-MGJ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="6NO-8f-RCC" secondAttribute="trailing" id="pe1-ta-r7l"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -262,7 +275,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="deadlineField" destination="ccB-2I-uw7" id="yog-QC-RyQ"/>
-                        <outlet property="detailsField" destination="wS3-z3-wRy" id="Xj6-i6-adw"/>
+                        <outlet property="detailsField" destination="6NO-8f-RCC" id="r14-Ox-Ynh"/>
                         <outlet property="priorityControl" destination="JbF-wM-MeN" id="sTg-eq-8Ms"/>
                     </connections>
                 </tableViewController>
