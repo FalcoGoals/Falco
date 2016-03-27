@@ -292,10 +292,10 @@
             </objects>
             <point key="canvasLocation" x="2204" y="332"/>
         </scene>
-        <!--View Controller-->
+        <!--Date Picker-->
         <scene sceneID="gIk-ML-hTB">
             <objects>
-                <viewController id="Rx3-j1-4mB" sceneMemberID="viewController">
+                <viewController title="Date Picker" id="Rx3-j1-4mB" customClass="DatePickerViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="12S-aS-7h1"/>
                         <viewControllerLayoutGuide type="bottom" id="5D3-K5-mvr"/>
@@ -304,21 +304,53 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="EnZ-oL-rgn">
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="EnZ-oL-rgn">
                                 <rect key="frame" x="140" y="192" width="320" height="216"/>
                                 <date key="date" timeIntervalSinceReferenceDate="480774137.33882803">
                                     <!--2016-03-27 12:22:17 +0000-->
                                 </date>
                             </datePicker>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MAh-eN-dOb">
+                                <rect key="frame" x="140" y="408" width="320" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ONX-N9-9Bw">
+                                        <rect key="frame" x="0.0" y="0.0" width="160" height="30"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="1" green="0.22334637660000001" blue="0.3805677496" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="W9I-mm-BKZ" kind="unwind" unwindAction="cancelDate:" id="Zys-iY-mSk"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLx-W1-rxK">
+                                        <rect key="frame" x="160" y="0.0" width="160" height="30"/>
+                                        <state key="normal" title="OK"/>
+                                        <connections>
+                                            <segue destination="W9I-mm-BKZ" kind="unwind" identifier="saveDateSegue" unwindAction="saveDate:" id="pWF-Ey-7Dl"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="ONX-N9-9Bw" firstAttribute="width" secondItem="MAh-eN-dOb" secondAttribute="width" multiplier="0.5" id="XKO-Ki-WZ5"/>
+                                    <constraint firstItem="zLx-W1-rxK" firstAttribute="width" secondItem="MAh-eN-dOb" secondAttribute="width" multiplier="0.5" id="ouX-PG-ZDB"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="EnZ-oL-rgn" firstAttribute="centerX" secondItem="JUL-0N-WZK" secondAttribute="centerX" id="JAM-Dj-Wkj"/>
                             <constraint firstItem="EnZ-oL-rgn" firstAttribute="centerY" secondItem="JUL-0N-WZK" secondAttribute="centerY" id="XUW-Pu-FR2"/>
+                            <constraint firstItem="MAh-eN-dOb" firstAttribute="top" secondItem="EnZ-oL-rgn" secondAttribute="bottom" id="jCj-hu-UJb"/>
+                            <constraint firstItem="MAh-eN-dOb" firstAttribute="width" secondItem="EnZ-oL-rgn" secondAttribute="width" id="jjK-1L-8ac"/>
+                            <constraint firstItem="MAh-eN-dOb" firstAttribute="centerX" secondItem="JUL-0N-WZK" secondAttribute="centerX" id="msZ-hR-N9Y"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="datePicker" destination="EnZ-oL-rgn" id="lbs-JU-zJV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rF1-GF-vn4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="W9I-mm-BKZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2284" y="1140"/>
         </scene>

@@ -40,7 +40,9 @@ class GoalDetailViewController: UITableViewController {
     if segue.identifier == "saveDetailSegue" {
       save()
     } else if segue.identifier == "showDatePicker" {
-        let datePickerController = segue.destinationViewController
+        let datePickerController = segue.destinationViewController as! DatePickerViewController
+        datePickerController.delegate = self
+
         datePickerController.modalPresentationStyle = .FormSheet
         datePickerController.modalTransitionStyle = .CrossDissolve
     }
@@ -53,6 +55,9 @@ class GoalDetailViewController: UITableViewController {
 
         performSegueWithIdentifier("showDatePicker", sender: self)
     }
+
+    @IBAction func cancelDate(segue: UIStoryboardSegue) {}
+    @IBAction func saveDate(segue: UIStoryboardSegue) {}
 
   func save() {
     goal.details = detailsField.text!
@@ -68,4 +73,11 @@ class GoalDetailViewController: UITableViewController {
     dateFormatter.locale = NSLocale.currentLocale()
     return dateFormatter.stringFromDate(goal.endTime)
   }
+}
+
+extension GoalDetailViewController: DatePickerDelegate {
+    func didSave(date: NSDate) {
+        goal.endTime = date
+        deadlineField.textLabel?.text = getDateString(date)
+    }
 }
