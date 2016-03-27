@@ -15,7 +15,7 @@ class Goal: Hashable {
     var endTime: NSDate
     var priority: PRIORITY_TYPE
     var weight: Int {
-        return priority.rawValue * 5 + 10
+        return priority.rawValue * 50 + 100
     }
 
     private var _uid: String

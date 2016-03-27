@@ -113,7 +113,7 @@ class GoalsLayout: UICollectionViewLayout {
         var xValue = 0
         var minYValue = Int(contentHeight)
         let maxXValue = Int(contentWidth) - diameter
-        
+
         for currX in 0..<maxXValue {
             var currY = minYValue
             var intersection = false
