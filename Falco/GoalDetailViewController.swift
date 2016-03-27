@@ -35,12 +35,25 @@ class GoalDetailViewController: UITableViewController {
     super.didReceiveMemoryWarning()
   }
 
-  // MARK: Action
+  // MARK: Segue
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if (segue.identifier == "saveDetailSegue") {
+    if segue.identifier == "saveDetailSegue" {
       save()
+    } else if segue.identifier == "showDatePicker" {
+        let datePickerController = segue.destinationViewController
+        datePickerController.modalPresentationStyle = .FormSheet
+        datePickerController.modalTransitionStyle = .CrossDissolve
     }
   }
+
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard indexPath.section == 1 && indexPath.row == 0 else {
+            return
+        }
+
+        performSegueWithIdentifier("showDatePicker", sender: self)
+    }
+
   func save() {
     goal.details = detailsField.text!
     goal.priority = PRIORITY_TYPE(rawValue: priorityControl.selectedSegmentIndex)!

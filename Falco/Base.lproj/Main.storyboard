@@ -221,19 +221,22 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Deadline" id="fEo-zG-QSg">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailsCell" id="ccB-2I-uw7">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeadlineCell" id="ccB-2I-uw7">
                                         <rect key="frame" x="0.0" y="207.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ccB-2I-uw7" id="qsI-Va-CB3">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="Rx3-j1-4mB" kind="presentation" identifier="showDatePicker" trigger="accessoryAction" id="E9D-0M-WMG"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Priority" id="bWj-Tr-jqI">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailsCell" id="Htl-aZ-0mn">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PriorityCell" id="Htl-aZ-0mn">
                                         <rect key="frame" x="0.0" y="301.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Htl-aZ-0mn" id="h9Y-t6-b7j">
@@ -288,6 +291,36 @@
                 <exit id="0Ls-sC-M8E" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2204" y="332"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="gIk-ML-hTB">
+            <objects>
+                <viewController id="Rx3-j1-4mB" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="12S-aS-7h1"/>
+                        <viewControllerLayoutGuide type="bottom" id="5D3-K5-mvr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JUL-0N-WZK">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="EnZ-oL-rgn">
+                                <rect key="frame" x="140" y="192" width="320" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="480774137.33882803">
+                                    <!--2016-03-27 12:22:17 +0000-->
+                                </date>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="EnZ-oL-rgn" firstAttribute="centerX" secondItem="JUL-0N-WZK" secondAttribute="centerX" id="JAM-Dj-Wkj"/>
+                            <constraint firstItem="EnZ-oL-rgn" firstAttribute="centerY" secondItem="JUL-0N-WZK" secondAttribute="centerY" id="XUW-Pu-FR2"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rF1-GF-vn4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2284" y="1140"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="OV1-Rn-aHs">
