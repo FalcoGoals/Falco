@@ -9,11 +9,11 @@
 import UIKit
 
 protocol GoalDetailDelegate {
-  func didSave(goal: GoalBubble, indexPath: NSIndexPath)
+  func didSave(goal: Goal, indexPath: NSIndexPath)
 }
 
 class GoalDetailViewController: UIViewController {
-  var goal: GoalBubble!
+  var goal: Goal!
   var selectedIndexpath: NSIndexPath!
   var delegate: GoalDetailDelegate!
 
@@ -27,8 +27,8 @@ class GoalDetailViewController: UIViewController {
 
     navTitle.title = goal.name
     detailLabel.text = goal.details
-    deadlineField.text = getDateString(goal.deadline)
-    priorityControl.selectedSegmentIndex = goal.priority
+    deadlineField.text = getDateString(goal.endTime)
+    priorityControl.selectedSegmentIndex = goal.priority.rawValue
 
   }
 
@@ -43,8 +43,8 @@ class GoalDetailViewController: UIViewController {
     }
   }
   func save() {
-    goal.details = detailLabel.text
-    goal.priority = priorityControl.selectedSegmentIndex
+    goal.details = detailLabel.text!
+    goal.priority = PRIORITY_TYPE(rawValue: priorityControl.selectedSegmentIndex)!
 
     delegate.didSave(goal, indexPath: selectedIndexpath)
   }
@@ -54,6 +54,6 @@ class GoalDetailViewController: UIViewController {
     let dateFormatter = NSDateFormatter()
     dateFormatter.dateStyle = .MediumStyle
     dateFormatter.locale = NSLocale.currentLocale()
-    return dateFormatter.stringFromDate(goal.deadline)
+    return dateFormatter.stringFromDate(goal.endTime)
   }
 }

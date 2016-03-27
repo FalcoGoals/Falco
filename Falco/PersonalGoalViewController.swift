@@ -12,11 +12,12 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
   @IBOutlet weak var goalsCollectionView: UICollectionView!
 
   private let reuseIdentifier = "bubble"
-  private var goalModel: [GoalBubble]!
+  private var goalModel: GoalCollection!
 
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
+
 
     let dateComponents = NSDateComponents()
     dateComponents.year = 2016
@@ -24,25 +25,25 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
     dateComponents.day = 10
 
     let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-    let date = calendar?.dateFromComponents(dateComponents)
+    let date = calendar!.dateFromComponents(dateComponents)!
 
-    goalModel = [GoalBubble(name: "1", details: "my goal", priority: 0, deadline: date!),
-                  GoalBubble(name: "2", details: "my goal", priority: 1, deadline: date!),
-                  GoalBubble(name: "3", details: "my goal", priority: 2, deadline: date!),
-                  GoalBubble(name: "4", details: "my goal", priority: 1, deadline: date!),
-                  GoalBubble(name: "5", details: "my goal", priority: 2, deadline: date!),
-                  GoalBubble(name: "6", details: "my goal", priority: 1, deadline: date!),
-                  GoalBubble(name: "7", details: "my goal", priority: 0, deadline: date!),
-                  GoalBubble(name: "8", details: "my goal", priority: 1, deadline: date!),
-                  GoalBubble(name: "9", details: "my goal", priority: 1, deadline: date!),
-                  GoalBubble(name: "10", details: "my goal", priority: 1, deadline: date!),
-                  GoalBubble(name: "11", details: "my goal", priority: 1, deadline: date!),
-                  GoalBubble(name: "12", details: "my goal", priority: 1, deadline: date!),
-                  GoalBubble(name: "13", details: "my goal", priority: 1, deadline: date!),
-                  GoalBubble(name: "14", details: "my goal", priority: 1, deadline: date!)]
-    self.goalModel.sortInPlace {
-        return $0.priority > $1.priority
-    }
+    let user = User(uid: NSUUID().UUIDString, name: "MrFoo")
+
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal1", details: "my goal", endTime: date))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal2", details: "my goal", endTime: date))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal3", details: "my goal", endTime: date))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal4", details: "my goal", endTime: date))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal5", details: "my goal", endTime: date))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal6", details: "my goal", endTime: date))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal7", details: "my goal", endTime: date))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal8", details: "my goal", endTime: date))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal9", details: "my goal", endTime: date))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal10", details: "my goal", endTime: date))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal11", details: "my goal", endTime: date))
+    goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal12", details: "my goal", endTime: date))
+
+    goalModel.sortGoalsByPriority()
+
     if let layout = goalsCollectionView?.collectionViewLayout as? GoalsLayout {
         layout.delegate = self
     }
@@ -59,7 +60,7 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
   }
 
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return goalModel.count
+    return goalModel.goals.count
   }
 
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -68,22 +69,13 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
 
     cell.layer.cornerRadius = cell.bounds.size.width / 2 // halving makes it a circle
 
-    cell.label.text = goalModel[indexPath.item].name
+    cell.label.text = goalModel.goals[indexPath.item].name
 
     return cell
   }
 
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
-    sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-      // adjust size of bubble
-      print("size")
-      let dimension = goalModel[indexPath.item].weight
-      return CGSize(width: dimension, height: dimension)
-  }
-
-  func didSave(goal: GoalBubble, indexPath: NSIndexPath) {
-    let itemNumber = indexPath.item
-    goalModel[itemNumber] = goal
+  func didSave(goal: Goal, indexPath: NSIndexPath) {
+    goalModel.addGoal(goal)
     goalsCollectionView.reloadData()
   }
 
@@ -98,7 +90,7 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
       if let index = goalsCollectionView.indexPathForCell(cell) {
         detailViewController.delegate = self
         detailViewController.selectedIndexpath = index
-        detailViewController.goal = goalModel[index.item]
+        detailViewController.goal = goalModel.goals[index.item]
       }
     }
   }
@@ -109,7 +101,7 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
 
 extension PersonalGoalViewController: GoalLayoutDelegate {
     func collectionView(collectionView: UICollectionView, diameterForGoalAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let dimension = (goalModel[indexPath.item].weight + 1) * 50
+        let dimension = (goalModel.goals[indexPath.item].weight + 1) * 50
         return CGFloat(dimension)
     }
 }

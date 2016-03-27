@@ -13,9 +13,9 @@ class GroupGoal: Goal {
     
     var assignedUsers: [User] { return Array(_assignedUsers.keys) }
     
-    init(uid: String, name: String, endTime: NSDate, priority: PRIORITY_TYPE = .low) {
+    init(uid: String, name: String, details: String, endTime: NSDate, priority: PRIORITY_TYPE = .low) {
         _assignedUsers = [User: (Bool, NSDate?)]()
-        super.init(uid: uid, name: name, endTime: endTime, priority: priority, goalType: GOAL_TYPE.group)
+        super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: GOAL_TYPE.group)
     }
     
     /// Assigns the input user to the goal
