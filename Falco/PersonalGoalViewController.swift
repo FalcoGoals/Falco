@@ -95,6 +95,7 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
     }
   }
 
+  @IBAction func cancelDetail(segue: UIStoryboardSegue) {}
   @IBAction func saveDetail(segue: UIStoryboardSegue) {}
 }
 

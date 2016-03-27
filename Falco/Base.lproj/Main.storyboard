@@ -267,9 +267,14 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="2Cr-sR-7a6" userLabel="Navigation Item">
                         <barButtonItem key="backBarButtonItem" title="Cancel" id="umO-zq-GpL"/>
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="thr-Dz-YgP">
+                            <connections>
+                                <segue destination="0Ls-sC-M8E" kind="unwind" unwindAction="cancelDetail:" id="WVt-si-I2F"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="2ZP-8r-aAo">
                             <connections>
-                                <segue destination="0Ls-sC-M8E" kind="unwind" unwindAction="saveDetail:" id="Eai-ef-V6N"/>
+                                <segue destination="0Ls-sC-M8E" kind="unwind" identifier="saveDetailSegue" unwindAction="saveDetail:" id="Eai-ef-V6N"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
