@@ -13,6 +13,7 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
 
     private let reuseIdentifier = "bubble"
     private var goalModel = GoalCollection(goals: [])
+    private var user = User(uid: NSUUID().UUIDString, name: "MrFoo")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +27,6 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
 
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         let date = calendar!.dateFromComponents(dateComponents)!
-        let user = User(uid: NSUUID().UUIDString, name: "MrFoo")
 
         goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal1", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
         goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal2", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
@@ -67,40 +67,57 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! BubbleCell
 
         cell.layer.cornerRadius = cell.bounds.size.width / 2 // halving makes it a circle
+        cell.backgroundColor = UIColor.brownColor()
 
         cell.label.text = goalModel.goals[indexPath.item].name
-
         return cell
     }
 
-    func didSave(goal: Goal, indexPath: NSIndexPath) {
-        goalModel.goals[indexPath.item] = goal
+
+    func didSave(goal: Goal, indexPath: NSIndexPath?) {
+        if let indexPath = indexPath {
+            goalModel.goals[indexPath.item] = goal
+        } else {
+            goalModel.addGoal(goal)
+        }
+
         goalModel.sortGoalsByWeight()
-        goalsCollectionView.performBatchUpdates({
-            //   self.goalsCollectionView.setCollectionViewLayout(self.goalsCollectionView.collectionViewLayout, animated: true)
-            self.goalsCollectionView.reloadData()
-            }, completion: {(true) in
-                self.goalsCollectionView.reloadData()
-        })
+        goalsCollectionView.reloadData()
+//        goalsCollectionView.performBatchUpdates({
+//            //   self.goalsCollectionView.setCollectionViewLayout(self.goalsCollectionView.collectionViewLayout, animated: true)
+//            self.goalsCollectionView.reloadData()
+//            }, completion: { finished in
+//                self.goalsCollectionView.reloadData()
+//        })
         //goalsCollectionView.collectionViewLayout.invalidateLayout()
     }
 
     // MARK: Segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "PersonalGoalToDetails") {
+        if let index = goalsCollectionView.indexPathForItemAtPoint(sender!.locationInView(goalsCollectionView)) {
+            let navController = segue.destinationViewController as! UINavigationController
+            let detailViewController = navController.topViewController as! GoalDetailViewController
+            
+            detailViewController.delegate = self
+            detailViewController.selectedIndexpath = index
+            detailViewController.goal = goalModel.goals[index.item]
+            detailViewController.user = user
+
+        } else {
             let navController = segue.destinationViewController as! UINavigationController
             let detailViewController = navController.topViewController as! GoalDetailViewController
 
-            let cell = sender as! UICollectionViewCell
+            detailViewController.delegate = self
+            detailViewController.selectedIndexpath = nil
+            detailViewController.goal = nil
+            detailViewController.user = user
 
-            if let index = goalsCollectionView.indexPathForCell(cell) {
-                detailViewController.delegate = self
-                detailViewController.selectedIndexpath = index
-                detailViewController.goal = goalModel.goals[index.item]
-            }
         }
     }
 
+    @IBAction func GoalsTap(sender: UITapGestureRecognizer) {
+        performSegueWithIdentifier("PersonalGoalToDetails", sender: sender)
+    }
     @IBAction func cancelDetail(segue: UIStoryboardSegue) {}
     @IBAction func saveDetail(segue: UIStoryboardSegue) {}
 }
