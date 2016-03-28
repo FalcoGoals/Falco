@@ -42,8 +42,7 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
         goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal12", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
 
         goalModel.sortGoalsByWeight()
-
-
+        
         if let layout = goalsCollectionView?.collectionViewLayout as? GoalsLayout {
             layout.delegate = self
         }

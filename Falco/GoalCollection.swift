@@ -137,10 +137,8 @@ class GoalCollection {
     }
 
     /// Sorts all goals in descending weights
-    func sortGoalsByWeight() -> [Goal] {
-        return goals.sort {
-            return $0.weight > $1.weight
-        }
+    func sortGoalsByWeight() {
+        goals.sortInPlace { $0.weight > $1.weight }
     }
     
     /// Returns goals with an end time earlier than the param, not including those with the
