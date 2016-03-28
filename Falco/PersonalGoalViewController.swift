@@ -75,7 +75,14 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
 
     func didSave(goal: Goal, indexPath: NSIndexPath) {
         goalModel.goals[indexPath.item] = goal
-        goalsCollectionView.reloadData()
+        goalModel.sortGoalsByWeight()
+        goalsCollectionView.performBatchUpdates({
+            //   self.goalsCollectionView.setCollectionViewLayout(self.goalsCollectionView.collectionViewLayout, animated: true)
+            self.goalsCollectionView.reloadData()
+            }, completion: {(true) in
+                self.goalsCollectionView.reloadData()
+        })
+        //goalsCollectionView.collectionViewLayout.invalidateLayout()
     }
 
     // MARK: Segue
@@ -102,6 +109,10 @@ extension PersonalGoalViewController: GoalLayoutDelegate {
     func collectionView(collectionView: UICollectionView, diameterForGoalAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let dimension = (goalModel.goals[indexPath.item].weight)
         return CGFloat(dimension)
+    }
+    
+    func getName(indexPath: NSIndexPath) -> String {
+        return goalModel.goals[indexPath.item].name
     }
 }
 

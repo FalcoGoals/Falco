@@ -10,81 +10,112 @@ import UIKit
 
 protocol GoalLayoutDelegate {
     func collectionView(collectionView:UICollectionView, diameterForGoalAtIndexPath indexPath:NSIndexPath) -> CGFloat
+    
+    func getName(indexPath: NSIndexPath) -> String
 }
 
 class GoalsLayout: UICollectionViewLayout {
     var delegate: GoalLayoutDelegate!
-    let numberOfColumns = 12
-    var numberOfRows = 0
     var circlePosition = [[Int]]()
-
-    private var cache = [UICollectionViewLayoutAttributes]()
-
+    var dynamicAnimator: UIDynamicAnimator!
+    var animatorSet = false
+    
+    private var oldCellInformation = [String: UICollectionViewLayoutAttributes]()
+    private var cellInformation = [String: UICollectionViewLayoutAttributes]()
+    private var oldCellArray = [String: CGPoint]()
+    private var newCellArray = [String: CGPoint]()
+    
     /// content refers to entire collection of cells
     private var contentHeight: CGFloat = 0
-    private var contentWidth: CGFloat {    // columns x cell width
-        let insets = collectionView!.contentInset
-        return CGRectGetWidth(collectionView!.bounds) - insets.left - insets.right
+    private var contentWidth: CGFloat = 0
+    //    private var contentWidth: CGFloat {
+    //        let insets = collectionView!.contentInset
+    //        return CGRectGetWidth(collectionView!.bounds) - insets.left - insets.right
+    //    }
+    
+    override init() {
+        super.init()
+        initialize()
     }
-
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        initialize()
+    }
+    
+    func initialize() {
+        
+        self.dynamicAnimator = UIDynamicAnimator(collectionViewLayout: self)
+    }
+    
     // perform prior calculation for layout. like a setup phase
     override func prepareLayout() {
         print("preparing layout")
-        if cache.isEmpty {
-            let numSections = collectionView!.numberOfSections()
-            let numItemsInLastSection = collectionView!.numberOfItemsInSection(numSections - 1)
-            numberOfRows = numItemsInLastSection > numberOfColumns ? numSections * 2 : numSections * 2 - 1
-
-            var xOffset = [CGFloat]()
-            var yOffset = [CGFloat]()
-
-            // xOffset calculations
-            let columnWidth = contentWidth / CGFloat(numberOfColumns)
-            let oddRowOffset = columnWidth / 2
-            for columnIndex in 0 ..< numberOfColumns {
-                xOffset.append(CGFloat(columnIndex) * columnWidth)
-            }
-
-            // yOffset calculations
-            let rowHeight = columnWidth
-            for rowIndex in 0 ..< numberOfRows {
-                yOffset.append(CGFloat(rowIndex) * rowHeight)
-            }
-
-            let yAdjustment = isometricAdjustment(columnWidth, heightWidthRatio: Float(rowHeight / columnWidth))
-
-            for sectionIndex in 0 ..< numSections {
-
-                for itemIndex in 0 ..< collectionView!.numberOfItemsInSection(sectionIndex) {
-                    let indexPath = NSIndexPath(forItem: itemIndex, inSection: sectionIndex)
-                    let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
-                    let rowNumber = itemIndex < numberOfColumns ? sectionIndex * 2 : sectionIndex * 2 + 1
-
-                    //          var y = yOffset[rowNumber]
-                    //          var x = xOffset[itemIndex % numberOfColumns]
-                    //
-                    //          if rowNumber % 2 != 0 {
-                    //            x += oddRowOffset
-                    //          }
-                    //
-                    //          if rowNumber != 0 {
-                    //            y -= yAdjustment * CGFloat(rowNumber)
-                    //          }
-
-
-                    let diameter = delegate.collectionView(collectionView!, diameterForGoalAtIndexPath: indexPath)
-                    let (x, y) = calculateNextPosition(Int(diameter))
-
-                    attributes.frame = CGRect(x: CGFloat(x), y: CGFloat(y), width: diameter, height: diameter)
-                    circlePosition.append([x, y, Int(diameter)])
-                    cache.append(attributes)
-                    contentHeight =  max(contentHeight, CGFloat(y) + diameter)
-                }
+        
+        contentWidth = collectionView!.bounds.size.width
+        contentHeight = 0
+        circlePosition.removeAll()
+        let numSections = collectionView!.numberOfSections()
+        var localCellInformation = [String: UICollectionViewLayoutAttributes]()
+        var localCellArray = [String: CGPoint]()
+        //   dynamicAnimator.removeAllBehaviors()
+        oldCellInformation = cellInformation
+        oldCellArray = newCellArray
+        
+        for sectionIndex in 0 ..< numSections {
+            for itemIndex in 0 ..< collectionView!.numberOfItemsInSection(sectionIndex) {
+                let indexPath = NSIndexPath(forItem: itemIndex, inSection: sectionIndex)
+                let attributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
+                
+                
+                let diameter = delegate.collectionView(collectionView!, diameterForGoalAtIndexPath: indexPath)
+                let (x, y) = calculateNextPosition(Int(diameter))
+                
+                attributes.frame = CGRect(x: CGFloat(x), y: CGFloat(y), width: diameter, height: diameter)
+                circlePosition.append([x, y, Int(diameter)])
+                localCellInformation[delegate.getName(indexPath)] = attributes
+                localCellArray[delegate.getName(indexPath)] = attributes.center
+                contentHeight =  max(contentHeight, CGFloat(y) + diameter)
             }
         }
-
+        cellInformation = localCellInformation
+        newCellArray = localCellArray
+        
+        //        if (!animatorSet) {
+        //            for (name, cell) in cellInformation {
+        //                let attributes = cell
+        //                let center = cell.center
+        //                let springBehavior = UIAttachmentBehavior(item: attributes, attachedToAnchor: center)
+        //                springBehavior.length = 0
+        //                springBehavior.damping = 0.8
+        //                springBehavior.frequency = 1
+        //                dynamicAnimator.addBehavior(springBehavior)
+        //            }
+        //            animatorSet = true
+        //        } else {
+        //            for (index, springBehavior) in self.dynamicAnimator!.behaviors.enumerate() {
+        //
+        //                let currItem = (springBehavior as! UIAttachmentBehavior).items[0] as! UICollectionViewLayoutAttributes
+        //                let currCenter = currItem.center
+        //                var cellName = ""
+        //
+        //                for (name, center) in oldCellArray {
+        //                    if (center == currCenter) {
+        //                        print(name)
+        //                        cellName = name
+        //                        break
+        //                    }
+        //                }
+        //
+        //                let newCenter = newCellArray[cellName]
+        //                currItem.center = newCenter!
+        //                
+        //                self.dynamicAnimator?.updateItemUsingCurrentState(currItem)
+        //                
+        //            }
+        //        }
     }
-
+    
     // dimension of entire content, not just visible
     override func collectionViewContentSize() -> CGSize {
         /// todo: adjust content height to be tighter
@@ -94,7 +125,7 @@ class GoalsLayout: UICollectionViewLayout {
     // determines the items which are visible in the viewport
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
-        for attr in cache {
+        for (name, attr) in cellInformation {
             if CGRectIntersectsRect(attr.frame, rect) {
                 layoutAttributes.append(attr)
             }
@@ -102,24 +133,38 @@ class GoalsLayout: UICollectionViewLayout {
         return layoutAttributes
     }
 
-    private func isometricAdjustment(diameter: CGFloat, heightWidthRatio: Float) -> CGFloat {
-        let diagonalLengthOfCell = sqrt(pow(diameter, 2) * 2)
-        let cellCornerToNearestArcDistance = (diagonalLengthOfCell - diameter) / 2
-        let yAdjustment = CGFloat(cos(atan(heightWidthRatio))) * cellCornerToNearestArcDistance
-        return yAdjustment
-    }
-
+    //    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+    //        let dynamic = dynamicAnimator.itemsInRect(rect)
+    //        var layoutAttributes = [UICollectionViewLayoutAttributes]()
+    //        for item in dynamic {
+    //            let center = item.center
+    //            for (name, attr) in cellInformation {
+    //                if (center == attr.center) {
+    //                    layoutAttributes.append(attr)
+    //                    break
+    //                }
+    //            }
+    //        }
+    //        return layoutAttributes
+    //    }
+    //
+    //    override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+    //        return dynamicAnimator.layoutAttributesForCellAtIndexPath(indexPath)
+    //    }
+    
+    
     private func calculateNextPosition(diameter: Int) -> (Int, Int){
         var xValue = 0
         var minYValue = Int(contentHeight)
-        let maxXValue = Int(contentWidth) - diameter
-
+        let maxXValue = Int(self.collectionView!.bounds.size.width) - diameter
+        
         for currX in 0..<maxXValue {
             var currY = minYValue
             var intersection = false
             while (currY >= 0) {
                 for circle in circlePosition {
-                    if (circleIntersection(circle[0]+circle[2]/2, y1: circle[1]+circle[2]/2, r1: circle[2]/2, x2: currX+diameter/2, y2: currY+diameter/2, r2: diameter/2)) {
+                    if (circleIntersection(circle[0]+circle[2]/2, y1: circle[1]+circle[2]/2,
+                        r1: circle[2]/2, x2: currX+diameter/2, y2: currY+diameter/2, r2: diameter/2)) {
                         intersection = true
                         break
                     }
@@ -139,7 +184,7 @@ class GoalsLayout: UICollectionViewLayout {
         return (xValue, minYValue)
     }
     
-    func circleIntersection(x1: Int, y1: Int, r1: Int, x2: Int, y2: Int, r2: Int) -> Bool {
+    private func circleIntersection(x1: Int, y1: Int, r1: Int, x2: Int, y2: Int, r2: Int) -> Bool {
         let dx = Double(x1) - Double(x2);
         let dy = Double(y1) - Double(y2);
         let distance = sqrt(dx * dx + dy * dy);
@@ -149,5 +194,4 @@ class GoalsLayout: UICollectionViewLayout {
         } else {
             return false
         }
-    }
-}
+    }}
