@@ -48,13 +48,9 @@ class BubblesScene: SKScene {
     override func didMoveToView(view: SKView) {
         backgroundColor = SKColor.greenColor()
         for goal in goalModel.goals {
-            addGoal(CGFloat(goal.weight))
+            let goal = GoalBubble(circleOfRadius: CGFloat(goal.weight), text: goal.name)
+            goal.position = CGPointMake(frame.midX, frame.midY)
+            addChild(goal)
         }
-    }
-
-    func addGoal(radius: CGFloat) {
-        let goalBubble = SKShapeNode(circleOfRadius: radius)
-        goalBubble.position = CGPointMake(frame.midX, frame.midY)
-        addChild(goalBubble)
     }
 }
