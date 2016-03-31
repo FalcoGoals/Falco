@@ -24,7 +24,7 @@ class BubblesScene: SKScene {
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         let date = calendar!.dateFromComponents(dateComponents)!
 
-        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal1", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
+        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal1", details: "my goal", endTime: date, priority: .High))
 //        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal2", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
 //        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal3", details: "my goal", endTime: date, priority: PRIORITY_TYPE.low))
 //        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal4", details: "my goal", endTime: date, priority: PRIORITY_TYPE.mid))

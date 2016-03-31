@@ -13,21 +13,21 @@ class Goal: Hashable {
     var name: String
     var details: String
     var endTime: NSDate
-    var priority: PRIORITY_TYPE
+    var priority: PriorityType
     var weight: Int {
         return priority.rawValue * 50 + 100
     }
 
     private var _uid: String
-    private var _goalType: GOAL_TYPE
+    private var _goalType: GoalType
     // private var _timestamp: NSDate!
     private var _weight: Int!
 
     var identifier: String { return _uid }
-    var goalType: GOAL_TYPE { return _goalType }
+    var goalType: GoalType { return _goalType }
 
     // consider adding time of creation?
-    init(uid: String, name: String, details: String, endTime: NSDate, priority: PRIORITY_TYPE, goalType: GOAL_TYPE) {
+    init(uid: String, name: String, details: String, endTime: NSDate, priority: PriorityType, goalType: GoalType) {
         self.name = name
         self.details = details
         self.endTime = endTime
@@ -45,10 +45,10 @@ func ==(lhs: Goal, rhs: Goal) -> Bool {
     return lhs.identifier == rhs.identifier
 }
 
-enum PRIORITY_TYPE: Int {
-    case low, mid, high
+enum PriorityType: Int {
+    case Low, Mid, High
 }
 
-enum GOAL_TYPE: Int {
-    case personal, group
+enum GoalType: Int {
+    case Personal, Group
 }

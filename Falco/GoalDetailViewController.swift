@@ -26,7 +26,7 @@ class GoalDetailViewController: UITableViewController {
         super.viewDidLoad()
 
         if goal == nil {
-            goal = PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "New Goal", details: "", endTime: NSDate(), priority: PRIORITY_TYPE.mid)
+            goal = PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "New Goal", details: "", endTime: NSDate(), priority: .Mid)
         }
 
         title = goal!.name
@@ -44,7 +44,7 @@ class GoalDetailViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "saveDetailSegue" {
             goal!.details = detailsField.text!
-            goal!.priority = PRIORITY_TYPE(rawValue: priorityControl.selectedSegmentIndex)!
+            goal!.priority = PriorityType(rawValue: priorityControl.selectedSegmentIndex)!
 
             delegate.didSave(goal!, indexPath: selectedIndexpath)
 
