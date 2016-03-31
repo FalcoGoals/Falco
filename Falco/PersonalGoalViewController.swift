@@ -14,35 +14,12 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
     private let reuseIdentifier = "bubble"
     private var goalModel = GoalCollection(goals: [])
     private var user = User(uid: NSUUID().UUIDString, name: "MrFoo")
+    private var server = Server()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-
-        let dateComponents = NSDateComponents()
-        dateComponents.year = 2016
-        dateComponents.month = 3
-        dateComponents.day = 10
-
-        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-        let date = calendar!.dateFromComponents(dateComponents)!
-
-        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal1", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
-        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal2", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
-        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal3", details: "my goal", endTime: date, priority: PRIORITY_TYPE.low))
-        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal4", details: "my goal", endTime: date, priority: PRIORITY_TYPE.mid))
-        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal5", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
-        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal6", details: "my goal", endTime: date, priority: PRIORITY_TYPE.mid))
-        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal7", details: "my goal", endTime: date, priority: PRIORITY_TYPE.mid))
-        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal8", details: "my goal", endTime: date, priority: PRIORITY_TYPE.low))
-        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal9", details: "my goal", endTime: date, priority: PRIORITY_TYPE.low))
-        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal10", details: "my goal", endTime: date, priority: PRIORITY_TYPE.low))
-        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal11", details: "my goal", endTime: date, priority: PRIORITY_TYPE.mid))
-        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal12", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
-
-        goalModel.sortGoalsByWeight()
-        
         if let layout = goalsCollectionView?.collectionViewLayout as? GoalsLayout {
             layout.delegate = self
         }
@@ -51,6 +28,53 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        if !server.hasToken {
+            performSegueWithIdentifier("showLogin", sender: nil)
+        } else if !server.isAuth {
+            server.auth() {
+                self.server.getPersonalGoals() { goalCollection in
+                    if let userGoals = goalCollection {
+                        self.goalModel = userGoals
+                        if userGoals.goals.count == 0 {
+                            print("adding sample goals")
+                            self.addSampleGoals(self.server.user.name)
+                        }
+                        self.goalModel.sortGoalsByWeight()
+                        self.goalsCollectionView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+
+    private func addSampleGoals(name: String) {
+        let dateComponents = NSDateComponents()
+        dateComponents.year = 2016
+        dateComponents.month = 3
+        dateComponents.day = 10
+
+        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+        let date = calendar!.dateFromComponents(dateComponents)!
+
+        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal1", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
+        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal2", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
+        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal3", details: "my goal", endTime: date, priority: PRIORITY_TYPE.low))
+        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal4", details: "my goal", endTime: date, priority: PRIORITY_TYPE.mid))
+        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal5", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
+        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal6", details: "my goal", endTime: date, priority: PRIORITY_TYPE.mid))
+        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal7", details: "my goal", endTime: date, priority: PRIORITY_TYPE.mid))
+        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal8", details: "my goal", endTime: date, priority: PRIORITY_TYPE.low))
+        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal9", details: "my goal", endTime: date, priority: PRIORITY_TYPE.low))
+        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal10", details: "my goal", endTime: date, priority: PRIORITY_TYPE.low))
+        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal11", details: "my goal", endTime: date, priority: PRIORITY_TYPE.mid))
+        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal12", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
+
+        for goal in goalModel.goals {
+            server.savePersonalGoal(goal as! PersonalGoal)
+        }
     }
 
     // MARK: UICollectionViewDataSource
@@ -94,6 +118,9 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
 
     // MARK: Segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showLogin" {
+            return
+        }
         if let index = goalsCollectionView.indexPathForItemAtPoint(sender!.locationInView(goalsCollectionView)) {
             let navController = segue.destinationViewController as! UINavigationController
             let detailViewController = navController.topViewController as! GoalDetailViewController
