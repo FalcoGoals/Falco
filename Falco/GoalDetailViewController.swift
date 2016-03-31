@@ -26,7 +26,7 @@ class GoalDetailViewController: UITableViewController {
         super.viewDidLoad()
 
         if goal == nil {
-            goal = PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "New Goal", details: "", endTime: NSDate(), priority: .Mid)
+            goal = PersonalGoal(user: user, id: NSUUID().UUIDString, name: "New Goal", details: "", endTime: NSDate(), priority: .Mid)
         }
 
         title = goal!.name

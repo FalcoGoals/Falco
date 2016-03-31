@@ -17,10 +17,10 @@ class PersonalGoal: Goal {
     var isCompleted: Bool { return _isCompleted }
     var timeOfCompletion: NSDate? { return _timeOfCompletion }
 
-    init(user: User, uid: String, name: String, details: String, endTime: NSDate, priority: PriorityType = .Low) {
+    init(user: User, id: String, name: String, details: String, endTime: NSDate, priority: PriorityType = .Low) {
         _user = user
         _isCompleted = false
-        super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: .Personal)
+        super.init(id: id, name: name, details: details, endTime: endTime, priority: priority, goalType: .Personal)
     }
 
     /// Marks the goal as completed

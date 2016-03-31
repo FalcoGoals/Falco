@@ -21,18 +21,17 @@ class Goal: Hashable {
     private var _uid: String
     private var _goalType: GoalType
     // private var _timestamp: NSDate!
-    private var _weight: Int!
 
     var identifier: String { return _uid }
     var goalType: GoalType { return _goalType }
 
     // consider adding time of creation?
-    init(uid: String, name: String, details: String, endTime: NSDate, priority: PriorityType, goalType: GoalType) {
+    init(id: String, name: String, details: String, endTime: NSDate, priority: PriorityType, goalType: GoalType) {
         self.name = name
         self.details = details
         self.endTime = endTime
         self.priority = priority
-        _uid = uid
+        _uid = id
         _goalType = goalType
     }
 
