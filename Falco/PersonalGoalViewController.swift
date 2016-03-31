@@ -107,6 +107,10 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
 
         goalModel.sortGoalsByWeight()
         goalsCollectionView.reloadData()
+
+        if let goal = goal as? PersonalGoal {
+            server.savePersonalGoal(goal)
+        }
 //        goalsCollectionView.performBatchUpdates({
 //            //   self.goalsCollectionView.setCollectionViewLayout(self.goalsCollectionView.collectionViewLayout, animated: true)
 //            self.goalsCollectionView.reloadData()
