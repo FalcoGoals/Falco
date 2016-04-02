@@ -12,7 +12,7 @@ class ModelTest_GroupGoal: XCTestCase {
     let userA = User(uid: "uid1", name: "ladybug")
     let userB = User(uid: "uid2", name: "beetle")
     let userC = User(uid: "uid3", name: "grasshopper")
-    let goal = GroupGoal(uid: "gid1", name: "score", endTime: NSDate())
+    let goal = GroupGoal(uid: "gid1", name: "score", details: "bood", endTime: NSDate())
 
     override func setUp() {
         super.setUp()

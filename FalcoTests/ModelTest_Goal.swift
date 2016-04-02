@@ -17,8 +17,8 @@ class ModelTest_Goal: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        a = Goal(uid: "id1", name: "goal1", endTime: timeA, priority: .high, goalType: .personal)
-        b = Goal(uid: "id2", name: "goal2", endTime: timeB, priority: .mid, goalType: .group)
+        a = Goal(uid: "id1", name: "goal1", details: "cd", endTime: timeA, priority: .High, goalType: .Personal)
+        b = Goal(uid: "id2", name: "goal2", details: "dvd", endTime: timeB, priority: .Mid, goalType: .Group)
     }
     
     override func tearDown() {
@@ -34,10 +34,10 @@ class ModelTest_Goal: XCTestCase {
     }
     
     func testSetPriority() {
-        a!.setPriority(.low)
-        b!.setPriority(.high)
-        XCTAssertEqual(PRIORITY_TYPE.low, a!.priority)
-        XCTAssertEqual(PRIORITY_TYPE.high, b!.priority)
+        a!.setPriority(.Low)
+        b!.setPriority(.High)
+        XCTAssertEqual(PriorityType.Low, a!.priority)
+        XCTAssertEqual(PriorityType.High, b!.priority)
     }
     
     func testUpdateWeight() {

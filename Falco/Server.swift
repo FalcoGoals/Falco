@@ -67,7 +67,7 @@ class Server {
                 let endTime = NSDate(timeIntervalSinceReferenceDate: NSTimeInterval(goalData["endTime"] as! NSNumber))
                 let priority = PriorityType(rawValue: goalData["priority"]! as! Int)!
 
-                let goal = PersonalGoal(user: self.user, id: goalId, name: name, details: details, endTime: endTime, priority: priority)
+                let goal = PersonalGoal(user: self.user, uid: goalId, name: name, details: details, endTime: endTime, priority: priority)
                 if isCompleted {
                     goal.markAsComplete()
                 }

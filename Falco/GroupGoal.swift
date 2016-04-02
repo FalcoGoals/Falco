@@ -13,15 +13,15 @@ class GroupGoal: Goal {
 
     var assignedUsers: [User] { return Array(_assignedUsers.keys) }
 
-    init(uid: String, name: String, details: String, endTime: NSDate, priority: PRIORITY_TYPE = .low) {
+    init(uid: String, name: String, details: String, endTime: NSDate, priority: PriorityType = .Low) {
         _assignedUsers = [User: Tuple]()
-        super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: GOAL_TYPE.group)
+        super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: GoalType.Group)
     }
 
     /// For reinitializing of stored data
-    init(uid: String, name: String, details: String, endTime: NSDate, priority: PRIORITY_TYPE = .low, data: [User: Tuple]) {
+    init(uid: String, name: String, details: String, endTime: NSDate, priority: PriorityType = .Low, data: [User: Tuple]) {
         _assignedUsers = data
-        super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: GOAL_TYPE.group)
+        super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: GoalType.Group)
     }
     
     /// Assigns the input user to the goal
@@ -126,7 +126,7 @@ class GroupGoal: Goal {
         let name = decoder.decodeObjectForKey(Constants.nameKey) as! String
         let details = decoder.decodeObjectForKey(Constants.detailsKey) as! String
         let endTime = decoder.decodeObjectForKey(Constants.endTimeKey) as! NSDate
-        let priority = PRIORITY_TYPE(rawValue: decoder.decodeIntegerForKey(Constants.priorityKey))
+        let priority = PriorityType(rawValue: decoder.decodeIntegerForKey(Constants.priorityKey))
         let data = decoder.decodeObjectForKey(Constants.groupGoalDataKey) as! [User: Tuple]
         self.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority!, data: data)
     }

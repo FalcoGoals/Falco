@@ -14,20 +14,20 @@ class Goal: NSObject, NSCoding {
     private var _name: String
     private var _details: String
     private var _endTime: NSDate
-    private var _priority: PRIORITY_TYPE
-    private var _goalType: GOAL_TYPE
+    private var _priority: PriorityType
+    private var _goalType: GoalType
     // private var _timestamp: NSDate!
     
     var identifier: String { return _uid }
     var name: String { return _name }
     var endTime: NSDate { return _endTime }
     var details: String { return _details }
-    var priority: PRIORITY_TYPE { return _priority }
-    var goalType: GOAL_TYPE { return _goalType }
+    var priority: PriorityType { return _priority }
+    var goalType: GoalType { return _goalType }
     var weight: Int { return priority.rawValue * 50 + 100 }
 
     // consider adding time of creation?
-    init(uid: String, name: String, details: String, endTime: NSDate, priority: PRIORITY_TYPE, goalType: GOAL_TYPE) {
+    init(uid: String, name: String, details: String, endTime: NSDate, priority: PriorityType, goalType: GoalType) {
         self._uid = uid
         self._name = name
         self._details = details
@@ -52,7 +52,7 @@ class Goal: NSObject, NSCoding {
         _details = details
     }
     
-    func setPriority(priority: PRIORITY_TYPE) {
+    func setPriority(priority: PriorityType) {
         _priority = priority
     }
     
@@ -72,8 +72,8 @@ class Goal: NSObject, NSCoding {
         let name = decoder.decodeObjectForKey(Constants.nameKey) as! String
         let details = decoder.decodeObjectForKey(Constants.detailsKey) as! String
         let endTime = decoder.decodeObjectForKey(Constants.endTimeKey) as! NSDate
-        let priority = PRIORITY_TYPE(rawValue: decoder.decodeIntegerForKey(Constants.priorityKey))
-        let goalType = GOAL_TYPE(rawValue: decoder.decodeIntegerForKey(Constants.goalTypeKey))
+        let priority = PriorityType(rawValue: decoder.decodeIntegerForKey(Constants.priorityKey))
+        let goalType = GoalType(rawValue: decoder.decodeIntegerForKey(Constants.goalTypeKey))
         self.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority!, goalType: goalType!)
     }
 }

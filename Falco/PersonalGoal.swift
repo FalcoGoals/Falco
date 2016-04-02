@@ -17,17 +17,18 @@ class PersonalGoal: Goal {
     var isCompleted: Bool { return _isCompleted }
     var timeOfCompletion: NSDate? { return _timeOfCompletion }
 
-    init(user: User, id: String, name: String, details: String, endTime: NSDate, priority: PriorityType = .Low) {
+    init(user: User, uid: String, name: String, details: String, endTime: NSDate, priority: PriorityType = .Low) {
         _user = user
         _isCompleted = false
-        super.init(id: id, name: name, details: details, endTime: endTime, priority: priority, goalType: .Personal)
+        super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: .Personal)
     }
     
-    init(user: User, uid: String, name: String, details: String, endTime: NSDate, priority: PRIORITY_TYPE, isCompleted: Bool, timeOfCompletion: NSDate?) {
+    // for reinitializing of stored data
+    init(user: User, uid: String, name: String, details: String, endTime: NSDate, priority: PriorityType, isCompleted: Bool, timeOfCompletion: NSDate?) {
         _user = user
         _isCompleted = isCompleted
         _timeOfCompletion = timeOfCompletion
-        super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: .personal)
+        super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: .Personal)
     }
 
     /// Marks the goal as completed
@@ -56,7 +57,7 @@ class PersonalGoal: Goal {
         let name = decoder.decodeObjectForKey(Constants.nameKey) as! String
         let details = decoder.decodeObjectForKey(Constants.detailsKey) as! String
         let endTime = decoder.decodeObjectForKey(Constants.endTimeKey) as! NSDate
-        let priority = PRIORITY_TYPE(rawValue: decoder.decodeIntegerForKey(Constants.priorityKey))
+        let priority = PriorityType(rawValue: decoder.decodeIntegerForKey(Constants.priorityKey))
         let user = decoder.decodeObjectForKey(Constants.userKey) as! User
         let isCompleted = decoder.decodeBoolForKey(Constants.isCompletedKey)
         let timeOfCompletion = decoder.decodeObjectForKey(Constants.timeOfCompletionKey) as! NSDate?

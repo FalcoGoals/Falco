@@ -94,7 +94,7 @@ class GoalCollection {
     func getGoalsAssignedToUser(user: User) -> [Goal] {
         var goalList = [Goal]()
         for goal in _goals {
-            if goal.goalType == GOAL_TYPE.personal {
+            if goal.goalType == .Personal {
                 let personalGoal = goal as! PersonalGoal
                 if personalGoal.user == user {
                     goalList.append(goal)

@@ -12,8 +12,8 @@ class ModelTest_GoalCollection: XCTestCase {
     let userA = User(uid: "uid1", name: "ladybug")
     let userB = User(uid: "uid2", name: "beetle")
     let userC = User(uid: "uid3", name: "grasshopper")
-    let goal1 = GroupGoal(uid: "gid1", name: "score", endTime: NSDate(), priority: .low)
-    let goal2 = GroupGoal(uid: "gid2", name: "whistle", endTime: NSDate(), priority: .mid)
+    let goal1 = GroupGoal(uid: "gid1", name: "score", details: "bubbletea", endTime: NSDate(), priority: .Low)
+    let goal2 = GroupGoal(uid: "gid2", name: "whistle", details: "chips", endTime: NSDate(), priority: .Mid)
     var goal3: PersonalGoal?
     var gc: GoalCollection?
     var date: NSDate?
@@ -25,7 +25,7 @@ class ModelTest_GoalCollection: XCTestCase {
         goal2.addUser(userB)
         goal2.addUser(userC)
         date = NSDate()
-        goal3 = PersonalGoal(user: userA, uid: "pid1", name: "score", endTime: NSDate(), priority: .high)
+        goal3 = PersonalGoal(user: userA, uid: "pid1", name: "score", details: "fish", endTime: NSDate(), priority: .High)
         gc = GoalCollection(goals: [goal1, goal2, goal3!])
     }
     
@@ -37,14 +37,14 @@ class ModelTest_GoalCollection: XCTestCase {
     func testAddGoal() {
         // test init with empty array
         gc = GoalCollection(goals: [])
-        gc!.addGoal(goal1)
+        gc!.updateGoal(goal1)
         XCTAssertEqual([goal1], gc!.goals)
         
         gc = GoalCollection(goals: [goal1])
         XCTAssertEqual([goal1], gc!.goals)
-        gc!.addGoal(goal1)
+        gc!.updateGoal(goal1)
         XCTAssertEqual([goal1], gc!.goals)
-        gc!.addGoal(goal2)
+        gc!.updateGoal(goal2)
         XCTAssertEqual(Set([goal1, goal2]), Set(gc!.goals))
     }
     
