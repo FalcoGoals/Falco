@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Group : Equatable {
+class Group : NSObject, NSCoding {
     private let _uid: String
     private var _name: String
     private var _members: [User]
@@ -51,25 +51,24 @@ class Group : Equatable {
         _goals = goals
     }
 
-    /// add to assignee as well
-    /**    func addGoal(goal: Goal) {
-    _goals.addGoal(goal)
+    
+    // Save a Goal object locally
+    func encodeWithCoder(coder: NSCoder) {
+        coder.encodeObject(_uid, forKey: Constants.uidKey)
+        coder.encodeObject(_name, forKey: Constants.nameKey)
+        coder.encodeObject(_members, forKey: Constants.membersKey)
+        coder.encodeObject(_goals, forKey: Constants.goalsKey)
     }
-
-    /// Removes goal from the group, and unassigns it from the users
-    func removeGoal(goal: Goal) {
-    _goals.removeGoal(goal)
+    
+    /// Reinitialize a locally saved Goal object
+    required convenience init(coder decoder: NSCoder) {
+        let uid = decoder.decodeObjectForKey(Constants.uidKey) as! String
+        let name = decoder.decodeObjectForKey(Constants.nameKey) as! String
+        let members = decoder.decodeObjectForKey(Constants.membersKey) as! [User]
+        let goals = decoder.decodeObjectForKey(Constants.goalsKey) as! [Goal]
+        let goalCollection = GoalCollection(goals: goals)
+        self.init (uid: uid, name: name, users: members, goals: goalCollection)
     }
-
-    /// Returns an array of the group's goals
-    func getAllGoals() -> [Goal] {
-    return _goals.getAllGoals()
-    }
-
-    /// Returns whether the group has the param goal
-    func containsGoal(goal: Goal) -> Bool {
-    return _goals.containsGoal(goal)
-    }*/
 
 }
 

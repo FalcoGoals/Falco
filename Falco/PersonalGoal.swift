@@ -22,6 +22,13 @@ class PersonalGoal: Goal {
         _isCompleted = false
         super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: .personal)
     }
+    
+    init(user: User, uid: String, name: String, details: String, endTime: NSDate, priority: PRIORITY_TYPE, isCompleted: Bool, timeOfCompletion: NSDate?) {
+        _user = user
+        _isCompleted = isCompleted
+        _timeOfCompletion = timeOfCompletion
+        super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: .personal)
+    }
 
     /// Marks the goal as completed
     func markAsComplete() {
@@ -33,5 +40,26 @@ class PersonalGoal: Goal {
     func undoMarkAsComplete() {
         _isCompleted = false
         _timeOfCompletion = nil
+    }
+    
+    override func encodeWithCoder(coder: NSCoder) {
+        super.encodeWithCoder(coder)
+        coder.encodeObject(_user, forKey: Constants.userKey)
+        coder.encodeBool(_isCompleted, forKey: Constants.isCompletedKey)
+        if _timeOfCompletion != nil {
+            coder.encodeObject(_timeOfCompletion, forKey: Constants.timeOfCompletionKey)
+        }
+    }
+    
+    required convenience init(coder decoder: NSCoder) {
+        let uid = decoder.decodeObjectForKey(Constants.uidKey) as! String
+        let name = decoder.decodeObjectForKey(Constants.nameKey) as! String
+        let details = decoder.decodeObjectForKey(Constants.detailsKey) as! String
+        let endTime = decoder.decodeObjectForKey(Constants.endTimeKey) as! NSDate
+        let priority = PRIORITY_TYPE(rawValue: decoder.decodeIntegerForKey(Constants.priorityKey))
+        let user = decoder.decodeObjectForKey(Constants.userKey) as! User
+        let isCompleted = decoder.decodeBoolForKey(Constants.isCompletedKey)
+        let timeOfCompletion = decoder.decodeObjectForKey(Constants.timeOfCompletionKey) as! NSDate?
+        self.init(user: user, uid: uid, name: name, details: details, endTime: endTime, priority: priority!, isCompleted: isCompleted, timeOfCompletion: timeOfCompletion)
     }
 }

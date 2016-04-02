@@ -9,37 +9,38 @@
 import Foundation
 
 class GoalCollection {
-//    private var _goals: [Goal]
-    var goals: [Goal]
+    private var _goals: [Goal]
 
-//    var goals: [Goal] { return _goals }
+    var goals: [Goal] { return _goals }
 
     init(goals: [Goal]) {
-        self.goals = goals
+        self._goals = goals
     }
     
-    /// Adds a goal into the collection
-    func addGoal(goal: Goal) {
-        if !containsGoal(goal) {
-            goals.append(goal)
+    /// Adds a goal into the collection if it is not previously contained
+    /// Else replaces the original goal with the new goal
+    func updateGoal(goal: Goal) {
+        if containsGoal(goal) {
+            removeGoal(goal);
         }
+        _goals.append(goal);
     }
     
     /// Removes a particular goal from the collection
     func removeGoal(goal: Goal) {
         if containsGoal(goal) {
-            goals.removeAtIndex(goals.indexOf(goal)!)
+            _goals.removeAtIndex(_goals.indexOf(goal)!)
         }
     }
     
     /// Clears the collection of all goals
     func removeAllGoals() {
-        goals.removeAll()
+        _goals.removeAll()
     }
     
     /// Returns whether a goal is contained in the collection
     func containsGoal(goal: Goal) -> Bool {
-        return goals.contains(goal)
+        return _goals.contains(goal)
     }
     
     /// Marks a goal as being completed
@@ -50,13 +51,13 @@ class GoalCollection {
                 let pGoal = goal as! PersonalGoal
                 if pGoal.user == user {
                     pGoal.markAsComplete()
-                    goals.append(pGoal)
+                    _goals.append(pGoal)
                     removeGoal(goal)
                 }
             } else {    // group goal
                 let gGoal = goal as! GroupGoal
                 if gGoal.completedByUser(user) {
-                    goals.append(gGoal)
+                    _goals.append(gGoal)
                     removeGoal(goal)
                 }
             }
@@ -70,13 +71,13 @@ class GoalCollection {
                 let pGoal = goal as! PersonalGoal
                 if pGoal.user == user {
                     pGoal.undoMarkAsComplete()
-                    goals.append(pGoal)
+                    _goals.append(pGoal)
                     removeGoal(goal)
                 }
             } else {    // group goal
                 let gGoal = goal as! GroupGoal
                 if gGoal.uncompleteByUser(user) {
-                    goals.append(gGoal)
+                    _goals.append(gGoal)
                     removeGoal(goal)
                 }
             }
@@ -85,14 +86,14 @@ class GoalCollection {
     
     /// Returns whether the goal collection has any goals
     func isEmpty() -> Bool {
-        return goals.isEmpty
+        return _goals.isEmpty
     }
     
     /// Returns list of goals assigned to a particular user
     /// currently at O(n^2) can be better hm
     func getGoalsAssignedToUser(user: User) -> [Goal] {
         var goalList = [Goal]()
-        for goal in goals {
+        for goal in _goals {
             if goal.goalType == GOAL_TYPE.personal {
                 let personalGoal = goal as! PersonalGoal
                 if personalGoal.user == user {
@@ -117,35 +118,35 @@ class GoalCollection {
             if (goal.goalType == .group) {
                 let gGoal = goal as! GroupGoal
                 gGoal.removeUser(user)
-                goals.append(gGoal)
+                _goals.append(gGoal)
             }
         }
     }
     
     /// Sorts all goals from highest priority to lowest priority
     func sortGoalsByPriority() -> [Goal] {
-        return goals.sort({ (goal1, goal2) -> Bool in
+        return _goals.sort({ (goal1, goal2) -> Bool in
             return goal1.priority.rawValue > goal2.priority.rawValue
         })
     }
     
     /// Sorts all goals from the soonest to latest deadline
     func sortGoalsByEndTime() -> [Goal] {
-        return goals.sort({ (goal1, goal2) -> Bool in
+        return _goals.sort({ (goal1, goal2) -> Bool in
             return goal1.endTime.compare(goal2.endTime) != NSComparisonResult.OrderedDescending
         })
     }
 
     /// Sorts all goals in descending weights
     func sortGoalsByWeight() {
-        goals.sortInPlace { $0.weight > $1.weight }
+        _goals.sortInPlace { $0.weight > $1.weight }
     }
     
     /// Returns goals with an end time earlier than the param, not including those with the
     /// same end time as the param
     func getGoalsBeforeEndTime(endTime: NSDate) -> [Goal] {
         var goalList = [Goal]()
-        for goal in goals {
+        for goal in _goals {
             if (!goal.endTime.earlierDate(endTime).isEqualToDate(endTime)) {
                 goalList.append(goal)
             }
@@ -156,7 +157,7 @@ class GoalCollection {
     /// Returns array of completed goals in the collection
     func getCompletedGoals() -> [Goal] {
         var completedGoals = [Goal]()
-        for goal in goals {
+        for goal in _goals {
             if let personalGoal = goal as? PersonalGoal {
                 if personalGoal.isCompleted {
                     completedGoals.append(goal)
@@ -173,7 +174,7 @@ class GoalCollection {
     /// Returns array of uncompleted goals in the collection
     func getUncompletedGoals() -> [Goal] {
         var uncompletedGoals = [Goal]()
-        for goal in goals {
+        for goal in _goals {
             if let personalGoal = goal as? PersonalGoal {
                 if !personalGoal.isCompleted {
                     uncompletedGoals.append(goal)
@@ -190,7 +191,7 @@ class GoalCollection {
     /// Returns an array of goals which have the same name as the param
     func getGoalsWithName(name: String) -> [Goal] {
         var goalsWithName = [Goal]()
-        for goal in goals {
+        for goal in _goals {
             if goal.name == name {
                 goalsWithName.append(goal)
             }
@@ -200,7 +201,7 @@ class GoalCollection {
     
     /// Returns the goal with a particular id
     func getGoalWithIdentifier(uid: String) -> Goal? {
-        for goal in goals {
+        for goal in _goals {
             if goal.identifier == uid {
                 return goal
             }

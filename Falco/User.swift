@@ -8,7 +8,7 @@
 
 import Foundation
 
-class User: Hashable {
+class User: NSObject, NSCoding {
     private var _name: String
     private let _uid: String
     // private var _groups = [Group]()
@@ -22,8 +22,19 @@ class User: Hashable {
         _name = name
     }
 
-    var hashValue: Int {
+    override var hashValue: Int {
         return _uid.hashValue
+    }
+    
+    func encodeWithCoder(coder: NSCoder) {
+        coder.encodeObject(_name, forKey: Constants.nameKey)
+        coder.encodeObject(_uid, forKey: Constants.uidKey)
+    }
+    
+    required convenience init(coder decoder: NSCoder) {
+        let name = decoder.decodeObjectForKey(Constants.nameKey) as! String
+        let uid = decoder.decodeObjectForKey(Constants.uidKey) as! String
+        self.init(uid: uid, name: name)
     }
 }
 
