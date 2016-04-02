@@ -16,12 +16,17 @@ class GoalBubble: SKNode {
         self.circle = SKShapeNode(circleOfRadius: circleOfRadius)
         self.circle.lineWidth = 1.5
         self.circle.physicsBody = SKPhysicsBody(circleOfRadius: circleOfRadius)
+        self.circle.physicsBody?.allowsRotation = false
+
         self.label = SKLabelNode(text: text)
+
+        self.label.horizontalAlignmentMode = .Center
+        self.label.verticalAlignmentMode = .Baseline
 
         super.init()
 
+        self.circle.addChild(self.label)
         addChild(self.circle)
-        addChild(self.label)
     }
 
     required init?(coder aDecoder: NSCoder) {
