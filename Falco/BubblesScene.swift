@@ -46,15 +46,13 @@ class BubblesScene: SKScene {
     }
 
     override func didMoveToView(view: SKView) {
-        backgroundColor = SKColor.greenColor()
         self.physicsBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
+        self.physicsWorld.gravity = CGVectorMake(0, 4)
 
         for goal in goalModel.goals {
             let goal = GoalBubble(circleOfRadius: CGFloat(goal.weight), text: goal.name)
             goal.position = CGPointMake(frame.midX, frame.midY)
             addChild(goal)
         }
-
-        self.physicsWorld.gravity = CGVectorMake(0, 1)
     }
 }
