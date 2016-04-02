@@ -52,5 +52,7 @@ class BubblesScene: SKScene {
             goal.position = CGPointMake(frame.midX, frame.midY)
             addChild(goal)
         }
+
+        self.physicsWorld.gravity = CGVectorMake(0, 1)
     }
 }

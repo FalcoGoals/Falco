@@ -15,6 +15,7 @@ class GoalBubble: SKNode {
     init(circleOfRadius: CGFloat, text: String) {
         self.circle = SKShapeNode(circleOfRadius: circleOfRadius)
         self.circle.lineWidth = 1.5
+        self.circle.physicsBody = SKPhysicsBody(circleOfRadius: circleOfRadius)
         self.label = SKLabelNode(text: text)
 
         super.init()
