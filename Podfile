@@ -7,6 +7,7 @@ pod 'Firebase', '>= 2.5.0'
 pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
 pod 'FBSDKShareKit'
+pod 'JSQMessagesViewController'
 
 target 'Falco' do
 

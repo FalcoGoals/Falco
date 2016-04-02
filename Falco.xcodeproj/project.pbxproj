@@ -26,11 +26,12 @@
 		2528BB061CA70572007332FA /* GroupGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAEA1CA702DD007332FA /* GroupGoal.swift */; };
 		2528BB071CA70576007332FA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAEC1CA702DD007332FA /* User.swift */; };
 		2528BB081CA70579007332FA /* PersonalGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAEB1CA702DD007332FA /* PersonalGoal.swift */; };
+		25BB93621CB0028F0008E0B8 /* GroupChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BB93611CB0028F0008E0B8 /* GroupChatViewController.swift */; };
 		25E2760E1CABC67C007A26EF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E2760D1CABC67C007A26EF /* Constants.swift */; };
 		25E2760F1CABC8FE007A26EF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E2760D1CABC67C007A26EF /* Constants.swift */; };
-        740FF7501CABB8A5008A5D1F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740FF74F1CABB8A5008A5D1F /* MainViewController.swift */; };
-        740FF7521CABBB80008A5D1F /* BubblesScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740FF7511CABBB80008A5D1F /* BubblesScene.swift */; };
-        740FF7541CABC253008A5D1F /* GoalBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740FF7531CABC253008A5D1F /* GoalBubble.swift */; };
+		740FF7501CABB8A5008A5D1F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740FF74F1CABB8A5008A5D1F /* MainViewController.swift */; };
+		740FF7521CABBB80008A5D1F /* BubblesScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740FF7511CABBB80008A5D1F /* BubblesScene.swift */; };
+		740FF7541CABC253008A5D1F /* GoalBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740FF7531CABC253008A5D1F /* GoalBubble.swift */; };
 		7424B0FA1C9A96310071B78B /* GoalsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424B0F91C9A96310071B78B /* GoalsLayout.swift */; };
 		7459577F1C9841DE00C3D3C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7459577E1C9841DE00C3D3C0 /* AppDelegate.swift */; };
 		745957811C9841DE00C3D3C0 /* PersonalGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745957801C9841DE00C3D3C0 /* PersonalGoalViewController.swift */; };
@@ -77,10 +78,11 @@
 		2528BAF61CA702F2007332FA /* ModelTest_GroupGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTest_GroupGoal.swift; sourceTree = "<group>"; };
 		2528BAF71CA702F2007332FA /* ModelTest_PersonalGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTest_PersonalGoal.swift; sourceTree = "<group>"; };
 		2528BAF81CA702F2007332FA /* ModelTest_User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTest_User.swift; sourceTree = "<group>"; };
+		25BB93611CB0028F0008E0B8 /* GroupChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupChatViewController.swift; sourceTree = "<group>"; };
 		25E2760D1CABC67C007A26EF /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-        740FF74F1CABB8A5008A5D1F /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-        740FF7511CABBB80008A5D1F /* BubblesScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubblesScene.swift; sourceTree = "<group>"; };
-        740FF7531CABC253008A5D1F /* GoalBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalBubble.swift; sourceTree = "<group>"; };
+		740FF74F1CABB8A5008A5D1F /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		740FF7511CABBB80008A5D1F /* BubblesScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubblesScene.swift; sourceTree = "<group>"; };
+		740FF7531CABC253008A5D1F /* GoalBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalBubble.swift; sourceTree = "<group>"; };
 		7424B0F91C9A96310071B78B /* GoalsLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalsLayout.swift; sourceTree = "<group>"; };
 		7459577B1C9841DE00C3D3C0 /* Falco.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Falco.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7459577E1C9841DE00C3D3C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				74E8CEB51CA81666007585D1 /* DatePickerViewController.swift */,
 				A24F37CB1C9EA468001148FD /* LoginViewController.swift */,
 				740FF74F1CABB8A5008A5D1F /* MainViewController.swift */,
+				25BB93611CB0028F0008E0B8 /* GroupChatViewController.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -444,8 +447,9 @@
 				740FF7541CABC253008A5D1F /* GoalBubble.swift in Sources */,
 				745BC9731C994BFD00204231 /* BubbleCell.swift in Sources */,
 				2528BAEE1CA702DD007332FA /* GoalCollection.swift in Sources */,
+				25BB93621CB0028F0008E0B8 /* GroupChatViewController.swift in Sources */,
 				7424B0FA1C9A96310071B78B /* GoalsLayout.swift in Sources */,
-                A2C1C7DE1CACBE6800B6EAFA /* Server.swift in Sources */,
+				A2C1C7DE1CACBE6800B6EAFA /* Server.swift in Sources */,
 				25E2760E1CABC67C007A26EF /* Constants.swift in Sources */,
 				2528BAF01CA702DD007332FA /* GroupGoal.swift in Sources */,
 				7459577F1C9841DE00C3D3C0 /* AppDelegate.swift in Sources */,
