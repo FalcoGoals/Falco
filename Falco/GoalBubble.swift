@@ -17,9 +17,9 @@ class GoalBubble: SKNode {
         self.circle.lineWidth = 1.5
         self.circle.physicsBody = SKPhysicsBody(circleOfRadius: circleOfRadius)
         self.circle.physicsBody?.allowsRotation = false
+        self.circle.physicsBody?.friction = 0
 
         self.label = SKLabelNode(text: text)
-
         self.label.horizontalAlignmentMode = .Center
         self.label.verticalAlignmentMode = .Baseline
 
