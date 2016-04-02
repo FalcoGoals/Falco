@@ -40,6 +40,7 @@
 		74BB5DD71CA1848500695C24 /* GoalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB5DD61CA1848500695C24 /* GoalDetailViewController.swift */; };
 		74E8CEB61CA81666007585D1 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E8CEB51CA81666007585D1 /* DatePickerViewController.swift */; };
 		A24F37CC1C9EA468001148FD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24F37CB1C9EA468001148FD /* LoginViewController.swift */; };
+		A2C1C7DE1CACBE6800B6EAFA /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1C7DD1CACBE6800B6EAFA /* Server.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,7 @@
 		74BB5DD61CA1848500695C24 /* GoalDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalDetailViewController.swift; sourceTree = "<group>"; };
 		74E8CEB51CA81666007585D1 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 		A24F37CB1C9EA468001148FD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		A2C1C7DD1CACBE6800B6EAFA /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		BD369289AFEF04402F8D94D1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F3EDF817BF16E83523A638C6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -159,7 +161,7 @@
 				74C086111C9AD71300BA50C9 /* controller */,
 				74C086131C9AD72600BA50C9 /* view */,
 				745957821C9841DE00C3D3C0 /* Main.storyboard */,
-				A24F37CB1C9EA468001148FD /* LoginViewController.swift */,
+				A2C1C7DD1CACBE6800B6EAFA /* Server.swift */,
 				7459577E1C9841DE00C3D3C0 /* AppDelegate.swift */,
 				745957851C9841DE00C3D3C0 /* Assets.xcassets */,
 				745957871C9841DE00C3D3C0 /* LaunchScreen.storyboard */,
@@ -212,6 +214,8 @@
 				745957801C9841DE00C3D3C0 /* PersonalGoalViewController.swift */,
 				74BB5DD61CA1848500695C24 /* GoalDetailViewController.swift */,
 				74E8CEB51CA81666007585D1 /* DatePickerViewController.swift */,
+				A24F37CB1C9EA468001148FD /* LoginViewController.swift */,
+				740FF74F1CABB8A5008A5D1F /* MainViewController.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -220,6 +224,8 @@
 			isa = PBXGroup;
 			children = (
 				7424B0F91C9A96310071B78B /* GoalsLayout.swift */,
+				740FF7511CABBB80008A5D1F /* BubblesScene.swift */,
+				740FF7531CABC253008A5D1F /* GoalBubble.swift */,
 				745BC9721C994BFD00204231 /* BubbleCell.swift */,
 			);
 			name = view;
@@ -426,7 +432,10 @@
 				74BB5DD71CA1848500695C24 /* GoalDetailViewController.swift in Sources */,
 				2528BAEF1CA702DD007332FA /* Group.swift in Sources */,
 				2528BAF11CA702DD007332FA /* PersonalGoal.swift in Sources */,
+				740FF7501CABB8A5008A5D1F /* MainViewController.swift in Sources */,
 				745957811C9841DE00C3D3C0 /* PersonalGoalViewController.swift in Sources */,
+				740FF7521CABBB80008A5D1F /* BubblesScene.swift in Sources */,
+				740FF7541CABC253008A5D1F /* GoalBubble.swift in Sources */,
 				745BC9731C994BFD00204231 /* BubbleCell.swift in Sources */,
 				2528BAEE1CA702DD007332FA /* GoalCollection.swift in Sources */,
 				7424B0FA1C9A96310071B78B /* GoalsLayout.swift in Sources */,

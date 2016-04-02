@@ -125,7 +125,7 @@ class GoalsLayout: UICollectionViewLayout {
     // determines the items which are visible in the viewport
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         var layoutAttributes = [UICollectionViewLayoutAttributes]()
-        for (name, attr) in cellInformation {
+        for (_, attr) in cellInformation {
             if CGRectIntersectsRect(attr.frame, rect) {
                 layoutAttributes.append(attr)
             }

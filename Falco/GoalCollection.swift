@@ -47,7 +47,7 @@ class GoalCollection {
     func markGoalAsComplete(goal: Goal, user: User) {
         if containsGoal(goal) {
             //removeGoal(goal)
-            if goal.goalType == GOAL_TYPE.personal {
+            if goal.goalType == .Personal {
                 let pGoal = goal as! PersonalGoal
                 if pGoal.user == user {
                     pGoal.markAsComplete()
@@ -67,7 +67,7 @@ class GoalCollection {
     /// Marks a goal as being uncompleted
     func unmarkGoalAsComplete(goal: Goal, user: User) {
         if containsGoal(goal) {
-            if goal.goalType == GOAL_TYPE.personal {
+            if goal.goalType == .Personal {
                 let pGoal = goal as! PersonalGoal
                 if pGoal.user == user {
                     pGoal.undoMarkAsComplete()
@@ -115,7 +115,7 @@ class GoalCollection {
     func unassignGoalFromUser(goal: Goal, user: User) {
         if containsGoal(goal) {
             removeGoal(goal)
-            if (goal.goalType == .group) {
+            if (goal.goalType == .Group) {
                 let gGoal = goal as! GroupGoal
                 gGoal.removeUser(user)
                 _goals.append(gGoal)

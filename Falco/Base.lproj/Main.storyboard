@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="NhK-jS-PLZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -45,13 +45,13 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="label" destination="fh6-8v-oPK" id="71L-ON-d41"/>
-                                            <segue destination="gVa-o2-Lxv" kind="presentation" identifier="PersonalGoalToDetails" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="Rkf-4Q-5hn"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="ur5-0v-RqY"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="sXZ-ka-ee9"/>
+                                    <outletCollection property="gestureRecognizers" destination="auQ-mx-gEr" appends="YES" id="ITU-gZ-nN6"/>
                                 </connections>
                             </collectionView>
                         </subviews>
@@ -63,12 +63,18 @@
                             <constraint firstAttribute="trailingMargin" secondItem="ytr-SH-XuP" secondAttribute="trailing" constant="-22" id="rT1-ca-dyW"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="QRe-ix-EpS"/>
                     <connections>
                         <outlet property="goalsCollectionView" destination="ytr-SH-XuP" id="uBz-LR-uO1"/>
+                        <segue destination="NhK-jS-PLZ" kind="presentation" identifier="showLogin" id="8bm-dw-aj2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="auQ-mx-gEr">
+                    <connections>
+                        <action selector="GoalsTap:" destination="BYZ-38-t0r" id="Y5F-YH-bVC"/>
+                        <segue destination="gVa-o2-Lxv" kind="presentation" identifier="PersonalGoalToDetails" id="PG0-Ta-2TQ"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="825" y="332"/>
         </scene>
@@ -84,13 +90,13 @@
                             <tableViewSection headerTitle="Details" id="oT4-r8-WYh">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailsCell" id="wS3-z3-wRy">
-                                        <rect key="frame" x="0.0" y="114" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wS3-z3-wRy" id="kc6-bV-WSO">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6NO-8f-RCC">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Describe your goals" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6NO-8f-RCC">
                                                     <rect key="frame" x="8" y="8" width="584" height="28"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -109,10 +115,10 @@
                             <tableViewSection headerTitle="Deadline" id="fEo-zG-QSg">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeadlineCell" id="ccB-2I-uw7">
-                                        <rect key="frame" x="0.0" y="208" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="143.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ccB-2I-uw7" id="qsI-Va-CB3">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
@@ -124,13 +130,13 @@
                             <tableViewSection headerTitle="Priority" id="bWj-Tr-jqI">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PriorityCell" id="Htl-aZ-0mn">
-                                        <rect key="frame" x="0.0" y="302" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="237.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Htl-aZ-0mn" id="h9Y-t6-b7j">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="JbF-wM-MeN">
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="JbF-wM-MeN">
                                                     <rect key="frame" x="8" y="8" width="584" height="29"/>
                                                     <segments>
                                                         <segment title="Low"/>
@@ -267,14 +273,28 @@
                             <constraint firstItem="fZW-B0-H4L" firstAttribute="centerY" secondItem="p7O-Yj-Oay" secondAttribute="centerY" id="snw-ar-Uh5"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="loginButton" destination="fZW-B0-H4L" id="gjW-6C-O1E"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="showMain" id="nK2-A7-hAb"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ua-rC-Q23" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="145" y="332"/>
+            <point key="canvasLocation" x="825" y="1088"/>
+        </scene>
+        <!--Main View Controller-->
+        <scene sceneID="df7-ns-ADC">
+            <objects>
+                <viewController id="nrW-8I-lzT" customClass="MainViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LyX-e8-mcT"/>
+                        <viewControllerLayoutGuide type="bottom" id="a0T-G5-Am7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="raG-ce-fmP" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GF9-cE-9Bw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="145" y="1093"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="CaH-3T-eSk">

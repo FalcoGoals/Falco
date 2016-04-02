@@ -82,10 +82,10 @@ func ==(lhs: Goal, rhs: Goal) -> Bool {
     return lhs.identifier == rhs.identifier
 }
 
-enum PRIORITY_TYPE: Int {
-    case low, mid, high
+enum PriorityType: Int {
+    case Low, Mid, High
 }
 
-enum GOAL_TYPE: Int {
-    case personal, group
+enum GoalType: Int {
+    case Personal, Group
 }
