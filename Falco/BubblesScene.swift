@@ -25,18 +25,17 @@ class BubblesScene: SKScene {
         let date = calendar!.dateFromComponents(dateComponents)!
 
         goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal1", details: "my goal", endTime: date, priority: .High))
-//        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal2", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
-//        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal3", details: "my goal", endTime: date, priority: PRIORITY_TYPE.low))
-//        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal4", details: "my goal", endTime: date, priority: PRIORITY_TYPE.mid))
-//        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal5", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
-//        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal6", details: "my goal", endTime: date, priority: PRIORITY_TYPE.mid))
-//        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal7", details: "my goal", endTime: date, priority: PRIORITY_TYPE.mid))
-//        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal8", details: "my goal", endTime: date, priority: PRIORITY_TYPE.low))
-//        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal9", details: "my goal", endTime: date, priority: PRIORITY_TYPE.low))
-//        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal10", details: "my goal", endTime: date, priority: PRIORITY_TYPE.low))
-//        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal11", details: "my goal", endTime: date, priority: PRIORITY_TYPE.mid))
-//        goalModel.addGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal12", details: "my goal", endTime: date, priority: PRIORITY_TYPE.high))
-
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal2", details: "my goal", endTime: date, priority: .High))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal3", details: "my goal", endTime: date, priority: .Low))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal4", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal5", details: "my goal", endTime: date, priority: .High))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal6", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal7", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal8", details: "my goal", endTime: date, priority: .Low))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal9", details: "my goal", endTime: date, priority: .Low))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal10", details: "my goal", endTime: date, priority: .Low))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal11", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal12", details: "my goal", endTime: date, priority: .High))
         goalModel.sortGoalsByWeight()
 
     }
@@ -51,7 +50,9 @@ class BubblesScene: SKScene {
 
         for goal in goalModel.goals {
             let goal = GoalBubble(circleOfRadius: CGFloat(goal.weight), text: goal.name)
-            goal.position = CGPointMake(frame.midX, frame.midY)
+            let x = CGFloat(arc4random_uniform(UInt32(frame.maxX)))
+            let y = CGFloat(arc4random_uniform(UInt32(frame.maxY)))
+            goal.position = CGPointMake(x, y)
             addChild(goal)
         }
     }
