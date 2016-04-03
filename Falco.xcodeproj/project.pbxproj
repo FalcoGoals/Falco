@@ -206,11 +206,11 @@
 			isa = PBXGroup;
 			children = (
 				2528BAE71CA702DD007332FA /* Goal.swift */,
-				2528BAE81CA702DD007332FA /* GoalCollection.swift */,
-				2528BAE91CA702DD007332FA /* Group.swift */,
-				2528BAEA1CA702DD007332FA /* GroupGoal.swift */,
 				2528BAEB1CA702DD007332FA /* PersonalGoal.swift */,
+				2528BAEA1CA702DD007332FA /* GroupGoal.swift */,
+				2528BAE81CA702DD007332FA /* GoalCollection.swift */,
 				2528BAEC1CA702DD007332FA /* User.swift */,
+				2528BAE91CA702DD007332FA /* Group.swift */,
 				25E2760D1CABC67C007A26EF /* Constants.swift */,
 			);
 			name = model;

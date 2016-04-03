@@ -25,8 +25,8 @@ class Goal: NSObject, NSCoding {
     var priority: PriorityType { return _priority }
     var goalType: GoalType { return _goalType }
     var weight: Int { return priority.rawValue * 50 + 100 }
-    var serialisedData: [NSObject: AnyObject] {
-        let goalData: [NSObject: AnyObject] = ["name": name,
+    var serialisedData: [String: AnyObject] {
+        let goalData: [String: AnyObject] = ["name": name,
                                                "details": details,
                                                "endTime": endTime.timeIntervalSince1970,
                                                "priority": priority.rawValue]

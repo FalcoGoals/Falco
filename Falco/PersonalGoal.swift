@@ -14,7 +14,7 @@ class PersonalGoal: Goal {
 
     var isCompleted: Bool { return _isCompleted }
     var timeOfCompletion: NSDate? { return _timeOfCompletion }
-    override var serialisedData: [NSObject: AnyObject] {
+    override var serialisedData: [String: AnyObject] {
         var goalData = super.serialisedData
         goalData["isCompleted"] = isCompleted
         if let completionTime = timeOfCompletion?.timeIntervalSince1970 {
