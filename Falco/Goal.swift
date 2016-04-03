@@ -25,6 +25,13 @@ class Goal: NSObject, NSCoding {
     var priority: PriorityType { return _priority }
     var goalType: GoalType { return _goalType }
     var weight: Int { return priority.rawValue * 50 + 100 }
+    var serialisedData: [NSObject: AnyObject] {
+        let goalData: [NSObject: AnyObject] = ["name": name,
+                                               "details": details,
+                                               "endTime": endTime.timeIntervalSince1970,
+                                               "priority": priority.rawValue]
+        return goalData
+    }
 
     // consider adding time of creation?
     init(uid: String, name: String, details: String, endTime: NSDate, priority: PriorityType, goalType: GoalType) {
@@ -33,6 +40,15 @@ class Goal: NSObject, NSCoding {
         self._details = details
         self._endTime = endTime
         self._priority = priority
+        self._goalType = goalType
+    }
+
+    init(uid: String, goalType: GoalType, goalData: NSDictionary) {
+        self._uid = uid
+        self._name = goalData["name"]! as! String
+        self._details = goalData["details"]! as! String
+        self._endTime = NSDate(timeIntervalSince1970: NSTimeInterval(goalData["endTime"] as! NSNumber))
+        self._priority = PriorityType(rawValue: goalData["priority"]! as! Int)!
         self._goalType = goalType
     }
 

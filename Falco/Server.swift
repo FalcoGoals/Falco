@@ -51,35 +51,10 @@ class Server {
             return
         }
 
-        var goals = [Goal]()
-
         let goalsRef = userRef.childByAppendingPath("goals")
-        goalsRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
-            if snapshot.value is NSNull {
-                callback(GoalCollection(goals: goals))
-                return
-            }
-            let goalsData = snapshot.value as! [String: NSDictionary]
-            for (goalId, goalData) in goalsData {
-                let isCompleted = goalData["isCompleted"]! as! Bool
-                let name = goalData["name"]! as! String
-                let details = goalData["details"]! as! String
-                let endTime = NSDate(timeIntervalSinceReferenceDate: NSTimeInterval(goalData["endTime"] as! NSNumber))
-                let priority = PriorityType(rawValue: goalData["priority"]! as! Int)!
-
-                let goal = PersonalGoal(user: self.user, uid: goalId, name: name, details: details, endTime: endTime, priority: priority)
-                if isCompleted {
-                    goal.markAsComplete()
-                }
-
-                goals.append(goal)
-            }
-
-            callback(GoalCollection(goals: goals))
-
-            }, withCancelBlock: { error in
-                print(error.description)
-        })
+        goalsRef.observeSingleEventOfType(.Value) { snapshot in
+            callback(GoalCollection(goalsData: snapshot.value))
+        }
     }
 
     func savePersonalGoal(goal: PersonalGoal) -> Bool {
@@ -88,14 +63,8 @@ class Server {
         }
 
         let goalRef = userRef.childByAppendingPath("goals/\(goal.identifier)")
-        goalRef.childByAppendingPath("isCompleted").setValue(goal.isCompleted)
-        goalRef.childByAppendingPath("name").setValue(goal.name)
-        goalRef.childByAppendingPath("details").setValue(goal.details)
-        goalRef.childByAppendingPath("endTime").setValue(goal.endTime.timeIntervalSince1970)
-        goalRef.childByAppendingPath("priority").setValue(goal.priority.rawValue)
-        if let completionTime = goal.timeOfCompletion?.timeIntervalSince1970 {
-            goalRef.childByAppendingPath("timeOfCompletion").setValue(completionTime)
-        }
+        goalRef.updateChildValues(goal.serialisedData)
+
         return true
     }
 

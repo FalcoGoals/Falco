@@ -17,7 +17,6 @@ class GoalDetailViewController: UITableViewController {
     @IBOutlet weak var deadlineField: UITableViewCell!
     @IBOutlet weak var priorityControl: UISegmentedControl!
 
-    var user: User!
     var goal: Goal?
     var selectedIndexpath: NSIndexPath?
     var delegate: GoalDetailDelegate!
@@ -26,7 +25,7 @@ class GoalDetailViewController: UITableViewController {
         super.viewDidLoad()
 
         if goal == nil {
-            goal = PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "New Goal", details: "", endTime: NSDate(), priority: .Mid)
+            goal = PersonalGoal(name: "New Goal", details: "", endTime: NSDate(), priority: .Mid)
         }
 
         title = goal!.name

@@ -10,7 +10,6 @@ import SpriteKit
 
 class BubblesScene: SKScene {
     private var goalModel = GoalCollection(goals: [])
-    private var user = User(uid: NSUUID().UUIDString, name: "MrFoo")
 
     override init(size: CGSize) {
         super.init(size: size)
@@ -24,18 +23,18 @@ class BubblesScene: SKScene {
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         let date = calendar!.dateFromComponents(dateComponents)!
 
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal1", details: "my goal", endTime: date, priority: .High))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal2", details: "my goal", endTime: date, priority: .High))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal3", details: "my goal", endTime: date, priority: .Low))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal4", details: "my goal", endTime: date, priority: .Mid))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal5", details: "my goal", endTime: date, priority: .High))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal6", details: "my goal", endTime: date, priority: .Mid))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal7", details: "my goal", endTime: date, priority: .Mid))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal8", details: "my goal", endTime: date, priority: .Low))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal9", details: "my goal", endTime: date, priority: .Low))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal10", details: "my goal", endTime: date, priority: .Low))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal11", details: "my goal", endTime: date, priority: .Mid))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "goal12", details: "my goal", endTime: date, priority: .High))
+        goalModel.updateGoal(PersonalGoal(name: "goal1", details: "my goal", endTime: date, priority: .High))
+        goalModel.updateGoal(PersonalGoal(name: "goal2", details: "my goal", endTime: date, priority: .High))
+        goalModel.updateGoal(PersonalGoal(name: "goal3", details: "my goal", endTime: date, priority: .Low))
+        goalModel.updateGoal(PersonalGoal(name: "goal4", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.updateGoal(PersonalGoal(name: "goal5", details: "my goal", endTime: date, priority: .High))
+        goalModel.updateGoal(PersonalGoal(name: "goal6", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.updateGoal(PersonalGoal(name: "goal7", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.updateGoal(PersonalGoal(name: "goal8", details: "my goal", endTime: date, priority: .Low))
+        goalModel.updateGoal(PersonalGoal(name: "goal9", details: "my goal", endTime: date, priority: .Low))
+        goalModel.updateGoal(PersonalGoal(name: "goal10", details: "my goal", endTime: date, priority: .Low))
+        goalModel.updateGoal(PersonalGoal(name: "goal11", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.updateGoal(PersonalGoal(name: "goal12", details: "my goal", endTime: date, priority: .High))
         goalModel.sortGoalsByWeight()
 
     }
