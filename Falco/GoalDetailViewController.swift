@@ -38,6 +38,12 @@ class GoalDetailViewController: UITableViewController {
         deadlineField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(GoalDetailViewController.selectDate(_:))))
         priorityControl.selectedSegmentIndex = goal.priority.rawValue
 
+//        title = goal!.name
+//        nameField.text = goal!.name
+//        detailsField.text = goal!.details
+//        deadlineField.textLabel?.text = getDateString(goal!.endTime)
+//        priorityControl.selectedSegmentIndex = goal!.priority.rawValue
+
     }
 
     // MARK: Segue
