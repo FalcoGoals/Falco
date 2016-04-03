@@ -18,7 +18,7 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func loginTapped(sender: AnyObject) {
-        FBSDKLoginManager().logInWithReadPermissions(["email"], fromViewController: self) {
+        FBSDKLoginManager().logInWithReadPermissions(["email", "user_friends"], fromViewController: self) {
             (facebookResult, facebookError) -> Void in
             if facebookError != nil {
                 print("Facebook login failed. Error \(facebookError)")

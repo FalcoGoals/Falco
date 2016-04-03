@@ -18,7 +18,11 @@ class Server {
     var userRef: Firebase!
 
     var hasToken: Bool {
-        return currentAccessToken() != nil
+        if let token = currentAccessToken() {
+            return token.hasGranted("user_friends")
+        } else {
+            return false
+        }
     }
 
     var isAuth: Bool {
