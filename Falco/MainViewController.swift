@@ -26,6 +26,33 @@ class MainViewController: UIViewController, LoginDelegate {
         }
     }
 
+//class MainViewController: UIViewController {
+//    private var goalModel = GoalCollection(goals: [])
+//    private var user = User(uid: NSUUID().UUIDString, name: "MrFoo")
+
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        addSampleModel()
+//
+//        let scene = BubblesScene(size: view.bounds.size)
+//        let skView = self.view as! SKView
+//        skView.showsFPS = true
+//        skView.showsNodeCount = true
+//        skView.ignoresSiblingOrder = true
+//        scene.scaleMode = .ResizeFill
+//
+//        for goal in goalModel.goals {
+//            let goalBubble = GoalBubble(id: goal.identifier, circleOfRadius: CGFloat(goal.weight), text: goal.name)
+//            let x = CGFloat(arc4random_uniform(UInt32(view.frame.maxX)))
+//            let y = CGFloat(arc4random_uniform(UInt32(view.frame.maxY)))
+//            goalBubble.position = CGPointMake(x, y)
+//            goalBubble.name = goal.identifier
+//
+//            scene.addChild(goalBubble)
+//        }
+//        skView.presentScene(scene)
+//    }
+
     override func viewDidAppear(animated: Bool) {
         if !server.hasToken {
             showLogin()
@@ -138,5 +165,30 @@ class MainViewController: UIViewController, LoginDelegate {
 extension MainViewController {
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+
+    private func addSampleModel() {
+        // load model
+        let dateComponents = NSDateComponents()
+        dateComponents.year = 2016
+        dateComponents.month = 3
+        dateComponents.day = 10
+
+        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+        let date = calendar!.dateFromComponents(dateComponents)!
+
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal1", details: "my goal", endTime: date, priority: .High))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal2", details: "my goal", endTime: date, priority: .High))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal3", details: "my goal", endTime: date, priority: .Low))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal4", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal5", details: "my goal", endTime: date, priority: .High))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal6", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal7", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal8", details: "my goal", endTime: date, priority: .Low))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal9", details: "my goal", endTime: date, priority: .Low))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal10", details: "my goal", endTime: date, priority: .Low))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal11", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal12", details: "my goal", endTime: date, priority: .High))
+        goalModel.sortGoalsByWeight()
     }
 }

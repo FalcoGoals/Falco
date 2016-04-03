@@ -55,6 +55,8 @@ class BubblesScene: SKScene {
 //            goal.runAction(actionMove)
             addChild(goal)
         }
+//        self.physicsBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
+//        self.physicsWorld.gravity = CGVectorMake(0, 4)
     }
     
       override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
