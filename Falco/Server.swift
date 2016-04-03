@@ -56,7 +56,7 @@ class Server {
         }
 
         let goalsRef = userRef.childByAppendingPath("goals")
-        goalsRef.observeSingleEventOfType(.Value) { snapshot in
+        goalsRef.observeEventType(.Value) { snapshot in
             callback(GoalCollection(goalsData: snapshot.value))
         }
     }
