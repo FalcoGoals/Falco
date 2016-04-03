@@ -13,13 +13,7 @@ class GroupGoal: Goal {
 
     var assignedUsers: [User] { return Array(_assignedUsers.keys) }
 
-    init(uid: String, name: String, details: String, endTime: NSDate, priority: PriorityType = .Low) {
-        _assignedUsers = [User: Tuple]()
-        super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: GoalType.Group)
-    }
-
-    /// For reinitializing of stored data
-    init(uid: String, name: String, details: String, endTime: NSDate, priority: PriorityType = .Low, data: [User: Tuple]) {
+    init(uid: String, name: String, details: String, endTime: NSDate, priority: PriorityType = .Low, data: [User: Tuple] = [:]) {
         _assignedUsers = data
         super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: GoalType.Group)
     }

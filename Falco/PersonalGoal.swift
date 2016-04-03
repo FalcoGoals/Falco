@@ -29,7 +29,7 @@ class PersonalGoal: Goal {
         super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: .Personal)
     }
 
-    init(uid: String, goalData: NSDictionary) {
+    init(uid: String, goalData: [String: AnyObject]) {
         _isCompleted = goalData["isCompleted"]! as! Bool
         if let toc = goalData["timeOfCompletion"] as? NSNumber {
             _timeOfCompletion = NSDate(timeIntervalSince1970: NSTimeInterval(toc))

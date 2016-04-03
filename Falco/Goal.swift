@@ -43,7 +43,7 @@ class Goal: NSObject, NSCoding {
         self._goalType = goalType
     }
 
-    init(uid: String, goalType: GoalType, goalData: NSDictionary) {
+    init(uid: String, goalType: GoalType, goalData: [String: AnyObject]) {
         self._uid = uid
         self._name = goalData["name"]! as! String
         self._details = goalData["details"]! as! String

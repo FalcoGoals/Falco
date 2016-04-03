@@ -68,6 +68,20 @@ class Server {
         return true
     }
 
+    func savePersonalGoals(goals: GoalCollection) -> Bool {
+        if !isAuth {
+            return false
+        }
+
+        for goal in goals.goals {
+            if let goal = goal as? PersonalGoal {
+                savePersonalGoal(goal)
+            }
+        }
+
+        return true
+    }
+
     private func authSuccess(authData: FAuthData) {
         print("Logged in as \(authData.providerData["displayName"]!)!")
 

@@ -37,7 +37,7 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
                 self.server.getPersonalGoals() { goalCollection in
                     if let userGoals = goalCollection {
                         self.goalModel = userGoals
-                        if userGoals.goals.count == 0 {
+                        if userGoals.isEmpty() {
                             print("adding sample goals")
                             self.addSampleGoals(self.server.user.name)
                         }
@@ -71,9 +71,7 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
         goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal11", details: "my goal", endTime: date, priority: .Mid))
         goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal12", details: "my goal", endTime: date, priority: .High))
 
-        for goal in goalModel.goals {
-            server.savePersonalGoal(goal as! PersonalGoal)
-        }
+        server.savePersonalGoals(goalModel)
     }
 
     // MARK: UICollectionViewDataSource

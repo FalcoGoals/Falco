@@ -17,8 +17,8 @@ class GoalCollection {
         self._goals = goals
     }
 
-    init(goalsData: AnyObject!) {
-        if let goalsData = goalsData as? [String: NSDictionary] {
+    init(goalsData: AnyObject) {
+        if let goalsData = goalsData as? [String: [String: AnyObject]] {
             var goals = [Goal]()
             for (goalId, goalData) in goalsData {
                 let goal = PersonalGoal(uid: goalId, goalData: goalData)
