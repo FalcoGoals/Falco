@@ -13,7 +13,6 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
 
     private let reuseIdentifier = "bubble"
     private var goalModel = GoalCollection(goals: [])
-    private var user = User(uid: NSUUID().UUIDString, name: "MrFoo")
     private var server = Server()
 
     override func viewDidLoad() {
@@ -38,7 +37,7 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
                 self.server.getPersonalGoals() { goalCollection in
                     if let userGoals = goalCollection {
                         self.goalModel = userGoals
-                        if userGoals.goals.count == 0 {
+                        if userGoals.isEmpty() {
                             print("adding sample goals")
                             self.addSampleGoals(self.server.user.name)
                         }
@@ -59,22 +58,20 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         let date = calendar!.dateFromComponents(dateComponents)!
 
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal1", details: "my goal", endTime: date, priority: .High))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal2", details: "my goal", endTime: date, priority: .High))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal3", details: "my goal", endTime: date, priority: .Low))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal4", details: "my goal", endTime: date, priority: .Mid))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal5", details: "my goal", endTime: date, priority: .High))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal6", details: "my goal", endTime: date, priority: .Mid))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal7", details: "my goal", endTime: date, priority: .Mid))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal8", details: "my goal", endTime: date, priority: .Low))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal9", details: "my goal", endTime: date, priority: .Low))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal10", details: "my goal", endTime: date, priority: .Low))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal11", details: "my goal", endTime: date, priority: .Mid))
-        goalModel.updateGoal(PersonalGoal(user: user, uid: NSUUID().UUIDString, name: "\(name)'s goal12", details: "my goal", endTime: date, priority: .High))
+        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal1", details: "my goal", endTime: date, priority: .High))
+        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal2", details: "my goal", endTime: date, priority: .High))
+        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal3", details: "my goal", endTime: date, priority: .Low))
+        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal4", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal5", details: "my goal", endTime: date, priority: .High))
+        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal6", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal7", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal8", details: "my goal", endTime: date, priority: .Low))
+        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal9", details: "my goal", endTime: date, priority: .Low))
+        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal10", details: "my goal", endTime: date, priority: .Low))
+        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal11", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal12", details: "my goal", endTime: date, priority: .High))
 
-        for goal in goalModel.goals {
-            server.savePersonalGoal(goal as! PersonalGoal)
-        }
+        server.savePersonalGoals(goalModel)
     }
 
     // MARK: UICollectionViewDataSource
@@ -99,12 +96,7 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
 
 
     func didSave(goal: Goal, indexPath: NSIndexPath?) {
-        if let indexPath = indexPath {
-            goalModel.updateGoal(goal)
-        } else {
-            goalModel.updateGoal(goal)
-        }
-
+        goalModel.updateGoal(goal)
         goalModel.sortGoalsByWeight()
         goalsCollectionView.reloadData()
 
@@ -132,7 +124,6 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
             detailViewController.delegate = self
             detailViewController.selectedIndexpath = index
             detailViewController.goal = goalModel.goals[index.item]
-            detailViewController.user = user
 
         } else {
             let navController = segue.destinationViewController as! UINavigationController
@@ -141,7 +132,6 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
             detailViewController.delegate = self
             detailViewController.selectedIndexpath = nil
             detailViewController.goal = nil
-            detailViewController.user = user
 
         }
     }

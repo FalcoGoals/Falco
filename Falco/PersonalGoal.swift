@@ -9,26 +9,33 @@
 import Foundation
 
 class PersonalGoal: Goal {
-    private var _user: User
     private var _isCompleted: Bool
     private var _timeOfCompletion: NSDate?
 
-    var user: User { return _user }
     var isCompleted: Bool { return _isCompleted }
     var timeOfCompletion: NSDate? { return _timeOfCompletion }
-
-    init(user: User, uid: String, name: String, details: String, endTime: NSDate, priority: PriorityType = .Low) {
-        _user = user
-        _isCompleted = false
-        super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: .Personal)
+    override var serialisedData: [String: AnyObject] {
+        var goalData = super.serialisedData
+        goalData["isCompleted"] = isCompleted
+        if let completionTime = timeOfCompletion?.timeIntervalSince1970 {
+            goalData["timeOfCompletion"] = completionTime
+        }
+        return goalData
     }
-    
-    // for reinitializing of stored data
-    init(user: User, uid: String, name: String, details: String, endTime: NSDate, priority: PriorityType, isCompleted: Bool, timeOfCompletion: NSDate?) {
-        _user = user
+
+    init(uid: String = NSUUID().UUIDString, name: String, details: String, endTime: NSDate, priority: PriorityType = .Low, isCompleted: Bool = false, timeOfCompletion: NSDate? = nil) {
         _isCompleted = isCompleted
         _timeOfCompletion = timeOfCompletion
         super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: .Personal)
+    }
+
+    init(uid: String, goalData: [String: AnyObject]) {
+        _isCompleted = goalData["isCompleted"]! as! Bool
+        if let toc = goalData["timeOfCompletion"] as? NSNumber {
+            _timeOfCompletion = NSDate(timeIntervalSince1970: NSTimeInterval(toc))
+        }
+
+        super.init(uid: uid, goalType: .Personal, goalData: goalData)
     }
 
     /// Marks the goal as completed
@@ -45,7 +52,6 @@ class PersonalGoal: Goal {
     
     override func encodeWithCoder(coder: NSCoder) {
         super.encodeWithCoder(coder)
-        coder.encodeObject(_user, forKey: Constants.userKey)
         coder.encodeBool(_isCompleted, forKey: Constants.isCompletedKey)
         if _timeOfCompletion != nil {
             coder.encodeObject(_timeOfCompletion, forKey: Constants.timeOfCompletionKey)
@@ -58,9 +64,8 @@ class PersonalGoal: Goal {
         let details = decoder.decodeObjectForKey(Constants.detailsKey) as! String
         let endTime = decoder.decodeObjectForKey(Constants.endTimeKey) as! NSDate
         let priority = PriorityType(rawValue: decoder.decodeIntegerForKey(Constants.priorityKey))
-        let user = decoder.decodeObjectForKey(Constants.userKey) as! User
         let isCompleted = decoder.decodeBoolForKey(Constants.isCompletedKey)
         let timeOfCompletion = decoder.decodeObjectForKey(Constants.timeOfCompletionKey) as! NSDate?
-        self.init(user: user, uid: uid, name: name, details: details, endTime: endTime, priority: priority!, isCompleted: isCompleted, timeOfCompletion: timeOfCompletion)
+        self.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority!, isCompleted: isCompleted, timeOfCompletion: timeOfCompletion)
     }
 }

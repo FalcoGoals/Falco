@@ -13,10 +13,23 @@ class GoalCollection {
 
     var goals: [Goal] { return _goals }
 
-    init(goals: [Goal]) {
+    init(goals: [Goal] = []) {
         self._goals = goals
     }
-    
+
+    init(goalsData: AnyObject) {
+        if let goalsData = goalsData as? [String: [String: AnyObject]] {
+            var goals = [Goal]()
+            for (goalId, goalData) in goalsData {
+                let goal = PersonalGoal(uid: goalId, goalData: goalData)
+                goals.append(goal)
+            }
+            _goals = goals
+        } else {
+            _goals = []
+        }
+    }
+
     /// Adds a goal into the collection if it is not previously contained
     /// Else replaces the original goal with the new goal
     func updateGoal(goal: Goal) {
@@ -49,11 +62,9 @@ class GoalCollection {
             //removeGoal(goal)
             if goal.goalType == .Personal {
                 let pGoal = goal as! PersonalGoal
-                if pGoal.user == user {
-                    pGoal.markAsComplete()
-                    _goals.append(pGoal)
-                    removeGoal(goal)
-                }
+                pGoal.markAsComplete()
+                _goals.append(pGoal)
+                removeGoal(goal)
             } else {    // group goal
                 let gGoal = goal as! GroupGoal
                 if gGoal.completedByUser(user) {
@@ -69,11 +80,9 @@ class GoalCollection {
         if containsGoal(goal) {
             if goal.goalType == .Personal {
                 let pGoal = goal as! PersonalGoal
-                if pGoal.user == user {
-                    pGoal.undoMarkAsComplete()
-                    _goals.append(pGoal)
-                    removeGoal(goal)
-                }
+                pGoal.undoMarkAsComplete()
+                _goals.append(pGoal)
+                removeGoal(goal)
             } else {    // group goal
                 let gGoal = goal as! GroupGoal
                 if gGoal.uncompleteByUser(user) {
@@ -95,10 +104,7 @@ class GoalCollection {
         var goalList = [Goal]()
         for goal in _goals {
             if goal.goalType == .Personal {
-                let personalGoal = goal as! PersonalGoal
-                if personalGoal.user == user {
-                    goalList.append(goal)
-                }
+                goalList.append(goal)
             } else {    // group goal
                 let groupGoal = goal as! GroupGoal
                 if groupGoal.userIsAssigned(user) {

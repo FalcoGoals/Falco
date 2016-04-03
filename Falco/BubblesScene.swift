@@ -28,7 +28,6 @@ class BubblesScene: SKScene {
         self.background.physicsBody?.dynamic = false
         self.background.zPosition = -1.0
         self.addChild(background)
-
     }
 
     required init?(coder aDecoder: NSCoder) {
