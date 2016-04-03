@@ -26,7 +26,7 @@ extension Goal {
         return completionTime != NSDate.distantPast()
     }
     var weight: Int {
-        return priority.rawValue * 50 + 100
+        return priority.rawValue * 20 + 50
     }
 }
 
