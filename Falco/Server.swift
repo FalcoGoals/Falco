@@ -89,6 +89,16 @@ class Server {
     private func authSuccess(authData: FAuthData) {
         print("Logged in as \(authData.providerData["displayName"]!)!")
 
+        let request = FBSDKGraphRequest(graphPath: "/me/friends", parameters: ["fields": "id, name"])
+        request.startWithCompletionHandler() { (connection, result, error) -> Void in
+            if ((error) != nil) {
+                // Process error
+                print("Error: \(error)")
+            } else {
+                print("Friends: \(result.valueForKey("data")! as! [[String: AnyObject]])")
+            }
+        }
+
         let uid = authData.uid
         let name = authData.providerData["displayName"] as! String
         user = User(uid: uid, name: name)
