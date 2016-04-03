@@ -88,6 +88,7 @@ class Server {
 
     private func authSuccess(authData: FAuthData) {
         print("Logged in as \(authData.providerData["displayName"]!)!")
+        print("Profile picture: \(authData.providerData["profileImageURL"]!)")
 
         let request = FBSDKGraphRequest(graphPath: "/me/friends", parameters: ["fields": "id, name"])
         request.startWithCompletionHandler() { (connection, result, error) -> Void in

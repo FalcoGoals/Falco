@@ -10,12 +10,12 @@ import UIKit
 import Firebase
 import FBSDKLoginKit
 
+protocol LoginDelegate {
+    func loginSuccess()
+}
+
 class LoginViewController: UIViewController {
-
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    var delegate: LoginDelegate!
 
     @IBAction func loginTapped(sender: AnyObject) {
         FBSDKLoginManager().logInWithReadPermissions(["email", "user_friends"], fromViewController: self) {
@@ -25,6 +25,7 @@ class LoginViewController: UIViewController {
             } else if facebookResult.isCancelled {
                 print("Facebook login was cancelled.")
             } else {
+                self.delegate.loginSuccess()
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
         }

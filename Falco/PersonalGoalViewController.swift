@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, GoalDetailDelegate {
+class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, GoalDetailDelegate, LoginDelegate {
     @IBOutlet weak var goalsCollectionView: UICollectionView!
 
     private let reuseIdentifier = "bubble"
@@ -18,6 +18,10 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+
+        if server.hasToken {
+            loginSuccess()
+        }
 
         if let layout = goalsCollectionView?.collectionViewLayout as? GoalsLayout {
             layout.delegate = self
@@ -32,18 +36,24 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
     override func viewDidAppear(animated: Bool) {
         if !server.hasToken {
             performSegueWithIdentifier("showLogin", sender: nil)
-        } else if !server.isAuth {
-            server.auth() {
-                self.server.getPersonalGoals() { goalCollection in
-                    if let userGoals = goalCollection {
-                        self.goalModel = userGoals
-                        if userGoals.isEmpty() {
-                            print("adding sample goals")
-                            self.addSampleGoals(self.server.user.name)
-                        }
-                        self.goalModel.sortGoalsByWeight()
-                        self.goalsCollectionView.reloadData()
+        }
+    }
+
+    func loginSuccess() {
+        authAndDownloadGoals()
+    }
+
+    private func authAndDownloadGoals() {
+        server.auth() {
+            self.server.getPersonalGoals() { goalCollection in
+                if let userGoals = goalCollection {
+                    self.goalModel = userGoals
+                    if userGoals.isEmpty() {
+                        print("adding sample goals")
+                        self.addSampleGoals(self.server.user.name)
                     }
+                    self.goalModel.sortGoalsByWeight()
+                    self.goalsCollectionView.reloadData()
                 }
             }
         }
@@ -114,10 +124,10 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
 
     // MARK: Segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showLogin" {
-            return
-        }
-        if let index = goalsCollectionView.indexPathForItemAtPoint(sender!.locationInView(goalsCollectionView)) {
+        if let lvc = segue.destinationViewController as? LoginViewController {
+            lvc.delegate = self
+
+        } else if let index = goalsCollectionView.indexPathForItemAtPoint(sender!.locationInView(goalsCollectionView)) {
             let navController = segue.destinationViewController as! UINavigationController
             let detailViewController = navController.topViewController as! GoalDetailViewController
             
