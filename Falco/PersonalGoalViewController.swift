@@ -100,7 +100,7 @@ class PersonalGoalViewController: UIViewController, UICollectionViewDataSource, 
 
     func didSave(goal: Goal, indexPath: NSIndexPath?) {
         if let indexPath = indexPath {
-            goalModel.goals[indexPath.item] = goal
+            goalModel.updateGoal(goal)
         } else {
             goalModel.updateGoal(goal)
         }

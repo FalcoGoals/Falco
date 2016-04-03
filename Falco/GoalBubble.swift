@@ -18,6 +18,7 @@ class GoalBubble: SKNode {
         self.circle.physicsBody = SKPhysicsBody(circleOfRadius: circleOfRadius)
         self.circle.physicsBody?.allowsRotation = false
         self.circle.physicsBody?.friction = 0
+        self.circle.fillColor = UIColor.blueColor()
 
         self.label = SKLabelNode(text: text)
         self.label.horizontalAlignmentMode = .Center
