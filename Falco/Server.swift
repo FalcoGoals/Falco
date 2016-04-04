@@ -117,7 +117,7 @@ class Server {
         print("Logged in as \(authData.providerData["displayName"]!)!")
         print("Profile picture: \(authData.providerData["profileImageURL"]!)")
 
-        let request = FBSDKGraphRequest(graphPath: "/me/friends", parameters: ["fields": "id, name"])
+        let request = FBSDKGraphRequest(graphPath: "/me/friends", parameters: ["fields": "id, name, picture"])
         request.startWithCompletionHandler() { (connection, result, error) -> Void in
             if ((error) != nil) {
                 // Process error

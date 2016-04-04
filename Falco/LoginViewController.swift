@@ -14,21 +14,30 @@ protocol LoginDelegate {
     func didReceiveToken()
 }
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
     var delegate: LoginDelegate!
 
-    @IBAction func loginTapped(sender: AnyObject) {
-        FBSDKLoginManager().logInWithReadPermissions(["email", "user_friends"], fromViewController: self) {
-            (facebookResult, facebookError) -> Void in
-            if facebookError != nil {
-                print("Facebook login failed. Error \(facebookError)")
-            } else if facebookResult.isCancelled {
-                print("Facebook login was cancelled.")
-            } else {
-                self.delegate.didReceiveToken()
-                self.dismissViewControllerAnimated(true, completion: nil)
-            }
+    @IBOutlet var loginButton: FBSDKLoginButton!
+
+    override func viewDidLoad() {
+        loginButton.readPermissions = ["email", "user_friends"]
+        loginButton.delegate = self
+    }
+
+    // MARK: FBSDKLoginButtonDelegate
+
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+        if error != nil {
+            print("Facebook login failed. Error \(error)")
+        } else if result.isCancelled {
+            print("Facebook login was cancelled.")
+        } else {
+            self.delegate.didReceiveToken()
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
+    }
+
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
     }
 
 }
