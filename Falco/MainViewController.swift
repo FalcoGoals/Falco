@@ -38,14 +38,25 @@ class MainViewController: UIViewController {
         goalModel.updateGoal(PersonalGoal(name: "goal10", details: "my goal", endTime: date, priority: .Low))
         goalModel.updateGoal(PersonalGoal(name: "goal11", details: "my goal", endTime: date, priority: .Mid))
         goalModel.updateGoal(PersonalGoal(name: "goal12", details: "my goal", endTime: date, priority: .High))
+        goalModel.updateGoal(PersonalGoal(name: "goal13", details: "my goal", endTime: date, priority: .High))
+        goalModel.updateGoal(PersonalGoal(name: "goal14", details: "my goal", endTime: date, priority: .High))
+        goalModel.updateGoal(PersonalGoal(name: "goal15", details: "my goal", endTime: date, priority: .Low))
+        goalModel.updateGoal(PersonalGoal(name: "goal16", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.updateGoal(PersonalGoal(name: "goal17", details: "my goal", endTime: date, priority: .High))
+        goalModel.updateGoal(PersonalGoal(name: "goal18", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.updateGoal(PersonalGoal(name: "goal19", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.updateGoal(PersonalGoal(name: "goal20", details: "my goal", endTime: date, priority: .Low))
+        goalModel.updateGoal(PersonalGoal(name: "goal21", details: "my goal", endTime: date, priority: .Low))
+        goalModel.updateGoal(PersonalGoal(name: "goal22", details: "my goal", endTime: date, priority: .Low))
+        goalModel.updateGoal(PersonalGoal(name: "goal23", details: "my goal", endTime: date, priority: .Mid))
+        goalModel.updateGoal(PersonalGoal(name: "goal23", details: "my goal", endTime: date, priority: .High))
         goalModel.sortGoalsByWeight()
         
-        let size = CGSize(width: view.bounds.size.width, height: getHeight())
-        let scene = BubblesScene(size: size, goalModel: goalModel)
+        let scene = BubblesScene(size: view.bounds.size, goalModel: goalModel)
         let skView = view as! SKView
         skView.showsFPS = true
         skView.showsNodeCount = true
-        skView.ignoresSiblingOrder = false
+        skView.ignoresSiblingOrder = true
         scene.scaleMode = .ResizeFill
         skView.showsPhysics = true
         skView.presentScene(scene)
@@ -53,13 +64,5 @@ class MainViewController: UIViewController {
 
     override func prefersStatusBarHidden() -> Bool {
         return true
-    }
-    
-    private func getHeight() -> CGFloat {
-        var height = CGFloat(0)
-        for goal in goalModel.goals {
-            height += CGFloat(goal.weight)
-        }
-        return height
     }
 }
