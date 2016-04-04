@@ -10,6 +10,8 @@ import Firebase
 import FBSDKLoginKit
 
 class Server {
+    static let instance = Server()
+
     let ref = Firebase(url: "https://amber-torch-6648.firebaseio.com")
     var usersRef: Firebase!
     var groupsRef: Firebase!
@@ -29,7 +31,7 @@ class Server {
         return userRef != nil
     }
 
-    init() {
+    private init() {
         usersRef = ref.childByAppendingPath("users")
         groupsRef = ref.childByAppendingPath("groups")
     }

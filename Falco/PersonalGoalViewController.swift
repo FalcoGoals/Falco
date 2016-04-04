@@ -14,7 +14,7 @@ class PersonalGoalViewController: UIViewController, GoalDetailDelegate, LoginDel
     @IBOutlet var collectionView: UICollectionView!
 
     private var goals = GoalCollection()
-    private var server = Server()
+    private var server = Server.instance
 
     // MARK: Init
 
