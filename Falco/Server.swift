@@ -110,6 +110,11 @@ class Server {
         let groupRef = groupsRef.childByAppendingPath(group.identifier)
         groupRef.updateChildValues(group.serialisedData)
 
+        for member in group.members {
+            let memberGroupsRef = usersRef.childByAppendingPath("\(member.identifier)/groups")
+            memberGroupsRef.updateChildValues([group.identifier: "1"])
+        }
+
         return true
     }
 
@@ -153,7 +158,7 @@ class Server {
         let uid = authData.uid
         let name = authData.providerData["displayName"] as! String
         user = User(uid: uid, name: name)
-        userRef = ref.childByAppendingPath("users/\(uid)")
+        userRef = usersRef.childByAppendingPath(uid)
 
         userRef.updateChildValues(["name": name])
     }
