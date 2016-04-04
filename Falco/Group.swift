@@ -18,11 +18,21 @@ class Group : NSObject, NSCoding {
     var name: String { return _name }
     var members: [User] { return _members }
     var goals: GoalCollection { return _goals }
+    var serialisedData: [String: AnyObject] {
+        let groupData: [String: AnyObject] = ["name": name,
+                                              "members": members.map({$0.identifier}),
+                                              "goals": goals.serialisedData]
+        return groupData
+    }
 
-    init(uid: String, name: String, users: [User], goals: GoalCollection = GoalCollection()) {
+    init(uid: String = NSUUID().UUIDString, creator: User? = nil, name: String, users: [User], goals: GoalCollection = GoalCollection()) {
         _uid = uid
         _name = name
-        _members = users
+        if let creator = creator {
+            _members = users + [creator]
+        } else {
+            _members = users
+        }
         _goals = goals
     }
 

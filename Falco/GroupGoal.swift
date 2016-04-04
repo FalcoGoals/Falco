@@ -12,8 +12,13 @@ class GroupGoal: Goal {
     private var _assignedUsers: [User: Tuple]
 
     var assignedUsers: [User] { return Array(_assignedUsers.keys) }
+    override var serialisedData: [String: AnyObject] {
+        var goalData = super.serialisedData
+        goalData["assignedUsers"] = assignedUsers.map({$0.identifier})
+        return goalData
+    }
 
-    init(uid: String, name: String, details: String, endTime: NSDate, priority: PriorityType = .Low, data: [User: Tuple] = [:]) {
+    init(uid: String = NSUUID().UUIDString, name: String, details: String, endTime: NSDate, priority: PriorityType = .Low, data: [User: Tuple] = [:]) {
         _assignedUsers = data
         super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: GoalType.Group)
     }
