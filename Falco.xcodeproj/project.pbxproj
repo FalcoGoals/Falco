@@ -222,11 +222,11 @@
 		74C086111C9AD71300BA50C9 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				740FF74F1CABB8A5008A5D1F /* MainViewController.swift */,
 				745957801C9841DE00C3D3C0 /* PersonalGoalViewController.swift */,
+				A24F37CB1C9EA468001148FD /* LoginViewController.swift */,
 				74BB5DD61CA1848500695C24 /* GoalDetailViewController.swift */,
 				74E8CEB51CA81666007585D1 /* DatePickerViewController.swift */,
-				A24F37CB1C9EA468001148FD /* LoginViewController.swift */,
-				740FF74F1CABB8A5008A5D1F /* MainViewController.swift */,
 				25BB93611CB0028F0008E0B8 /* GroupChatViewController.swift */,
 			);
 			name = controller;
@@ -235,10 +235,10 @@
 		74C086131C9AD72600BA50C9 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				7424B0F91C9A96310071B78B /* GoalsLayout.swift */,
 				740FF7511CABBB80008A5D1F /* BubblesScene.swift */,
 				740FF7531CABC253008A5D1F /* GoalBubble.swift */,
 				745BC9721C994BFD00204231 /* BubbleCell.swift */,
+				7424B0F91C9A96310071B78B /* GoalsLayout.swift */,
 			);
 			name = view;
 			sourceTree = "<group>";

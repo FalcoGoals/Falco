@@ -34,23 +34,37 @@ class Server {
         groupsRef = ref.childByAppendingPath("groups")
     }
 
-    func auth(callback: () -> ()) {
-        if let accessToken = currentAccessToken()?.tokenString {
-            ref.authWithOAuthProvider("facebook", token: accessToken) {
-                (error, authData) in
-                if error != nil {
-                    print("Login failed. \(error)")
-                } else {
-                    self.authSuccess(authData)
-                    callback()
-                }
+    func auth(withCompletion completion: (() -> ())?) {
+        if !hasToken {
+            return
+        }
+
+        let token = currentAccessToken()!.tokenString
+        ref.authWithOAuthProvider("facebook", token: token) {
+            (error, authData) in
+            if error != nil {
+                print("Login failed. \(error)")
+            } else {
+                self.authSuccess(authData)
+                completion?()
             }
         }
     }
 
     func getPersonalGoals(callback: (GoalCollection?) -> ()) {
         if !isAuth {
-            print("Not logged in!")
+            callback(nil)
+            return
+        }
+
+        let goalsRef = userRef.childByAppendingPath("goals")
+        goalsRef.observeSingleEventOfType(.Value) { snapshot in
+            callback(GoalCollection(goalsData: snapshot.value))
+        }
+    }
+
+    func registerPersonalGoalsCallback(callback: (GoalCollection?) -> ()) {
+        if !isAuth {
             callback(nil)
             return
         }

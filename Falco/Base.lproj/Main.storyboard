@@ -64,7 +64,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="goalsCollectionView" destination="ytr-SH-XuP" id="uBz-LR-uO1"/>
+                        <outlet property="collectionView" destination="ytr-SH-XuP" id="IUC-6g-5EG"/>
                         <segue destination="NhK-jS-PLZ" kind="presentation" identifier="showLogin" id="8bm-dw-aj2"/>
                     </connections>
                 </viewController>
@@ -72,16 +72,16 @@
                 <tapGestureRecognizer id="auQ-mx-gEr">
                     <connections>
                         <action selector="GoalsTap:" destination="BYZ-38-t0r" id="Y5F-YH-bVC"/>
-                        <segue destination="gVa-o2-Lxv" kind="presentation" identifier="PersonalGoalToDetails" id="PG0-Ta-2TQ"/>
+                        <segue destination="gVa-o2-Lxv" kind="presentation" identifier="showDetailView" id="PG0-Ta-2TQ"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="825" y="332"/>
         </scene>
-        <!--Title-->
+        <!--Goal Detail-->
         <scene sceneID="3WW-cE-nJt">
             <objects>
-                <tableViewController id="6hr-tn-rQP" customClass="GoalDetailViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Goal Detail" id="6hr-tn-rQP" customClass="GoalDetailViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="cye-cd-Lbr">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -183,7 +183,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wrp-Gi-sji" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="0Ls-sC-M8E" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2204" y="332"/>
+            <point key="canvasLocation" x="1531" y="332"/>
         </scene>
         <!--Date Picker-->
         <scene sceneID="gIk-ML-hTB">
@@ -245,7 +245,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rF1-GF-vn4" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="W9I-mm-BKZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2284" y="1140"/>
+            <point key="canvasLocation" x="2212" y="332"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="OV1-Rn-aHs">
@@ -278,10 +278,10 @@
             </objects>
             <point key="canvasLocation" x="825" y="1088"/>
         </scene>
-        <!--Title-->
+        <!--Group Chat-->
         <scene sceneID="2vF-Fh-SN6">
             <objects>
-                <viewController id="uTZ-nm-TtB" customClass="GroupChatViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Group Chat" id="uTZ-nm-TtB" customClass="GroupChatViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="g44-Gb-V8F"/>
                         <viewControllerLayoutGuide type="bottom" id="YSm-oE-Uht"/>
@@ -331,7 +331,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wWy-kn-oxW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1493" y="332"/>
+            <point key="canvasLocation" x="1531" y="-400"/>
         </scene>
     </scenes>
 </document>

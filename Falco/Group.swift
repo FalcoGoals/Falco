@@ -19,14 +19,7 @@ class Group : NSObject, NSCoding {
     var members: [User] { return _members }
     var goals: GoalCollection { return _goals }
 
-    init (uid: String, name: String, users: [User]) {
-        _uid = uid
-        _name = name
-        _members = users
-        _goals = GoalCollection(goals: [])
-    }
-
-    init (uid: String, name: String, users: [User], goals: GoalCollection) {
+    init(uid: String, name: String, users: [User], goals: GoalCollection = GoalCollection()) {
         _uid = uid
         _name = name
         _members = users
