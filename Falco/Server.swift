@@ -100,6 +100,17 @@ class Server {
         return true
     }
 
+    func saveGroup(group: Group) -> Bool {
+        if !isAuth {
+            return false
+        }
+
+        let groupRef = groupsRef.childByAppendingPath(group.identifier)
+        groupRef.updateChildValues(group.serialisedData)
+
+        return true
+    }
+
     private func authSuccess(authData: FAuthData) {
         print("Logged in as \(authData.providerData["displayName"]!)!")
         print("Profile picture: \(authData.providerData["profileImageURL"]!)")
@@ -110,7 +121,30 @@ class Server {
                 // Process error
                 print("Error: \(error)")
             } else {
-                print("Friends: \(result.valueForKey("data")! as! [[String: AnyObject]])")
+                let friends = result.valueForKey("data")! as! [[String: AnyObject]]
+                print("Friends: \(friends)")
+
+                let g1 = GroupGoal(name: "my task", details: "details", endTime: NSDate())
+                let g2 = GroupGoal(name: "squad goal", details: "details", endTime: NSDate())
+
+                g1.addUser(self.user)
+                g2.addUser(self.user)
+
+                var friendUsers = [User]()
+                for friend in friends {
+                    let uid = "facebook:\(friend["id"] as! String)"
+                    let name = friend["name"] as! String
+                    let friendUser = User(uid: uid, name: name)
+                    friendUsers.append(friendUser)
+                    g2.addUser(friendUser)
+                }
+
+                let goals = GoalCollection(goals: [g1, g2])
+
+                let group = Group(creator: self.user, name: "\(self.user.name)'s test group", users: friendUsers)
+                group.updateGoalCollection(goals)
+
+                self.saveGroup(group)
             }
         }
 

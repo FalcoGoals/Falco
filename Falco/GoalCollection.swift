@@ -12,6 +12,13 @@ class GoalCollection {
     private var _goals: [Goal]
 
     var goals: [Goal] { return _goals }
+    var serialisedData: [String: AnyObject] {
+        var goalsData: [String: AnyObject] = [:]
+        for goal in goals {
+            goalsData[goal.identifier] = goal.serialisedData
+        }
+        return goalsData
+    }
 
     init(goals: [Goal] = []) {
         self._goals = goals
