@@ -13,7 +13,7 @@ class BubblesScene: SKScene {
     private var goalModel = GoalCollection(goals: [])
     private var circlePosition = [[Int]]()
     private var lowestY = 0
-    private var moved = false
+    private var cameraMoved = false
 
     init(size: CGSize, goalModel: GoalCollection) {
         super.init(size: size)
@@ -58,21 +58,43 @@ class BubblesScene: SKScene {
     }
     
       override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        moved = true
+        cameraMoved = true
         let touch = touches.first
         let positionInScene = touch!.locationInNode(self)
         let previousPosition = touch!.previousLocationInNode(self)
         let translation = CGPoint(x: positionInScene.x - previousPosition.x, y: positionInScene.y - previousPosition.y)
-        cam.position.x -= translation.x
-        cam.position.y -= translation.y
+        if (cam.position.y - translation.y > -frame.height/2) {
+            cam.position.y = -frame.height/2
+        } else {
+            cam.position.y -= translation.y
+        }
+//        cam.position.x -= translation.x
+//        cam.position.y -= translation.y
       }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if (moved) {
-            moved = false
+        if (cameraMoved) {
+            cameraMoved = false
         } else {
-            
+            addNewBubble()
         }
+    }
+    
+    func addNewBubble() {
+        let dateComponents = NSDateComponents()
+        dateComponents.year = 2016
+        dateComponents.month = 3
+        dateComponents.day = 10
+        
+        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+        let date = calendar!.dateFromComponents(dateComponents)!
+        goalModel.updateGoal(PersonalGoal(name: "goal36", details: "my goal", endTime: date, priority: .High))
+        let goal1 = goalModel.getGoalsWithName("goal36")[0]
+        physicsWorld.gravity = CGVectorMake(0, 0)
+        let weight = goal1.weight
+        let goal = GoalBubble(circleOfRadius: CGFloat(weight)/2, text: goal1.name)
+        goal.position = CGPointMake(CGFloat(weight)/2, -CGFloat(weight)/2)
+        addChild(goal)
     }
     
     private func calculateNextPosition(diameter: Int) -> (Int, Int){
