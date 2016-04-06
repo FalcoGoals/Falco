@@ -54,13 +54,6 @@
                                     <outletCollection property="gestureRecognizers" destination="auQ-mx-gEr" appends="YES" id="ITU-gZ-nN6"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gEu-tv-1rj">
-                                <rect key="frame" x="389" y="484" width="74" height="30"/>
-                                <state key="normal" title="Add Group"/>
-                                <connections>
-                                    <action selector="backButtonSelected:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cQ2-9P-LO2"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
