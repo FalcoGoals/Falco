@@ -40,6 +40,21 @@ class Group {
         _goals = goals
     }
 
+    convenience init(id: String, groupData: [String: AnyObject]) {
+        let name = groupData[Constants.nameKey]! as! String
+        var members = [User]()
+        let memberData = groupData[Constants.membersKey]! as! [String: AnyObject]
+        for (memberId, _) in memberData {
+            members.append(User(id: memberId))
+        }
+        var goals = [Goal]()
+        let goalsData = groupData[Constants.goalsKey]! as! [String: [String: AnyObject]]
+        for (goalId, goalData) in goalsData {
+            goals.append(GroupGoal(id: goalId, goalData: goalData))
+        }
+        self.init(id: id, name: name, members: members, goals: GoalCollection(goals: goals))
+    }
+
     func addMember(member: User) {
         _members.append(member)
     }
