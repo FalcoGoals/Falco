@@ -8,32 +8,51 @@
 
 import Foundation
 
-class Group : NSObject, NSCoding {
-    private let _uid: String
+class Group {
+    private let _id: String
     private var _name: String
     private var _members: [User]
     private var _goals: GoalCollection
 
-    var identifier: String { return _uid }
+    var id: String { return _id }
     var name: String { return _name }
     var members: [User] { return _members }
     var goals: GoalCollection { return _goals }
     var serialisedData: [String: AnyObject] {
-        let groupData: [String: AnyObject] = ["name": name,
-                                              "members": members.map({$0.identifier}),
-                                              "goals": goals.serialisedData]
+        var serialisedMemberData: [String: Bool] = [:]
+        for member in members {
+            serialisedMemberData[member.id] = true
+        }
+        let groupData: [String: AnyObject] = [Constants.nameKey: name,
+                                              Constants.membersKey: serialisedMemberData,
+                                              Constants.goalsKey: goals.serialisedData]
         return groupData
     }
 
-    init(uid: String = NSUUID().UUIDString, creator: User? = nil, name: String, users: [User], goals: GoalCollection = GoalCollection()) {
-        _uid = uid
+    init(id: String = NSUUID().UUIDString, creator: User? = nil, name: String, members: [User], goals: GoalCollection = GoalCollection()) {
+        _id = id
         _name = name
         if let creator = creator {
-            _members = users + [creator]
+            _members = members + [creator]
         } else {
-            _members = users
+            _members = members
         }
         _goals = goals
+    }
+
+    convenience init(id: String, groupData: [String: AnyObject]) {
+        let name = groupData[Constants.nameKey]! as! String
+        var members = [User]()
+        let memberData = groupData[Constants.membersKey]! as! [String: AnyObject]
+        for (memberId, _) in memberData {
+            members.append(User(id: memberId))
+        }
+        var goals = [Goal]()
+        let goalsData = groupData[Constants.goalsKey]! as! [String: [String: AnyObject]]
+        for (goalId, goalData) in goalsData {
+            goals.append(GroupGoal(id: goalId, goalData: goalData))
+        }
+        self.init(id: id, name: name, members: members, goals: GoalCollection(goals: goals))
     }
 
     func addMember(member: User) {
@@ -53,28 +72,4 @@ class Group : NSObject, NSCoding {
     func updateGoalCollection(goals: GoalCollection) {
         _goals = goals
     }
-
-    
-    // Save a Goal object locally
-    func encodeWithCoder(coder: NSCoder) {
-        coder.encodeObject(_uid, forKey: Constants.uidKey)
-        coder.encodeObject(_name, forKey: Constants.nameKey)
-        coder.encodeObject(_members, forKey: Constants.membersKey)
-        coder.encodeObject(_goals, forKey: Constants.goalsKey)
-    }
-    
-    /// Reinitialize a locally saved Goal object
-    required convenience init(coder decoder: NSCoder) {
-        let uid = decoder.decodeObjectForKey(Constants.uidKey) as! String
-        let name = decoder.decodeObjectForKey(Constants.nameKey) as! String
-        let members = decoder.decodeObjectForKey(Constants.membersKey) as! [User]
-        let goals = decoder.decodeObjectForKey(Constants.goalsKey) as! [Goal]
-        let goalCollection = GoalCollection(goals: goals)
-        self.init (uid: uid, name: name, users: members, goals: goalCollection)
-    }
-
-}
-
-func ==(lhs: Group, rhs: Group) -> Bool {
-    return lhs.identifier == rhs.identifier
 }

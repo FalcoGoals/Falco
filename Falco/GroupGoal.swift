@@ -8,47 +8,91 @@
 
 import Foundation
 
-class GroupGoal: Goal {
-    private var _assignedUsers: [User: Tuple]
+struct GroupGoal: Goal {
+    private let _id: String
+    private var _userCompletionTimes: [User: NSDate]
 
-    var assignedUsers: [User] { return Array(_assignedUsers.keys) }
-    override var serialisedData: [String: AnyObject] {
-        var goalData = super.serialisedData
-        goalData["assignedUsers"] = assignedUsers.map({$0.identifier})
+    var name: String
+    var details: String
+    var priority: PriorityType
+    var endTime: NSDate
+
+    var id: String { return _id }
+    var completionTime: NSDate {
+        var latestCompletionTime = NSDate.distantPast()
+        for (_, userCompletionTime) in _userCompletionTimes {
+            if latestCompletionTime.compare(userCompletionTime) == .OrderedAscending {
+                latestCompletionTime = userCompletionTime
+            }
+        }
+        return latestCompletionTime
+    }
+    var assignedUsers: [User] { return Array(_userCompletionTimes.keys) }
+    var userCompletionTimes: [User: NSDate] { return _userCompletionTimes }
+
+    var serialisedData: [String: AnyObject] {
+        var serialisedUserData: [String: NSNumber] = [:]
+        for (user, userCompletionTime) in userCompletionTimes {
+            serialisedUserData[user.id] = userCompletionTime.timeIntervalSince1970
+        }
+        let goalData: [String: AnyObject] = [Constants.nameKey: name,
+                                             Constants.detailsKey: details,
+                                             Constants.priorityKey: priority.rawValue,
+                                             Constants.endTimeKey: endTime.timeIntervalSince1970,
+                                             Constants.userCompletionTimesKey: serialisedUserData]
         return goalData
     }
 
-    init(uid: String = NSUUID().UUIDString, name: String, details: String, endTime: NSDate, priority: PriorityType = .Low, data: [User: Tuple] = [:]) {
-        _assignedUsers = data
-        super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: GoalType.Group)
+    init(id: String = NSUUID().UUIDString, name: String, details: String, priority: PriorityType = .Low, endTime: NSDate, userCompletionTimes: [User: NSDate] = [:]) {
+        self._id = id
+        self.name = name
+        self.details = details
+        self.priority = priority
+        self.endTime = endTime
+        self._userCompletionTimes = userCompletionTimes
+    }
+
+    init(id: String, goalData: [String: AnyObject]) {
+        let name = goalData[Constants.nameKey]! as! String
+        let details = goalData[Constants.detailsKey]! as! String
+        let priority = PriorityType(rawValue: goalData[Constants.priorityKey]! as! Int)!
+        let endTime = NSDate(timeIntervalSince1970: NSTimeInterval(goalData[Constants.endTimeKey] as! NSNumber))
+        let userData = goalData[Constants.userCompletionTimesKey]! as! [String: NSNumber]
+        var userCompletionTimes: [User: NSDate] = [:]
+        for (userId, userCompletionTime) in userData {
+            let user = User(id: userId)
+            let completionTime = NSDate(timeIntervalSince1970: NSTimeInterval(userCompletionTime))
+            userCompletionTimes[user] = completionTime
+        }
+        self.init(id: id, name: name, details: details, priority: priority, endTime: endTime, userCompletionTimes: userCompletionTimes)
     }
     
     /// Assigns the input user to the goal
-    func addUser(user: User) {  //check if is group goal
-        _assignedUsers[user] = Tuple(isCompleted: false, completedDate: nil)
+    mutating func addUser(user: User) {  //check if is group goal
+        _userCompletionTimes[user] = NSDate.distantPast()
     }
 
     /// Unassign the input user from the goal
-    func removeUser(user: User) {
-        _assignedUsers.removeValueForKey(user)
+    mutating func removeUser(user: User) {
+        _userCompletionTimes.removeValueForKey(user)
     }
 
     /// Unassigns all users from the goal
-    func removeAllUsers() {
-        _assignedUsers.removeAll()
+    mutating func removeAllUsers() {
+        _userCompletionTimes.removeAll()
     }
 
     /// Checks whether the goal has been assigned to the input user
     func userIsAssigned(user: User) -> Bool {
-        return _assignedUsers.keys.contains(user)
+        return _userCompletionTimes.keys.contains(user)
     }
 
     /// Marks a particular user as having completed the goal
     /// Date which param user completed the task will be stored
     /// Returns indicator whether operation was successful
-    func completedByUser(user: User) -> Bool {
+    mutating func markCompleteByUser(user: User) -> Bool {
         if userIsAssigned(user) {
-            _assignedUsers[user] = Tuple(isCompleted: true, completedDate: NSDate())
+            _userCompletionTimes[user] = NSDate()
             return true
         }
         return false
@@ -56,9 +100,9 @@ class GroupGoal: Goal {
 
     /// Marks a particular user as not having completed the goal
     /// Returns indicator whether operation was successful
-    func uncompleteByUser(user: User) -> Bool {
+    mutating func markIncompleteByUser(user: User) -> Bool {
         if userIsAssigned(user) {
-            _assignedUsers[user] = Tuple(isCompleted: false, completedDate: nil)
+            _userCompletionTimes[user] = NSDate.distantPast()
             return true
         }
         return false
@@ -69,42 +113,15 @@ class GroupGoal: Goal {
         if !userIsAssigned(user) {
             return false
         }
-        return _assignedUsers[user]!.isCompleted
-    }
-
-    /// Returns the date which the last person completed the goal
-    /// and nil if the goal was not completed
-    func getCompletedDate() -> NSDate? {
-        var latestDate: NSDate? = nil
-        for value in _assignedUsers.values {
-            if !value.isCompleted {
-                return nil
-            }
-            if latestDate != nil {
-                latestDate = latestDate!.laterDate(value.completedDate!)
-            } else {
-                latestDate = value.completedDate
-            }
-        }
-        return latestDate
-    }
-
-    /// Returns true if all assigned users completed the task, false otherwise
-    func isCompleted() -> Bool {
-        for value in _assignedUsers.values {
-            if !value.isCompleted {
-                return false
-            }
-        }
-        return true
+        return _userCompletionTimes[user] != nil
     }
 
     /// Returns list of users who have completed the goal
     func getUsersWhoCompleted() -> [User] {
         var completedUsers = [User]()
-        for key in _assignedUsers.keys {
-            if _assignedUsers[key]!.isCompleted {
-                completedUsers.append(key)
+        for user in _userCompletionTimes.keys {
+            if _userCompletionTimes[user] != nil {
+                completedUsers.append(user)
             }
         }
         return completedUsers
@@ -112,45 +129,6 @@ class GroupGoal: Goal {
 
     /// Returns the total number of users assigned to the goal
     func getNumberOfUsersAssigned() -> Int {
-        return _assignedUsers.keys.count
-    }
-    
-    override func encodeWithCoder(coder: NSCoder) {
-        super.encodeWithCoder(coder)
-        coder.encodeObject(_assignedUsers, forKey: Constants.groupGoalDataKey)
-    }
-    
-    required convenience init(coder decoder: NSCoder) {
-        let uid = decoder.decodeObjectForKey(Constants.uidKey) as! String
-        let name = decoder.decodeObjectForKey(Constants.nameKey) as! String
-        let details = decoder.decodeObjectForKey(Constants.detailsKey) as! String
-        let endTime = decoder.decodeObjectForKey(Constants.endTimeKey) as! NSDate
-        let priority = PriorityType(rawValue: decoder.decodeIntegerForKey(Constants.priorityKey))
-        let data = decoder.decodeObjectForKey(Constants.groupGoalDataKey) as! [User: Tuple]
-        self.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority!, data: data)
-    }
-    
-    /// Inner class used as value type in GroupGoal's dictionary variable to indicate whether a user
-    /// has completed the goal and if so, the date which he/she did so
-    class Tuple: NSObject, NSCoding {
-        private var _isCompleted: Bool
-        private var _completedDate: NSDate?
-        var isCompleted: Bool { return _isCompleted }
-        var completedDate: NSDate? { return _completedDate }
-        init(isCompleted: Bool, completedDate: NSDate?) {
-            _isCompleted = isCompleted
-            _completedDate = completedDate
-        }
-        
-        @objc func encodeWithCoder(coder: NSCoder) {
-            coder.encodeBool(_isCompleted, forKey: Constants.isCompletedKey)
-            coder.encodeObject(_completedDate, forKey: Constants.timeOfCompletionKey)
-        }
-        
-        @objc required convenience init(coder decoder: NSCoder) {
-            let isCompleted = decoder.decodeBoolForKey(Constants.isCompletedKey)
-            let completedDate = decoder.decodeObjectForKey(Constants.timeOfCompletionKey) as! NSDate?
-            self.init(isCompleted: isCompleted, completedDate: completedDate)
-        }
+        return _userCompletionTimes.keys.count
     }
 }

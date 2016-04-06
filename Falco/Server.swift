@@ -10,14 +10,14 @@ import Firebase
 import FBSDKLoginKit
 
 class Server {
+    private let ref = Firebase(url: "https://amber-torch-6648.firebaseio.com")
+    private var usersRef: Firebase!
+    private var groupsRef: Firebase!
+    private var userRef: Firebase!
+
     static let instance = Server()
 
-    let ref = Firebase(url: "https://amber-torch-6648.firebaseio.com")
-    var usersRef: Firebase!
-    var groupsRef: Firebase!
-
     var user: User!
-    var userRef: Firebase!
 
     var hasToken: Bool {
         if let token = currentAccessToken() {
@@ -82,7 +82,7 @@ class Server {
             return false
         }
 
-        let goalRef = userRef.childByAppendingPath("goals/\(goal.identifier)")
+        let goalRef = userRef.childByAppendingPath("goals/\(goal.id)")
         goalRef.updateChildValues(goal.serialisedData)
 
         return true
@@ -107,55 +107,58 @@ class Server {
             return false
         }
 
-        let groupRef = groupsRef.childByAppendingPath(group.identifier)
+        let groupRef = groupsRef.childByAppendingPath(group.id)
         groupRef.updateChildValues(group.serialisedData)
+
+        for member in group.members {
+            let memberGroupsRef = usersRef.childByAppendingPath("\(member.id)/groups")
+            memberGroupsRef.updateChildValues([group.id: true])
+        }
 
         return true
     }
 
-    private func authSuccess(authData: FAuthData) {
-        print("Logged in as \(authData.providerData["displayName"]!)!")
-        print("Profile picture: \(authData.providerData["profileImageURL"]!)")
+    func getFriends(callback: ([User]?) -> ()) {
+        if !isAuth {
+            callback(nil)
+            return
+        }
 
-        let request = FBSDKGraphRequest(graphPath: "/me/friends", parameters: ["fields": "id, name"])
+        let request = FBSDKGraphRequest(graphPath: "/me/friends", parameters: ["fields": "id, name, picture"])
         request.startWithCompletionHandler() { (connection, result, error) -> Void in
             if ((error) != nil) {
                 // Process error
                 print("Error: \(error)")
-            } else {
-                let friends = result.valueForKey("data")! as! [[String: AnyObject]]
-                print("Friends: \(friends)")
-
-                let g1 = GroupGoal(name: "my task", details: "details", endTime: NSDate())
-                let g2 = GroupGoal(name: "squad goal", details: "details", endTime: NSDate())
-
-                g1.addUser(self.user)
-                g2.addUser(self.user)
-
-                var friendUsers = [User]()
-                for friend in friends {
-                    let uid = "facebook:\(friend["id"] as! String)"
-                    let name = friend["name"] as! String
-                    let friendUser = User(uid: uid, name: name)
-                    friendUsers.append(friendUser)
-                    g2.addUser(friendUser)
-                }
-
-                let goals = GoalCollection(goals: [g1, g2])
-
-                let group = Group(creator: self.user, name: "\(self.user.name)'s test group", users: friendUsers)
-                group.updateGoalCollection(goals)
-
-                self.saveGroup(group)
+                callback(nil)
+                return
             }
-        }
 
+            var friends = [User]()
+            let friendsData = result.valueForKey("data")! as! [[String: AnyObject]]
+            for friendData in friendsData {
+                let id = "facebook:\(friendData["id"] as! String)"
+                let name = friendData["name"] as! String
+                let pictureData = (friendData["picture"] as! [String: AnyObject])["data"] as! [String: AnyObject]
+                let pictureUrl = pictureData["url"] as! String
+                let friend = User(id: id, name: name, pictureUrl: pictureUrl)
+                friends.append(friend)
+            }
+
+            print("Friends: \(friends)")
+            callback(friends)
+        }
+    }
+
+    private func authSuccess(authData: FAuthData) {
         let uid = authData.uid
         let name = authData.providerData["displayName"] as! String
-        user = User(uid: uid, name: name)
-        userRef = ref.childByAppendingPath("users/\(uid)")
+        let pictureUrl = authData.providerData["profileImageURL"] as! String
 
+        user = User(id: uid, name: name, pictureUrl: pictureUrl)
+        userRef = usersRef.childByAppendingPath(uid)
         userRef.updateChildValues(["name": name])
+
+        print("Logged in as: \(user)")
     }
 
     private func currentAccessToken() -> FBSDKAccessToken? {

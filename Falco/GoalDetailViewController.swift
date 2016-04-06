@@ -25,7 +25,7 @@ class GoalDetailViewController: UITableViewController {
         super.viewDidLoad()
 
         if goal == nil {
-            goal = PersonalGoal(name: "New Goal", details: "", endTime: NSDate(), priority: .Mid)
+            goal = PersonalGoal(name: "New Goal", details: "", priority: .Mid, endTime: NSDate())
         }
 
         title = goal!.name
@@ -42,10 +42,8 @@ class GoalDetailViewController: UITableViewController {
     // MARK: Segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "saveDetailSegue" {
-            //goal!.details = detailsField.text!
-            //goal!.priority = PriorityType(rawValue: priorityControl.selectedSegmentIndex)!
-            goal!.setDetails(detailsField.text!)
-            goal!.setPriority(PriorityType(rawValue: priorityControl.selectedSegmentIndex)!)
+            goal!.details = detailsField.text!
+            goal!.priority = PriorityType(rawValue: priorityControl.selectedSegmentIndex)!
 
             delegate.didSave(goal!, indexPath: selectedIndexpath)
 
@@ -81,8 +79,7 @@ class GoalDetailViewController: UITableViewController {
 
 extension GoalDetailViewController: DatePickerDelegate {
     func didSave(date: NSDate) {
-        //goal!.endTime = date
-        goal?.setEndTime(date)
+        goal!.endTime = date
         deadlineField.textLabel?.text = getDateString(date)
     }
 }

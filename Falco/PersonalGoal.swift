@@ -8,64 +8,50 @@
 
 import Foundation
 
-class PersonalGoal: Goal {
-    private var _isCompleted: Bool
-    private var _timeOfCompletion: NSDate?
+struct PersonalGoal: Goal {
+    private let _id: String
+    private var _completionTime: NSDate
 
-    var isCompleted: Bool { return _isCompleted }
-    var timeOfCompletion: NSDate? { return _timeOfCompletion }
-    override var serialisedData: [String: AnyObject] {
-        var goalData = super.serialisedData
-        goalData["isCompleted"] = isCompleted
-        if let completionTime = timeOfCompletion?.timeIntervalSince1970 {
-            goalData["timeOfCompletion"] = completionTime
-        }
+    var name: String
+    var details: String
+    var priority: PriorityType
+    var endTime: NSDate
+
+    var id: String { return _id }
+    var completionTime: NSDate { return _completionTime }
+
+    var serialisedData: [String: AnyObject] {
+        let goalData: [String: AnyObject] = [Constants.nameKey: name,
+                                             Constants.detailsKey: details,
+                                             Constants.priorityKey: priority.rawValue,
+                                             Constants.endTimeKey: endTime.timeIntervalSince1970,
+                                             Constants.completionTimeKey: completionTime.timeIntervalSince1970]
         return goalData
     }
 
-    init(uid: String = NSUUID().UUIDString, name: String, details: String, endTime: NSDate, priority: PriorityType = .Low, isCompleted: Bool = false, timeOfCompletion: NSDate? = nil) {
-        _isCompleted = isCompleted
-        _timeOfCompletion = timeOfCompletion
-        super.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority, goalType: .Personal)
+    init(id: String = NSUUID().UUIDString, name: String, details: String, priority: PriorityType = .Low, endTime: NSDate, completionTime: NSDate = NSDate.distantPast()) {
+        self._id = id
+        self.name = name
+        self.details = details
+        self.priority = priority
+        self.endTime = endTime
+        self._completionTime = completionTime
     }
 
-    init(uid: String, goalData: [String: AnyObject]) {
-        _isCompleted = goalData["isCompleted"]! as! Bool
-        if let toc = goalData["timeOfCompletion"] as? NSNumber {
-            _timeOfCompletion = NSDate(timeIntervalSince1970: NSTimeInterval(toc))
-        }
-
-        super.init(uid: uid, goalType: .Personal, goalData: goalData)
+    init(id: String, goalData: [String: AnyObject]) {
+        let name = goalData[Constants.nameKey]! as! String
+        let details = goalData[Constants.detailsKey]! as! String
+        let priority = PriorityType(rawValue: goalData[Constants.priorityKey]! as! Int)!
+        let endTime = NSDate(timeIntervalSince1970: NSTimeInterval(goalData[Constants.endTimeKey] as! NSNumber))
+        let completionTime = NSDate(timeIntervalSince1970: NSTimeInterval(goalData[Constants.completionTimeKey] as! NSNumber))
+        self.init(id: id, name: name, details: details, priority: priority, endTime: endTime, completionTime: completionTime)
     }
 
-    /// Marks the goal as completed
-    func markAsComplete() {
-        _isCompleted = true
-        _timeOfCompletion = NSDate()
+    mutating func markComplete() {
+        _completionTime = NSDate()
     }
 
-    /// Marks the goal as uncompleted
-    func undoMarkAsComplete() {
-        _isCompleted = false
-        _timeOfCompletion = nil
-    }
-    
-    override func encodeWithCoder(coder: NSCoder) {
-        super.encodeWithCoder(coder)
-        coder.encodeBool(_isCompleted, forKey: Constants.isCompletedKey)
-        if _timeOfCompletion != nil {
-            coder.encodeObject(_timeOfCompletion, forKey: Constants.timeOfCompletionKey)
-        }
-    }
-    
-    required convenience init(coder decoder: NSCoder) {
-        let uid = decoder.decodeObjectForKey(Constants.uidKey) as! String
-        let name = decoder.decodeObjectForKey(Constants.nameKey) as! String
-        let details = decoder.decodeObjectForKey(Constants.detailsKey) as! String
-        let endTime = decoder.decodeObjectForKey(Constants.endTimeKey) as! NSDate
-        let priority = PriorityType(rawValue: decoder.decodeIntegerForKey(Constants.priorityKey))
-        let isCompleted = decoder.decodeBoolForKey(Constants.isCompletedKey)
-        let timeOfCompletion = decoder.decodeObjectForKey(Constants.timeOfCompletionKey) as! NSDate?
-        self.init(uid: uid, name: name, details: details, endTime: endTime, priority: priority!, isCompleted: isCompleted, timeOfCompletion: timeOfCompletion)
+    mutating func markIncomplete() {
+        _completionTime = NSDate.distantPast()
     }
 }
