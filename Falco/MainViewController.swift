@@ -25,7 +25,7 @@ class MainViewController: UIViewController {
         
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         let date = calendar!.dateFromComponents(dateComponents)!
-        
+    
         goalModel.updateGoal(PersonalGoal(name: "goal1", details: "my goal", priority: .High, endTime: date))
         goalModel.updateGoal(PersonalGoal(name: "goal2", details: "my goal", priority: .High, endTime: date))
         goalModel.updateGoal(PersonalGoal(name: "goal3", details: "my goal", priority: .Low, endTime: date))
