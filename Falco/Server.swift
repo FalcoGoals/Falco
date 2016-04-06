@@ -10,14 +10,14 @@ import Firebase
 import FBSDKLoginKit
 
 class Server {
+    private let ref = Firebase(url: "https://amber-torch-6648.firebaseio.com")
+    private var usersRef: Firebase!
+    private var groupsRef: Firebase!
+    private var userRef: Firebase!
+
     static let instance = Server()
 
-    let ref = Firebase(url: "https://amber-torch-6648.firebaseio.com")
-    var usersRef: Firebase!
-    var groupsRef: Firebase!
-
     var user: User!
-    var userRef: Firebase!
 
     var hasToken: Bool {
         if let token = currentAccessToken() {
@@ -107,12 +107,12 @@ class Server {
             return false
         }
 
-        let groupRef = groupsRef.childByAppendingPath(group.identifier)
+        let groupRef = groupsRef.childByAppendingPath(group.id)
         groupRef.updateChildValues(group.serialisedData)
 
         for member in group.members {
             let memberGroupsRef = usersRef.childByAppendingPath("\(member.id)/groups")
-            memberGroupsRef.updateChildValues([group.identifier: true])
+            memberGroupsRef.updateChildValues([group.id: true])
         }
 
         return true

@@ -38,6 +38,7 @@ struct GroupGoal: Goal {
         let goalData: [String: AnyObject] = [Constants.nameKey: name,
                                              Constants.detailsKey: details,
                                              Constants.priorityKey: priority.rawValue,
+                                             Constants.endTimeKey: endTime.timeIntervalSince1970,
                                              Constants.userCompletionTimesKey: serialisedUserData]
         return goalData
     }
@@ -49,6 +50,21 @@ struct GroupGoal: Goal {
         self.priority = priority
         self.endTime = endTime
         self._userCompletionTimes = userCompletionTimes
+    }
+
+    init(id: String, goalData: [String: AnyObject]) {
+        let name = goalData[Constants.nameKey]! as! String
+        let details = goalData[Constants.detailsKey]! as! String
+        let priority = PriorityType(rawValue: goalData[Constants.priorityKey]! as! Int)!
+        let endTime = NSDate(timeIntervalSince1970: NSTimeInterval(goalData[Constants.endTimeKey] as! NSNumber))
+        let userData = goalData[Constants.userCompletionTimesKey]! as! [String: NSNumber]
+        var userCompletionTimes: [User: NSDate] = [:]
+        for (userId, userCompletionTime) in userData {
+            let user = User(id: userId)
+            let completionTime = NSDate(timeIntervalSince1970: NSTimeInterval(userCompletionTime))
+            userCompletionTimes[user] = completionTime
+        }
+        self.init(id: id, name: name, details: details, priority: priority, endTime: endTime, userCompletionTimes: userCompletionTimes)
     }
     
     /// Assigns the input user to the goal
