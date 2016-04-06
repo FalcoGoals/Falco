@@ -18,8 +18,6 @@ struct PersonalGoal: Goal {
     var endTime: NSDate
 
     var id: String { return _id }
-    var weight: Int { return priority.rawValue * 50 + 100 }
-    var isCompleted: Bool { return _completionTime != NSDate.distantPast() }
     var completionTime: NSDate { return _completionTime }
 
     var serialisedData: [String: AnyObject] {

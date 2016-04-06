@@ -18,8 +18,6 @@ struct GroupGoal: Goal {
     var endTime: NSDate
 
     var id: String { return _id }
-    var weight: Int { return priority.rawValue * 50 + 100 }
-    var isCompleted: Bool { return completionTime != NSDate.distantPast() }
     var completionTime: NSDate {
         var latestCompletionTime = NSDate.distantPast()
         for (_, userCompletionTime) in _userCompletionTimes {
