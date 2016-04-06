@@ -14,14 +14,20 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet var tableView: UITableView!
     
     private var groupName: String?
-    private var friends = [User]()//Server.instance.getFriends()
+    private var friends = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let a = User(id: "1", name: "abalone", pictureUrl: "fjdk.jpg")
-        let b = User(id: "2", name: "batman", pictureUrl: "fd.png")
-        friends.append(a)
-        friends.append(b)
+   //     let a = User(id: "1", name: "abalone", pictureUrl: "fjdk.jpg")
+     //   let b = User(id: "2", name: "batman", pictureUrl: "fd.png")
+       // friends.append(a)
+        //friends.append(b)
+        Server.instance.getFriends() { users in
+            if let contacts = users {
+                self.friends.appendContentsOf(contacts)
+                self.tableView.reloadData()
+            }
+        }
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -32,7 +38,6 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
             
         }
     }
-    
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

@@ -161,6 +161,14 @@ extension PersonalGoalViewController: UICollectionViewDataSource {
         cell.label.text = goals.goals[indexPath.item].name
         return cell
     }
+    
+    
+    @IBAction func backButtonSelected(sender: AnyObject) {
+        let menuViewController = self.storyboard!.instantiateViewControllerWithIdentifier("addGroup")
+        menuViewController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        self.presentViewController(menuViewController, animated: true, completion: nil)
+    }
+    
 }
 
 extension PersonalGoalViewController: GoalLayoutDelegate {
