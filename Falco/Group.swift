@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Group : NSObject, NSCoding {
+class Group {
     private let _uid: String
     private var _name: String
     private var _members: [User]
@@ -19,9 +19,9 @@ class Group : NSObject, NSCoding {
     var members: [User] { return _members }
     var goals: GoalCollection { return _goals }
     var serialisedData: [String: AnyObject] {
-        let groupData: [String: AnyObject] = ["name": name,
-                                              "members": members.map({$0.identifier}),
-                                              "goals": goals.serialisedData]
+        let groupData: [String: AnyObject] = [Constants.nameKey: name,
+                                              Constants.membersKey: members.map({$0.id}),
+                                              Constants.goalsKey: goals.serialisedData]
         return groupData
     }
 
@@ -53,28 +53,4 @@ class Group : NSObject, NSCoding {
     func updateGoalCollection(goals: GoalCollection) {
         _goals = goals
     }
-
-    
-    // Save a Goal object locally
-    func encodeWithCoder(coder: NSCoder) {
-        coder.encodeObject(_uid, forKey: Constants.uidKey)
-        coder.encodeObject(_name, forKey: Constants.nameKey)
-        coder.encodeObject(_members, forKey: Constants.membersKey)
-        coder.encodeObject(_goals, forKey: Constants.goalsKey)
-    }
-    
-    /// Reinitialize a locally saved Goal object
-    required convenience init(coder decoder: NSCoder) {
-        let uid = decoder.decodeObjectForKey(Constants.uidKey) as! String
-        let name = decoder.decodeObjectForKey(Constants.nameKey) as! String
-        let members = decoder.decodeObjectForKey(Constants.membersKey) as! [User]
-        let goals = decoder.decodeObjectForKey(Constants.goalsKey) as! [Goal]
-        let goalCollection = GoalCollection(goals: goals)
-        self.init (uid: uid, name: name, users: members, goals: goalCollection)
-    }
-
-}
-
-func ==(lhs: Group, rhs: Group) -> Bool {
-    return lhs.identifier == rhs.identifier
 }

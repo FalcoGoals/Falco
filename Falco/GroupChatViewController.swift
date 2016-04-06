@@ -44,14 +44,14 @@ class GroupChatViewController: JSQMessagesViewController {
         // testing purposes
         groupName = "test chat"
         groupID = "testChat"
-        user = User(uid: "jy", name: "Jing")
+        user = User(id: "jy", name: "Jing", pictureUrl: "")
         
         title = groupName
-        senderId = user.identifier
+        senderId = user.id
         senderDisplayName = user.name
         groupMsgsRef = messagesRef.childByAppendingPath(groupID)
         groupTypingRef = typingRef.childByAppendingPath(groupID)
-        userIsTypingRef = groupTypingRef.childByAppendingPath(user.identifier)
+        userIsTypingRef = groupTypingRef.childByAppendingPath(user.id)
         collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero//(width: 2, height: 2)
         collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero//(width: 2, height: 2)
         setMessageViews()

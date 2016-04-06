@@ -10,16 +10,13 @@ import Foundation
 
 struct Constants {
     // NSCoding for local storage of data
-    static let uidKey = "uid"
+    static let idKey = "id"
     static let nameKey = "name"
     static let detailsKey = "details"
-    static let endTimeKey = "endTime"
     static let priorityKey = "priority"
-    static let goalTypeKey = "goalType"
+    static let endTimeKey = "endTime"
+    static let completionTimeKey = "completionTime"
+    static let userCompletionTimesKey = "userCompletionTimes"
     static let membersKey = "members"
     static let goalsKey = "goals"
-    static let userKey = "user"
-    static let isCompletedKey = "isCompleted"
-    static let timeOfCompletionKey = "timeOfCompletion"
-    static let groupGoalDataKey = "groupGoalData"
 }

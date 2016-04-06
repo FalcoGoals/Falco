@@ -15,7 +15,7 @@ class GoalCollection {
     var serialisedData: [String: AnyObject] {
         var goalsData: [String: AnyObject] = [:]
         for goal in goals {
-            goalsData[goal.identifier] = goal.serialisedData
+            goalsData[goal.id] = goal.serialisedData
         }
         return goalsData
     }
@@ -28,13 +28,23 @@ class GoalCollection {
         if let goalsData = goalsData as? [String: [String: AnyObject]] {
             var goals = [Goal]()
             for (goalId, goalData) in goalsData {
-                let goal = PersonalGoal(uid: goalId, goalData: goalData)
+                let goal = PersonalGoal(id: goalId, goalData: goalData)
                 goals.append(goal)
             }
             _goals = goals
         } else {
             _goals = []
         }
+    }
+
+    /// Returns whether a goal is contained in the collection
+    func containsGoal(goal: Goal) -> Bool {
+        for i in 0..<_goals.count {
+            if _goals[i].id == goal.id {
+                return true
+            }
+        }
+        return false
     }
 
     /// Adds a goal into the collection if it is not previously contained
@@ -48,8 +58,11 @@ class GoalCollection {
     
     /// Removes a particular goal from the collection
     func removeGoal(goal: Goal) {
-        if containsGoal(goal) {
-            _goals.removeAtIndex(_goals.indexOf(goal)!)
+        for i in 0..<_goals.count {
+            if _goals[i].id == goal.id {
+                _goals.removeAtIndex(i)
+                return
+            }
         }
     }
     
@@ -58,23 +71,16 @@ class GoalCollection {
         _goals.removeAll()
     }
     
-    /// Returns whether a goal is contained in the collection
-    func containsGoal(goal: Goal) -> Bool {
-        return _goals.contains(goal)
-    }
-    
     /// Marks a goal as being completed
-    func markGoalAsComplete(goal: Goal, user: User) {
+    func markGoalComplete(goal: Goal, user: User) {
         if containsGoal(goal) {
             //removeGoal(goal)
-            if goal.goalType == .Personal {
-                let pGoal = goal as! PersonalGoal
-                pGoal.markAsComplete()
+            if var pGoal = goal as? PersonalGoal {
+                pGoal.markComplete()
                 _goals.append(pGoal)
                 removeGoal(goal)
-            } else {    // group goal
-                let gGoal = goal as! GroupGoal
-                if gGoal.completedByUser(user) {
+            } else if var gGoal = goal as? GroupGoal {
+                if gGoal.markCompleteByUser(user) {
                     _goals.append(gGoal)
                     removeGoal(goal)
                 }
@@ -83,16 +89,14 @@ class GoalCollection {
     }
     
     /// Marks a goal as being uncompleted
-    func unmarkGoalAsComplete(goal: Goal, user: User) {
+    func markGoalIncomplete(goal: Goal, user: User) {
         if containsGoal(goal) {
-            if goal.goalType == .Personal {
-                let pGoal = goal as! PersonalGoal
-                pGoal.undoMarkAsComplete()
+            if var pGoal = goal as? PersonalGoal {
+                pGoal.markIncomplete()
                 _goals.append(pGoal)
                 removeGoal(goal)
-            } else {    // group goal
-                let gGoal = goal as! GroupGoal
-                if gGoal.uncompleteByUser(user) {
+            } else if var gGoal = goal as? GroupGoal {
+                if gGoal.markIncompleteByUser(user) {
                     _goals.append(gGoal)
                     removeGoal(goal)
                 }
@@ -110,10 +114,9 @@ class GoalCollection {
     func getGoalsAssignedToUser(user: User) -> [Goal] {
         var goalList = [Goal]()
         for goal in _goals {
-            if goal.goalType == .Personal {
+            if let goal = goal as? PersonalGoal {
                 goalList.append(goal)
-            } else {    // group goal
-                let groupGoal = goal as! GroupGoal
+            } else if let groupGoal = goal as? GroupGoal {
                 if groupGoal.userIsAssigned(user) {
                     goalList.append(goal)
                 }
@@ -128,8 +131,7 @@ class GoalCollection {
     func unassignGoalFromUser(goal: Goal, user: User) {
         if containsGoal(goal) {
             removeGoal(goal)
-            if (goal.goalType == .Group) {
-                let gGoal = goal as! GroupGoal
+            if var gGoal = goal as? GroupGoal {
                 gGoal.removeUser(user)
                 _goals.append(gGoal)
             }
@@ -176,7 +178,7 @@ class GoalCollection {
                     completedGoals.append(goal)
                 }
             } else if let groupGoal = goal as? GroupGoal {
-                if groupGoal.isCompleted() {
+                if groupGoal.isCompleted {
                     completedGoals.append(goal)
                 }
             }
@@ -193,7 +195,7 @@ class GoalCollection {
                     uncompletedGoals.append(goal)
                 }
             } else if let groupGoal = goal as? GroupGoal {
-                if !groupGoal.isCompleted() {
+                if !groupGoal.isCompleted {
                     uncompletedGoals.append(goal)
                 }
             }
@@ -213,9 +215,9 @@ class GoalCollection {
     }
     
     /// Returns the goal with a particular id
-    func getGoalWithIdentifier(uid: String) -> Goal? {
+    func getGoalWithIdentifier(id: String) -> Goal? {
         for goal in _goals {
-            if goal.identifier == uid {
+            if goal.id == id {
                 return goal
             }
         }
