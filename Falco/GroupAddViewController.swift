@@ -55,8 +55,18 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
         let url = NSURL(string: friends[indexPath.row].pictureUrl)
         cell!.friendImageView?.image = UIImage(data: NSData(contentsOfURL: url!)!)
 
-        //cell.friendImageView =
         return cell!
     }
+    
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        if cell?.accessoryType == UITableViewCellAccessoryType.None {
+            cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
+        } else {
+            cell?.accessoryType = UITableViewCellAccessoryType.None
+        }
+    }
+    
     
 }
