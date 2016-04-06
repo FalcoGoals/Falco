@@ -88,7 +88,7 @@ class BubblesScene: SKScene {
         
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         let date = calendar!.dateFromComponents(dateComponents)!
-        goalModel.updateGoal(PersonalGoal(name: "goal36", details: "my goal", endTime: date, priority: .High))
+        goalModel.updateGoal(PersonalGoal(name: "goal36", details: "my goal", priority: .High, endTime: date))
         let goal1 = goalModel.getGoalsWithName("goal36")[0]
         physicsWorld.gravity = CGVectorMake(0, 0)
         let weight = goal1.weight
