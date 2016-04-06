@@ -44,7 +44,7 @@ class GroupChatViewController: JSQMessagesViewController {
         // testing purposes
         groupName = "test chat"
         groupID = "testChat"
-        user = User(id: "jy", name: "Jing")
+        user = User(id: "jy", name: "Jing", pictureUrl: "")
         
         title = groupName
         senderId = user.id

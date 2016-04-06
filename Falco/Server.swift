@@ -129,7 +129,7 @@ class Server {
                 print("Error: \(error)")
             } else {
                 let friends = result.valueForKey("data")! as! [[String: AnyObject]]
-                print("Friends: \(friends)")
+//                print("Friends: \(friends)")
 
                 var g1 = GroupGoal(name: "my task", details: "details", endTime: NSDate())
                 var g2 = GroupGoal(name: "squad goal", details: "details", endTime: NSDate())
@@ -141,10 +141,14 @@ class Server {
                 for friend in friends {
                     let id = "facebook:\(friend["id"] as! String)"
                     let name = friend["name"] as! String
-                    let friendUser = User(id: id, name: name)
+                    let pictureData = (friend["picture"] as! [String: AnyObject])["data"] as! [String: AnyObject]
+                    let pictureUrl = pictureData["url"] as! String
+                    let friendUser = User(id: id, name: name, pictureUrl: pictureUrl)
                     friendUsers.append(friendUser)
                     g2.addUser(friendUser)
                 }
+
+                print(friendUsers)
 
                 let goals = GoalCollection(goals: [g1, g2])
 
@@ -157,7 +161,8 @@ class Server {
 
         let uid = authData.uid
         let name = authData.providerData["displayName"] as! String
-        user = User(id: uid, name: name)
+        let pictureUrl = authData.providerData["profileImageURL"] as! String
+        user = User(id: uid, name: name, pictureUrl: pictureUrl)
         userRef = usersRef.childByAppendingPath(uid)
 
         userRef.updateChildValues(["name": name])

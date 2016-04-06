@@ -12,7 +12,7 @@ import SpriteKit
 class MainViewController: UIViewController {
     
     private var goalModel = GoalCollection(goals: [])
-    private var user = User(id: NSUUID().UUIDString, name: "MrFoo")
+    private var user = User(id: NSUUID().UUIDString, name: "MrFoo", pictureUrl: "")
 
     override func viewDidLoad() {
         super.viewDidLoad()

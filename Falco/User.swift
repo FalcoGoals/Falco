@@ -9,13 +9,15 @@
 struct User: Hashable {
     private var _name: String
     private let _id: String
+    private let _pictureUrl: String
 
     var name: String { return _name }
     var id: String { return _id }
 
-    init(id: String, name: String) {
+    init(id: String, name: String, pictureUrl: String) {
         _id = id
         _name = name
+        _pictureUrl = pictureUrl
     }
 
     var hashValue: Int {
