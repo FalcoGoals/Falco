@@ -6,38 +6,23 @@
 //  Copyright © 2016 nus.cs3217.group04. All rights reserved.
 //
 
-import Foundation
-
-class User: NSObject, NSCoding {
+struct User: Hashable {
     private var _name: String
-    private let _uid: String
-    // private var _groups = [Group]()
+    private let _id: String
 
     var name: String { return _name }
-    var identifier: String { return _uid }
-    //var groups: [Group] { return _groups }
+    var id: String { return _id }
 
-    init(uid: String, name: String) {
-        _uid = uid
+    init(id: String, name: String) {
+        _id = id
         _name = name
     }
 
-    override var hashValue: Int {
-        return _uid.hashValue
-    }
-    
-    func encodeWithCoder(coder: NSCoder) {
-        coder.encodeObject(_name, forKey: Constants.nameKey)
-        coder.encodeObject(_uid, forKey: Constants.uidKey)
-    }
-    
-    required convenience init(coder decoder: NSCoder) {
-        let name = decoder.decodeObjectForKey(Constants.nameKey) as! String
-        let uid = decoder.decodeObjectForKey(Constants.uidKey) as! String
-        self.init(uid: uid, name: name)
+    var hashValue: Int {
+        return _id.hashValue
     }
 }
 
 func ==(lhs: User, rhs: User) -> Bool {
-    return lhs.identifier == rhs.identifier
+    return lhs.id == rhs.id
 }
