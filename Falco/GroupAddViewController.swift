@@ -18,10 +18,6 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-   //     let a = User(id: "1", name: "abalone", pictureUrl: "fjdk.jpg")
-     //   let b = User(id: "2", name: "batman", pictureUrl: "fd.png")
-       // friends.append(a)
-        //friends.append(b)
         Server.instance.getFriends() { users in
             if let contacts = users {
                 self.friends.appendContentsOf(contacts)
@@ -56,10 +52,9 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
         cell!.preservesSuperviewLayoutMargins = false
         cell!.layoutMargins = UIEdgeInsetsZero
         cell!.friendNameLabel?.text = friends[indexPath.row].name
-        if cell!.friendNameLabel == nil {
-            print("friend name label doesnt exist")
-        }
-        print(friends[indexPath.row].name)
+        let url = NSURL(string: friends[indexPath.row].pictureUrl)
+        cell!.friendImageView?.image = UIImage(data: NSData(contentsOfURL: url!)!)
+
         //cell.friendImageView =
         return cell!
     }

@@ -54,6 +54,13 @@
                                     <outletCollection property="gestureRecognizers" destination="auQ-mx-gEr" appends="YES" id="ITU-gZ-nN6"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DUP-bt-goI">
+                                <rect key="frame" x="397" y="531" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="backButtonSelected:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xvm-18-s9l"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -367,7 +374,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="friendImageView" destination="3IV-6s-LYM" id="aFK-Oj-HtD"/>
+                                            <outlet property="friendImageView" destination="AEo-Fz-ZYS" id="Tr2-Kc-gei"/>
                                             <outlet property="friendNameLabel" destination="Zxx-vR-a4W" id="1LR-le-Cap"/>
                                         </connections>
                                     </tableViewCell>

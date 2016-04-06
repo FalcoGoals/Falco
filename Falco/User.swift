@@ -13,6 +13,7 @@ struct User: Hashable {
 
     var name: String { return _name }
     var id: String { return _id }
+    var pictureUrl: String { return _pictureUrl }
 
     init(id: String, name: String = "", pictureUrl: String = "") {
         _id = id
