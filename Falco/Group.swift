@@ -19,19 +19,23 @@ class Group {
     var members: [User] { return _members }
     var goals: GoalCollection { return _goals }
     var serialisedData: [String: AnyObject] {
+        var serialisedMemberData: [String: Bool] = [:]
+        for member in members {
+            serialisedMemberData[member.id] = true
+        }
         let groupData: [String: AnyObject] = [Constants.nameKey: name,
-                                              Constants.membersKey: members.map({$0.id}),
+                                              Constants.membersKey: serialisedMemberData,
                                               Constants.goalsKey: goals.serialisedData]
         return groupData
     }
 
-    init(id: String = NSUUID().UUIDString, creator: User? = nil, name: String, users: [User], goals: GoalCollection = GoalCollection()) {
+    init(id: String = NSUUID().UUIDString, creator: User? = nil, name: String, members: [User], goals: GoalCollection = GoalCollection()) {
         _id = id
         _name = name
         if let creator = creator {
-            _members = users + [creator]
+            _members = members + [creator]
         } else {
-            _members = users
+            _members = members
         }
         _goals = goals
     }

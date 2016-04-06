@@ -136,7 +136,7 @@ class PersonalGoalViewController: UIViewController, GoalDetailDelegate, LoginDel
             g2.addUser(friend)
         }
         let goals = GoalCollection(goals: [g1, g2])
-        let group = Group(creator: user, name: "\(user.name)'s test group", users: friends!)
+        let group = Group(creator: user, name: "\(user.name)'s test group", members: friends!)
         group.updateGoalCollection(goals)
         server.saveGroup(group)
     }
