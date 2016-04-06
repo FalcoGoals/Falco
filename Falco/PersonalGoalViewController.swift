@@ -81,6 +81,7 @@ class PersonalGoalViewController: UIViewController, GoalDetailDelegate, LoginDel
     private func authAndDownloadGoals() {
         server.auth() {
             self.server.registerPersonalGoalsCallback(self.updateModelWith)
+            self.server.getFriends(self.addSampleGroup)
         }
     }
 
@@ -119,6 +120,25 @@ class PersonalGoalViewController: UIViewController, GoalDetailDelegate, LoginDel
         goals.updateGoal(PersonalGoal(name: "\(name)'s goal12", details: "my goal", priority: .High, endTime: date))
 
         server.savePersonalGoals(goals)
+    }
+
+    private func addSampleGroup(friends: [User]?) {
+        if friends == nil {
+            return
+        }
+
+        let user = server.user
+        var g1 = GroupGoal(name: "my task", details: "details", endTime: NSDate())
+        var g2 = GroupGoal(name: "squad goal", details: "details", endTime: NSDate())
+        g1.addUser(user)
+        g2.addUser(user)
+        for friend in friends! {
+            g2.addUser(friend)
+        }
+        let goals = GoalCollection(goals: [g1, g2])
+        let group = Group(creator: user, name: "\(user.name)'s test group", users: friends!)
+        group.updateGoalCollection(goals)
+        server.saveGroup(group)
     }
 }
 

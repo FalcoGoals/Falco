@@ -17,8 +17,17 @@ protocol Goal {
     var id: String { get }
     var weight: Int { get }
     var isCompleted: Bool { get }
-    var completionTime: NSDate? { get }
+    var completionTime: NSDate { get }
     var serialisedData: [String: AnyObject] { get }
+}
+
+extension Goal {
+    var isCompleted: Bool {
+        return completionTime != NSDate.distantPast()
+    }
+    var weight: Int {
+        return priority.rawValue * 50 + 100
+    }
 }
 
 enum PriorityType: Int {
