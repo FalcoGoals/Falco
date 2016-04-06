@@ -13,15 +13,19 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet var nameInput: UITextField!
     @IBOutlet var tableView: UITableView!
     
-    private var groupName: String?
-    private var friends = [User]()
+    private var _groupName: String?
+    private var _friends = [User]()
+    private var _checkedRows = [Bool]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         Server.instance.getFriends() { users in
             if let contacts = users {
-                self.friends.appendContentsOf(contacts)
+                self._friends.appendContentsOf(contacts)
                 self.tableView.reloadData()
+                for _ in contacts {
+                    self._checkedRows.append(false)
+                }
             }
         }
         tableView.dataSource = self
@@ -29,10 +33,31 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     @IBAction func createGroup(sender: AnyObject) {
-        if let name = nameInput.text {
-            groupName = name
-            
+        _groupName = nameInput.text
+        var groupMembers = [User]()
+        for i in 0..<_checkedRows.count {
+            if _checkedRows[i] {
+                groupMembers.append(_friends[i])
+            }
         }
+        if _groupName == nil || _groupName == "" {
+            let alert = UIAlertController(title: "Failed to create group", message: "A group name is required", preferredStyle: .Alert)
+            warn(alert)
+        } else if groupMembers.isEmpty {
+            let alert = UIAlertController(title: "Failed to create group", message: "Please select members to join the group", preferredStyle: .Alert)
+            warn(alert)
+        } else {
+            let group = Group(name: _groupName!, members: groupMembers)
+            print(group.toString())
+        }
+    }
+    
+    private func warn(alert: UIAlertController) {
+        let okayAction = UIAlertAction(title: "Okay", style: .Default) {
+            (action: UIAlertAction) -> Void in
+        }
+        alert.addAction(okayAction)
+        presentViewController(alert, animated: true, completion: nil)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -40,7 +65,7 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friends.count
+        return _friends.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -51,10 +76,9 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
         cell!.separatorInset = UIEdgeInsetsZero
         cell!.preservesSuperviewLayoutMargins = false
         cell!.layoutMargins = UIEdgeInsetsZero
-        cell!.friendNameLabel?.text = friends[indexPath.row].name
-        let url = NSURL(string: friends[indexPath.row].pictureUrl)
+        cell!.friendNameLabel?.text = _friends[indexPath.row].name
+        let url = NSURL(string: _friends[indexPath.row].pictureUrl)
         cell!.friendImageView?.image = UIImage(data: NSData(contentsOfURL: url!)!)
-
         return cell!
     }
     
@@ -63,8 +87,10 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         if cell?.accessoryType == UITableViewCellAccessoryType.None {
             cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
+            _checkedRows[indexPath.row] = true
         } else {
             cell?.accessoryType = UITableViewCellAccessoryType.None
+            _checkedRows[indexPath.row] = false
         }
     }
     

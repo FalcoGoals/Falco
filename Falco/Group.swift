@@ -72,4 +72,12 @@ class Group {
     func updateGoalCollection(goals: GoalCollection) {
         _goals = goals
     }
+    
+    func toString() -> String {
+        var s = "name: \(_name), with members: "
+        for user in _members {
+            s += user.name + ", "
+        }
+        return s
+    }
 }
