@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GoalCollection {
+class GoalCollection: CustomStringConvertible {
     private var _goals: [Goal]
 
     var goals: [Goal] { return _goals }
@@ -18,6 +18,10 @@ class GoalCollection {
             goalsData[goal.id] = goal.serialisedData
         }
         return goalsData
+    }
+
+    var description: String {
+        return goals.description
     }
 
     init(goals: [Goal] = []) {

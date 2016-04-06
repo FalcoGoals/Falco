@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Group {
+class Group: CustomStringConvertible {
     private let _id: String
     private var _name: String
     private var _members: [User]
@@ -27,6 +27,10 @@ class Group {
                                               Constants.membersKey: serialisedMemberData,
                                               Constants.goalsKey: goals.serialisedData]
         return groupData
+    }
+
+    var description: String {
+        return "<Group id: \(id), name: \"\(name)\", members: \(members), goals: \(goals)>"
     }
 
     init(id: String = NSUUID().UUIDString, creator: User? = nil, name: String, members: [User], goals: GoalCollection = GoalCollection()) {
@@ -71,13 +75,5 @@ class Group {
 
     func updateGoalCollection(goals: GoalCollection) {
         _goals = goals
-    }
-    
-    func toString() -> String {
-        var s = "name: \(_name), with members: "
-        for user in _members {
-            s += user.name + ", "
-        }
-        return s
     }
 }

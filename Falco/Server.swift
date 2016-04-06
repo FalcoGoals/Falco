@@ -102,6 +102,35 @@ class Server {
         return true
     }
 
+    func getGroups(callback: ([Group]?) -> ()) {
+        if !isAuth {
+            callback(nil)
+            return
+        }
+
+        let userGroupsRef = userRef.childByAppendingPath("groups")
+        userGroupsRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
+            if snapshot.value is NSNull {
+                callback(nil)
+                return
+            }
+
+            let groupIdsDict = snapshot.value as! [String : AnyObject]
+            var groups = [Group]()
+            for (groupId, _) in groupIdsDict {
+                let groupRef = self.groupsRef.childByAppendingPath(groupId)
+                groupRef.observeSingleEventOfType(.Value, withBlock: { snapshot2 in
+                    let groupData = snapshot2.value as! [String: AnyObject]
+                    groups.append(Group(id: groupId, groupData: groupData))
+                    if groups.count == groupIdsDict.keys.count {
+                        callback(groups)
+                        return
+                    }
+                })
+            }
+        })
+    }
+
     func saveGroup(group: Group) -> Bool {
         if !isAuth {
             return false

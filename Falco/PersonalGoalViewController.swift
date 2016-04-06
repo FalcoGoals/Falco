@@ -127,18 +127,25 @@ class PersonalGoalViewController: UIViewController, GoalDetailDelegate, LoginDel
             return
         }
 
-        let user = server.user
-        var g1 = GroupGoal(name: "my task", details: "details", endTime: NSDate())
-        var g2 = GroupGoal(name: "squad goal", details: "details", endTime: NSDate())
-        g1.addUser(user)
-        g2.addUser(user)
-        for friend in friends! {
-            g2.addUser(friend)
+        server.getGroups() { groups in
+            print(groups)
+            if groups != nil {
+                return
+            }
+
+            let user = self.server.user
+            var g1 = GroupGoal(name: "my task", details: "details", endTime: NSDate())
+            var g2 = GroupGoal(name: "squad goal", details: "details", endTime: NSDate())
+            g1.addUser(user)
+            g2.addUser(user)
+            for friend in friends! {
+                g2.addUser(friend)
+            }
+            let goals = GoalCollection(goals: [g1, g2])
+            let group = Group(creator: user, name: "\(user.name)'s test group", members: friends!)
+            group.updateGoalCollection(goals)
+            self.server.saveGroup(group)
         }
-        let goals = GoalCollection(goals: [g1, g2])
-        let group = Group(creator: user, name: "\(user.name)'s test group", members: friends!)
-        group.updateGoalCollection(goals)
-        server.saveGroup(group)
     }
 }
 

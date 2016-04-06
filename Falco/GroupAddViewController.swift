@@ -48,7 +48,7 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
             warn(alert)
         } else {
             let group = Group(name: _groupName!, members: groupMembers)
-            print(group.toString())
+            print(group)
         }
     }
     
