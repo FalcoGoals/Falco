@@ -10,7 +10,7 @@ import Foundation
 
 struct PersonalGoal: Goal {
     private let _id: String
-    private var _completionTime: NSDate?
+    private var _completionTime: NSDate
 
     var name: String
     var details: String
@@ -19,21 +19,19 @@ struct PersonalGoal: Goal {
 
     var id: String { return _id }
     var weight: Int { return priority.rawValue * 50 + 100 }
-    var isCompleted: Bool { return _completionTime != nil }
-    var completionTime: NSDate? { return _completionTime }
+    var isCompleted: Bool { return _completionTime != NSDate.distantPast() }
+    var completionTime: NSDate { return _completionTime }
 
     var serialisedData: [String: AnyObject] {
-        var goalData: [String: AnyObject] = [Constants.nameKey: name,
+        let goalData: [String: AnyObject] = [Constants.nameKey: name,
                                              Constants.detailsKey: details,
                                              Constants.priorityKey: priority.rawValue,
-                                             Constants.endTimeKey: endTime.timeIntervalSince1970]
-        if let completionTime = _completionTime?.timeIntervalSince1970 {
-            goalData[Constants.completionTimeKey] = completionTime
-        }
+                                             Constants.endTimeKey: endTime.timeIntervalSince1970,
+                                             Constants.completionTimeKey: completionTime.timeIntervalSince1970]
         return goalData
     }
 
-    init(id: String = NSUUID().UUIDString, name: String, details: String, priority: PriorityType = .Low, endTime: NSDate, completionTime: NSDate? = nil) {
+    init(id: String = NSUUID().UUIDString, name: String, details: String, priority: PriorityType = .Low, endTime: NSDate, completionTime: NSDate = NSDate.distantPast()) {
         self._id = id
         self.name = name
         self.details = details
@@ -47,12 +45,7 @@ struct PersonalGoal: Goal {
         let details = goalData[Constants.detailsKey]! as! String
         let priority = PriorityType(rawValue: goalData[Constants.priorityKey]! as! Int)!
         let endTime = NSDate(timeIntervalSince1970: NSTimeInterval(goalData[Constants.endTimeKey] as! NSNumber))
-        let completionTime: NSDate?
-        if let toc = goalData[Constants.completionTimeKey] as? NSNumber {
-            completionTime = NSDate(timeIntervalSince1970: NSTimeInterval(toc))
-        } else {
-            completionTime = nil
-        }
+        let completionTime = NSDate(timeIntervalSince1970: NSTimeInterval(goalData[Constants.completionTimeKey] as! NSNumber))
         self.init(id: id, name: name, details: details, priority: priority, endTime: endTime, completionTime: completionTime)
     }
 
@@ -61,6 +54,6 @@ struct PersonalGoal: Goal {
     }
 
     mutating func markIncomplete() {
-        _completionTime = nil
+        _completionTime = NSDate.distantPast()
     }
 }

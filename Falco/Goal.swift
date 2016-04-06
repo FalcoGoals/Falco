@@ -17,7 +17,7 @@ protocol Goal {
     var id: String { get }
     var weight: Int { get }
     var isCompleted: Bool { get }
-    var completionTime: NSDate? { get }
+    var completionTime: NSDate { get }
     var serialisedData: [String: AnyObject] { get }
 }
 
