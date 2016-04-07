@@ -45,6 +45,7 @@
 		745BC9731C994BFD00204231 /* BubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745BC9721C994BFD00204231 /* BubbleCell.swift */; };
 		74BB5DD71CA1848500695C24 /* GoalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB5DD61CA1848500695C24 /* GoalDetailViewController.swift */; };
 		74E8CEB61CA81666007585D1 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74E8CEB51CA81666007585D1 /* DatePickerViewController.swift */; };
+		7B634CE21CB53B1A00ED4E15 /* falcoLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B634CE11CB53B1A00ED4E15 /* falcoLogo.png */; };
 		7BD611F41CB0F5440061730E /* BubbleBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7BD611F31CB0F5440061730E /* BubbleBackground.jpg */; };
 		A24F37CC1C9EA468001148FD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24F37CB1C9EA468001148FD /* LoginViewController.swift */; };
 		A2C1C7DE1CACBE6800B6EAFA /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1C7DD1CACBE6800B6EAFA /* Server.swift */; };
@@ -105,6 +106,7 @@
 		745BC9721C994BFD00204231 /* BubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleCell.swift; sourceTree = "<group>"; };
 		74BB5DD61CA1848500695C24 /* GoalDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalDetailViewController.swift; sourceTree = "<group>"; };
 		74E8CEB51CA81666007585D1 /* DatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
+		7B634CE11CB53B1A00ED4E15 /* falcoLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = falcoLogo.png; sourceTree = "<group>"; };
 		7BD611F31CB0F5440061730E /* BubbleBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = BubbleBackground.jpg; sourceTree = "<group>"; };
 		A24F37CB1C9EA468001148FD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A2C1C7DD1CACBE6800B6EAFA /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				745957821C9841DE00C3D3C0 /* Main.storyboard */,
 				A2C1C7DD1CACBE6800B6EAFA /* Server.swift */,
 				7459577E1C9841DE00C3D3C0 /* AppDelegate.swift */,
+				7B634CE11CB53B1A00ED4E15 /* falcoLogo.png */,
 				7BD611F31CB0F5440061730E /* BubbleBackground.jpg */,
 				745957851C9841DE00C3D3C0 /* Assets.xcassets */,
 				745957871C9841DE00C3D3C0 /* LaunchScreen.storyboard */,
@@ -329,7 +332,7 @@
 				TargetAttributes = {
 					7459577A1C9841DE00C3D3C0 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = ZTP9RF6M6K;
+						DevelopmentTeam = 655C42239R;
 					};
 					7459578E1C9841DE00C3D3C0 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -370,6 +373,7 @@
 			files = (
 				745957891C9841DE00C3D3C0 /* LaunchScreen.storyboard in Resources */,
 				745957861C9841DE00C3D3C0 /* Assets.xcassets in Resources */,
+				7B634CE21CB53B1A00ED4E15 /* falcoLogo.png in Resources */,
 				745957841C9841DE00C3D3C0 /* Main.storyboard in Resources */,
 				7BD611F41CB0F5440061730E /* BubbleBackground.jpg in Resources */,
 			);
@@ -620,6 +624,8 @@
 			baseConfigurationReference = F3EDF817BF16E83523A638C6 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -629,6 +635,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.Falco;
 				PRODUCT_NAME = Falco;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -637,6 +644,8 @@
 			baseConfigurationReference = BD369289AFEF04402F8D94D1 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -646,6 +655,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.Falco;
 				PRODUCT_NAME = Falco;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

@@ -11,6 +11,7 @@ import SpriteKit
 
 class MainViewController: UIViewController {
     
+    @IBOutlet weak var tabView: UIView!
     private var goalModel = GoalCollection(goals: [])
     private var user = User(id: NSUUID().UUIDString, name: "MrFoo", pictureUrl: "")
 
