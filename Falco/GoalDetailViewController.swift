@@ -23,7 +23,6 @@ class GoalDetailViewController: UITableViewController {
     var delegate: GoalDetailDelegate!
 
     var goal: Goal!
-    var user: User!
     var selectedDate: NSDate!
     var selectedIndexpath: NSIndexPath?
 

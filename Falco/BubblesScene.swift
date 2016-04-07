@@ -16,8 +16,6 @@ class BubblesScene: SKScene {
     private var lowestY = 0
     private var offset = CGFloat(100)
 
-    var presentationDelegate: PresentationDelegate!
-
     override init(size: CGSize) {
         super.init(size: size)
         anchorPoint = CGPointMake (0.0,1.0)
@@ -66,7 +64,7 @@ class BubblesScene: SKScene {
         if (cameraMoved) {
             cameraMoved = false
         } else {
-            presentationDelegate.present(nil)
+//            presentationDelegate.present(nil)
         }
     }
 
@@ -78,7 +76,6 @@ class BubblesScene: SKScene {
         }
         circlePosition.append([x, y, weight])
         let goalBubble = GoalBubble(goal: goal)
-        goalBubble.delegate = presentationDelegate
         goalBubble.position = CGPointMake(CGFloat(x), CGFloat(y) - offset)
         offset += 50
         addGoalBubble(goalBubble)

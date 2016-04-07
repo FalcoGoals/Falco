@@ -8,15 +8,10 @@
 
 import SpriteKit
 
-protocol PresentationDelegate {
-    func present(id: String?)
-}
-
 class GoalBubble: SKNode {
     var circle: SKShapeNode
     var label: SKLabelNode
     var id: String
-    var delegate: PresentationDelegate!
 
     init(id: String, circleOfRadius: CGFloat, text: String) {
         self.id = id
@@ -48,11 +43,5 @@ class GoalBubble: SKNode {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if let touch = touches.first where touch.tapCount == 1 {
-            delegate.present(self.id)
-        }
     }
 }

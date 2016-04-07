@@ -28,12 +28,12 @@ class MainViewController: UIViewController, LoginDelegate {
         }
 
         scene = BubblesScene(size: view.bounds.size)
-        scene.presentationDelegate = self
         scene.scaleMode = .ResizeFill
 
         let skView = view as! SKView
         skView.ignoresSiblingOrder = true
         skView.presentScene(scene)
+        skView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MainViewController.bubbleTapped(_:))))
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -46,7 +46,34 @@ class MainViewController: UIViewController, LoginDelegate {
         if segue.identifier == "showLogin" {
             let lvc = segue.destinationViewController as! LoginViewController
             lvc.delegate = self
+        } else if segue.identifier == "showDetailView" {
+            let dvc = segue.destinationViewController as! GoalDetailViewController
+
+            let location = sender!.locationInView(sender!.view)
+            let touchLocation = scene.convertPointFromView(location)
+            var node = scene.nodeAtPoint(touchLocation)
+            while !(node is GoalBubble) && node.parent != nil {
+                if let parent = node.parent {
+                    node = parent
+                } else {
+                    break
+                }
+            }
+
+            dvc.popoverPresentationController!.sourceView = sender!.view
+            if let node = node as? GoalBubble {
+                dvc.goal = goals.getGoalWithIdentifier(node.id)
+                dvc.popoverPresentationController!.sourceRect = CGRect(origin: location, size: node.frame.size)
+            } else {
+                dvc.goal = nil
+                dvc.popoverPresentationController!.sourceRect.offsetInPlace(dx: location.x, dy: location.y)
+            }
+            dvc.delegate = self
         }
+    }
+
+    func bubbleTapped(sender: UITapGestureRecognizer) {
+        performSegueWithIdentifier("showDetailView", sender: sender)
     }
 
     @IBAction func settingsTapped(sender: AnyObject) {
@@ -147,28 +174,28 @@ extension MainViewController {
     }
 }
 
-extension MainViewController: PresentationDelegate {
-    func present(id: String?) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let content = storyboard.instantiateViewControllerWithIdentifier("GoalDetailViewController") as! GoalDetailViewController
-
-        let goal: Goal?
-        if let id = id {
-            goal = goals.getGoalWithIdentifier(id)
-        } else {
-            goal = nil
-        }
-
-        content.delegate = self
-        content.goal = goal
-        content.user = user
-
-        content.modalPresentationStyle = .FormSheet
-        content.modalTransitionStyle = .CrossDissolve
-        self.presentViewController(content, animated: true, completion: nil)
-        self.scene.view?.paused = true
-    }
-}
+//extension MainViewController: PresentationDelegate {
+//    func present(id: String?) {
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let content = storyboard.instantiateViewControllerWithIdentifier("GoalDetailViewController") as! GoalDetailViewController
+//
+//        let goal: Goal?
+//        if let id = id {
+//            goal = goals.getGoalWithIdentifier(id)
+//        } else {
+//            goal = nil
+//        }
+//
+//        content.delegate = self
+//        content.goal = goal
+//        content.user = user
+//
+//        content.modalPresentationStyle = .FormSheet
+//        content.modalTransitionStyle = .CrossDissolve
+//        self.presentViewController(content, animated: true, completion: nil)
+//        self.scene.view?.paused = true
+//    }
+//}
 
 extension MainViewController: GoalDetailDelegate {
     func didSave(goal: Goal) {
