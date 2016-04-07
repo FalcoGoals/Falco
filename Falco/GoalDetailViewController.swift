@@ -15,14 +15,23 @@ protocol GoalDetailDelegate {
 class GoalDetailViewController: UITableViewController {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var detailsField: UITextField!
-    @IBOutlet weak var deadlineField: UITableViewCell!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var priorityControl: UISegmentedControl!
+    @IBOutlet weak var datePicker: UIDatePicker!
+
+    let dateRow = 2
 
     var delegate: GoalDetailDelegate!
 
     var goal: Goal!
     var selectedDate: NSDate!
     var selectedIndexpath: NSIndexPath?
+
+//    var datePickerIndexPath: NSIndexPath!
+//    let datePickerIdentifier = "datePickerCell"
+//    var isDatePickerShown: Bool {
+//        return datePickerIndexPath != nil
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,10 +50,38 @@ class GoalDetailViewController: UITableViewController {
 //        title = goal!.name
 //        nameField.text = goal!.name
 //        detailsField.text = goal!.details
+//        dateLabel.text = getDateString(goal!.endTime)
+//        priorityControl.selectedSegmentIndex = goal!.priority.rawValue
+
+//        title = goal!.name
+//        nameField.text = goal!.name
+//        detailsField.text = goal!.details
 //        deadlineField.textLabel?.text = getDateString(goal!.endTime)
 //        priorityControl.selectedSegmentIndex = goal!.priority.rawValue
 
     }
+
+    // MARK: Table view delegate
+//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        if indexPath.row == dateRow {
+//            showDatePicker(indexPath)
+//        } else {
+//            hideDatePicker(indexPath)
+//        }
+//    }
+
+//    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//
+//    }
+//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+//        var cell: UITableViewCell
+//        if isDatePickerShown && indexPath == datePickerIndexPath {
+//            cell = createDatePickerCell(indexPath)
+//        } else {
+//            cell = self.tableView.cellForRowAtIndexPath(indexPath)!
+//        }
+//        return cell
+//    }
 
     // MARK: Segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -80,6 +117,28 @@ class GoalDetailViewController: UITableViewController {
         dateFormatter.locale = NSLocale.currentLocale()
         return dateFormatter.stringFromDate(date)
     }
+    private func showDatePicker(indexPath: NSIndexPath) {
+        guard !isDatePickerShown else {
+            return
+        }
+
+        datePickerIndexPath = NSIndexPath(forRow: dateRow + 1, inSection: 0)
+        self.tableView.insertRowsAtIndexPaths([datePickerIndexPath], withRowAnimation: .Fade)
+    }
+
+    private func hideDatePicker(indexPath: NSIndexPath) {
+        guard isDatePickerShown else {
+            return
+        }
+        self.tableView.deleteRowsAtIndexPaths([datePickerIndexPath], withRowAnimation: .Fade)
+        datePickerIndexPath = nil
+    }
+
+    //    private func createDatePickerCell(indexPath: NSIndexPath) -> UITableViewCell {
+    //        let datePicker = UITableViewCell(style: .Default, reuseIdentifier: datePickerIdentifier) as! UIDatePicker
+    //        datePicker.setDate(goal!.endTime, animated: true)
+    //        return datePicker
+    //    }
 }
 
 extension GoalDetailViewController: DatePickerDelegate {

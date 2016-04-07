@@ -8,13 +8,8 @@
 
 import UIKit
 
-protocol DatePickerDelegate {
-    func didSave(date: NSDate)
-}
-
 class DatePickerViewController: UIViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
-    var delegate: DatePickerDelegate!
     var date: NSDate!
 
     override func viewDidLoad() {
@@ -24,8 +19,7 @@ class DatePickerViewController: UIViewController {
 
     // MARK: Segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "saveDateSegue" {
-            delegate.didSave(datePicker.date)
-        }
+//        if segue.identifier == "saveDateSegue" {
+//        }
     }
 }

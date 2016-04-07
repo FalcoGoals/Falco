@@ -24,6 +24,7 @@ class MainViewController: UIViewController, LoginDelegate {
         if server.hasToken {
             didReceiveToken()
         }
+
     }
 
 //class MainViewController: UIViewController {
@@ -190,5 +191,20 @@ extension MainViewController {
         goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal11", details: "my goal", endTime: date, priority: .Mid))
         goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal12", details: "my goal", endTime: date, priority: .High))
         goalModel.sortGoalsByWeight()
+    }
+}
+
+extension MainViewController: PresentationDelegate {
+    func present(id: String, node: SKNode) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let content = storyboard.instantiateViewControllerWithIdentifier("GoalDetailViewController") as! GoalDetailViewController
+        let goal = goalModel.getGoalWithIdentifier(id)
+
+        content.goal = goal
+        content.user = user
+
+        content.modalPresentationStyle = .FormSheet
+        content.modalTransitionStyle = .CrossDissolve
+        self.presentViewController(content, animated: true, completion: nil)
     }
 }

@@ -8,11 +8,19 @@
 
 import SpriteKit
 
+protocol PresentationDelegate {
+    func present(id: String, node: SKNode)
+}
+
 class GoalBubble: SKNode {
     var circle: SKShapeNode
     var label: SKLabelNode
+    var id: String
+    var delegate: PresentationDelegate!
 
-    init(circleOfRadius: CGFloat, text: String) {
+    init(id: String, circleOfRadius: CGFloat, text: String) {
+        self.id = id
+
         self.circle = SKShapeNode(circleOfRadius: circleOfRadius)
         self.circle.lineWidth = 1.5
         self.circle.physicsBody = SKPhysicsBody(circleOfRadius: circleOfRadius)
@@ -25,13 +33,20 @@ class GoalBubble: SKNode {
         self.label.horizontalAlignmentMode = .Center
         self.label.verticalAlignmentMode = .Baseline
 
-        super.init()
-
         self.circle.addChild(self.label)
+
+        super.init()
+        self.userInteractionEnabled = true
         addChild(self.circle)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if let touch = touches.first where touch.tapCount == 1 {
+            delegate.present(self.id, node: self)
+        }
     }
 }

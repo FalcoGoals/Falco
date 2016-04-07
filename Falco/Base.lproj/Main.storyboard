@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Personal Goal View Controller-->
@@ -89,7 +90,7 @@
             </objects>
             <point key="canvasLocation" x="825" y="332"/>
         </scene>
-        <!--Goal Details-->
+        <!--Title-->
         <scene sceneID="3WW-cE-nJt">
             <objects>
                 <tableViewController storyboardIdentifier="GoalDetailViewController" id="6hr-tn-rQP" customClass="GoalDetailViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
@@ -100,7 +101,7 @@
                         <sections>
                             <tableViewSection id="Wv7-aX-wpy">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailsCell" id="V9V-4E-0oW">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="V9V-4E-0oW">
                                         <rect key="frame" x="0.0" y="35" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="V9V-4E-0oW" id="bSq-EH-1Ao">
@@ -121,7 +122,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DescriptionCell" id="tOl-1l-gpn" userLabel="DescriptionCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="tOl-1l-gpn" userLabel="DescriptionCell">
                                         <rect key="frame" x="0.0" y="79" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tOl-1l-gpn" id="Yol-4Q-LuT">
@@ -142,7 +143,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DateCell" id="23D-G9-JDX" userLabel="DateCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="23D-G9-JDX" userLabel="DateCell">
                                         <rect key="frame" x="0.0" y="123" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="23D-G9-JDX" id="181-QA-orA">
@@ -170,33 +171,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DatePickerCell" rowHeight="233" id="ogV-MU-NYd" userLabel="DatepickerCell">
-                                        <rect key="frame" x="0.0" y="167" width="600" height="233"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ogV-MU-NYd" id="EP4-zI-BE3">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="232.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="PIp-rZ-PyH">
-                                                    <rect key="frame" x="8" y="-0.5" width="584" height="233.5"/>
-                                                    <date key="date" timeIntervalSinceReferenceDate="481516045.11340499">
-                                                        <!--2016-04-05 02:27:25 +0000-->
-                                                    </date>
-                                                </datePicker>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="PIp-rZ-PyH" firstAttribute="centerY" secondItem="EP4-zI-BE3" secondAttribute="centerY" id="aoq-Nt-9G6"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="PIp-rZ-PyH" secondAttribute="trailing" id="dkr-hD-xRY"/>
-                                                <constraint firstItem="PIp-rZ-PyH" firstAttribute="centerX" secondItem="EP4-zI-BE3" secondAttribute="centerX" id="fRb-kE-5m1"/>
-                                                <constraint firstItem="PIp-rZ-PyH" firstAttribute="leading" secondItem="EP4-zI-BE3" secondAttribute="leadingMargin" id="xMr-10-CqC"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <constraints>
-                                            <constraint firstAttribute="height" secondItem="PIp-rZ-PyH" secondAttribute="height" id="Z6q-eK-kPT"/>
-                                        </constraints>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PriorityCell" rowHeight="73" id="znh-xS-Z8p" userLabel="PriorityCell">
-                                        <rect key="frame" x="0.0" y="400" width="600" height="73"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="73" id="znh-xS-Z8p" userLabel="PriorityCell">
+                                        <rect key="frame" x="0.0" y="167" width="600" height="73"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="znh-xS-Z8p" id="5k4-2E-Cx0">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="72.5"/>
@@ -226,8 +202,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailsCell" id="ytm-S2-xNp" userLabel="ActionCell">
-                                        <rect key="frame" x="0.0" y="473" width="600" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ytm-S2-xNp" userLabel="ActionCell">
+                                        <rect key="frame" x="0.0" y="240" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ytm-S2-xNp" id="914-0y-1Lf">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -284,9 +260,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="deadlineField" destination="ccB-2I-uw7" id="yog-QC-RyQ"/>
                         <outlet property="detailsField" destination="6NO-8f-RCC" id="r14-Ox-Ynh"/>
-                        <outlet property="nameField" destination="b8K-dx-0d1" id="fDe-Li-EcA"/>
                         <outlet property="priorityControl" destination="JbF-wM-MeN" id="sTg-eq-8Ms"/>
                     </connections>
                 </tableViewController>
