@@ -42,6 +42,10 @@ class GoalBubble: SKNode {
         addChild(self.circle)
     }
 
+    convenience init(goal: Goal) {
+        self.init(id: goal.id, circleOfRadius: CGFloat(goal.weight) / 2, text: goal.name)
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

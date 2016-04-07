@@ -28,6 +28,7 @@ class MainViewController: UIViewController, LoginDelegate {
         }
 
         scene = BubblesScene(size: view.bounds.size)
+        scene.presentationDelegate = self
         scene.scaleMode = .ResizeFill
 
         let skView = view as! SKView
@@ -79,7 +80,7 @@ class MainViewController: UIViewController, LoginDelegate {
                 addSampleGoals(server.user.name)
             }
             goals.sortGoalsByWeight()
-            scene.addGoals(goals, delegate: self)
+            scene.addGoals(goals)
         }
     }
 
@@ -166,7 +167,9 @@ extension MainViewController: PresentationDelegate {
 extension MainViewController: GoalDetailDelegate {
     func didSave(goal: Goal) {
         goals.updateGoal(goal)
-        let goalNode = scene.childNodeWithName("//\(goal.id)") as! GoalBubble
-        goalNode.label.text = goal.name
+        scene.updateGoal(goal)
+        if let goal = goal as? PersonalGoal {
+            server.savePersonalGoal(goal)
+        }
     }
 }

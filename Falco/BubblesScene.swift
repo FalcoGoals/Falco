@@ -16,6 +16,8 @@ class BubblesScene: SKScene {
     private var lowestY = 0
     private var offset = CGFloat(100)
 
+    var presentationDelegate: PresentationDelegate!
+
     override init(size: CGSize) {
         super.init(size: size)
         anchorPoint = CGPointMake (0.0,1.0)
@@ -73,25 +75,34 @@ class BubblesScene: SKScene {
         //addGoal(goal)
 //    }
 
-    func addGoalBubble(goalBubble: GoalBubble) {
-        //physicsWorld.gravity = CGVectorMake(0, 0)
-        addChild(goalBubble)
+    func addGoal(goal: Goal) {
+        let weight = goal.weight
+        let (x,y) = calculateNextPosition(weight)
+        if (y - weight/2 < lowestY) {
+            lowestY = y - weight/2
+        }
+        circlePosition.append([x, y, weight])
+        let goalBubble = GoalBubble(goal: goal)
+        goalBubble.delegate = presentationDelegate
+        goalBubble.position = CGPointMake(CGFloat(x), CGFloat(y) - offset)
+        offset += 50
+        addGoalBubble(goalBubble)
     }
 
-    func addGoals(goals: GoalCollection, delegate: PresentationDelegate) {
+    func addGoals(goals: GoalCollection) {
         for goal in goals.goals {
-            let weight = goal.weight
-            let (x,y) = calculateNextPosition(weight)
-            let goalBubble = GoalBubble(id: goal.id,circleOfRadius: CGFloat(weight)/2, text: goal.name)
-            goalBubble.delegate = delegate
-            if (y - weight/2 < lowestY) {
-                lowestY = y - weight/2
-            }
-            circlePosition.append([x, y, weight])
-            goalBubble.position = CGPointMake(CGFloat(x), CGFloat(y) - offset)
-            offset += 50
-            addGoalBubble(goalBubble)
+            addGoal(goal)
         }
+    }
+
+    func updateGoal(goal: Goal) {
+        let goalNode = childNodeWithName("//\(goal.id)") as! GoalBubble
+        goalNode.label.text = goal.name
+    }
+
+    private func addGoalBubble(goalBubble: GoalBubble) {
+        //physicsWorld.gravity = CGVectorMake(0, 0)
+        addChild(goalBubble)
     }
 
     private func calculateNextPosition(diameter: Int) -> (Int, Int){
