@@ -66,14 +66,9 @@ class BubblesScene: SKScene {
         if (cameraMoved) {
             cameraMoved = false
         } else {
-//            addNewBubble()
+            presentationDelegate.present(nil)
         }
     }
-    
-//    func addNewBubble() {
-//        let goal = PersonalGoal(name: "New", details: "my goal", priority: .High, endTime: NSDate())
-        //addGoal(goal)
-//    }
 
     func addGoal(goal: Goal) {
         let weight = goal.weight
@@ -96,8 +91,11 @@ class BubblesScene: SKScene {
     }
 
     func updateGoal(goal: Goal) {
-        let goalNode = childNodeWithName("//\(goal.id)") as! GoalBubble
-        goalNode.label.text = goal.name
+        if let goalNode = childNodeWithName("//\(goal.id)") as? GoalBubble {
+            goalNode.label.text = goal.name
+        } else {
+            addGoal(goal)
+        }
     }
 
     private func addGoalBubble(goalBubble: GoalBubble) {

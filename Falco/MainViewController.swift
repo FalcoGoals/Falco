@@ -148,10 +148,16 @@ extension MainViewController {
 }
 
 extension MainViewController: PresentationDelegate {
-    func present(id: String, node: SKNode) {
+    func present(id: String?) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let content = storyboard.instantiateViewControllerWithIdentifier("GoalDetailViewController") as! GoalDetailViewController
-        let goal = goals.getGoalWithIdentifier(id)
+
+        let goal: Goal?
+        if let id = id {
+            goal = goals.getGoalWithIdentifier(id)
+        } else {
+            goal = nil
+        }
 
         content.delegate = self
         content.goal = goal

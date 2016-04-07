@@ -9,7 +9,7 @@
 import SpriteKit
 
 protocol PresentationDelegate {
-    func present(id: String, node: SKNode)
+    func present(id: String?)
 }
 
 class GoalBubble: SKNode {
@@ -52,7 +52,7 @@ class GoalBubble: SKNode {
 
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let touch = touches.first where touch.tapCount == 1 {
-            delegate.present(self.id, node: self)
+            delegate.present(self.id)
         }
     }
 }
