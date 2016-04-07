@@ -12,6 +12,8 @@ struct PersonalGoal: Goal {
     private let _id: String
     private var _completionTime: NSDate
 
+    // MARK: Properties
+
     var name: String
     var details: String
     var priority: PriorityType
@@ -28,6 +30,8 @@ struct PersonalGoal: Goal {
                                              Constants.completionTimeKey: completionTime.timeIntervalSince1970]
         return goalData
     }
+
+    // MARK: Init
 
     init(id: String = NSUUID().UUIDString, name: String, details: String, priority: PriorityType = .Low, endTime: NSDate, completionTime: NSDate = NSDate.distantPast()) {
         self._id = id
@@ -46,6 +50,8 @@ struct PersonalGoal: Goal {
         let completionTime = NSDate(timeIntervalSince1970: NSTimeInterval(goalData[Constants.completionTimeKey] as! NSNumber))
         self.init(id: id, name: name, details: details, priority: priority, endTime: endTime, completionTime: completionTime)
     }
+
+    // MARK: Methods (mutating)
 
     mutating func markComplete() {
         _completionTime = NSDate()

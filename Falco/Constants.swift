@@ -9,7 +9,7 @@
 import Foundation
 
 struct Constants {
-    // NSCoding for local storage of data
+    // Keys used for serialisation/deserialisation of data
     static let idKey = "id"
     static let nameKey = "name"
     static let detailsKey = "details"

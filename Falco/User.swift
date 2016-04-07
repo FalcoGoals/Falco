@@ -7,18 +7,16 @@
 //
 
 struct User: Hashable {
-    private var _name: String
     private let _id: String
-    private let _pictureUrl: String
 
-    var name: String { return _name }
     var id: String { return _id }
-    var pictureUrl: String { return _pictureUrl }
+    var name: String
+    var pictureUrl: String
 
     init(id: String, name: String = "", pictureUrl: String = "") {
-        _id = id
-        _name = name
-        _pictureUrl = pictureUrl
+        self._id = id
+        self.name = name
+        self.pictureUrl = pictureUrl
     }
 
     var hashValue: Int {

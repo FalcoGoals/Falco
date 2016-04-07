@@ -12,6 +12,8 @@ struct GroupGoal: Goal {
     private let _id: String
     private var _userCompletionTimes: [User: NSDate]
 
+    // MARK: Properties
+
     var name: String
     var details: String
     var priority: PriorityType
@@ -27,8 +29,18 @@ struct GroupGoal: Goal {
         }
         return latestCompletionTime
     }
-    var assignedUsers: [User] { return Array(_userCompletionTimes.keys) }
+    var userCount: Int { return _userCompletionTimes.keys.count }
     var userCompletionTimes: [User: NSDate] { return _userCompletionTimes }
+    var usersAssigned: [User] { return Array(_userCompletionTimes.keys) }
+    var usersWhoCompleted: [User] {
+        var completedUsers = [User]()
+        for user in _userCompletionTimes.keys {
+            if _userCompletionTimes[user] != nil {
+                completedUsers.append(user)
+            }
+        }
+        return completedUsers
+    }
 
     var serialisedData: [String: AnyObject] {
         var serialisedUserData: [String: NSNumber] = [:]
@@ -42,6 +54,8 @@ struct GroupGoal: Goal {
                                              Constants.userCompletionTimesKey: serialisedUserData]
         return goalData
     }
+
+    // MARK: Init
 
     init(id: String = NSUUID().UUIDString, name: String, details: String, priority: PriorityType = .Low, endTime: NSDate, userCompletionTimes: [User: NSDate] = [:]) {
         self._id = id
@@ -66,7 +80,9 @@ struct GroupGoal: Goal {
         }
         self.init(id: id, name: name, details: details, priority: priority, endTime: endTime, userCompletionTimes: userCompletionTimes)
     }
-    
+
+    // MARK: Methods (mutating)
+
     /// Assigns the input user to the goal
     mutating func addUser(user: User) {  //check if is group goal
         _userCompletionTimes[user] = NSDate.distantPast()
@@ -82,16 +98,11 @@ struct GroupGoal: Goal {
         _userCompletionTimes.removeAll()
     }
 
-    /// Checks whether the goal has been assigned to the input user
-    func userIsAssigned(user: User) -> Bool {
-        return _userCompletionTimes.keys.contains(user)
-    }
-
     /// Marks a particular user as having completed the goal
     /// Date which param user completed the task will be stored
     /// Returns indicator whether operation was successful
     mutating func markCompleteByUser(user: User) -> Bool {
-        if userIsAssigned(user) {
+        if isUserAssigned(user) {
             _userCompletionTimes[user] = NSDate()
             return true
         }
@@ -101,34 +112,25 @@ struct GroupGoal: Goal {
     /// Marks a particular user as not having completed the goal
     /// Returns indicator whether operation was successful
     mutating func markIncompleteByUser(user: User) -> Bool {
-        if userIsAssigned(user) {
+        if isUserAssigned(user) {
             _userCompletionTimes[user] = NSDate.distantPast()
             return true
         }
         return false
     }
 
+    // MARK: Methods (non-mutating)
+
+    /// Checks whether the goal has been assigned to the input user
+    func isUserAssigned(user: User) -> Bool {
+        return _userCompletionTimes.keys.contains(user)
+    }
+
     /// Returns whether a particular user has completed the goal
     func isCompletedByUser(user: User) -> Bool {
-        if !userIsAssigned(user) {
+        if !isUserAssigned(user) {
             return false
         }
         return _userCompletionTimes[user] != nil
-    }
-
-    /// Returns list of users who have completed the goal
-    func getUsersWhoCompleted() -> [User] {
-        var completedUsers = [User]()
-        for user in _userCompletionTimes.keys {
-            if _userCompletionTimes[user] != nil {
-                completedUsers.append(user)
-            }
-        }
-        return completedUsers
-    }
-
-    /// Returns the total number of users assigned to the goal
-    func getNumberOfUsersAssigned() -> Int {
-        return _userCompletionTimes.keys.count
     }
 }
