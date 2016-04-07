@@ -12,6 +12,8 @@ import UIKit
 class FriendTableViewCell: UITableViewCell {
     @IBOutlet weak var friendImageView: UIImageView!
     @IBOutlet weak var friendNameLabel: UILabel!
+    private var _user: User!
+    var user: User? { return _user }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,5 +21,12 @@ class FriendTableViewCell: UITableViewCell {
     
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    func setUser(user: User) {
+        _user = user
+        friendNameLabel.text = user.name
+        let url = NSURL(string: user.pictureUrl)
+        friendImageView.image = UIImage(data: NSData(contentsOfURL: url!)!)
     }
 }

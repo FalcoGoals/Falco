@@ -12,33 +12,46 @@ import UIKit
 class GroupAddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     @IBOutlet var nameInput: UITextField!
     @IBOutlet var tableView: UITableView!
-    
+    let searchController = UISearchController(searchResultsController: nil)
+
     private var _groupName: String?
     private var _friends = [User]()
-    private var _checkedRows = [Bool]()
-    
+    private var _checkedRows = [User: Bool]()
+    private var _searchedFriends = [User]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         Server.instance.getFriends() { users in
             if let contacts = users {
                 self._friends.appendContentsOf(contacts)
                 self.tableView.reloadData()
-                for _ in contacts {
-                    self._checkedRows.append(false)
+                for friend in contacts {
+                    self._checkedRows[friend] = false
                 }
             }
         }
         tableView.dataSource = self
         tableView.delegate = self
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
+    }
+    
+    func filterContentForSearchText(searchText: String, scope: String = "All") {
+        _searchedFriends = _friends.filter { friend in
+            return friend.name.lowercaseString.containsString(searchText.lowercaseString)
+        }
+        tableView.reloadData()
     }
     
     /// Creates a group. Checks for missing inputs
     @IBAction func createGroup(sender: AnyObject) {
         _groupName = nameInput.text
         var groupMembers = [User]()
-        for i in 0..<_checkedRows.count {
-            if _checkedRows[i] {
-                groupMembers.append(_friends[i])
+        for friend in _checkedRows.keys {
+            if _checkedRows[friend]! {
+                groupMembers.append(friend)
             }
         }
         if _groupName == nil || _groupName == "" {
@@ -55,6 +68,7 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
     
     /// Does pop up for warning alerts for missing input
     private func warn(alert: UIAlertController) {
+        searchController.active = false
         let okayAction = UIAlertAction(title: "Okay", style: .Default) {
             (action: UIAlertAction) -> Void in
         }
@@ -68,6 +82,9 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchController.active && searchController.searchBar.text != "" {
+            return _searchedFriends.count
+        }
         return _friends.count
     }
     
@@ -79,23 +96,37 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
         cell!.separatorInset = UIEdgeInsetsZero
         cell!.preservesSuperviewLayoutMargins = false
         cell!.layoutMargins = UIEdgeInsetsZero
-        cell!.friendNameLabel?.text = _friends[indexPath.row].name
-        let url = NSURL(string: _friends[indexPath.row].pictureUrl)
-        cell!.friendImageView?.image = UIImage(data: NSData(contentsOfURL: url!)!)
+        let selectedFriend: User
+        if searchController.active && searchController.searchBar.text != "" {
+            selectedFriend = _searchedFriends[indexPath.row]
+        } else {
+            selectedFriend = _friends[indexPath.row]
+        }
+        cell!.setUser(selectedFriend)
+        if _checkedRows[selectedFriend]! {
+            cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
+        } else {
+            cell?.accessoryType = UITableViewCellAccessoryType.None
+        }
         return cell!
     }
     
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
-        if cell?.accessoryType == UITableViewCellAccessoryType.None {
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as? FriendTableViewCell
+        if !_checkedRows[(cell?.user!)!]! {//cell?.accessoryType == UITableViewCellAccessoryType.None {
             cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
-            _checkedRows[indexPath.row] = true
+            _checkedRows[(cell?.user!)!] = true
+            
         } else {
             cell?.accessoryType = UITableViewCellAccessoryType.None
-            _checkedRows[indexPath.row] = false
+            _checkedRows[(cell?.user!)!] = false
         }
     }
-    
-    
+}
+
+extension GroupAddViewController: UISearchResultsUpdating {
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
 }
