@@ -13,13 +13,16 @@ protocol GoalDetailDelegate {
 }
 
 class GoalDetailViewController: UITableViewController {
+    @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var detailsField: UITextField!
     @IBOutlet weak var deadlineField: UITableViewCell!
     @IBOutlet weak var priorityControl: UISegmentedControl!
 
-    var goal: Goal?
-    var selectedIndexpath: NSIndexPath?
     var delegate: GoalDetailDelegate!
+
+    var goal: Goal!
+    var selectedDate: NSDate!
+    var selectedIndexpath: NSIndexPath?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,40 +31,36 @@ class GoalDetailViewController: UITableViewController {
             goal = PersonalGoal(name: "New Goal", details: "", priority: .Mid, endTime: NSDate())
         }
 
-        title = goal!.name
-        detailsField.text = goal!.details
-        deadlineField.textLabel?.text = getDateString(goal!.endTime)
-        priorityControl.selectedSegmentIndex = goal!.priority.rawValue
+        nameField.text = goal.name
+        detailsField.text = goal.details
+        selectedDate = goal.endTime
+        deadlineField.textLabel?.text = getDateString(selectedDate)
+        deadlineField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(GoalDetailViewController.selectDate(_:))))
+        priorityControl.selectedSegmentIndex = goal.priority.rawValue
 
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
 
     // MARK: Segue
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "saveDetailSegue" {
-            goal!.details = detailsField.text!
-            goal!.priority = PriorityType(rawValue: priorityControl.selectedSegmentIndex)!
+            goal.name = nameField.text!
+            goal.details = detailsField.text!
+            goal.priority = PriorityType(rawValue: priorityControl.selectedSegmentIndex)!
+            goal.endTime = selectedDate
 
-            delegate.didSave(goal!, indexPath: selectedIndexpath)
+            delegate.didSave(goal, indexPath: selectedIndexpath)
 
         } else if segue.identifier == "showDatePicker" {
             let datePickerController = segue.destinationViewController as! DatePickerViewController
             datePickerController.delegate = self
-            datePickerController.date = goal!.endTime
+            datePickerController.date = goal.endTime
 
             datePickerController.modalPresentationStyle = .FormSheet
             datePickerController.modalTransitionStyle = .CrossDissolve
         }
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        guard indexPath.section == 1 && indexPath.row == 0 else {
-            return
-        }
-
+    func selectDate(sender: UITapGestureRecognizer) {
         performSegueWithIdentifier("showDatePicker", sender: self)
     }
 
@@ -79,7 +78,7 @@ class GoalDetailViewController: UITableViewController {
 
 extension GoalDetailViewController: DatePickerDelegate {
     func didSave(date: NSDate) {
-        goal!.endTime = date
+        selectedDate = date
         deadlineField.textLabel?.text = getDateString(date)
     }
 }

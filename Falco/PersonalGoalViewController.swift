@@ -48,8 +48,13 @@ class PersonalGoalViewController: UIViewController, GoalDetailDelegate, LoginDel
 
             dvc.delegate = self
             dvc.selectedIndexpath = indexPath
-            if let index = indexPath?.item {
-                dvc.goal = goals.goals[index]
+            nc.popoverPresentationController!.sourceView = collectionView
+            if let indexPath = indexPath {
+                dvc.goal = goals.goals[indexPath.item]
+                nc.popoverPresentationController!.sourceRect = collectionView.cellForItemAtIndexPath(indexPath)!.frame
+            } else {
+                let location = sender!.locationInView(collectionView)
+                nc.popoverPresentationController!.sourceRect.offsetInPlace(dx: location.x, dy: location.y)
             }
         }
     }

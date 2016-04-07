@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="NOJ-IL-xFQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -83,34 +83,61 @@
                 <tapGestureRecognizer id="auQ-mx-gEr">
                     <connections>
                         <action selector="GoalsTap:" destination="BYZ-38-t0r" id="Y5F-YH-bVC"/>
-                        <segue destination="gVa-o2-Lxv" kind="presentation" identifier="showDetailView" id="PG0-Ta-2TQ"/>
+                        <segue destination="gVa-o2-Lxv" kind="popoverPresentation" identifier="showDetailView" popoverAnchorView="ytr-SH-XuP" id="PG0-Ta-2TQ">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="825" y="332"/>
         </scene>
-        <!--Goal Detail-->
+        <!--Goal Details-->
         <scene sceneID="3WW-cE-nJt">
             <objects>
-                <tableViewController title="Goal Detail" id="6hr-tn-rQP" customClass="GoalDetailViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="cye-cd-Lbr">
+                <tableViewController title="Goal Details" id="6hr-tn-rQP" customClass="GoalDetailViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="cye-cd-Lbr">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
-                            <tableViewSection headerTitle="Details" id="oT4-r8-WYh">
+                            <tableViewSection headerTitle="Name" id="2RH-0u-EBq">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailsCell" id="wS3-z3-wRy">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NameCell" id="XDz-gs-fem">
                                         <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wS3-z3-wRy" id="kc6-bV-WSO">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XDz-gs-fem" id="EuK-aY-57r">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Describe your goals" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6NO-8f-RCC">
-                                                    <rect key="frame" x="8" y="8" width="584" height="28"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b8K-dx-0d1">
+                                                    <rect key="frame" x="0.0" y="7" width="600" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="b8K-dx-0d1" secondAttribute="bottom" constant="-1.5" id="7kF-LW-krZ"/>
+                                                <constraint firstItem="b8K-dx-0d1" firstAttribute="top" secondItem="EuK-aY-57r" secondAttribute="topMargin" constant="-1" id="EEv-aH-X6e"/>
+                                                <constraint firstItem="b8K-dx-0d1" firstAttribute="leading" secondItem="EuK-aY-57r" secondAttribute="leadingMargin" constant="-8" id="Yot-Fp-KKw"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="b8K-dx-0d1" secondAttribute="trailing" constant="-8" id="kZK-yB-D99"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Details" id="oT4-r8-WYh">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailsCell" rowHeight="50" id="wS3-z3-wRy">
+                                        <rect key="frame" x="0.0" y="143.5" width="600" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wS3-z3-wRy" id="kc6-bV-WSO">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="roundedRect" placeholder="Describe your goal" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6NO-8f-RCC">
+                                                    <rect key="frame" x="8" y="8" width="584" height="33.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -126,14 +153,16 @@
                             <tableViewSection headerTitle="Deadline" id="fEo-zG-QSg">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DeadlineCell" id="ccB-2I-uw7">
-                                        <rect key="frame" x="0.0" y="143.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="243.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ccB-2I-uw7" id="qsI-Va-CB3">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="Rx3-j1-4mB" kind="presentation" identifier="showDatePicker" trigger="accessoryAction" id="E9D-0M-WMG"/>
+                                            <segue destination="Rx3-j1-4mB" kind="popoverPresentation" identifier="showDatePicker" trigger="accessoryAction" popoverAnchorView="ccB-2I-uw7" id="E9D-0M-WMG">
+                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                            </segue>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -141,7 +170,7 @@
                             <tableViewSection headerTitle="Priority" id="bWj-Tr-jqI">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PriorityCell" id="Htl-aZ-0mn">
-                                        <rect key="frame" x="0.0" y="237.5" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="337.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Htl-aZ-0mn" id="h9Y-t6-b7j">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -188,6 +217,7 @@
                     <connections>
                         <outlet property="deadlineField" destination="ccB-2I-uw7" id="yog-QC-RyQ"/>
                         <outlet property="detailsField" destination="6NO-8f-RCC" id="r14-Ox-Ynh"/>
+                        <outlet property="nameField" destination="b8K-dx-0d1" id="fDe-Li-EcA"/>
                         <outlet property="priorityControl" destination="JbF-wM-MeN" id="sTg-eq-8Ms"/>
                     </connections>
                 </tableViewController>
@@ -529,10 +559,10 @@
             </objects>
             <point key="canvasLocation" x="810" y="1828"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Goal Details-->
         <scene sceneID="CaH-3T-eSk">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gVa-o2-Lxv" sceneMemberID="viewController">
+                <navigationController title="Goal Details" automaticallyAdjustsScrollViewInsets="NO" id="gVa-o2-Lxv" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="x2X-bw-DV7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
