@@ -92,6 +92,7 @@ class MainViewController: UIViewController, LoginDelegate {
                 let weight = goal.weight
                 let (x,y) = calculateNextPosition(weight)
                 let goalBubble = GoalBubble(id: goal.id,circleOfRadius: CGFloat(weight)/2, text: goal.name)
+                goalBubble.delegate = self
                 if (y - weight/2 < lowestY) {
                     lowestY = y - weight/2
                 }

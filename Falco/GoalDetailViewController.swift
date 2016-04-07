@@ -44,8 +44,8 @@ class GoalDetailViewController: UITableViewController {
         nameField.text = goal.name
         detailsField.text = goal.details
         selectedDate = goal.endTime
-        deadlineField.text = getDateString(selectedDate)
-        deadlineField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(GoalDetailViewController.selectDate(_:))))
+//        deadlineField.text = getDateString(selectedDate)
+//        deadlineField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(GoalDetailViewController.selectDate(_:))))
         priorityControl.selectedSegmentIndex = goal.priority.rawValue
 
 //        title = goal!.name
