@@ -10,7 +10,7 @@ import SpriteKit
 
 class BubblesScene: SKScene {
     private var cam: SKCameraNode!
-    private var goalModel = GoalCollection(goals: [])
+    private var goalModel = GoalCollection()
     private var circlePosition = [[Int]]()
     private var lowestY = 0
     private var cameraMoved = false
@@ -81,23 +81,13 @@ class BubblesScene: SKScene {
     }
     
     func addNewBubble() {
-        let dateComponents = NSDateComponents()
-        dateComponents.year = 2016
-        dateComponents.month = 3
-        dateComponents.day = 10
-        
-        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-        let date = calendar!.dateFromComponents(dateComponents)!
-        goalModel.updateGoal(PersonalGoal(name: "goal36", details: "my goal", priority: .High, endTime: date))
-        let goal1 = goalModel.getGoalsWithName("goal36")[0]
-        physicsWorld.gravity = CGVectorMake(0, 0)
-        let weight = goal1.weight
-        let goal = GoalBubble(circleOfRadius: CGFloat(weight)/2, text: goal1.name)
-        goal.position = CGPointMake(CGFloat(weight)/2, -CGFloat(weight)/2)
-        addChild(goal)
+        let goal = PersonalGoal(name: "New", details: "my goal", priority: .High, endTime: NSDate())
+        addGoal(goal)
     }
 
     func addGoal(goal: Goal) {
+        goalModel.updateGoal(goal)
+        physicsWorld.gravity = CGVectorMake(0, 0)
         let weight = goal.weight
         let goalBubble = GoalBubble(circleOfRadius: CGFloat(weight)/2, text: goal.name)
         goalBubble.position = CGPointMake(CGFloat(weight)/2, -CGFloat(weight)/2)

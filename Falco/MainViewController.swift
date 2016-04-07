@@ -26,12 +26,13 @@ class MainViewController: UIViewController, LoginDelegate {
         }
 
         scene = BubblesScene(size: view.bounds.size, goalModel: goals)
-        let skView = view as! SKView
-        //        skView.showsFPS = true
-        //        skView.showsNodeCount = true
-        //        skView.showsPhysics = true
-        skView.ignoresSiblingOrder = true
         scene.scaleMode = .ResizeFill
+
+        let skView = view as! SKView
+//        skView.showsFPS = true
+//        skView.showsNodeCount = true
+//        skView.showsPhysics = true
+        skView.ignoresSiblingOrder = true
         skView.presentScene(scene)
     }
 

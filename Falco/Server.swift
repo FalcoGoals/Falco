@@ -173,7 +173,7 @@ class Server {
                 friends.append(friend)
             }
 
-            print("Friends: \(friends)")
+            print("Friends: \(friends)\n")
             callback(friends)
         }
     }
@@ -187,7 +187,7 @@ class Server {
         userRef = usersRef.childByAppendingPath(uid)
         userRef.updateChildValues(["name": name])
 
-        print("Logged in as: \(user)")
+        print("Logged in as: \(user)\n")
     }
 
     private func currentAccessToken() -> FBSDKAccessToken? {
