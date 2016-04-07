@@ -42,6 +42,7 @@ class GoalDetailViewController: UITableViewController {
 
         nameField.text = goal.name
         detailsField.text = goal.details
+        dateLabel.text = getDateString(goal.endTime)
         selectedDate = goal.endTime
         priorityControl.selectedSegmentIndex = goal.priority.rawValue
 
