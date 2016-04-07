@@ -13,6 +13,8 @@ class MainViewController: UIViewController, LoginDelegate {
     
     @IBOutlet weak var tabView: UIView!
 
+    private var user = User(id: NSUUID().UUIDString, name: "MrFoo")
+
     private var scene: BubblesScene!
 
     private var goals = GoalCollection()
@@ -24,7 +26,6 @@ class MainViewController: UIViewController, LoginDelegate {
         if server.hasToken {
             didReceiveToken()
         }
-
     }
 
 //class MainViewController: UIViewController {
@@ -174,23 +175,24 @@ extension MainViewController {
         dateComponents.year = 2016
         dateComponents.month = 3
         dateComponents.day = 10
+        let name = "Mr Foo"
 
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         let date = calendar!.dateFromComponents(dateComponents)!
 
-        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal1", details: "my goal", endTime: date, priority: .High))
-        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal2", details: "my goal", endTime: date, priority: .High))
-        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal3", details: "my goal", endTime: date, priority: .Low))
-        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal4", details: "my goal", endTime: date, priority: .Mid))
-        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal5", details: "my goal", endTime: date, priority: .High))
-        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal6", details: "my goal", endTime: date, priority: .Mid))
-        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal7", details: "my goal", endTime: date, priority: .Mid))
-        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal8", details: "my goal", endTime: date, priority: .Low))
-        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal9", details: "my goal", endTime: date, priority: .Low))
-        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal10", details: "my goal", endTime: date, priority: .Low))
-        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal11", details: "my goal", endTime: date, priority: .Mid))
-        goalModel.addGoal(PersonalGoal(user: user, id: NSUUID().UUIDString, name: "goal12", details: "my goal", endTime: date, priority: .High))
-        goalModel.sortGoalsByWeight()
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal1", details: "my goal", priority: .High, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal2", details: "my goal", priority: .High, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal3", details: "my goal", priority: .Low, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal4", details: "my goal", priority: .Mid, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal5", details: "my goal", priority: .High, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal6", details: "my goal", priority: .Mid, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal7", details: "my goal", priority: .Mid, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal8", details: "my goal", priority: .Low, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal9", details: "my goal", priority: .Low, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal10", details: "my goal", priority: .Low, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal11", details: "my goal", priority: .Mid, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal12", details: "my goal", priority: .High, endTime: date))
+        goals.sortGoalsByWeight()
     }
 }
 
@@ -198,7 +200,7 @@ extension MainViewController: PresentationDelegate {
     func present(id: String, node: SKNode) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let content = storyboard.instantiateViewControllerWithIdentifier("GoalDetailViewController") as! GoalDetailViewController
-        let goal = goalModel.getGoalWithIdentifier(id)
+        let goal = goals.getGoalWithIdentifier(id)
 
         content.goal = goal
         content.user = user

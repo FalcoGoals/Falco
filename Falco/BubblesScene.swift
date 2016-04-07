@@ -42,18 +42,18 @@ class BubblesScene: SKScene {
         for goal in goalModel.goals {
             let weight = goal.weight
             let (x,y) = calculateNextPosition(weight)
-            let goal = GoalBubble(circleOfRadius: CGFloat(weight)/2, text: goal.name)
+            let goalBubble = GoalBubble(id: goal.id,circleOfRadius: CGFloat(weight)/2, text: goal.name)
             if (y - weight/2 < lowestY) {
                 lowestY = y - weight/2
             }
             circlePosition.append([x, y, weight])
-            goal.position = CGPointMake(CGFloat(x), CGFloat(y) - offset)
+            goalBubble.position = CGPointMake(CGFloat(x), CGFloat(y) - offset)
             offset += 50
             
 //            goal.position = CGPointMake(CGFloat(x), CGFloat(y) - 100)
 //            let actionMove = SKAction.moveTo(CGPointMake(CGFloat(x), CGFloat(y)), duration: 2)
 //            goal.runAction(actionMove)
-            addChild(goal)
+            addChild(goalBubble)
         }
 //        self.physicsBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
 //        self.physicsWorld.gravity = CGVectorMake(0, 4)
@@ -91,7 +91,7 @@ class BubblesScene: SKScene {
         goalModel.updateGoal(goal)
         physicsWorld.gravity = CGVectorMake(0, 0)
         let weight = goal.weight
-        let goalBubble = GoalBubble(circleOfRadius: CGFloat(weight)/2, text: goal.name)
+        let goalBubble = GoalBubble(id: goal.id, circleOfRadius: CGFloat(weight)/2, text: goal.name)
         goalBubble.position = CGPointMake(CGFloat(weight)/2, -CGFloat(weight)/2)
         addChild(goalBubble)
     }

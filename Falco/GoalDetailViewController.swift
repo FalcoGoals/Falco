@@ -15,23 +15,24 @@ protocol GoalDetailDelegate {
 class GoalDetailViewController: UITableViewController {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var detailsField: UITextField!
+    @IBOutlet weak var deadlineField: UITextField!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var priorityControl: UISegmentedControl!
-    @IBOutlet weak var datePicker: UIDatePicker!
 
     let dateRow = 2
 
     var delegate: GoalDetailDelegate!
 
     var goal: Goal!
+    var user: User!
     var selectedDate: NSDate!
     var selectedIndexpath: NSIndexPath?
 
-//    var datePickerIndexPath: NSIndexPath!
-//    let datePickerIdentifier = "datePickerCell"
-//    var isDatePickerShown: Bool {
-//        return datePickerIndexPath != nil
-//    }
+    var datePickerIndexPath: NSIndexPath!
+    let datePickerIdentifier = "datePickerCell"
+    var isDatePickerShown: Bool {
+        return datePickerIndexPath != nil
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +44,7 @@ class GoalDetailViewController: UITableViewController {
         nameField.text = goal.name
         detailsField.text = goal.details
         selectedDate = goal.endTime
-        deadlineField.textLabel?.text = getDateString(selectedDate)
+        deadlineField.text = getDateString(selectedDate)
         deadlineField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(GoalDetailViewController.selectDate(_:))))
         priorityControl.selectedSegmentIndex = goal.priority.rawValue
 
@@ -93,13 +94,6 @@ class GoalDetailViewController: UITableViewController {
 
             delegate.didSave(goal, indexPath: selectedIndexpath)
 
-        } else if segue.identifier == "showDatePicker" {
-            let datePickerController = segue.destinationViewController as! DatePickerViewController
-            datePickerController.delegate = self
-            datePickerController.date = goal.endTime
-
-            datePickerController.modalPresentationStyle = .FormSheet
-            datePickerController.modalTransitionStyle = .CrossDissolve
         }
     }
 
@@ -139,11 +133,4 @@ class GoalDetailViewController: UITableViewController {
     //        datePicker.setDate(goal!.endTime, animated: true)
     //        return datePicker
     //    }
-}
-
-extension GoalDetailViewController: DatePickerDelegate {
-    func didSave(date: NSDate) {
-        selectedDate = date
-        deadlineField.textLabel?.text = getDateString(date)
-    }
 }

@@ -260,8 +260,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="detailsField" destination="6NO-8f-RCC" id="r14-Ox-Ynh"/>
-                        <outlet property="priorityControl" destination="JbF-wM-MeN" id="sTg-eq-8Ms"/>
+                        <outlet property="dateLabel" destination="ReF-ci-rM3" id="vaH-Yl-OOB"/>
+                        <outlet property="detailsField" destination="6NO-8f-RCC" id="s8c-Nt-bnb"/>
+                        <outlet property="nameField" destination="sd9-0k-ATJ" id="byA-Ij-VVR"/>
+                        <outlet property="priorityControl" destination="JbF-wM-MeN" id="GEh-tw-4g9"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wrp-Gi-sji" userLabel="First Responder" sceneMemberID="firstResponder"/>
