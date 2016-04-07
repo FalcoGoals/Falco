@@ -13,7 +13,10 @@ class Server {
     private let ref = Firebase(url: "https://amber-torch-6648.firebaseio.com")
     private var usersRef: Firebase!
     private var groupsRef: Firebase!
+
     private var userRef: Firebase!
+    private var userGoalsRef: Firebase!
+    private var userGroupsRef: Firebase!
 
     static let instance = Server()
 
@@ -59,8 +62,7 @@ class Server {
             return
         }
 
-        let goalsRef = userRef.childByAppendingPath("goals")
-        goalsRef.observeSingleEventOfType(.Value) { snapshot in
+        userGoalsRef.observeSingleEventOfType(.Value) { snapshot in
             callback(GoalCollection(goalsData: snapshot.value))
         }
     }
@@ -71,9 +73,50 @@ class Server {
             return
         }
 
-        let goalsRef = userRef.childByAppendingPath("goals")
-        goalsRef.observeEventType(.Value) { snapshot in
+        userGoalsRef.observeEventType(.Value) { snapshot in
             callback(GoalCollection(goalsData: snapshot.value))
+        }
+    }
+
+    func registerPersonalGoalAddCallback(callback: (PersonalGoal?) -> ()) {
+        if !isAuth {
+            callback(nil)
+            return
+        }
+
+        userGoalsRef.observeEventType(.ChildAdded) {
+            (snapshot: FDataSnapshot!) -> Void in
+            let goalId = snapshot.key
+            let goalData = snapshot.value as! [String : AnyObject]
+            callback(PersonalGoal(id: goalId, goalData: goalData))
+        }
+    }
+
+    func registerPersonalGoalUpdateCallback(callback: (PersonalGoal?) -> ()) {
+        if !isAuth {
+            callback(nil)
+            return
+        }
+
+        userGoalsRef.observeEventType(.ChildChanged) {
+            (snapshot: FDataSnapshot!) -> Void in
+            let goalId = snapshot.key
+            let goalData = snapshot.value as! [String : AnyObject]
+            callback(PersonalGoal(id: goalId, goalData: goalData))
+        }
+    }
+
+    func registerPersonalGoalRemoveCallback(callback: (PersonalGoal?) -> ()) {
+        if !isAuth {
+            callback(nil)
+            return
+        }
+
+        userGoalsRef.observeEventType(.ChildRemoved) {
+            (snapshot: FDataSnapshot!) -> Void in
+            let goalId = snapshot.key
+            let goalData = snapshot.value as! [String : AnyObject]
+            callback(PersonalGoal(id: goalId, goalData: goalData))
         }
     }
 
@@ -108,7 +151,6 @@ class Server {
             return
         }
 
-        let userGroupsRef = userRef.childByAppendingPath("groups")
         userGroupsRef.observeSingleEventOfType(.Value, withBlock: { snapshot in
             if snapshot.value is NSNull {
                 callback(nil)
@@ -186,6 +228,9 @@ class Server {
         user = User(id: uid, name: name, pictureUrl: pictureUrl)
         userRef = usersRef.childByAppendingPath(uid)
         userRef.updateChildValues(["name": name])
+
+        userGoalsRef = userRef.childByAppendingPath("goals")
+        userGroupsRef = userRef.childByAppendingPath("groups")
 
         print("Logged in as: \(user)\n")
     }
