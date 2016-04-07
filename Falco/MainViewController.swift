@@ -17,12 +17,8 @@ class MainViewController: UIViewController, LoginDelegate {
 
     private var scene: BubblesScene!
 
-    private var goalModel = GoalCollection()
+    private var goals = GoalCollection()
     private var server = Server.instance
-    
-    private var circlePosition = [[Int]]()
-    private var lowestY = 0
-    private var offset = CGFloat(100)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,14 +26,12 @@ class MainViewController: UIViewController, LoginDelegate {
         if server.hasToken {
             didReceiveToken()
         }
-        
+
         scene = BubblesScene(size: view.bounds.size)
+        scene.presentationDelegate = self
         scene.scaleMode = .ResizeFill
-        
+
         let skView = view as! SKView
-        //        skView.showsFPS = true
-        //        skView.showsNodeCount = true
-        //        skView.showsPhysics = true
         skView.ignoresSiblingOrder = true
         skView.presentScene(scene)
     }
@@ -52,7 +46,6 @@ class MainViewController: UIViewController, LoginDelegate {
         if segue.identifier == "showLogin" {
             let lvc = segue.destinationViewController as! LoginViewController
             lvc.delegate = self
-
         }
     }
 
@@ -81,26 +74,13 @@ class MainViewController: UIViewController, LoginDelegate {
 
     private func addGoalsToScene(userGoals: GoalCollection?) {
         if let userGoals = userGoals {
-            goalModel = userGoals
+            goals = userGoals
             if userGoals.isEmpty {
                 print("adding sample goals")
                 addSampleGoals(server.user.name)
             }
-            goalModel.sortGoalsByWeight()
-            
-            for goal in goalModel.goals {
-                let weight = goal.weight
-                let (x,y) = calculateNextPosition(weight)
-                let goalBubble = GoalBubble(id: goal.id,circleOfRadius: CGFloat(weight)/2, text: goal.name)
-                goalBubble.delegate = self
-                if (y - weight/2 < lowestY) {
-                    lowestY = y - weight/2
-                }
-                circlePosition.append([x, y, weight])
-                goalBubble.position = CGPointMake(CGFloat(x), CGFloat(y) - offset)
-                offset += 50
-                scene.addGoal(goalBubble)
-            }
+            goals.sortGoalsByWeight()
+            scene.addGoals(goals)
         }
     }
 
@@ -113,20 +93,20 @@ class MainViewController: UIViewController, LoginDelegate {
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         let date = calendar!.dateFromComponents(dateComponents)!
 
-        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal1", details: "my goal", priority: .High, endTime: date))
-        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal2", details: "my goal", priority: .High, endTime: date))
-        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal3", details: "my goal", priority: .Low, endTime: date))
-        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal4", details: "my goal", priority: .Mid, endTime: date))
-        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal5", details: "my goal", priority: .High, endTime: date))
-        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal6", details: "my goal", priority: .Mid, endTime: date))
-        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal7", details: "my goal", priority: .Mid, endTime: date))
-        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal8", details: "my goal", priority: .Low, endTime: date))
-        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal9", details: "my goal", priority: .Low, endTime: date))
-        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal10", details: "my goal", priority: .Low, endTime: date))
-        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal11", details: "my goal", priority: .Mid, endTime: date))
-        goalModel.updateGoal(PersonalGoal(name: "\(name)'s goal12", details: "my goal", priority: .High, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal1", details: "my goal", priority: .High, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal2", details: "my goal", priority: .High, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal3", details: "my goal", priority: .Low, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal4", details: "my goal", priority: .Mid, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal5", details: "my goal", priority: .High, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal6", details: "my goal", priority: .Mid, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal7", details: "my goal", priority: .Mid, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal8", details: "my goal", priority: .Low, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal9", details: "my goal", priority: .Low, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal10", details: "my goal", priority: .Low, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal11", details: "my goal", priority: .Mid, endTime: date))
+        goals.updateGoal(PersonalGoal(name: "\(name)'s goal12", details: "my goal", priority: .High, endTime: date))
 
-        server.savePersonalGoals(goalModel)
+        server.savePersonalGoals(goals)
     }
 
     private func addSampleGroup(friends: [User]?) {
@@ -154,54 +134,10 @@ class MainViewController: UIViewController, LoginDelegate {
             self.server.saveGroup(group)
         }
     }
-    
-    private func calculateNextPosition(diameter: Int) -> (Int, Int){
-        var xValue = 0
-        var lowestYValue = lowestY
-        let maxXValue = Int(view.bounds.size.width) - diameter
-        
-        
-        for currX in 0..<maxXValue {
-            var currY = lowestYValue
-            var intersection = false
-            while (currY < 0) {
-                for circle in circlePosition {
-                    if (circleIntersection(circle[0], y1: circle[1],
-                        r1: circle[2]/2, x2: currX+diameter/2, y2: currY+diameter/2, r2: diameter/2)) {
-                        intersection = true
-                        break
-                    }
-                }
-                if (intersection) {
-                    break
-                } else {
-                    currY += 1
-                }
-            }
-            if (currY > lowestYValue) {
-                xValue = currX
-                lowestYValue = currY
-            }
-        }
-        
-        return (xValue + diameter/2, lowestYValue - diameter/2)
-    }
-    
-    private func circleIntersection(x1: Int, y1: Int, r1: Int, x2: Int, y2: Int, r2: Int) -> Bool {
-        let dx = Double(x1) - Double(x2);
-        let dy = Double(y1) - Double(y2);
-        let distance = sqrt(dx * dx + dy * dy);
-        
-        if distance <= (Double(r1) + Double(r2)) {
-            return true
-        } else {
-            return false
-        }
-    }
 
     // MARK: Segue
-    @IBAction func cancelGoalEdit(segue: UIStoryboardSegue) {}
-    @IBAction func saveGoalEdit(segue: UIStoryboardSegue) {}
+    @IBAction func cancelGoalEdit(segue: UIStoryboardSegue) { self.scene.view?.paused = false }
+    @IBAction func saveGoalEdit(segue: UIStoryboardSegue) { self.scene.view?.paused = false }
 
 }
 
@@ -212,10 +148,16 @@ extension MainViewController {
 }
 
 extension MainViewController: PresentationDelegate {
-    func present(id: String, node: SKNode) {
+    func present(id: String?) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let content = storyboard.instantiateViewControllerWithIdentifier("GoalDetailViewController") as! GoalDetailViewController
-        let goal = goalModel.getGoalWithIdentifier(id)
+
+        let goal: Goal?
+        if let id = id {
+            goal = goals.getGoalWithIdentifier(id)
+        } else {
+            goal = nil
+        }
 
         content.delegate = self
         content.goal = goal
@@ -224,13 +166,16 @@ extension MainViewController: PresentationDelegate {
         content.modalPresentationStyle = .FormSheet
         content.modalTransitionStyle = .CrossDissolve
         self.presentViewController(content, animated: true, completion: nil)
+        self.scene.view?.paused = true
     }
 }
 
 extension MainViewController: GoalDetailDelegate {
     func didSave(goal: Goal) {
-        goalModel.updateGoal(goal)
-        let goalNode = scene.childNodeWithName("//\(goal.id)") as! GoalBubble
-        goalNode.label.text = goal.name
+        goals.updateGoal(goal)
+        scene.updateGoal(goal)
+        if let goal = goal as? PersonalGoal {
+            server.savePersonalGoal(goal)
+        }
     }
 }

@@ -9,7 +9,7 @@
 import SpriteKit
 
 protocol PresentationDelegate {
-    func present(id: String, node: SKNode)
+    func present(id: String?)
 }
 
 class GoalBubble: SKNode {
@@ -32,6 +32,7 @@ class GoalBubble: SKNode {
         self.label = SKLabelNode(text: text)
         self.label.horizontalAlignmentMode = .Center
         self.label.verticalAlignmentMode = .Baseline
+        self.label.fontSize = 15
 
         self.circle.addChild(self.label)
 
@@ -41,13 +42,17 @@ class GoalBubble: SKNode {
         addChild(self.circle)
     }
 
+    convenience init(goal: Goal) {
+        self.init(id: goal.id, circleOfRadius: CGFloat(goal.weight) / 2, text: goal.name)
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if let touch = touches.first where touch.tapCount == 1 {
-            delegate.present(self.id, node: self)
+            delegate.present(self.id)
         }
     }
 }

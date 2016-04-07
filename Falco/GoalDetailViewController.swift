@@ -46,6 +46,8 @@ class GoalDetailViewController: UITableViewController {
         selectedDate = goal.endTime
         priorityControl.selectedSegmentIndex = goal.priority.rawValue
 
+        detailsField.textContainerInset = UIEdgeInsetsZero
+        detailsField.textContainer.lineFragmentPadding = 0
     }
 
     // MARK: Table view delegate
