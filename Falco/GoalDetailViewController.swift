@@ -43,21 +43,7 @@ class GoalDetailViewController: UITableViewController {
         nameField.text = goal.name
         detailsField.text = goal.details
         selectedDate = goal.endTime
-//        deadlineField.text = getDateString(selectedDate)
-//        deadlineField.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(GoalDetailViewController.selectDate(_:))))
         priorityControl.selectedSegmentIndex = goal.priority.rawValue
-
-//        title = goal!.name
-//        nameField.text = goal!.name
-//        detailsField.text = goal!.details
-//        dateLabel.text = getDateString(goal!.endTime)
-//        priorityControl.selectedSegmentIndex = goal!.priority.rawValue
-
-//        title = goal!.name
-//        nameField.text = goal!.name
-//        detailsField.text = goal!.details
-//        deadlineField.textLabel?.text = getDateString(goal!.endTime)
-//        priorityControl.selectedSegmentIndex = goal!.priority.rawValue
 
     }
 
@@ -95,13 +81,6 @@ class GoalDetailViewController: UITableViewController {
 
         }
     }
-
-    func selectDate(sender: UITapGestureRecognizer) {
-        performSegueWithIdentifier("showDatePicker", sender: self)
-    }
-
-    @IBAction func cancelDate(segue: UIStoryboardSegue) {}
-    @IBAction func saveDate(segue: UIStoryboardSegue) {}
 
     /// Uses medium style date
     private func getDateString(date: NSDate) -> String {
