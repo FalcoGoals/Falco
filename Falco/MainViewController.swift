@@ -46,6 +46,7 @@ class MainViewController: UIViewController, LoginDelegate, UIPopoverPresentation
         if segue.identifier == "showLogin" {
             let lvc = segue.destinationViewController as! LoginViewController
             lvc.delegate = self
+
         } else if segue.identifier == "showDetailView" {
             let dvc = segue.destinationViewController as! GoalDetailViewController
 
@@ -70,6 +71,7 @@ class MainViewController: UIViewController, LoginDelegate, UIPopoverPresentation
             }
             dvc.delegate = self
             dvc.popoverPresentationController!.delegate = self
+            dvc.preferredContentSize = CGSizeMake(view.frame.width * 0.6, view.frame.height * 0.4)
 
             pauseScene()
         }
