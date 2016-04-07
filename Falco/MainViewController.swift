@@ -24,16 +24,6 @@ class MainViewController: UIViewController, LoginDelegate {
         if server.hasToken {
             didReceiveToken()
         }
-
-        scene = BubblesScene(size: view.bounds.size, goalModel: goals)
-        scene.scaleMode = .ResizeFill
-
-        let skView = view as! SKView
-//        skView.showsFPS = true
-//        skView.showsNodeCount = true
-//        skView.showsPhysics = true
-        skView.ignoresSiblingOrder = true
-        skView.presentScene(scene)
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -81,9 +71,15 @@ class MainViewController: UIViewController, LoginDelegate {
                 addSampleGoals(server.user.name)
             }
             goals.sortGoalsByWeight()
-            for goal in goals.goals {
-                scene.addGoal(goal)
-            }
+            scene = BubblesScene(size: view.bounds.size, goalModel: goals)
+            scene.scaleMode = .ResizeFill
+            
+            let skView = view as! SKView
+            //        skView.showsFPS = true
+            //        skView.showsNodeCount = true
+            //        skView.showsPhysics = true
+            skView.ignoresSiblingOrder = true
+            skView.presentScene(scene)
         }
     }
 
