@@ -10,14 +10,14 @@ import Foundation
 
 class Group: CustomStringConvertible {
     private let _id: String
-    private var _name: String
     private var _members: [User]
-    private var _goals: GoalCollection
+
+    // MARK: Properties
 
     var id: String { return _id }
-    var name: String { return _name }
+    var name: String
     var members: [User] { return _members }
-    var goals: GoalCollection { return _goals }
+    var goals: GoalCollection
     var serialisedData: [String: AnyObject] {
         var serialisedMemberData: [String: Bool] = [:]
         for member in members {
@@ -33,15 +33,16 @@ class Group: CustomStringConvertible {
         return "<Group id: \(id), name: \"\(name)\", members: \(members), goals: \(goals)>"
     }
 
+    // MARK: Init
+
     init(id: String = NSUUID().UUIDString, creator: User? = nil, name: String, members: [User], goals: GoalCollection = GoalCollection()) {
-        _id = id
-        _name = name
+        self._id = id
+        self.name = name
+        self._members = members
         if let creator = creator {
-            _members = members + [creator]
-        } else {
-            _members = members
+            self._members += [creator]
         }
-        _goals = goals
+        self.goals = goals
     }
 
     convenience init(id: String, groupData: [String: AnyObject]) {
@@ -59,6 +60,12 @@ class Group: CustomStringConvertible {
         self.init(id: id, name: name, members: members, goals: GoalCollection(goals: goals))
     }
 
+    // MARK: Methods
+
+    func containsMember(member: User) -> Bool {
+        return _members.contains(member)
+    }
+
     func addMember(member: User) {
         _members.append(member)
     }
@@ -67,13 +74,5 @@ class Group: CustomStringConvertible {
         if (containsMember(member)) {
             _members.removeAtIndex(_members.indexOf(member)!)
         }
-    }
-
-    func containsMember(member: User) -> Bool {
-        return _members.contains(member)
-    }
-
-    func updateGoalCollection(goals: GoalCollection) {
-        _goals = goals
     }
 }
