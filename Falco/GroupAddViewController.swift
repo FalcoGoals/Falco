@@ -32,6 +32,7 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.delegate = self
     }
     
+    /// Creates a group. Checks for missing inputs
     @IBAction func createGroup(sender: AnyObject) {
         _groupName = nameInput.text
         var groupMembers = [User]()
@@ -52,6 +53,7 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
+    /// Does pop up for warning alerts for missing input
     private func warn(alert: UIAlertController) {
         let okayAction = UIAlertAction(title: "Okay", style: .Default) {
             (action: UIAlertAction) -> Void in
@@ -60,6 +62,7 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
         presentViewController(alert, animated: true, completion: nil)
     }
     
+    /// Tableview protocol requirements
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }

@@ -175,8 +175,15 @@ extension PersonalGoalViewController: UICollectionViewDataSource {
     }
     
     
+    /// testing groups view
     @IBAction func backButtonSelected(sender: AnyObject) {
         let menuViewController = self.storyboard!.instantiateViewControllerWithIdentifier("addGroup")
+        menuViewController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        self.presentViewController(menuViewController, animated: true, completion: nil)
+    }
+    
+    @IBAction func groupButtonSelected(sender: AnyObject) {
+        let menuViewController = self.storyboard!.instantiateViewControllerWithIdentifier("groupsView")
         menuViewController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
         self.presentViewController(menuViewController, animated: true, completion: nil)
     }
