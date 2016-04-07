@@ -71,7 +71,7 @@ class PersonalGoalViewController: UIViewController, GoalDetailDelegate, LoginDel
     }
 
     // MARK: GoalDetailDelegate
-    func didSave(goal: Goal, indexPath: NSIndexPath?) {
+    func didSave(goal: Goal) {
         goals.updateGoal(goal)
         goals.sortGoalsByWeight()
         collectionView.reloadData()

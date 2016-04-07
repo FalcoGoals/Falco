@@ -217,11 +217,20 @@ extension MainViewController: PresentationDelegate {
         let content = storyboard.instantiateViewControllerWithIdentifier("GoalDetailViewController") as! GoalDetailViewController
         let goal = goalModel.getGoalWithIdentifier(id)
 
+        content.delegate = self
         content.goal = goal
         content.user = user
 
         content.modalPresentationStyle = .FormSheet
         content.modalTransitionStyle = .CrossDissolve
         self.presentViewController(content, animated: true, completion: nil)
+    }
+}
+
+extension MainViewController: GoalDetailDelegate {
+    func didSave(goal: Goal) {
+        goalModel.updateGoal(goal)
+        let goalNode = scene.childNodeWithName("//\(goal.id)") as! GoalBubble
+        goalNode.label.text = goal.name
     }
 }

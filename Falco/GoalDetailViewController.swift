@@ -9,7 +9,7 @@
 import UIKit
 
 protocol GoalDetailDelegate {
-    func didSave(goal: Goal, indexPath: NSIndexPath?)
+    func didSave(goal: Goal)
 }
 
 class GoalDetailViewController: UITableViewController {
@@ -70,17 +70,13 @@ class GoalDetailViewController: UITableViewController {
 //        return cell
 //    }
 
-    // MARK: Segue
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "saveDetailSegue" {
-            goal.name = nameField.text!
-            goal.details = detailsField.text!
-            goal.priority = PriorityType(rawValue: priorityControl.selectedSegmentIndex)!
-            goal.endTime = selectedDate
+    @IBAction func saveDetails(sender: UIButton) {
+        goal.name = nameField.text!
+        goal.details = detailsField.text!
+        goal.priority = PriorityType(rawValue: priorityControl.selectedSegmentIndex)!
+        goal.endTime = selectedDate
 
-            delegate.didSave(goal, indexPath: selectedIndexpath)
-
-        }
+        delegate.didSave(goal)
     }
 
     /// Uses medium style date

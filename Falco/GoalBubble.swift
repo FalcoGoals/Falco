@@ -37,6 +37,7 @@ class GoalBubble: SKNode {
 
         super.init()
         self.userInteractionEnabled = true
+        self.name = id
         addChild(self.circle)
     }
 
