@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Personal Goal View Controller-->
@@ -206,23 +207,22 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zS0-E9-h4L">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cancel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJL-eh-rt5">
-                                                            <rect key="frame" x="0.0" y="0.0" width="300" height="43.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" red="1" green="0.22334637660000001" blue="0.3805677496" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4yx-LB-IFJ">
-                                                            <rect key="frame" x="300" y="0.0" width="300" height="43.5"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q2F-mB-Izk" userLabel="Cancel">
+                                                            <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
+                                                            <state key="normal" title="Cancel">
+                                                                <color key="titleColor" red="1" green="0.22334637660000001" blue="0.3805677496" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </state>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bcq-Y7-fmw" userLabel="Save">
+                                                            <rect key="frame" x="300" y="0.0" width="300" height="44"/>
+                                                            <state key="normal" title="Save"/>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="4yx-LB-IFJ" firstAttribute="width" secondItem="DJL-eh-rt5" secondAttribute="width" id="J8I-na-dqd"/>
+                                                        <constraint firstItem="Bcq-Y7-fmw" firstAttribute="width" secondItem="zS0-E9-h4L" secondAttribute="width" multiplier="1/2" id="Apq-rK-jHP"/>
+                                                        <constraint firstItem="q2F-mB-Izk" firstAttribute="width" secondItem="zS0-E9-h4L" secondAttribute="width" multiplier="1/2" id="Rxk-td-tlG"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
@@ -265,7 +265,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wrp-Gi-sji" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="0Ls-sC-M8E" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1531" y="332"/>
+            <point key="canvasLocation" x="77" y="332"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="OV1-Rn-aHs">
