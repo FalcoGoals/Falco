@@ -32,6 +32,7 @@ class GoalBubble: SKNode {
         self.label = SKLabelNode(text: text)
         self.label.horizontalAlignmentMode = .Center
         self.label.verticalAlignmentMode = .Baseline
+        self.label.fontSize = 15
 
         self.circle.addChild(self.label)
 
