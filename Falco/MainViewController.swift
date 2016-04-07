@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class MainViewController: UIViewController, LoginDelegate {
+class MainViewController: UIViewController, LoginDelegate, UIPopoverPresentationControllerDelegate {
     
     @IBOutlet weak var tabView: UIView!
 
@@ -69,6 +69,9 @@ class MainViewController: UIViewController, LoginDelegate {
                 dvc.popoverPresentationController!.sourceRect.offsetInPlace(dx: location.x, dy: location.y)
             }
             dvc.delegate = self
+            dvc.popoverPresentationController!.delegate = self
+
+            pauseScene()
         }
     }
 
@@ -85,6 +88,17 @@ class MainViewController: UIViewController, LoginDelegate {
     func didReceiveToken() {
         authAndDownloadGoals()
     }
+
+    // MARK: UIPopoverPresentationControllerDelegate
+
+    func popoverPresentationControllerDidDismissPopover(_: UIPopoverPresentationController) {
+        playScene()
+    }
+
+    // MARK: Segue
+
+    @IBAction func cancelGoalEdit(segue: UIStoryboardSegue) { playScene() }
+    @IBAction func saveGoalEdit(segue: UIStoryboardSegue) { playScene() }
 
     // MARK: Helper methods
 
@@ -162,10 +176,13 @@ class MainViewController: UIViewController, LoginDelegate {
         }
     }
 
-    // MARK: Segue
-    @IBAction func cancelGoalEdit(segue: UIStoryboardSegue) { self.scene.view?.paused = false }
-    @IBAction func saveGoalEdit(segue: UIStoryboardSegue) { self.scene.view?.paused = false }
+    private func pauseScene() {
+        self.scene.view?.paused = true
+    }
 
+    private func playScene() {
+        self.scene.view?.paused = false
+    }
 }
 
 extension MainViewController {
