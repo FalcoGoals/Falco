@@ -256,7 +256,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="dateLabel" destination="ReF-ci-rM3" id="vaH-Yl-OOB"/>
+                        <outlet property="dateLabel" destination="ReF-ci-rM3" id="tR1-Vr-7pN"/>
                         <outlet property="detailsField" destination="6NO-8f-RCC" id="s8c-Nt-bnb"/>
                         <outlet property="nameField" destination="sd9-0k-ATJ" id="byA-Ij-VVR"/>
                         <outlet property="priorityControl" destination="JbF-wM-MeN" id="GEh-tw-4g9"/>

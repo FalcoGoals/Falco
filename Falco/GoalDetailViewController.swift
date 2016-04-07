@@ -15,7 +15,6 @@ protocol GoalDetailDelegate {
 class GoalDetailViewController: UITableViewController {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var detailsField: UITextField!
-    @IBOutlet weak var deadlineField: UITextField!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var priorityControl: UISegmentedControl!
 
