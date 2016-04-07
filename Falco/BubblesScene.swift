@@ -96,6 +96,13 @@ class BubblesScene: SKScene {
         goal.position = CGPointMake(CGFloat(weight)/2, -CGFloat(weight)/2)
         addChild(goal)
     }
+
+    func addGoal(goal: Goal) {
+        let weight = goal.weight
+        let goalBubble = GoalBubble(circleOfRadius: CGFloat(weight)/2, text: goal.name)
+        goalBubble.position = CGPointMake(CGFloat(weight)/2, -CGFloat(weight)/2)
+        addChild(goalBubble)
+    }
     
     private func calculateNextPosition(diameter: Int) -> (Int, Int){
         var xValue = 0
