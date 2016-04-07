@@ -65,7 +65,7 @@ class BubblesScene: SKScene {
     }
     
     func addNewBubble() {
-        let goal = PersonalGoal(name: "New", details: "my goal", priority: .High, endTime: NSDate())
+//        let goal = PersonalGoal(name: "New", details: "my goal", priority: .High, endTime: NSDate())
         //addGoal(goal)
     }
 

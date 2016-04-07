@@ -200,8 +200,8 @@ class MainViewController: UIViewController, LoginDelegate {
     }
 
     // MARK: Segue
-    @IBAction func cancelGoalEdit(segue: UIStoryboardSegue) {}
-    @IBAction func saveGoalEdit(segue: UIStoryboardSegue) {}
+    @IBAction func cancelGoalEdit(segue: UIStoryboardSegue) { self.scene.view?.paused = false }
+    @IBAction func saveGoalEdit(segue: UIStoryboardSegue) { self.scene.view?.paused = false }
 
 }
 
@@ -224,6 +224,7 @@ extension MainViewController: PresentationDelegate {
         content.modalPresentationStyle = .FormSheet
         content.modalTransitionStyle = .CrossDissolve
         self.presentViewController(content, animated: true, completion: nil)
+        self.scene.view?.paused = true
     }
 }
 
