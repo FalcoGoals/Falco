@@ -214,10 +214,16 @@
                                                             <state key="normal" title="Cancel">
                                                                 <color key="titleColor" red="1" green="0.22334637660000001" blue="0.3805677496" alpha="1" colorSpace="calibratedRGB"/>
                                                             </state>
+                                                            <connections>
+                                                                <segue destination="0Ls-sC-M8E" kind="unwind" unwindAction="cancelGoalEdit:" id="Mmo-WS-4Gz"/>
+                                                            </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bcq-Y7-fmw" userLabel="Save">
                                                             <rect key="frame" x="300" y="0.0" width="300" height="44"/>
                                                             <state key="normal" title="Save"/>
+                                                            <connections>
+                                                                <segue destination="0Ls-sC-M8E" kind="unwind" unwindAction="saveGoalEdit:" id="B1n-6F-Oe0"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <constraints>
@@ -250,6 +256,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wrp-Gi-sji" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="0Ls-sC-M8E" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="77" y="332"/>
         </scene>

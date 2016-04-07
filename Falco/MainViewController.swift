@@ -198,6 +198,11 @@ class MainViewController: UIViewController, LoginDelegate {
             return false
         }
     }
+
+    // MARK: Segue
+    @IBAction func cancelGoalEdit(segue: UIStoryboardSegue) {}
+    @IBAction func saveGoalEdit(segue: UIStoryboardSegue) {}
+
 }
 
 extension MainViewController {
