@@ -10,14 +10,10 @@ import SpriteKit
 
 class BubblesScene: SKScene {
     private var cam: SKCameraNode!
-    private var goalModel = GoalCollection()
-    private var circlePosition = [[Int]]()
-    private var lowestY = 0
     private var cameraMoved = false
 
-    init(size: CGSize, goalModel: GoalCollection) {
+    override init(size: CGSize) {
         super.init(size: size)
-        self.goalModel = goalModel
         anchorPoint = CGPointMake (0.0,1.0)
         cam = SKCameraNode()
         camera = cam
@@ -37,24 +33,10 @@ class BubblesScene: SKScene {
     }
 
     override func didMoveToView(view: SKView) {
-        var offset = CGFloat(100)
-
-        for goal in goalModel.goals {
-            let weight = goal.weight
-            let (x,y) = calculateNextPosition(weight)
-            let goalBubble = GoalBubble(id: goal.id,circleOfRadius: CGFloat(weight)/2, text: goal.name)
-            if (y - weight/2 < lowestY) {
-                lowestY = y - weight/2
-            }
-            circlePosition.append([x, y, weight])
-            goalBubble.position = CGPointMake(CGFloat(x), CGFloat(y) - offset)
-            offset += 50
-            
-//            goal.position = CGPointMake(CGFloat(x), CGFloat(y) - 100)
-//            let actionMove = SKAction.moveTo(CGPointMake(CGFloat(x), CGFloat(y)), duration: 2)
-//            goal.runAction(actionMove)
-            addChild(goalBubble)
-        }
+        
+        //            goal.position = CGPointMake(CGFloat(x), CGFloat(y) - 100)
+        //            let actionMove = SKAction.moveTo(CGPointMake(CGFloat(x), CGFloat(y)), duration: 2)
+        //            goal.runAction(actionMove)
 //        self.physicsBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
 //        self.physicsWorld.gravity = CGVectorMake(0, 4)
     }
@@ -84,59 +66,11 @@ class BubblesScene: SKScene {
     
     func addNewBubble() {
         let goal = PersonalGoal(name: "New", details: "my goal", priority: .High, endTime: NSDate())
-        addGoal(goal)
+        //addGoal(goal)
     }
 
-    func addGoal(goal: Goal) {
-        goalModel.updateGoal(goal)
-        physicsWorld.gravity = CGVectorMake(0, 0)
-        let weight = goal.weight
-        let goalBubble = GoalBubble(id: goal.id, circleOfRadius: CGFloat(weight)/2, text: goal.name)
-        goalBubble.position = CGPointMake(CGFloat(weight)/2, -CGFloat(weight)/2)
-        addChild(goalBubble)
-    }
-    
-    private func calculateNextPosition(diameter: Int) -> (Int, Int){
-        var xValue = 0
-        var lowestYValue = lowestY
-        let maxXValue = Int(size.width) - diameter
-        
-        
-        for currX in 0..<maxXValue {
-            var currY = lowestYValue
-            var intersection = false
-            while (currY < 0) {
-                for circle in circlePosition {
-                    if (circleIntersection(circle[0], y1: circle[1],
-                        r1: circle[2]/2, x2: currX+diameter/2, y2: currY+diameter/2, r2: diameter/2)) {
-                        intersection = true
-                        break
-                    }
-                }
-                if (intersection) {
-                    break
-                } else {
-                    currY += 1
-                }
-            }
-            if (currY > lowestYValue) {
-                xValue = currX
-                lowestYValue = currY
-            }
-        }
-        
-        return (xValue + diameter/2, lowestYValue - diameter/2)
-    }
-    
-    private func circleIntersection(x1: Int, y1: Int, r1: Int, x2: Int, y2: Int, r2: Int) -> Bool {
-        let dx = Double(x1) - Double(x2);
-        let dy = Double(y1) - Double(y2);
-        let distance = sqrt(dx * dx + dy * dy);
-        
-        if distance <= (Double(r1) + Double(r2)) {
-            return true
-        } else {
-            return false
-        }
+    func addGoal(goal: GoalBubble) {
+        //physicsWorld.gravity = CGVectorMake(0, 0)
+        addChild(goal)
     }
 }
