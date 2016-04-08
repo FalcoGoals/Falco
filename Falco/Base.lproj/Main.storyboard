@@ -87,7 +87,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(date label)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReF-ci-rM3">
-                                                    <rect key="frame" x="128" y="10" width="444" height="23.5"/>
+                                                    <rect key="frame" x="486" y="10" width="86" height="23.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.46274509803921571" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -113,7 +113,6 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="ReF-ci-rM3" secondAttribute="bottom" constant="2" id="K1H-GU-bYm"/>
                                                 <constraint firstItem="H05-2E-IbG" firstAttribute="leading" secondItem="181-QA-orA" secondAttribute="leadingMargin" constant="20" id="WnU-bq-VQs"/>
                                                 <constraint firstItem="H05-2E-IbG" firstAttribute="centerY" secondItem="181-QA-orA" secondAttribute="centerY" id="adM-8a-Ssb"/>
-                                                <constraint firstItem="ReF-ci-rM3" firstAttribute="leading" secondItem="181-QA-orA" secondAttribute="leadingMargin" constant="120" id="gDs-Wo-l88"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="ReF-ci-rM3" secondAttribute="trailing" constant="20" id="xsK-QK-ZB0"/>
                                             </constraints>
                                         </tableViewCellContentView>
