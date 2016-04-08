@@ -37,6 +37,9 @@ class GoalEditViewController: UITableViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 45
 
+        self.nameField.delegate = self
+        self.detailsField.delegate = self
+
         if goal == nil {
             goal = PersonalGoal(name: "New Goal", details: "", priority: .Mid, endTime: NSDate())
         }
@@ -137,6 +140,7 @@ class GoalEditViewController: UITableViewController {
     }
 
     private func hideDatePicker() {
+        print("hiding")
         guard isDatePickerShown else {
             return
         }
@@ -153,5 +157,17 @@ class GoalEditViewController: UITableViewController {
             self.datePicker.hidden = true
             self.dateLabel.text = self.getDateString(self.dateHolder)
         })
+    }
+}
+
+extension GoalEditViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(textField: UITextField) {
+        hideDatePicker()
+    }
+}
+
+extension GoalEditViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(textView: UITextView) {
+        hideDatePicker()
     }
 }
