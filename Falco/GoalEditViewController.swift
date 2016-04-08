@@ -19,6 +19,7 @@ class GoalEditViewController: UITableViewController {
     @IBOutlet weak var priorityControl: UISegmentedControl!
     @IBOutlet weak var datePicker: UIDatePicker!
 
+    let nameRow = 0
     let descriptionRow = 1
     let dateRow = 2
     let datePickerRowHeight: CGFloat = 100
@@ -75,6 +76,12 @@ class GoalEditViewController: UITableViewController {
             showDatePicker(indexPath)
         } else {
             hideDatePicker(indexPath)
+        }
+
+        if indexPath.row == nameRow {
+            nameField.becomeFirstResponder()
+        } else if indexPath.row == descriptionRow {
+            detailsField.becomeFirstResponder()
         }
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
