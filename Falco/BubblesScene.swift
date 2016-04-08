@@ -36,6 +36,13 @@ class BubblesScene: SKScene {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func didMoveToView(view: SKView) {
+        let background = SKSpriteNode(imageNamed: "wallpaper")
+        background.zPosition = -1
+        background.position = CGPoint(x: frame.midX, y: frame.midY)
+        addChild(background)
+    }
+
 //    override func didMoveToView(view: SKView) {
 
         //            goal.position = CGPointMake(CGFloat(x), CGFloat(y) - 100)

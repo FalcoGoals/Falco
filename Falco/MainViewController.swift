@@ -71,7 +71,6 @@ class MainViewController: UIViewController, LoginDelegate, UIPopoverPresentation
             }
             dvc.delegate = self
             dvc.popoverPresentationController!.delegate = self
-
             pauseScene()
         }
     }

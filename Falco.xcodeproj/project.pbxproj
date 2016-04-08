@@ -47,7 +47,7 @@
 		745BC9731C994BFD00204231 /* BubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745BC9721C994BFD00204231 /* BubbleCell.swift */; };
 		74BB5DD71CA1848500695C24 /* GoalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB5DD61CA1848500695C24 /* GoalDetailViewController.swift */; };
 		7B634CE21CB53B1A00ED4E15 /* falcoLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B634CE11CB53B1A00ED4E15 /* falcoLogo.png */; };
-		7BD611F41CB0F5440061730E /* BubbleBackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7BD611F31CB0F5440061730E /* BubbleBackground.jpg */; };
+		A2419F631CB74AD00091319B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2419F621CB74AD00091319B /* Images.xcassets */; };
 		A24F37CC1C9EA468001148FD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24F37CB1C9EA468001148FD /* LoginViewController.swift */; };
 		A2C1C7DE1CACBE6800B6EAFA /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1C7DD1CACBE6800B6EAFA /* Server.swift */; };
 /* End PBXBuildFile section */
@@ -109,7 +109,7 @@
 		745BC9721C994BFD00204231 /* BubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleCell.swift; sourceTree = "<group>"; };
 		74BB5DD61CA1848500695C24 /* GoalDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalDetailViewController.swift; sourceTree = "<group>"; };
 		7B634CE11CB53B1A00ED4E15 /* falcoLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = falcoLogo.png; sourceTree = "<group>"; };
-		7BD611F31CB0F5440061730E /* BubbleBackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = BubbleBackground.jpg; sourceTree = "<group>"; };
+		A2419F621CB74AD00091319B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A24F37CB1C9EA468001148FD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A2C1C7DD1CACBE6800B6EAFA /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		BD369289AFEF04402F8D94D1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -182,8 +182,8 @@
 				A2C1C7DD1CACBE6800B6EAFA /* Server.swift */,
 				7459577E1C9841DE00C3D3C0 /* AppDelegate.swift */,
 				7B634CE11CB53B1A00ED4E15 /* falcoLogo.png */,
-				7BD611F31CB0F5440061730E /* BubbleBackground.jpg */,
 				745957851C9841DE00C3D3C0 /* Assets.xcassets */,
+				A2419F621CB74AD00091319B /* Images.xcassets */,
 				745957871C9841DE00C3D3C0 /* LaunchScreen.storyboard */,
 				7459578A1C9841DE00C3D3C0 /* Info.plist */,
 			);
@@ -377,8 +377,8 @@
 				745957891C9841DE00C3D3C0 /* LaunchScreen.storyboard in Resources */,
 				745957861C9841DE00C3D3C0 /* Assets.xcassets in Resources */,
 				7B634CE21CB53B1A00ED4E15 /* falcoLogo.png in Resources */,
+				A2419F631CB74AD00091319B /* Images.xcassets in Resources */,
 				745957841C9841DE00C3D3C0 /* Main.storyboard in Resources */,
-				7BD611F41CB0F5440061730E /* BubbleBackground.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

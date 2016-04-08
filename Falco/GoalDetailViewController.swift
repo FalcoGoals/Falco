@@ -49,10 +49,22 @@ class GoalDetailViewController: UITableViewController {
         detailsField.layer.cornerRadius = 5
         detailsField.layer.borderColor = UIColor(red: 0, green: 118/255, blue: 1, alpha: 1).CGColor
         detailsField.scrollEnabled = false
+
+        tableView.backgroundColor = UIColor.clearColor()
+        let blurEffect = UIBlurEffect(style: .ExtraLight)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        tableView.backgroundView = blurEffectView
+        if let popover = popoverPresentationController {
+            popover.backgroundColor = UIColor.clearColor()
+        }
     }
 
     override func viewDidAppear(animated: Bool) {
         detailsField.scrollEnabled = true
+    }
+
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.backgroundColor = UIColor.clearColor()
     }
 
     // MARK: Table view delegate
