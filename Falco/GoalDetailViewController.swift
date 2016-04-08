@@ -45,6 +45,9 @@ class GoalDetailViewController: UITableViewController {
         selectedDate = goal.endTime
         priorityControl.selectedSegmentIndex = goal.priority.rawValue
 
+        detailsField.layer.borderWidth = 1
+        detailsField.layer.cornerRadius = 5
+        detailsField.layer.borderColor = UIColor(red: 0, green: 118/255, blue: 1, alpha: 1).CGColor
         detailsField.scrollEnabled = false
     }
 
