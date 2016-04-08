@@ -240,6 +240,7 @@
                     <value key="contentSizeForViewInPopover" type="size" width="450" height="380"/>
                     <connections>
                         <outlet property="dateLabel" destination="ReF-ci-rM3" id="tR1-Vr-7pN"/>
+                        <outlet property="datePicker" destination="Ezu-I3-plq" id="uue-z6-5up"/>
                         <outlet property="detailsField" destination="Bk9-dc-Q94" id="Ic5-1K-wWd"/>
                         <outlet property="nameField" destination="sd9-0k-ATJ" id="byA-Ij-VVR"/>
                         <outlet property="priorityControl" destination="JbF-wM-MeN" id="GEh-tw-4g9"/>

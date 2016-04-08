@@ -17,8 +17,11 @@ class GoalDetailViewController: UITableViewController {
     @IBOutlet weak var detailsField: UITextView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var priorityControl: UISegmentedControl!
+    @IBOutlet weak var datePicker: UIDatePicker!
 
+    let descriptionRow = 1
     let dateRow = 2
+    let datePickerRowHeight: CGFloat = 50
 
     var delegate: GoalDetailDelegate!
 
@@ -28,12 +31,13 @@ class GoalDetailViewController: UITableViewController {
 
     var datePickerIndexPath: NSIndexPath!
     let datePickerIdentifier = "datePickerCell"
-    var isDatePickerShown: Bool {
-        return datePickerIndexPath != nil
-    }
+    var isDatePickerShown = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 45
 
         if goal == nil {
             goal = PersonalGoal(name: "New Goal", details: "", priority: .Mid, endTime: NSDate())
@@ -68,26 +72,27 @@ class GoalDetailViewController: UITableViewController {
     }
 
     // MARK: Table view delegate
-//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        if indexPath.row == dateRow {
-//            showDatePicker(indexPath)
-//        } else {
-//            hideDatePicker(indexPath)
-//        }
-//    }
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.row == dateRow {
+            showDatePicker(indexPath)
+        } else {
+            hideDatePicker(indexPath)
+        }
+        print(" row selected \(indexPath.row)")
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
 
-//    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//
-//    }
-//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        var cell: UITableViewCell
-//        if isDatePickerShown && indexPath == datePickerIndexPath {
-//            cell = createDatePickerCell(indexPath)
-//        } else {
-//            cell = self.tableView.cellForRowAtIndexPath(indexPath)!
-//        }
-//        return cell
-//    }
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        guard indexPath.section == 0 && indexPath.row == dateRow + 1 else {
+            return self.tableView.rowHeight
+        }
+
+        if !isDatePickerShown {
+            return 0
+        } else {
+            return datePickerRowHeight
+        }
+    }
 
     @IBAction func saveDetails(sender: UIButton) {
         goal.name = nameField.text!
@@ -109,22 +114,32 @@ class GoalDetailViewController: UITableViewController {
         guard !isDatePickerShown else {
             return
         }
+        isDatePickerShown = true
 
-        datePickerIndexPath = NSIndexPath(forRow: dateRow + 1, inSection: 0)
-        self.tableView.insertRowsAtIndexPaths([datePickerIndexPath], withRowAnimation: .Fade)
+        // idiom to animate row height changes
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
+
+        datePicker.hidden = false
+        UIView.animateWithDuration(0.2, animations: {
+            self.datePicker.alpha = 1
+        })
     }
 
     private func hideDatePicker(indexPath: NSIndexPath) {
         guard isDatePickerShown else {
             return
         }
-        self.tableView.deleteRowsAtIndexPaths([datePickerIndexPath], withRowAnimation: .Fade)
-        datePickerIndexPath = nil
-    }
+        isDatePickerShown = false
 
-    //    private func createDatePickerCell(indexPath: NSIndexPath) -> UITableViewCell {
-    //        let datePicker = UITableViewCell(style: .Default, reuseIdentifier: datePickerIdentifier) as! UIDatePicker
-    //        datePicker.setDate(goal!.endTime, animated: true)
-    //        return datePicker
-    //    }
+        // idiom to animate row height changes
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
+        
+        UIView.animateWithDuration(0.2, animations: {
+            self.datePicker.alpha = 1
+        }, completion: { finished in
+            self.datePicker.hidden = true
+        })
+    }
 }
