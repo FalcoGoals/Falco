@@ -72,11 +72,13 @@ class GoalEditViewController: UITableViewController {
 
     // MARK: Table view delegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // hide any opened keyboard
         self.tableView.endEditing(true)
+
         if indexPath.row == dateRow {
-            showDatePicker(indexPath)
+            showDatePicker()
         } else {
-            hideDatePicker(indexPath)
+            hideDatePicker()
         }
 
         if indexPath.row == nameRow {
@@ -115,7 +117,7 @@ class GoalEditViewController: UITableViewController {
         dateFormatter.locale = NSLocale.currentLocale()
         return dateFormatter.stringFromDate(date)
     }
-    private func showDatePicker(indexPath: NSIndexPath) {
+    private func showDatePicker() {
         guard !isDatePickerShown else {
             return
         }
@@ -134,7 +136,7 @@ class GoalEditViewController: UITableViewController {
 
     }
 
-    private func hideDatePicker(indexPath: NSIndexPath) {
+    private func hideDatePicker() {
         guard isDatePickerShown else {
             return
         }
