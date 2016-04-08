@@ -43,7 +43,7 @@ class PersonalGoalViewController: UIViewController, GoalDetailDelegate, LoginDel
 
         } else if segue.identifier == "showDetailView" {
             let nc = segue.destinationViewController as! UINavigationController
-            let dvc = nc.topViewController as! GoalDetailViewController
+            let dvc = nc.topViewController as! GoalEditViewController
             let indexPath = collectionView.indexPathForItemAtPoint(sender!.locationInView(collectionView))
 
             dvc.delegate = self

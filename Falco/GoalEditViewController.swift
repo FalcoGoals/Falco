@@ -12,7 +12,7 @@ protocol GoalDetailDelegate {
     func didSave(goal: Goal)
 }
 
-class GoalDetailViewController: UITableViewController {
+class GoalEditViewController: UITableViewController {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var detailsField: UITextView!
     @IBOutlet weak var dateLabel: UILabel!

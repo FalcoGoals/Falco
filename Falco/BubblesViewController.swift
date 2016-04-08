@@ -46,7 +46,7 @@ class BubblesViewController: UIViewController, LoginDelegate, UIPopoverPresentat
             lvc.delegate = self
 
         } else if segue.identifier == "showDetailView" {
-            let dvc = segue.destinationViewController as! GoalDetailViewController
+            let dvc = segue.destinationViewController as! GoalEditViewController
 
             let location = sender!.locationInView(sender!.view)
             let touchLocation = scene.convertPointFromView(location)
