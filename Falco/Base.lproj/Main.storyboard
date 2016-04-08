@@ -10,7 +10,7 @@
         <scene sceneID="3WW-cE-nJt">
             <objects>
                 <tableViewController storyboardIdentifier="GoalDetailViewController" modalPresentationStyle="overCurrentContext" id="6hr-tn-rQP" customClass="GoalDetailViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="cye-cd-Lbr">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="cye-cd-Lbr">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -19,7 +19,7 @@
                         <sections>
                             <tableViewSection id="Wv7-aX-wpy">
                                 <cells>
-                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="V9V-4E-0oW">
+                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="V9V-4E-0oW">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="V9V-4E-0oW" id="bSq-EH-1Ao">
@@ -43,7 +43,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="150" id="tOl-1l-gpn" userLabel="DescriptionCell">
+                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="150" id="tOl-1l-gpn" userLabel="DescriptionCell">
                                         <rect key="frame" x="0.0" y="44" width="600" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tOl-1l-gpn" id="Yol-4Q-LuT">
@@ -79,7 +79,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="23D-G9-JDX" userLabel="DateCell">
+                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="23D-G9-JDX" userLabel="DateCell">
                                         <rect key="frame" x="0.0" y="194" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="23D-G9-JDX" id="181-QA-orA">
@@ -119,8 +119,31 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="48" id="znh-xS-Z8p" userLabel="PriorityCell">
-                                        <rect key="frame" x="0.0" y="238" width="600" height="48"/>
+                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="qfd-bh-Byv" userLabel="DatePickerCell">
+                                        <rect key="frame" x="0.0" y="238" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qfd-bh-Byv" id="5x0-Y5-vqK">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ezu-I3-plq">
+                                                    <rect key="frame" x="8" y="0.0" width="584" height="44"/>
+                                                    <date key="date" timeIntervalSinceReferenceDate="481806298.80341899">
+                                                        <!--2016-04-08 11:04:58 +0000-->
+                                                    </date>
+                                                </datePicker>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Ezu-I3-plq" secondAttribute="bottom" constant="-8" id="563-zr-z5h"/>
+                                                <constraint firstItem="Ezu-I3-plq" firstAttribute="top" secondItem="5x0-Y5-vqK" secondAttribute="topMargin" constant="-8" id="X8W-VZ-pg7"/>
+                                                <constraint firstItem="Ezu-I3-plq" firstAttribute="leading" secondItem="5x0-Y5-vqK" secondAttribute="leadingMargin" id="ecW-xS-Wid"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Ezu-I3-plq" secondAttribute="trailing" id="z83-ng-jJd"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="48" id="znh-xS-Z8p" userLabel="PriorityCell">
+                                        <rect key="frame" x="0.0" y="282" width="600" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="znh-xS-Z8p" id="5k4-2E-Cx0">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="48"/>
@@ -163,8 +186,8 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ytm-S2-xNp" userLabel="ActionCell">
-                                        <rect key="frame" x="0.0" y="286" width="600" height="44"/>
+                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="ytm-S2-xNp" userLabel="ActionCell">
+                                        <rect key="frame" x="0.0" y="330" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ytm-S2-xNp" id="914-0y-1Lf">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -214,7 +237,7 @@
                             <outlet property="delegate" destination="6hr-tn-rQP" id="g22-Av-xMT"/>
                         </connections>
                     </tableView>
-                    <value key="contentSizeForViewInPopover" type="size" width="450" height="330"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="450" height="380"/>
                     <connections>
                         <outlet property="dateLabel" destination="ReF-ci-rM3" id="tR1-Vr-7pN"/>
                         <outlet property="detailsField" destination="Bk9-dc-Q94" id="Ic5-1K-wWd"/>
