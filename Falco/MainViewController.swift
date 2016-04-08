@@ -71,7 +71,6 @@ class MainViewController: UIViewController, LoginDelegate, UIPopoverPresentation
             }
             dvc.delegate = self
             dvc.popoverPresentationController!.delegate = self
-            dvc.preferredContentSize = CGSizeMake(view.frame.width * 0.6, view.frame.height * 0.4)
 
             pauseScene()
         }
