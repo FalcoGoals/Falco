@@ -383,10 +383,10 @@
             </objects>
             <point key="canvasLocation" x="1531" y="1128"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Bubbles View Controller-->
         <scene sceneID="df7-ns-ADC">
             <objects>
-                <viewController id="nrW-8I-lzT" customClass="MainViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="nrW-8I-lzT" customClass="BubblesViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LyX-e8-mcT"/>
                         <viewControllerLayoutGuide type="bottom" id="a0T-G5-Am7"/>

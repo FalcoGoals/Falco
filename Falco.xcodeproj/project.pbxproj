@@ -33,7 +33,7 @@
 		25E2760E1CABC67C007A26EF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E2760D1CABC67C007A26EF /* Constants.swift */; };
 		25E2760F1CABC8FE007A26EF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E2760D1CABC67C007A26EF /* Constants.swift */; };
 		25E463181CB41B1D00847724 /* GroupAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E463171CB41B1D00847724 /* GroupAddViewController.swift */; };
-		740FF7501CABB8A5008A5D1F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740FF74F1CABB8A5008A5D1F /* MainViewController.swift */; };
+		740FF7501CABB8A5008A5D1F /* BubblesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740FF74F1CABB8A5008A5D1F /* BubblesViewController.swift */; };
 		740FF7521CABBB80008A5D1F /* BubblesScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740FF7511CABBB80008A5D1F /* BubblesScene.swift */; };
 		740FF7541CABC253008A5D1F /* GoalBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740FF7531CABC253008A5D1F /* GoalBubble.swift */; };
 		7424B0FA1C9A96310071B78B /* GoalsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7424B0F91C9A96310071B78B /* GoalsLayout.swift */; };
@@ -89,7 +89,7 @@
 		25DC09111CB4F3D600674D29 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
 		25E2760D1CABC67C007A26EF /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		25E463171CB41B1D00847724 /* GroupAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupAddViewController.swift; sourceTree = "<group>"; };
-		740FF74F1CABB8A5008A5D1F /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		740FF74F1CABB8A5008A5D1F /* BubblesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubblesViewController.swift; sourceTree = "<group>"; };
 		740FF7511CABBB80008A5D1F /* BubblesScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubblesScene.swift; sourceTree = "<group>"; };
 		740FF7531CABC253008A5D1F /* GoalBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalBubble.swift; sourceTree = "<group>"; };
 		7424B0F91C9A96310071B78B /* GoalsLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalsLayout.swift; sourceTree = "<group>"; };
@@ -231,7 +231,7 @@
 		74C086111C9AD71300BA50C9 /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				740FF74F1CABB8A5008A5D1F /* MainViewController.swift */,
+				740FF74F1CABB8A5008A5D1F /* BubblesViewController.swift */,
 				745957801C9841DE00C3D3C0 /* PersonalGoalViewController.swift */,
 				A24F37CB1C9EA468001148FD /* LoginViewController.swift */,
 				74BB5DD61CA1848500695C24 /* GoalDetailViewController.swift */,
@@ -458,7 +458,7 @@
 				2528BAEF1CA702DD007332FA /* Group.swift in Sources */,
 				25DC09121CB4F3D600674D29 /* FriendTableViewCell.swift in Sources */,
 				2528BAF11CA702DD007332FA /* PersonalGoal.swift in Sources */,
-				740FF7501CABB8A5008A5D1F /* MainViewController.swift in Sources */,
+				740FF7501CABB8A5008A5D1F /* BubblesViewController.swift in Sources */,
 				25E463181CB41B1D00847724 /* GroupAddViewController.swift in Sources */,
 				745957811C9841DE00C3D3C0 /* PersonalGoalViewController.swift in Sources */,
 				740FF7521CABBB80008A5D1F /* BubblesScene.swift in Sources */,

@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class MainViewController: UIViewController, LoginDelegate, UIPopoverPresentationControllerDelegate {
+class BubblesViewController: UIViewController, LoginDelegate, UIPopoverPresentationControllerDelegate {
     
     @IBOutlet weak var tabView: UIView!
 
@@ -33,7 +33,7 @@ class MainViewController: UIViewController, LoginDelegate, UIPopoverPresentation
         let skView = view as! SKView
         skView.ignoresSiblingOrder = true
         skView.presentScene(scene)
-        skView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(MainViewController.bubbleTapped(_:))))
+        skView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(BubblesViewController.bubbleTapped(_:))))
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -185,7 +185,7 @@ class MainViewController: UIViewController, LoginDelegate, UIPopoverPresentation
     }
 }
 
-extension MainViewController {
+extension BubblesViewController {
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
@@ -214,7 +214,7 @@ extension MainViewController {
 //    }
 //}
 
-extension MainViewController: GoalDetailDelegate {
+extension BubblesViewController: GoalDetailDelegate {
     func didSave(goal: Goal) {
         goals.updateGoal(goal)
         scene.updateGoal(goal)
