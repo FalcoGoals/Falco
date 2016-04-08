@@ -72,6 +72,7 @@ class GoalEditViewController: UITableViewController {
 
     // MARK: Table view delegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.tableView.endEditing(true)
         if indexPath.row == dateRow {
             showDatePicker(indexPath)
         } else {
