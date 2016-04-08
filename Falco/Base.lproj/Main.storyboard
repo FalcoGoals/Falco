@@ -6,94 +6,6 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Personal Goal View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController modalTransitionStyle="crossDissolve" id="BYZ-38-t0r" customClass="PersonalGoalViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ytr-SH-XuP" userLabel="Goals Collection View">
-                                <rect key="frame" x="-2" y="20" width="604" height="580"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewLayout key="collectionViewLayout" id="l1K-qh-kNj" customClass="GoalsLayout" customModule="Falco" customModuleProvider="target"/>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="bubble" id="Uo7-qq-jfW" customClass="BubbleCell" customModule="Falco" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fh6-8v-oPK">
-                                                    <rect key="frame" x="4" y="15" width="42" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstItem="fh6-8v-oPK" firstAttribute="centerX" secondItem="Uo7-qq-jfW" secondAttribute="centerX" id="5ik-rP-455"/>
-                                            <constraint firstItem="fh6-8v-oPK" firstAttribute="centerY" secondItem="Uo7-qq-jfW" secondAttribute="centerY" id="cBZ-PV-Jxo"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="label" destination="fh6-8v-oPK" id="71L-ON-d41"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="ur5-0v-RqY"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="sXZ-ka-ee9"/>
-                                    <outletCollection property="gestureRecognizers" destination="auQ-mx-gEr" appends="YES" id="ITU-gZ-nN6"/>
-                                </connections>
-                            </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DUP-bt-goI">
-                                <rect key="frame" x="505" y="550" width="75" height="30"/>
-                                <state key="normal" title="New group">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="backButtonSelected:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xvm-18-s9l"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQ1-Ak-jBd">
-                                <rect key="frame" x="335" y="550" width="87" height="30"/>
-                                <state key="normal" title="View Groups"/>
-                                <connections>
-                                    <action selector="groupButtonSelected:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gu0-be-ouI"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="DUP-bt-goI" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="E8g-2n-RLm"/>
-                            <constraint firstItem="ytr-SH-XuP" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-22" id="VGW-4m-BMF"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ytr-SH-XuP" secondAttribute="bottom" id="XrM-tg-8Nk"/>
-                            <constraint firstItem="ytr-SH-XuP" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="j9a-TU-lXj"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="DUP-bt-goI" secondAttribute="bottom" constant="20" id="pT1-bQ-M3T"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ytr-SH-XuP" secondAttribute="trailing" constant="-22" id="rT1-ca-dyW"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="collectionView" destination="ytr-SH-XuP" id="IUC-6g-5EG"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="auQ-mx-gEr">
-                    <connections>
-                        <action selector="GoalsTap:" destination="BYZ-38-t0r" id="Y5F-YH-bVC"/>
-                    </connections>
-                </tapGestureRecognizer>
-            </objects>
-            <point key="canvasLocation" x="1726" y="-418"/>
-        </scene>
         <!--Goal Detail View Controller-->
         <scene sceneID="3WW-cE-nJt">
             <objects>
@@ -553,6 +465,10 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="Item" id="UZa-br-0ai"/>
+                    <connections>
+                        <segue destination="NOJ-IL-xFQ" kind="presentation" identifier="showGroupAdd" id="eiA-1s-1Zr"/>
+                        <segue destination="uTZ-nm-TtB" kind="presentation" identifier="showGroupChat" id="kHx-HR-Nx0"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d7N-hX-hvw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
