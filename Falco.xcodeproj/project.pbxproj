@@ -49,6 +49,7 @@
 		7B634CE21CB53B1A00ED4E15 /* falcoLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B634CE11CB53B1A00ED4E15 /* falcoLogo.png */; };
 		A2419F631CB74AD00091319B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2419F621CB74AD00091319B /* Images.xcassets */; };
 		A24F37CC1C9EA468001148FD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24F37CB1C9EA468001148FD /* LoginViewController.swift */; };
+		A2ABCD341CB76A9D00E044A0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2ABCD331CB76A9D00E044A0 /* MainViewController.swift */; };
 		A2C1C7DE1CACBE6800B6EAFA /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1C7DD1CACBE6800B6EAFA /* Server.swift */; };
 /* End PBXBuildFile section */
 
@@ -111,6 +112,7 @@
 		7B634CE11CB53B1A00ED4E15 /* falcoLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = falcoLogo.png; sourceTree = "<group>"; };
 		A2419F621CB74AD00091319B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A24F37CB1C9EA468001148FD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		A2ABCD331CB76A9D00E044A0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A2C1C7DD1CACBE6800B6EAFA /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		BD369289AFEF04402F8D94D1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F3EDF817BF16E83523A638C6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -231,13 +233,14 @@
 		74C086111C9AD71300BA50C9 /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				740FF74F1CABB8A5008A5D1F /* BubblesViewController.swift */,
-				745957801C9841DE00C3D3C0 /* PersonalGoalViewController.swift */,
+				A2ABCD331CB76A9D00E044A0 /* MainViewController.swift */,
 				A24F37CB1C9EA468001148FD /* LoginViewController.swift */,
+				740FF74F1CABB8A5008A5D1F /* BubblesViewController.swift */,
 				74BB5DD61CA1848500695C24 /* GoalDetailViewController.swift */,
-				25BB93611CB0028F0008E0B8 /* GroupChatViewController.swift */,
-				25E463171CB41B1D00847724 /* GroupAddViewController.swift */,
 				2586F12B1CB69226002809F5 /* GroupsViewController.swift */,
+				25E463171CB41B1D00847724 /* GroupAddViewController.swift */,
+				25BB93611CB0028F0008E0B8 /* GroupChatViewController.swift */,
+				745957801C9841DE00C3D3C0 /* PersonalGoalViewController.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -452,6 +455,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2528BAF21CA702DD007332FA /* User.swift in Sources */,
+				A2ABCD341CB76A9D00E044A0 /* MainViewController.swift in Sources */,
 				2528BAED1CA702DD007332FA /* Goal.swift in Sources */,
 				A24F37CC1C9EA468001148FD /* LoginViewController.swift in Sources */,
 				74BB5DD71CA1848500695C24 /* GoalDetailViewController.swift in Sources */,

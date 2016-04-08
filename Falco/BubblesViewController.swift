@@ -10,8 +10,6 @@ import UIKit
 import SpriteKit
 
 class BubblesViewController: UIViewController, LoginDelegate, UIPopoverPresentationControllerDelegate {
-    
-    @IBOutlet weak var tabView: UIView!
 
     private var user = User(id: NSUUID().UUIDString, name: "MrFoo")
 
@@ -79,10 +77,6 @@ class BubblesViewController: UIViewController, LoginDelegate, UIPopoverPresentat
         performSegueWithIdentifier("showDetailView", sender: sender)
     }
 
-    @IBAction func settingsTapped(sender: AnyObject) {
-        showLogin()
-    }
-
     // MARK: LoginDelegate
 
     func didReceiveToken() {
@@ -95,7 +89,7 @@ class BubblesViewController: UIViewController, LoginDelegate, UIPopoverPresentat
         playScene()
     }
 
-    // MARK: Segue
+    // MARK: IB Actions
 
     @IBAction func cancelGoalEdit(segue: UIStoryboardSegue) { playScene() }
     @IBAction func saveGoalEdit(segue: UIStoryboardSegue) { playScene() }

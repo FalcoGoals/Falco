@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nrW-8I-lzT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="s4V-6X-cXX">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -92,7 +92,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="810" y="386"/>
+            <point key="canvasLocation" x="1726" y="-418"/>
         </scene>
         <!--Goal Detail View Controller-->
         <scene sceneID="3WW-cE-nJt">
@@ -313,7 +313,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wrp-Gi-sji" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="0Ls-sC-M8E" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="810" y="1128"/>
+            <point key="canvasLocation" x="930" y="368"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="OV1-Rn-aHs">
@@ -362,7 +362,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ua-rC-Q23" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="77" y="1844"/>
+            <point key="canvasLocation" x="-407" y="-368"/>
         </scene>
         <!--Group Chat-->
         <scene sceneID="2vF-Fh-SN6">
@@ -381,9 +381,27 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XXz-Pi-ZQc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1531" y="1128"/>
+            <point key="canvasLocation" x="930" y="1796"/>
         </scene>
-        <!--Bubbles View Controller-->
+        <!--Main View Controller-->
+        <scene sceneID="m9B-g4-tmc">
+            <objects>
+                <tabBarController id="s4V-6X-cXX" customClass="MainViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="gfU-Ri-iNn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="nrW-8I-lzT" kind="relationship" relationship="viewControllers" id="g8h-wD-qvh"/>
+                        <segue destination="nGC-RE-0FS" kind="relationship" relationship="viewControllers" id="8Ew-RK-Lak"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AZV-3N-Zbk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-557" y="368"/>
+        </scene>
+        <!--Item-->
         <scene sceneID="df7-ns-ADC">
             <objects>
                 <viewController id="nrW-8I-lzT" customClass="BubblesViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
@@ -394,98 +412,10 @@
                     <view key="view" contentMode="scaleToFill" id="raG-ce-fmP" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Bi-OS-Hj4">
-                                <rect key="frame" x="0.0" y="522" width="600" height="78"/>
-                                <subviews>
-                                    <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wo9-i0-Jzb">
-                                        <rect key="frame" x="120" y="0.0" width="120" height="78"/>
-                                        <color key="backgroundColor" red="0.4260090862" green="1" blue="0.99857374779999997" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Delete Goals">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DpL-gO-2RR">
-                                        <rect key="frame" x="240" y="0.0" width="120" height="78"/>
-                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Home">
-                                            <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UCM-uo-eum">
-                                        <rect key="frame" x="480" y="0.0" width="120" height="78"/>
-                                        <color key="backgroundColor" red="1" green="0.0" blue="0.12105407900974274" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Settings">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="settingsTapped:" destination="nrW-8I-lzT" eventType="touchUpInside" id="hiL-8b-1f4"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VY0-3f-egJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="120" height="78"/>
-                                        <color key="backgroundColor" red="0.2062704424" green="1" blue="0.13424898069999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Add Goals">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kjl-aV-U0w">
-                                        <rect key="frame" x="360" y="0.0" width="120" height="78"/>
-                                        <color key="backgroundColor" red="1" green="0.97691933980000001" blue="0.26281415949999998" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Groups">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="groupsTapped:" destination="nrW-8I-lzT" eventType="touchUpInside" id="XwQ-7U-lhe"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="VY0-3f-egJ" firstAttribute="leading" secondItem="3Bi-OS-Hj4" secondAttribute="leading" id="4yL-QP-kj0"/>
-                                    <constraint firstItem="kjl-aV-U0w" firstAttribute="leading" secondItem="DpL-gO-2RR" secondAttribute="trailing" id="81b-04-2s7"/>
-                                    <constraint firstItem="DpL-gO-2RR" firstAttribute="width" secondItem="VY0-3f-egJ" secondAttribute="width" id="8Gi-gG-ltH"/>
-                                    <constraint firstItem="DpL-gO-2RR" firstAttribute="baseline" secondItem="VY0-3f-egJ" secondAttribute="baseline" id="9Jd-22-n7y"/>
-                                    <constraint firstItem="UCM-uo-eum" firstAttribute="leading" secondItem="kjl-aV-U0w" secondAttribute="trailing" id="9hc-kM-dhQ"/>
-                                    <constraint firstItem="kjl-aV-U0w" firstAttribute="height" secondItem="VY0-3f-egJ" secondAttribute="height" id="B2B-PP-WNu"/>
-                                    <constraint firstAttribute="bottom" secondItem="UCM-uo-eum" secondAttribute="bottom" id="CVy-ux-sfO"/>
-                                    <constraint firstAttribute="height" constant="78" id="GPz-Pz-pbP"/>
-                                    <constraint firstItem="DpL-gO-2RR" firstAttribute="baseline" secondItem="wo9-i0-Jzb" secondAttribute="baseline" id="InO-IS-6gp"/>
-                                    <constraint firstItem="wo9-i0-Jzb" firstAttribute="leading" secondItem="VY0-3f-egJ" secondAttribute="trailing" id="JlC-am-ft1"/>
-                                    <constraint firstAttribute="bottom" secondItem="VY0-3f-egJ" secondAttribute="bottom" id="NQb-RV-UqC"/>
-                                    <constraint firstItem="kjl-aV-U0w" firstAttribute="leading" secondItem="DpL-gO-2RR" secondAttribute="trailing" id="RBK-Yn-RxY"/>
-                                    <constraint firstItem="wo9-i0-Jzb" firstAttribute="leading" secondItem="VY0-3f-egJ" secondAttribute="trailing" id="UCZ-oH-WIx"/>
-                                    <constraint firstItem="VY0-3f-egJ" firstAttribute="top" secondItem="3Bi-OS-Hj4" secondAttribute="top" id="a2y-f7-w01"/>
-                                    <constraint firstItem="UCM-uo-eum" firstAttribute="height" secondItem="VY0-3f-egJ" secondAttribute="height" id="fnp-St-Ids"/>
-                                    <constraint firstItem="wo9-i0-Jzb" firstAttribute="width" secondItem="VY0-3f-egJ" secondAttribute="width" id="gGx-Ro-pZ8"/>
-                                    <constraint firstItem="DpL-gO-2RR" firstAttribute="baseline" secondItem="kjl-aV-U0w" secondAttribute="baseline" id="lhD-ER-UYG"/>
-                                    <constraint firstAttribute="trailing" secondItem="UCM-uo-eum" secondAttribute="trailing" id="lhg-pf-dNz"/>
-                                    <constraint firstItem="DpL-gO-2RR" firstAttribute="leading" secondItem="wo9-i0-Jzb" secondAttribute="trailing" constant="4" id="mEw-b1-w91"/>
-                                    <constraint firstItem="DpL-gO-2RR" firstAttribute="height" secondItem="VY0-3f-egJ" secondAttribute="height" id="qMu-Do-RlF"/>
-                                    <constraint firstItem="DpL-gO-2RR" firstAttribute="leading" secondItem="wo9-i0-Jzb" secondAttribute="trailing" id="qaq-A9-Wn3"/>
-                                    <constraint firstItem="wo9-i0-Jzb" firstAttribute="height" secondItem="VY0-3f-egJ" secondAttribute="height" id="tgC-K5-rJb"/>
-                                    <constraint firstItem="UCM-uo-eum" firstAttribute="top" secondItem="3Bi-OS-Hj4" secondAttribute="top" id="xLV-KT-ioe"/>
-                                    <constraint firstItem="kjl-aV-U0w" firstAttribute="width" secondItem="VY0-3f-egJ" secondAttribute="width" id="ylq-88-ZSZ"/>
-                                    <constraint firstAttribute="trailing" secondItem="UCM-uo-eum" secondAttribute="trailing" id="zZR-ku-39d"/>
-                                    <constraint firstItem="UCM-uo-eum" firstAttribute="leading" secondItem="kjl-aV-U0w" secondAttribute="trailing" id="zjl-R6-1jl"/>
-                                    <constraint firstItem="UCM-uo-eum" firstAttribute="width" secondItem="VY0-3f-egJ" secondAttribute="width" id="znw-HP-lmd"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="mEw-b1-w91"/>
-                                    </mask>
-                                </variation>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="3Bi-OS-Hj4" firstAttribute="leading" secondItem="raG-ce-fmP" secondAttribute="leadingMargin" constant="-20" id="Rou-kp-zTA"/>
-                            <constraint firstItem="a0T-G5-Am7" firstAttribute="top" secondItem="3Bi-OS-Hj4" secondAttribute="bottom" id="Xsg-s3-UiY"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="3Bi-OS-Hj4" secondAttribute="trailing" constant="-20" id="xrG-kn-vt0"/>
-                        </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="WOQ-ro-sjB"/>
                     <connections>
-                        <outlet property="tabView" destination="3Bi-OS-Hj4" id="oUO-ZA-jOi"/>
                         <segue destination="NhK-jS-PLZ" kind="presentation" identifier="showLogin" id="P0W-3O-69r"/>
                         <segue destination="6hr-tn-rQP" kind="popoverPresentation" identifier="showDetailView" popoverAnchorView="raG-ce-fmP" id="umR-Pn-Ygb">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
@@ -494,7 +424,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GF9-cE-9Bw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="77" y="1128"/>
+            <point key="canvasLocation" x="197" y="368"/>
         </scene>
         <!--Group Add View Controller-->
         <scene sceneID="VH7-Aa-GOk">
@@ -586,9 +516,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i1n-ND-NbY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1531" y="386"/>
+            <point key="canvasLocation" x="930" y="1130"/>
         </scene>
-        <!--Groups View Controller-->
+        <!--Item-->
         <scene sceneID="cuy-l2-X1j">
             <objects>
                 <tableViewController storyboardIdentifier="groupsView" id="nGC-RE-0FS" customClass="GroupsViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
@@ -622,10 +552,11 @@
                             <outlet property="delegate" destination="nGC-RE-0FS" id="E2m-z8-aAI"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" title="Item" id="UZa-br-0ai"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d7N-hX-hvw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1531" y="1844"/>
+            <point key="canvasLocation" x="197" y="1420"/>
         </scene>
     </scenes>
     <resources>
