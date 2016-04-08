@@ -27,11 +27,8 @@ class GoalEditViewController: UITableViewController {
 
     var goal: Goal!
     var selectedDate: NSDate!
-    var selectedIndexpath: NSIndexPath?
-
-    var datePickerIndexPath: NSIndexPath!
-    let datePickerIdentifier = "datePickerCell"
     var isDatePickerShown = false
+    var dateHolder: NSDate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,8 +43,9 @@ class GoalEditViewController: UITableViewController {
         nameField.text = goal.name
         detailsField.text = goal.details
         dateLabel.text = getDateString(goal.endTime)
-        selectedDate = goal.endTime
         priorityControl.selectedSegmentIndex = goal.priority.rawValue
+
+        dateHolder = goal.endTime
 
         detailsField.layer.borderWidth = 1
         detailsField.layer.cornerRadius = 5
@@ -78,7 +76,6 @@ class GoalEditViewController: UITableViewController {
         } else {
             hideDatePicker(indexPath)
         }
-        print(" row selected \(indexPath.row)")
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
@@ -98,7 +95,7 @@ class GoalEditViewController: UITableViewController {
         goal.name = nameField.text!
         goal.details = detailsField.text!
         goal.priority = PriorityType(rawValue: priorityControl.selectedSegmentIndex)!
-        goal.endTime = selectedDate
+        goal.endTime = datePicker.date
 
         delegate.didSave(goal)
     }
@@ -123,7 +120,10 @@ class GoalEditViewController: UITableViewController {
         datePicker.hidden = false
         UIView.animateWithDuration(0.2, animations: {
             self.datePicker.alpha = 1
+        }, completion: { finished in
+            self.datePicker.setDate(self.dateHolder, animated: true)
         })
+
     }
 
     private func hideDatePicker(indexPath: NSIndexPath) {
@@ -135,11 +135,13 @@ class GoalEditViewController: UITableViewController {
         // idiom to animate row height changes
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
-        
+        self.dateHolder = self.datePicker.date
+
         UIView.animateWithDuration(0.2, animations: {
-            self.datePicker.alpha = 1
+            self.datePicker.alpha = 0
         }, completion: { finished in
             self.datePicker.hidden = true
+            self.dateLabel.text = self.getDateString(self.dateHolder)
         })
     }
 }
