@@ -47,7 +47,6 @@ class PersonalGoalViewController: UIViewController, GoalDetailDelegate, LoginDel
             let indexPath = collectionView.indexPathForItemAtPoint(sender!.locationInView(collectionView))
 
             dvc.delegate = self
-            dvc.selectedIndexpath = indexPath
             nc.popoverPresentationController!.sourceView = collectionView
             if let indexPath = indexPath {
                 dvc.goal = goals.goals[indexPath.item]
