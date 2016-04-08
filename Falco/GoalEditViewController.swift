@@ -21,7 +21,7 @@ class GoalEditViewController: UITableViewController {
 
     let descriptionRow = 1
     let dateRow = 2
-    let datePickerRowHeight: CGFloat = 50
+    let datePickerRowHeight: CGFloat = 100
 
     var delegate: GoalDetailDelegate!
 
