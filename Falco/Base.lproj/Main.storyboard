@@ -328,15 +328,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fZW-B0-H4L" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="245" y="445" width="109" height="30"/>
+                                <rect key="frame" x="245" y="413" width="109" height="30"/>
                                 <state key="normal" title="Fb Login Button"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please login to Facebook below" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JZ4-hO-vxf">
-                                <rect key="frame" x="159" y="413" width="282.5" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Falco!" textAlignment="center" lineBreakMode="headTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bf2-Tq-A4V">
                                 <rect key="frame" x="175" y="322" width="250" height="35"/>
                                 <fontDescription key="fontDescription" name="TrebuchetMS-Italic" family="Trebuchet MS" pointSize="30"/>
@@ -352,16 +346,14 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.42600908622447209" green="1" blue="0.99857374775160179" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Bf2-Tq-A4V" firstAttribute="top" secondItem="vZq-dh-z8F" secondAttribute="bottom" constant="17" id="1AV-kZ-Ugf"/>
                             <constraint firstItem="vZq-dh-z8F" firstAttribute="centerX" secondItem="p7O-Yj-Oay" secondAttribute="centerX" id="6Nw-Ri-Kwn"/>
-                            <constraint firstItem="JZ4-hO-vxf" firstAttribute="centerX" secondItem="p7O-Yj-Oay" secondAttribute="centerX" id="6Y3-oQ-gEN"/>
                             <constraint firstItem="fZW-B0-H4L" firstAttribute="centerX" secondItem="p7O-Yj-Oay" secondAttribute="centerX" id="70z-pI-oVA"/>
-                            <constraint firstItem="JZ4-hO-vxf" firstAttribute="top" secondItem="Bf2-Tq-A4V" secondAttribute="bottom" constant="56" id="QhB-6B-by1"/>
+                            <constraint firstItem="fZW-B0-H4L" firstAttribute="top" secondItem="Bf2-Tq-A4V" secondAttribute="bottom" constant="56" id="JKt-qv-Wg8"/>
                             <constraint firstItem="Bf2-Tq-A4V" firstAttribute="centerX" secondItem="p7O-Yj-Oay" secondAttribute="centerX" id="lEJ-He-t0S"/>
                             <constraint firstItem="Bf2-Tq-A4V" firstAttribute="centerY" secondItem="p7O-Yj-Oay" secondAttribute="centerY" constant="39.5" id="rjc-FQ-xh9"/>
-                            <constraint firstItem="fZW-B0-H4L" firstAttribute="top" secondItem="JZ4-hO-vxf" secondAttribute="bottom" constant="8" id="xoD-io-tUB"/>
                         </constraints>
                     </view>
                     <connections>
