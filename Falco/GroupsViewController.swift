@@ -9,11 +9,13 @@
 import Foundation
 import UIKit
 
-class GroupsViewController: UITableViewController {
+class GroupsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     private var _groups = [Group]()
     private var _searchedGroups = [Group]()
     let searchController = UISearchController(searchResultsController: nil)
 
+    @IBOutlet var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         Server.instance.getGroups() { data in
@@ -24,8 +26,13 @@ class GroupsViewController: UITableViewController {
         }
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Find a group"
+        //searchController.searchBar.barStyle = UIBarStyle.Black
         definesPresentationContext = true
+        tableView.dataSource = self
+        tableView.delegate = self
         tableView.tableHeaderView = searchController.searchBar
+        tableView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
     }
     
     func filterContentForSearchText(searchText: String, scope: String = "All") {
@@ -37,18 +44,18 @@ class GroupsViewController: UITableViewController {
     
     
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchController.active && searchController.searchBar.text != "" {
             return _searchedGroups.count
         }
         return _groups.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("groupCell", forIndexPath: indexPath) as? GroupTableViewCell
         if cell == nil {
             cell = GroupTableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "groupCell")
