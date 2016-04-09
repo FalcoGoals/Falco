@@ -46,7 +46,7 @@ class BubblesViewController: UIViewController, LoginDelegate, UIPopoverPresentat
             lvc.delegate = self
 
         } else if segue.identifier == "showDetailView" {
-            let dvc = segue.destinationViewController as! GoalEditViewController
+            let evc = segue.destinationViewController as! GoalEditViewController
 
             let location = sender!.locationInView(sender!.view)
             let touchLocation = scene.convertPointFromView(location)
@@ -59,16 +59,16 @@ class BubblesViewController: UIViewController, LoginDelegate, UIPopoverPresentat
                 }
             }
 
-            dvc.popoverPresentationController!.sourceView = sender!.view
+            evc.popoverPresentationController!.sourceView = sender!.view
             if let node = node as? GoalBubble {
-                dvc.goal = goals.getGoalWithIdentifier(node.id)
-                dvc.popoverPresentationController!.sourceRect = CGRect(origin: location, size: node.frame.size)
+                evc.goal = goals.getGoalWithIdentifier(node.id)
+                evc.popoverPresentationController!.sourceRect = CGRect(origin: location, size: node.frame.size)
             } else {
-                dvc.goal = nil
-                dvc.popoverPresentationController!.sourceRect.offsetInPlace(dx: location.x, dy: location.y)
+                evc.goal = nil
+                evc.popoverPresentationController!.sourceRect.offsetInPlace(dx: location.x, dy: location.y)
             }
-            dvc.delegate = self
-            dvc.popoverPresentationController!.delegate = self
+            evc.delegate = self
+            evc.popoverPresentationController!.delegate = self
             pauseScene()
         }
     }
