@@ -113,6 +113,11 @@ class GoalEditViewController: UITableViewController {
         delegate.didSave(goal)
     }
 
+    /// Listening for primary action, in this case .ValueChanged. Therefore tapping on already selected segment does not hide date picker
+    @IBAction func priorityTap(sender: UISegmentedControl) {
+        hideDatePicker()
+    }
+
     /// Uses medium style date
     private func getDateString(date: NSDate) -> String {
         let dateFormatter = NSDateFormatter()
