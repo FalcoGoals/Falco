@@ -163,6 +163,9 @@
                                                             <exclude reference="Sdy-nY-vdW"/>
                                                         </mask>
                                                     </variation>
+                                                    <connections>
+                                                        <action selector="priorityTap:" destination="6hr-tn-rQP" eventType="primaryActionTriggered" id="0sC-t9-eYv"/>
+                                                    </connections>
                                                 </segmentedControl>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Priority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cmZ-Ls-nFr">
                                                     <rect key="frame" x="28" y="10" width="55" height="27.5"/>

@@ -161,13 +161,15 @@ class GoalEditViewController: UITableViewController {
 }
 
 extension GoalEditViewController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         hideDatePicker()
+        return true
     }
 }
 
 extension GoalEditViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(textView: UITextView) {
+    func textViewShouldBeginEditing(textView: UITextView) -> Bool {
         hideDatePicker()
+        return true
     }
 }
