@@ -13,7 +13,6 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
     private var _groups = [Group]()
     private var _searchedGroups = [Group]()
     let searchController = UISearchController(searchResultsController: nil)
-
     @IBOutlet var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -24,15 +23,25 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
                 self.tableView.reloadData()
             }
         }
+        initSearchController()
+        initTableView()
+    }
+    
+    func initSearchController() {
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Find a group"
         //searchController.searchBar.barStyle = UIBarStyle.Black
         definesPresentationContext = true
+    }
+    
+    func initTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableHeaderView = searchController.searchBar
-        tableView.contentInset = UIEdgeInsetsMake(50, 0, 0, 0)
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+        tableView.separatorColor = UIColor.whiteColor()
+        tableView.tableFooterView = UIView(frame: CGRectZero)
     }
     
     func filterContentForSearchText(searchText: String, scope: String = "All") {
@@ -41,8 +50,6 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
         }
         tableView.reloadData()
     }
-    
-    
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -63,6 +70,7 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
         cell!.separatorInset = UIEdgeInsetsZero
         cell!.preservesSuperviewLayoutMargins = false
         cell!.layoutMargins = UIEdgeInsetsZero
+        cell!.backgroundColor = UIColor(red: 23, green: 72, blue: 147, alpha: 1)
         let selectedGroup: Group
         if searchController.active && searchController.searchBar.text != "" {
             selectedGroup = _searchedGroups[indexPath.row]
