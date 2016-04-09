@@ -37,9 +37,6 @@ class GoalEditViewController: UITableViewController {
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 45
 
-        self.nameField.delegate = self
-        self.detailsField.delegate = self
-
         if goal == nil {
             goal = PersonalGoal(name: "New Goal", details: "", priority: .Mid, endTime: NSDate())
         }
