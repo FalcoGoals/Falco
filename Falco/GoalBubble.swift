@@ -31,9 +31,7 @@ class GoalBubble: SKNode {
         self.name = id
 
         self.circle.lineWidth = 2
-        if let aShadeOfRed = UIColor.redColor().desaturate(times: daysToDeadline(deadline)) {
-            self.circle.strokeColor = aShadeOfRed
-        }
+        updateStrokeColour(deadline)
 
         self.circle.physicsBody = SKPhysicsBody(circleOfRadius: circleOfRadius)
         self.circle.physicsBody?.allowsRotation = false
@@ -56,6 +54,17 @@ class GoalBubble: SKNode {
         self.init(id: goal.id, circleOfRadius: CGFloat(goal.weight) / 2, text: goal.name, deadline: goal.endTime)
     }
 
+    func updateWithGoal(goal: Goal) {
+        label.text = goal.name
+        if (CGFloat(goal.weight)/2 != radius) {
+            let scaleFactor = (CGFloat(goal.weight)/2)/radius
+            radius = CGFloat(goal.weight)/2
+            let action = SKAction.scaleBy(scaleFactor, duration: 2)
+            runAction(action)
+        }
+        updateStrokeColour(goal.endTime)
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -71,6 +80,12 @@ class GoalBubble: SKNode {
             return 0
         } else {
             return days
+        }
+    }
+
+    private func updateStrokeColour(deadline: NSDate) {
+        if let aShadeOfRed = UIColor.redColor().desaturate(times: daysToDeadline(deadline)) {
+            self.circle.strokeColor = aShadeOfRed
         }
     }
 }

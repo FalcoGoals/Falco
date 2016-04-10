@@ -95,13 +95,7 @@ class BubblesScene: SKScene {
 
     func updateGoal(goal: Goal) {
         if let goalNode = childNodeWithName("//\(goal.id)") as? GoalBubble {
-            goalNode.label.text = goal.name
-            if (CGFloat(goal.weight)/2 != goalNode.radius) {
-                let scaleFactor = (CGFloat(goal.weight)/2)/goalNode.radius
-                goalNode.radius = CGFloat(goal.weight)/2
-                let action = SKAction.scaleBy(scaleFactor, duration: 2)
-                goalNode.runAction(action)
-            }
+            goalNode.updateWithGoal(goal)
         } else {
             addGoal(goal)
         }

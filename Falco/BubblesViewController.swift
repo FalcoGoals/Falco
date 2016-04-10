@@ -95,12 +95,17 @@ class BubblesViewController: UIViewController, LoginDelegate, GoalEditDelegate, 
         let longPressRecognizerView = sender.view
         let longPressPoint = sender.locationInView(longPressRecognizerView)
         let scenePoint = scene.convertPointFromView(longPressPoint)
-        let touchedNode = scene.nodeAtPoint(scenePoint)
-        
-        if (touchedNode.name != "background" && touchedNode.name != "camera" && touchedNode.name != "label") {
-            if let circle = touchedNode as? SKShapeNode {
-                completeGoal(circle)
+        var node = scene.nodeAtPoint(scenePoint)
+        while !(node is GoalBubble) && node.parent != nil {
+            if let parent = node.parent {
+                node = parent
+            } else {
+                break
             }
+        }
+
+        if let node = node as? GoalBubble {
+            completeGoal(node)
         }
     }
     
@@ -162,11 +167,22 @@ class BubblesViewController: UIViewController, LoginDelegate, GoalEditDelegate, 
                 addSampleGoals(server.user.name)
             }
             goals.sortGoalsByWeight()
-            scene.addGoals(goals)
+            scene.addGoals(GoalCollection(goals: goals.incompleteGoals))
         }
     }
     
-    private func completeGoal(circle: SKShapeNode) {
+    private func completeGoal(goalBubble: GoalBubble) {
+        let goalId = goalBubble.id
+        let goal = goals.getGoalWithIdentifier(goalId)
+        if var goal = goal as? PersonalGoal {
+            goal.markComplete()
+            server.savePersonalGoal(goal)
+        } else if var goal = goal as? GroupGoal {
+            goal.markCompleteByUser(server.user)
+//            server.saveGroupGoal(goal)
+        }
+
+        let circle = goalBubble.circle
         let bubbleSpriteNode = SKSpriteNode(imageNamed: "default-bubble.png")
         bubbleSpriteNode.size = circle.frame.size
         circle.removeAllChildren()
