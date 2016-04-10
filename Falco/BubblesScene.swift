@@ -22,6 +22,7 @@ class BubblesScene: SKScene {
         cam = SKCameraNode()
         camera = cam
         cam.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
+        cam.name = "camera"
         addChild(cam)
         
         let points = [CGPointMake(0, -9999), CGPointMake(0, 0), CGPointMake(size.width,0), CGPointMake(size.width, -9999)]
@@ -40,17 +41,9 @@ class BubblesScene: SKScene {
         let background = SKSpriteNode(imageNamed: "wallpaper")
         background.zPosition = -1
         background.position = CGPoint(x: frame.midX, y: frame.midY)
+        background.name = "background"
         addChild(background)
     }
-
-//    override func didMoveToView(view: SKView) {
-
-        //            goal.position = CGPointMake(CGFloat(x), CGFloat(y) - 100)
-        //            let actionMove = SKAction.moveTo(CGPointMake(CGFloat(x), CGFloat(y)), duration: 2)
-        //            goal.runAction(actionMove)
-//        self.physicsBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
-//        self.physicsWorld.gravity = CGVectorMake(0, 4)
-//    }
 
       override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         cameraMoved = true
@@ -85,28 +78,35 @@ class BubblesScene: SKScene {
         let goalBubble = GoalBubble(goal: goal)
         goalBubble.position = CGPointMake(CGFloat(x), CGFloat(y) - offset)
         offset += 50
-        addGoalBubble(goalBubble)
+        addChild(goalBubble)
     }
 
     func addGoals(goals: GoalCollection) {
+        circlePosition.removeAll()
+        lowestY = 0
+        offset = CGFloat(100)
         for goal in goals.goals {
-            addGoal(goal)
+            runAction(SKAction.sequence([
+                SKAction.waitForDuration(1.0),
+                SKAction.runBlock({self.addGoal(goal)})
+                ]))
         }
     }
 
     func updateGoal(goal: Goal) {
         if let goalNode = childNodeWithName("//\(goal.id)") as? GoalBubble {
             goalNode.label.text = goal.name
+            if (CGFloat(goal.weight)/2 != goalNode.radius) {
+                let scaleFactor = (CGFloat(goal.weight)/2)/goalNode.radius
+                goalNode.radius = CGFloat(goal.weight)/2
+                let action = SKAction.scaleBy(scaleFactor, duration: 2)
+                goalNode.runAction(action)
+            }
         } else {
             addGoal(goal)
         }
     }
-
-    private func addGoalBubble(goalBubble: GoalBubble) {
-        //physicsWorld.gravity = CGVectorMake(0, 0)
-        addChild(goalBubble)
-    }
-
+    
     private func calculateNextPosition(diameter: Int) -> (Int, Int){
         var xValue = 0
         var lowestYValue = lowestY

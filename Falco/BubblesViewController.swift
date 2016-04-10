@@ -12,11 +12,10 @@ import SpriteKit
 class BubblesViewController: UIViewController, LoginDelegate, UIPopoverPresentationControllerDelegate {
 
     private var user = User(id: NSUUID().UUIDString, name: "MrFoo")
-
     private var scene: BubblesScene!
-
     private var goals = GoalCollection()
     private var server = Server.instance
+    private var texture = [SKTexture]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,12 +31,26 @@ class BubblesViewController: UIViewController, LoginDelegate, UIPopoverPresentat
         skView.ignoresSiblingOrder = true
         skView.presentScene(scene)
         skView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(BubblesViewController.bubbleTapped(_:))))
+        skView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action:
+            #selector(BubblesViewController.bubbleLongPressed(_:))))
+        
+        let bubbleAnimatedAtlas = SKTextureAtlas(named: "bubble")
+        
+        for i in 0...(bubbleAnimatedAtlas.textureNames.count - 1) {
+            let bubbleTextureName = "bubble\(i).png"
+            texture.append(SKTexture(imageNamed: bubbleTextureName))
+        }
     }
 
     override func viewDidAppear(animated: Bool) {
         if !server.hasToken {
             showLogin()
         }
+        self.becomeFirstResponder()
+    }
+    
+    override func canBecomeFirstResponder() -> Bool {
+        return true
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -75,6 +88,29 @@ class BubblesViewController: UIViewController, LoginDelegate, UIPopoverPresentat
 
     func bubbleTapped(sender: UITapGestureRecognizer) {
         performSegueWithIdentifier("showDetailView", sender: sender)
+    }
+    
+    func bubbleLongPressed(sender: UILongPressGestureRecognizer) {
+        let longPressRecognizerView = sender.view
+        let longPressPoint = sender.locationInView(longPressRecognizerView)
+        let scenePoint = scene.convertPointFromView(longPressPoint)
+        let touchedNode = scene.nodeAtPoint(scenePoint)
+        
+        if (touchedNode.name != "background" && touchedNode.name != "camera" && touchedNode.name != "label") {
+            if let circle = touchedNode as? SKShapeNode {
+                completeGoal(circle)
+            }
+        }
+    }
+    
+    override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
+        let children = scene.children
+        for node in children {
+            if (node.name != "background" && node.name != "camera") {
+                node.removeFromParent()
+            }
+        }
+        addGoalsToScene(goals)
     }
 
     // MARK: LoginDelegate
@@ -117,6 +153,21 @@ class BubblesViewController: UIViewController, LoginDelegate, UIPopoverPresentat
             goals.sortGoalsByWeight()
             scene.addGoals(goals)
         }
+    }
+    
+    private func completeGoal(circle: SKShapeNode) {
+        let bubbleSpriteNode = SKSpriteNode(imageNamed: "default-bubble.png")
+        bubbleSpriteNode.size = circle.frame.size
+        circle.removeAllChildren()
+        circle.addChild(bubbleSpriteNode)
+        circle.fillTexture = nil
+        circle.fillColor = UIColor.clearColor()
+        bubbleSpriteNode.runAction(SKAction.sequence([
+            SKAction.animateWithTextures(texture, timePerFrame: 0.2, resize: false, restore: true),
+            SKAction.removeFromParent()]))
+        circle.runAction(SKAction.sequence([
+            SKAction.waitForDuration(1.0),
+            SKAction.removeFromParent()]))
     }
 
     private func addSampleGoals(name: String) {

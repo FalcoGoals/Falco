@@ -12,15 +12,20 @@ class GoalBubble: SKNode {
     var circle: SKShapeNode
     var label: SKLabelNode
     var id: String
+    var radius: CGFloat
+    private var bubbleText = SKTexture(imageNamed: "default-bubble.png")
 
     init(id: String, circleOfRadius: CGFloat, text: String) {
         self.id = id
+        self.radius = circleOfRadius
 
         self.circle = SKShapeNode(circleOfRadius: circleOfRadius)
+        self.circle.fillColor = UIColor.whiteColor()
+        self.circle.fillTexture = bubbleText
         self.circle.lineWidth = 1.5
         self.circle.physicsBody = SKPhysicsBody(circleOfRadius: circleOfRadius)
         self.circle.physicsBody?.allowsRotation = false
-        self.circle.physicsBody?.restitution = 0.5
+        self.circle.physicsBody?.restitution = 0.2
         self.circle.physicsBody?.friction = 0.0
         self.circle.physicsBody?.linearDamping = 0.1
 
@@ -29,6 +34,7 @@ class GoalBubble: SKNode {
         self.label.verticalAlignmentMode = .Baseline
         self.label.fontSize = 25
         self.label.fontName = "System-Bold"
+        self.label.name = "label"
 
         self.circle.addChild(self.label)
 
