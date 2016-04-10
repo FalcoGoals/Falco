@@ -25,8 +25,9 @@ extension Goal {
     var isCompleted: Bool {
         return completionTime != NSDate.distantPast()
     }
+    /// smallest bubble has 15 point radius
     var weight: Int {
-        return priority.rawValue * 70 + 50
+        return (priority.rawValue + 1) * 50 + 80
     }
 }
 
