@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="s4V-6X-cXX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="s4V-6X-cXX">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -474,7 +474,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dt7-Ee-gUt">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dt7-Ee-gUt">
                                 <rect key="frame" x="0.0" y="84" width="600" height="516"/>
                                 <color key="backgroundColor" red="0.091563843189999994" green="0.28218975660000001" blue="0.5772072077" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
@@ -500,13 +500,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Groups" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l0w-ak-GrW">
-                                <rect key="frame" x="272" y="34" width="56" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cBo-rg-Xjz">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cBo-rg-Xjz">
                                 <rect key="frame" x="550" y="30" width="30" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="+"/>
@@ -514,8 +508,23 @@
                                     <segue destination="NOJ-IL-xFQ" kind="presentation" id="frF-xp-KBA"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Groups" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l0w-ak-GrW">
+                                <rect key="frame" x="272" y="37" width="56" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.48377257774865001" green="0.82122681653225871" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="dt7-Ee-gUt" firstAttribute="top" secondItem="cBo-rg-Xjz" secondAttribute="bottom" constant="10" id="31T-fQ-i5G"/>
+                            <constraint firstItem="dt7-Ee-gUt" firstAttribute="bottom" secondItem="joa-qc-ziD" secondAttribute="bottomMargin" constant="50" id="7QJ-6K-5d7"/>
+                            <constraint firstItem="cBo-rg-Xjz" firstAttribute="trailing" secondItem="joa-qc-ziD" secondAttribute="trailingMargin" id="9WT-d8-9yT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dt7-Ee-gUt" secondAttribute="trailing" constant="-5" id="D87-r7-QdL"/>
+                            <constraint firstItem="dt7-Ee-gUt" firstAttribute="top" secondItem="l0w-ak-GrW" secondAttribute="bottom" constant="18" id="Snn-6a-9zE"/>
+                            <constraint firstItem="l0w-ak-GrW" firstAttribute="centerX" secondItem="joa-qc-ziD" secondAttribute="centerX" id="Vbe-9C-2y1"/>
+                            <constraint firstItem="dt7-Ee-gUt" firstAttribute="leading" secondItem="joa-qc-ziD" secondAttribute="leadingMargin" constant="-20" id="Vcy-w1-qE0"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="bsj-wU-1eA"/>
                     <connections>
