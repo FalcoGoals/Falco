@@ -500,13 +500,26 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Groups" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l0w-ak-GrW">
+                                <rect key="frame" x="272" y="34" width="56" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cBo-rg-Xjz">
+                                <rect key="frame" x="550" y="30" width="30" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="+"/>
+                                <connections>
+                                    <segue destination="NOJ-IL-xFQ" kind="presentation" id="frF-xp-KBA"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.48377257774865001" green="0.82122681653225871" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="bsj-wU-1eA"/>
                     <connections>
                         <outlet property="tableView" destination="dt7-Ee-gUt" id="4zh-XT-y0e"/>
-                        <segue destination="NOJ-IL-xFQ" kind="presentation" id="Omj-m0-GCd"/>
                         <segue destination="uTZ-nm-TtB" kind="presentation" id="9w7-gb-STl"/>
                     </connections>
                 </viewController>
