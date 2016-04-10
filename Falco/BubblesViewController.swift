@@ -236,29 +236,6 @@ extension BubblesViewController {
     }
 }
 
-//extension MainViewController: PresentationDelegate {
-//    func present(id: String?) {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let content = storyboard.instantiateViewControllerWithIdentifier("GoalDetailViewController") as! GoalDetailViewController
-//
-//        let goal: Goal?
-//        if let id = id {
-//            goal = goals.getGoalWithIdentifier(id)
-//        } else {
-//            goal = nil
-//        }
-//
-//        content.delegate = self
-//        content.goal = goal
-//        content.user = user
-//
-//        content.modalPresentationStyle = .FormSheet
-//        content.modalTransitionStyle = .CrossDissolve
-//        self.presentViewController(content, animated: true, completion: nil)
-//        self.scene.view?.paused = true
-//    }
-//}
-
 extension BubblesViewController: GoalDetailDelegate {
     func didSave(goal: Goal) {
         goals.updateGoal(goal)
