@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol GoalDetailDelegate {
+protocol GoalEditDelegate {
     func didSave(goal: Goal)
 }
 
@@ -20,33 +20,35 @@ class GoalEditViewController: UITableViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
 
     let nameRow = 0
-    let descriptionRow = 1
-    let dateRow = 2
+    let dateRow = 1
+    let descriptionRow = 4
     let datePickerRowHeight: CGFloat = 100
 
-    var delegate: GoalDetailDelegate!
+    var delegate: GoalEditDelegate!
 
     var goal: Goal!
-    var selectedDate: NSDate!
     var isDatePickerShown = false
-    var dateHolder: NSDate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 45
+        // Loading of goal information
 
         if goal == nil {
-            goal = PersonalGoal(name: "New Goal", details: "", priority: .Mid, endTime: NSDate())
+            goal = PersonalGoal(name: "", details: "", priority: .Mid, endTime: NSDate())
+            navigationItem.title = "New Goal"
         }
 
         nameField.text = goal.name
-        detailsField.text = goal.details
         dateLabel.text = getDateString(goal.endTime)
+        datePicker.setDate(goal.endTime, animated: false)
         priorityControl.selectedSegmentIndex = goal.priority.rawValue
+        detailsField.text = goal.details
 
-        dateHolder = goal.endTime
+        // UI preparation
+
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 45
 
         detailsField.layer.borderWidth = 1
         detailsField.layer.cornerRadius = 5
@@ -57,25 +59,50 @@ class GoalEditViewController: UITableViewController {
         let blurEffect = UIBlurEffect(style: .ExtraLight)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         tableView.backgroundView = blurEffectView
-        if let popover = popoverPresentationController {
+        if let popover = navigationController?.popoverPresentationController {
             popover.backgroundColor = UIColor.clearColor()
+            updatePopupSize()
         }
     }
 
     override func viewDidAppear(animated: Bool) {
         detailsField.scrollEnabled = true
+        nameField.becomeFirstResponder()
+        updatePopupSize()
     }
+
+    // MARK: IB Actions
+
+    @IBAction func saveDetails(sender: UIBarButtonItem) {
+        goal.name = nameField.text!
+        goal.details = detailsField.text!
+        goal.priority = PriorityType(rawValue: priorityControl.selectedSegmentIndex)!
+        goal.endTime = datePicker.date
+
+        delegate.didSave(goal)
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    /// Listening for primary action, in this case .ValueChanged. Therefore tapping on already selected segment does not hide date picker
+    @IBAction func priorityTap(sender: UISegmentedControl) {
+        hideDatePicker()
+    }
+
+    @IBAction func dateChanged(sender: UIDatePicker) {
+        dateLabel.text = getDateString(sender.date)
+    }
+
+    // MARK: UITableViewDelegate
 
     override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         cell.backgroundColor = UIColor.clearColor()
     }
 
-    // MARK: Table view delegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // hide any opened keyboard
         self.tableView.endEditing(true)
 
-        if indexPath.row == dateRow {
+        if indexPath.row == dateRow && !isDatePickerShown {
             showDatePicker()
         } else {
             hideDatePicker()
@@ -101,19 +128,7 @@ class GoalEditViewController: UITableViewController {
         }
     }
 
-    @IBAction func saveDetails(sender: UIButton) {
-        goal.name = nameField.text!
-        goal.details = detailsField.text!
-        goal.priority = PriorityType(rawValue: priorityControl.selectedSegmentIndex)!
-        goal.endTime = datePicker.date
-
-        delegate.didSave(goal)
-    }
-
-    /// Listening for primary action, in this case .ValueChanged. Therefore tapping on already selected segment does not hide date picker
-    @IBAction func priorityTap(sender: UISegmentedControl) {
-        hideDatePicker()
-    }
+    // MARK: Helper methods
 
     /// Uses medium style date
     private func getDateString(date: NSDate) -> String {
@@ -122,6 +137,7 @@ class GoalEditViewController: UITableViewController {
         dateFormatter.locale = NSLocale.currentLocale()
         return dateFormatter.stringFromDate(date)
     }
+
     private func showDatePicker() {
         guard !isDatePickerShown else {
             return
@@ -136,13 +152,12 @@ class GoalEditViewController: UITableViewController {
         UIView.animateWithDuration(0.2, animations: {
             self.datePicker.alpha = 1
         }, completion: { finished in
-            self.datePicker.setDate(self.dateHolder, animated: true)
+            self.updatePopupSize()
         })
 
     }
 
     private func hideDatePicker() {
-        print("hiding")
         guard isDatePickerShown else {
             return
         }
@@ -151,14 +166,19 @@ class GoalEditViewController: UITableViewController {
         // idiom to animate row height changes
         self.tableView.beginUpdates()
         self.tableView.endUpdates()
-        self.dateHolder = self.datePicker.date
 
         UIView.animateWithDuration(0.2, animations: {
             self.datePicker.alpha = 0
         }, completion: { finished in
             self.datePicker.hidden = true
-            self.dateLabel.text = self.getDateString(self.dateHolder)
+            self.updatePopupSize()
         })
+    }
+
+    private func updatePopupSize() {
+        tableView.layoutIfNeeded()
+        preferredContentSize = tableView.sizeThatFits(CGSizeMake(preferredContentSize.width, CGFloat.max))
+        presentingViewController?.presentedViewController?.preferredContentSize = preferredContentSize
     }
 }
 

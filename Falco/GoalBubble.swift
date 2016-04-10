@@ -13,7 +13,7 @@ class GoalBubble: SKNode {
     var circle: SKShapeNode
     var label: SKLabelNode
     var radius: CGFloat
-    private var bubbleText = SKTexture(imageNamed: "default-bubble.png")
+    private var bubbleText = SKTexture(imageNamed: "default-bubble")
 
     init(id: String, circleOfRadius: CGFloat, text: String, deadline: NSDate) {
         self.id = id

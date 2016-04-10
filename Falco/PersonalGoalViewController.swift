@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PersonalGoalViewController: UIViewController, GoalDetailDelegate, LoginDelegate {
+class PersonalGoalViewController: UIViewController, GoalEditDelegate, LoginDelegate {
     private let reuseIdentifier = "bubble"
 
     @IBOutlet var collectionView: UICollectionView!

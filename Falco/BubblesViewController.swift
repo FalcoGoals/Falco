@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class BubblesViewController: UIViewController, LoginDelegate, UIPopoverPresentationControllerDelegate {
+class BubblesViewController: UIViewController, LoginDelegate, GoalEditDelegate, UIPopoverPresentationControllerDelegate {
 
     private var user = User(id: NSUUID().UUIDString, name: "MrFoo")
     private var scene: BubblesScene!
@@ -58,8 +58,9 @@ class BubblesViewController: UIViewController, LoginDelegate, UIPopoverPresentat
             let lvc = segue.destinationViewController as! LoginViewController
             lvc.delegate = self
 
-        } else if segue.identifier == "showDetailView" {
-            let evc = segue.destinationViewController as! GoalEditViewController
+        } else if segue.identifier == "showEditView" {
+            let nc = segue.destinationViewController as! UINavigationController
+            let evc = nc.topViewController as! GoalEditViewController
 
             let location = sender!.locationInView(sender!.view)
             let touchLocation = scene.convertPointFromView(location)
@@ -72,22 +73,22 @@ class BubblesViewController: UIViewController, LoginDelegate, UIPopoverPresentat
                 }
             }
 
-            evc.popoverPresentationController!.sourceView = sender!.view
+            nc.popoverPresentationController!.sourceView = sender!.view
+            nc.popoverPresentationController!.delegate = self
             if let node = node as? GoalBubble {
                 evc.goal = goals.getGoalWithIdentifier(node.id)
-                evc.popoverPresentationController!.sourceRect = CGRect(origin: location, size: node.frame.size)
+                nc.popoverPresentationController!.sourceRect = CGRect(origin: location, size: node.frame.size)
             } else {
                 evc.goal = nil
-                evc.popoverPresentationController!.sourceRect.offsetInPlace(dx: location.x, dy: location.y)
+                nc.popoverPresentationController!.sourceRect.offsetInPlace(dx: location.x, dy: location.y)
             }
             evc.delegate = self
-            evc.popoverPresentationController!.delegate = self
             pauseScene()
         }
     }
 
     func bubbleTapped(sender: UITapGestureRecognizer) {
-        performSegueWithIdentifier("showDetailView", sender: sender)
+        performSegueWithIdentifier("showEditView", sender: sender)
     }
     
     func bubbleLongPressed(sender: UILongPressGestureRecognizer) {
@@ -119,6 +120,17 @@ class BubblesViewController: UIViewController, LoginDelegate, UIPopoverPresentat
         authAndDownloadGoals()
     }
 
+    // MARK: GoalEditDelegate
+
+    func didSave(goal: Goal) {
+        goals.updateGoal(goal)
+        scene.updateGoal(goal)
+        if let goal = goal as? PersonalGoal {
+            server.savePersonalGoal(goal)
+        }
+        playScene()
+    }
+
     // MARK: UIPopoverPresentationControllerDelegate
 
     func popoverPresentationControllerDidDismissPopover(_: UIPopoverPresentationController) {
@@ -128,7 +140,6 @@ class BubblesViewController: UIViewController, LoginDelegate, UIPopoverPresentat
     // MARK: IB Actions
 
     @IBAction func cancelGoalEdit(segue: UIStoryboardSegue) { playScene() }
-    @IBAction func saveGoalEdit(segue: UIStoryboardSegue) { playScene() }
 
     // MARK: Helper methods
 
@@ -233,15 +244,5 @@ class BubblesViewController: UIViewController, LoginDelegate, UIPopoverPresentat
 extension BubblesViewController {
     override func prefersStatusBarHidden() -> Bool {
         return true
-    }
-}
-
-extension BubblesViewController: GoalDetailDelegate {
-    func didSave(goal: Goal) {
-        goals.updateGoal(goal)
-        scene.updateGoal(goal)
-        if let goal = goal as? PersonalGoal {
-            server.savePersonalGoal(goal)
-        }
     }
 }
