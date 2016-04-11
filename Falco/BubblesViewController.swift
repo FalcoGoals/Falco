@@ -13,22 +13,28 @@ protocol GoalModelDelegate {
     func didUpdateGoal(goal: Goal)
     func didCompleteGoal(goal: Goal)
     func getGoalWithIdentifier(goalId: String) -> Goal?
+    func getGoals() -> GoalCollection
 }
 
 class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresentationControllerDelegate {
     private var scene: BubblesScene!
-//    private var goals = GoalCollection()
     private var texture = [SKTexture]()
 
     var delegate: GoalModelDelegate!
+    var initialGoals: GoalCollection?
 
     // MARK: Init
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
 
+    override func viewWillAppear(animated: Bool) {
         scene = BubblesScene(size: view.bounds.size)
         scene.scaleMode = .ResizeFill
+        
+        print(view.bounds.size)
+        print(presentingViewController?.presentedViewController?.view.bounds.size)
 
         let skView = view as! SKView
         skView.ignoresSiblingOrder = true
@@ -36,9 +42,9 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
         skView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(BubblesViewController.bubbleTapped(_:))))
         skView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action:
             #selector(BubblesViewController.bubbleLongPressed(_:))))
-        
+
         let bubbleAnimatedAtlas = SKTextureAtlas(named: "bubble")
-        
+
         for i in 0...(bubbleAnimatedAtlas.textureNames.count - 1) {
             let bubbleTextureName = "bubble\(i).png"
             texture.append(SKTexture(imageNamed: bubbleTextureName))
@@ -47,8 +53,13 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
 
     override func viewDidAppear(animated: Bool) {
         self.becomeFirstResponder()
+
+        if let goals = initialGoals {
+            addGoalsToScene(goals)
+            initialGoals = nil
+        }
     }
-    
+
     override func canBecomeFirstResponder() -> Bool {
         return true
     }
@@ -121,7 +132,7 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
                 node.removeFromParent()
             }
         }
-//        addGoalsToScene(goals)
+        addGoalsToScene(delegate.getGoals())
     }
 
     // MARK: GoalEditDelegate
@@ -151,6 +162,7 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
         }
 
         let circle = goalBubble.circle
+        let label = goalBubble.label
         let bubbleSpriteNode = SKSpriteNode(imageNamed: "default-bubble.png")
         bubbleSpriteNode.size = circle.frame.size
         circle.removeAllChildren()
@@ -161,6 +173,9 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
             SKAction.animateWithTextures(texture, timePerFrame: 0.2, resize: false, restore: true),
             SKAction.removeFromParent()]))
         circle.runAction(SKAction.sequence([
+            SKAction.waitForDuration(1.0),
+            SKAction.removeFromParent()]))
+        label.runAction(SKAction.sequence([
             SKAction.waitForDuration(1.0),
             SKAction.removeFromParent()]))
     }

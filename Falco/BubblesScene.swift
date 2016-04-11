@@ -18,14 +18,14 @@ class BubblesScene: SKScene {
 
     override init(size: CGSize) {
         super.init(size: size)
-        anchorPoint = CGPointMake (0.0,1.0)
+        anchorPoint = CGPointMake(0.0, 1.0)
         cam = SKCameraNode()
         camera = cam
-        cam.position = CGPoint(x: CGRectGetMidX(frame), y: CGRectGetMidY(frame))
+        cam.position = CGPoint(x: frame.midX, y: frame.midY)
         cam.name = "camera"
         addChild(cam)
         
-        let points = [CGPointMake(0, -9999), CGPointMake(0, 0), CGPointMake(size.width,0), CGPointMake(size.width, -9999)]
+        let points = [CGPointMake(0, -9999), CGPointMake(0, 0), CGPointMake(size.width, 0), CGPointMake(size.width, -9999)]
         let screenPath = CGPathCreateMutable()
         CGPathAddLines(screenPath, nil, points, 4)
         
@@ -43,6 +43,8 @@ class BubblesScene: SKScene {
         background.position = CGPoint(x: frame.midX, y: frame.midY)
         background.name = "background"
         addChild(background)
+        print(frame.size)
+        cam.position.y = -frame.height/2
     }
 
       override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {

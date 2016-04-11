@@ -12,17 +12,36 @@ class GoalBubble: SKNode {
     var id: String
     var circle: SKShapeNode
     var label: SKLabelNode
-    var radius: CGFloat
-    private var bubbleText = SKTexture(imageNamed: "default-bubble")
+
+    private var radius: CGFloat {
+        didSet {
+            let scaleFactor = self.radius / oldValue
+            let scale = SKAction.scaleBy(scaleFactor, duration: 0.5)
+            self.circle.runAction(scale, completion: {
+                self.label.physicsBody = self.makeCircularBody(self.radius)
+            })
+        }
+    }
+    private var goalName: String {
+        didSet {
+            self.label.text = self.goalName
+        }
+    }
+    private var deadline: NSDate {
+        didSet {
+            updateStrokeColour(self.deadline)
+        }
+    }
+
+    private var bubbleTexture = SKTexture(imageNamed: "default-bubble")
 
     init(id: String, circleOfRadius: CGFloat, text: String, deadline: NSDate) {
         self.id = id
         self.radius = circleOfRadius
+        self.goalName = text
+        self.deadline = deadline
 
         self.circle = SKShapeNode(circleOfRadius: circleOfRadius)
-        self.circle.fillColor = UIColor.whiteColor()
-        self.circle.fillTexture = bubbleText
-        self.circle.lineWidth = 1.5
         self.label = SKLabelNode(text: text)
 
         super.init()
@@ -30,14 +49,10 @@ class GoalBubble: SKNode {
         self.userInteractionEnabled = true
         self.name = id
 
-        self.circle.lineWidth = 2
+        setCircleProperties(bubbleTexture)
         updateStrokeColour(deadline)
 
-        self.circle.physicsBody = SKPhysicsBody(circleOfRadius: circleOfRadius)
-        self.circle.physicsBody?.allowsRotation = false
-        self.circle.physicsBody?.restitution = 0.2
-        self.circle.physicsBody?.friction = 0.0
-        self.circle.physicsBody?.linearDamping = 0.1
+        self.label.physicsBody = makeCircularBody(circleOfRadius)
 
         self.label.horizontalAlignmentMode = .Center
         self.label.verticalAlignmentMode = .Baseline
@@ -45,9 +60,9 @@ class GoalBubble: SKNode {
         self.label.fontName = "System-Bold"
         self.label.name = "label"
 
-        self.circle.addChild(self.label)
+        addChild(self.label)
 
-        addChild(self.circle)
+        self.label.addChild(self.circle)
     }
 
     convenience init(goal: Goal) {
@@ -57,16 +72,28 @@ class GoalBubble: SKNode {
     func updateWithGoal(goal: Goal) {
         label.text = goal.name
         if (CGFloat(goal.weight)/2 != radius) {
-            let scaleFactor = (CGFloat(goal.weight)/2)/radius
             radius = CGFloat(goal.weight)/2
-            let action = SKAction.scaleBy(scaleFactor, duration: 2)
-            runAction(action)
         }
-        updateStrokeColour(goal.endTime)
+        self.deadline = goal.endTime
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    private func makeCircularBody(radius: CGFloat) -> SKPhysicsBody {
+        let body = SKPhysicsBody(circleOfRadius: radius)
+        body.allowsRotation = false
+        body.restitution = 0.2
+        body.friction = 0.0
+        body.linearDamping = 0.1
+        return body
+    }
+
+    private func setCircleProperties(texture: SKTexture) {
+        self.circle.fillColor = UIColor.whiteColor()
+        self.circle.fillTexture = texture
+        self.circle.lineWidth = 2
     }
 
     /// days are rounded down
@@ -86,6 +113,8 @@ class GoalBubble: SKNode {
     private func updateStrokeColour(deadline: NSDate) {
         if let aShadeOfRed = UIColor.redColor().desaturate(times: daysToDeadline(deadline)) {
             self.circle.strokeColor = aShadeOfRed
+        } else {
+            self.circle.strokeColor = UIColor.whiteColor()
         }
     }
 }
