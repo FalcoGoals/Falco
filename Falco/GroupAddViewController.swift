@@ -61,9 +61,8 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
             let alert = UIAlertController(title: "Failed to create group", message: "Please select members to join the group", preferredStyle: .Alert)
             warn(alert)
         } else {
-            let group = Group(name: _groupName!, members: groupMembers)
-            //Server.instance.saveGroup(group)
-            print(group)
+            let group = Group(creator: Server.instance.user, name: _groupName!, members: groupMembers)
+            Server.instance.saveGroup(group)
         }
     }
     
