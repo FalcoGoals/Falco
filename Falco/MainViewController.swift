@@ -69,6 +69,10 @@ class MainViewController: UITabBarController, LoginDelegate, GoalModelDelegate {
         // TODO: group goals
     }
 
+    func getGoals() -> GoalCollection {
+        return storage.personalGoals.incompleteGoals
+    }
+
     // MARK: Helper methods
 
     private func showLogin() {

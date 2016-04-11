@@ -13,6 +13,7 @@ protocol GoalModelDelegate {
     func didUpdateGoal(goal: Goal)
     func didCompleteGoal(goal: Goal)
     func getGoalWithIdentifier(goalId: String) -> Goal?
+    func getGoals() -> GoalCollection
 }
 
 class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresentationControllerDelegate {
@@ -126,7 +127,7 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
                 node.removeFromParent()
             }
         }
-//        addGoalsToScene(goals)
+        addGoalsToScene(delegate.getGoals())
     }
 
     // MARK: GoalEditDelegate
