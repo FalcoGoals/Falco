@@ -86,6 +86,8 @@ class GoalBubble: SKNode {
     private func updateStrokeColour(deadline: NSDate) {
         if let aShadeOfRed = UIColor.redColor().desaturate(times: daysToDeadline(deadline)) {
             self.circle.strokeColor = aShadeOfRed
+        } else {
+            self.circle.strokeColor = UIColor.whiteColor()
         }
     }
 }
