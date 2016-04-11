@@ -347,6 +347,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" id="WOQ-ro-sjB"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="700" height="900"/>
                     <connections>
                         <segue destination="UDy-Sm-d4K" kind="popoverPresentation" identifier="showEditView" popoverAnchorView="raG-ce-fmP" id="zq2-nq-fiU">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
@@ -518,6 +519,9 @@
                     <connections>
                         <outlet property="tableView" destination="dt7-Ee-gUt" id="4zh-XT-y0e"/>
                         <segue destination="uTZ-nm-TtB" kind="presentation" identifier="showGroupChat" id="9w7-gb-STl"/>
+                        <segue destination="nrW-8I-lzT" kind="popoverPresentation" identifier="showGroupBubblesView" popoverAnchorView="joa-qc-ziD" id="j3E-ck-VKU">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tqv-U7-4bn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -528,4 +532,7 @@
     <resources>
         <image name="falcoLogo" width="441" height="441"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="j3E-ck-VKU"/>
+    </inferredMetricsTieBreakers>
 </document>

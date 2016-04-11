@@ -10,9 +10,12 @@ import Foundation
 import UIKit
 
 class GroupsViewController: UIViewController, GroupAddDelegate {
+    private let searchController = UISearchController(searchResultsController: nil)
+
     private var _groups = [Group]()
     private var _searchedGroups = [Group]()
-    let searchController = UISearchController(searchResultsController: nil)
+    private var _selectedGroup: Group!
+
     @IBOutlet var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -26,6 +29,10 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
         if segue.identifier == "showGroupAdd" {
             let gavc = segue.destinationViewController as! GroupAddViewController
             gavc.delegate = self
+        } else if segue.identifier == "showGroupBubblesView" {
+            let bvc = segue.destinationViewController as! BubblesViewController
+            bvc.initialGoals = _selectedGroup.goals
+            print(_selectedGroup)
         }
     }
 
@@ -79,7 +86,18 @@ extension GroupsViewController: UISearchResultsUpdating {
     }
 }
 
-extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
+extension GroupsViewController: UITableViewDelegate {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if searchController.active && searchController.searchBar.text != "" {
+            _selectedGroup = _searchedGroups[indexPath.row]
+        } else {
+            _selectedGroup = _groups[indexPath.row]
+        }
+        performSegueWithIdentifier("showGroupBubblesView", sender: self)
+    }
+}
+
+extension GroupsViewController: UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }

@@ -17,10 +17,10 @@ protocol GoalModelDelegate {
 
 class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresentationControllerDelegate {
     private var scene: BubblesScene!
-//    private var goals = GoalCollection()
     private var texture = [SKTexture]()
 
     var delegate: GoalModelDelegate!
+    var initialGoals: GoalCollection?
 
     // MARK: Init
 
@@ -47,8 +47,13 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
 
     override func viewDidAppear(animated: Bool) {
         self.becomeFirstResponder()
+
+        if let goals = initialGoals {
+            addGoalsToScene(goals)
+            initialGoals = nil
+        }
     }
-    
+
     override func canBecomeFirstResponder() -> Bool {
         return true
     }
