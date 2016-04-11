@@ -492,7 +492,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="+"/>
                                 <connections>
-                                    <segue destination="NOJ-IL-xFQ" kind="presentation" id="frF-xp-KBA"/>
+                                    <segue destination="NOJ-IL-xFQ" kind="presentation" identifier="showGroupAdd" id="frF-xp-KBA"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Groups" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l0w-ak-GrW">

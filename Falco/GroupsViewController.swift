@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class GroupsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class GroupsViewController: UIViewController, GroupAddDelegate {
     private var _groups = [Group]()
     private var _searchedGroups = [Group]()
     let searchController = UISearchController(searchResultsController: nil)
@@ -17,17 +17,29 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Server.instance.getGroups() { data in
-            if let groups = data {
-                self._groups.appendContentsOf(groups)
-                self.tableView.reloadData()
-            }
-        }
+        refreshData()
         initSearchController()
         initTableView()
     }
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showGroupAdd" {
+            let gavc = segue.destinationViewController as! GroupAddViewController
+            gavc.delegate = self
+        }
+    }
+
+    // MARK: GroupAddDelegate
+
+    func didAddGroup(group: Group) {
+        Server.instance.saveGroup(group) {
+            self.refreshData()
+        }
+    }
+
+    // MARK: Helper methods
     
-    func initSearchController() {
+    private func initSearchController() {
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Find a group"
@@ -35,7 +47,7 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
         definesPresentationContext = true
     }
     
-    func initTableView() {
+    private func initTableView() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableHeaderView = searchController.searchBar
@@ -43,14 +55,31 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.separatorColor = UIColor.whiteColor()
         tableView.tableFooterView = UIView(frame: CGRectZero)
     }
+
+    private func refreshData() {
+        Server.instance.getGroups() { data in
+            if let groups = data {
+                self._groups = groups
+                self.tableView.reloadData()
+            }
+        }
+    }
     
-    func filterContentForSearchText(searchText: String, scope: String = "All") {
+    private func filterContentForSearchText(searchText: String, scope: String = "All") {
         _searchedGroups = _groups.filter { group in
             return group.name.lowercaseString.containsString(searchText.lowercaseString)
         }
         tableView.reloadData()
     }
-    
+}
+
+extension GroupsViewController: UISearchResultsUpdating {
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
+}
+
+extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -81,12 +110,5 @@ class GroupsViewController: UIViewController, UITableViewDataSource, UITableView
         //let url = NSURL(string: _groups[indexPath.row].pictureUrl)
         //cell!.groupImageView?.image = UIImage(data: NSData(contentsOfURL: url!)!)
         return cell!
-    }
-}
-
-
-extension GroupsViewController: UISearchResultsUpdating {
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        filterContentForSearchText(searchController.searchBar.text!)
     }
 }

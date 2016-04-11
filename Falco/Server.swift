@@ -173,7 +173,7 @@ class Server {
         })
     }
 
-    func saveGroup(group: Group) -> Bool {
+    func saveGroup(group: Group, withCompletion callback: (() -> ())? = nil) -> Bool {
         if !isAuth {
             return false
         }
@@ -183,7 +183,10 @@ class Server {
 
         for member in group.members {
             let memberGroupsRef = usersRef.childByAppendingPath("\(member.id)/groups")
-            memberGroupsRef.updateChildValues([group.id: true])
+            memberGroupsRef.updateChildValues([group.id: true]) {
+                (error: NSError?, ref: Firebase!) in
+                callback?()
+            }
         }
 
         return true

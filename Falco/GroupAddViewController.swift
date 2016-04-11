@@ -9,15 +9,22 @@
 import Foundation
 import UIKit
 
-class GroupAddViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    @IBOutlet var nameInput: UITextField!
-    @IBOutlet var tableView: UITableView!
-    let searchController = UISearchController(searchResultsController: nil)
+protocol GroupAddDelegate {
+    func didAddGroup(group: Group)
+}
+
+class GroupAddViewController: UIViewController {
+    var delegate: GroupAddDelegate!
 
     private var _groupName: String?
     private var _friends = [User]()
     private var _checkedRows = [User: Bool]()
     private var _searchedFriends = [User]()
+
+    private let searchController = UISearchController(searchResultsController: nil)
+    
+    @IBOutlet var nameInput: UITextField!
+    @IBOutlet var tableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +69,8 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
             warn(alert)
         } else {
             let group = Group(creator: Server.instance.user, name: _groupName!, members: groupMembers)
-            Server.instance.saveGroup(group)
+            delegate.didAddGroup(group)
+            dismissViewControllerAnimated(true, completion: nil)
         }
     }
     
@@ -75,8 +83,9 @@ class GroupAddViewController: UIViewController, UITableViewDataSource, UITableVi
         alert.addAction(okayAction)
         presentViewController(alert, animated: true, completion: nil)
     }
-    
-    /// Tableview protocol requirements
+}
+
+extension GroupAddViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
