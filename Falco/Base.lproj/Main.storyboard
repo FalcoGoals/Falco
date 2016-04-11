@@ -314,10 +314,10 @@
             </objects>
             <point key="canvasLocation" x="930" y="1796"/>
         </scene>
-        <!--Main View Controller-->
+        <!--Falco-->
         <scene sceneID="m9B-g4-tmc">
             <objects>
-                <tabBarController id="s4V-6X-cXX" customClass="MainViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController title="Falco" id="s4V-6X-cXX" customClass="MainViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="gfU-Ri-iNn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -332,10 +332,10 @@
             </objects>
             <point key="canvasLocation" x="-557" y="368"/>
         </scene>
-        <!--Item-->
+        <!--Home-->
         <scene sceneID="df7-ns-ADC">
             <objects>
-                <viewController id="nrW-8I-lzT" customClass="BubblesViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Home" id="nrW-8I-lzT" customClass="BubblesViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LyX-e8-mcT"/>
                         <viewControllerLayoutGuide type="bottom" id="a0T-G5-Am7"/>
@@ -345,7 +345,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="WOQ-ro-sjB"/>
+                    <tabBarItem key="tabBarItem" title="Home" id="WOQ-ro-sjB"/>
                     <connections>
                         <segue destination="NhK-jS-PLZ" kind="presentation" identifier="showLogin" id="P0W-3O-69r"/>
                         <segue destination="UDy-Sm-d4K" kind="popoverPresentation" identifier="showEditView" popoverAnchorView="raG-ce-fmP" id="zq2-nq-fiU">
@@ -449,10 +449,10 @@
             </objects>
             <point key="canvasLocation" x="930" y="1130"/>
         </scene>
-        <!--Item-->
+        <!--Groups-->
         <scene sceneID="wRk-og-wxJ">
             <objects>
-                <viewController id="CAJ-cs-Sje" customClass="GroupsViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Groups" id="CAJ-cs-Sje" customClass="GroupsViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HSk-N3-PXj"/>
                         <viewControllerLayoutGuide type="bottom" id="ohd-ZZ-pdR"/>
@@ -514,7 +514,7 @@
                             <constraint firstItem="dt7-Ee-gUt" firstAttribute="leading" secondItem="joa-qc-ziD" secondAttribute="leadingMargin" constant="-20" id="Vcy-w1-qE0"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="bsj-wU-1eA"/>
+                    <tabBarItem key="tabBarItem" title="Groups" id="bsj-wU-1eA"/>
                     <connections>
                         <outlet property="tableView" destination="dt7-Ee-gUt" id="4zh-XT-y0e"/>
                         <segue destination="uTZ-nm-TtB" kind="presentation" identifier="showGroupChat" id="9w7-gb-STl"/>

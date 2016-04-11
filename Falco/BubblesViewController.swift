@@ -11,7 +11,6 @@ import SpriteKit
 
 class BubblesViewController: UIViewController, LoginDelegate, GoalEditDelegate, UIPopoverPresentationControllerDelegate {
 
-    private var user = User(id: NSUUID().UUIDString, name: "MrFoo")
     private var scene: BubblesScene!
     private var goals = GoalCollection()
     private var server = Server.instance
