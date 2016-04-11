@@ -33,11 +33,7 @@ class GoalBubble: SKNode {
         self.circle.lineWidth = 2
         updateStrokeColour(deadline)
 
-        self.circle.physicsBody = SKPhysicsBody(circleOfRadius: circleOfRadius)
-        self.circle.physicsBody?.allowsRotation = false
-        self.circle.physicsBody?.restitution = 0.2
-        self.circle.physicsBody?.friction = 0.0
-        self.circle.physicsBody?.linearDamping = 0.1
+        self.label.physicsBody = makeCircularBody(circleOfRadius)
 
         self.label.horizontalAlignmentMode = .Center
         self.label.verticalAlignmentMode = .Baseline
@@ -45,9 +41,9 @@ class GoalBubble: SKNode {
         self.label.fontName = "System-Bold"
         self.label.name = "label"
 
-        self.circle.addChild(self.label)
+        addChild(self.label)
 
-        addChild(self.circle)
+        self.label.addChild(self.circle)
     }
 
     convenience init(goal: Goal) {
@@ -59,14 +55,26 @@ class GoalBubble: SKNode {
         if (CGFloat(goal.weight)/2 != radius) {
             let scaleFactor = (CGFloat(goal.weight)/2)/radius
             radius = CGFloat(goal.weight)/2
-            let action = SKAction.scaleBy(scaleFactor, duration: 2)
-            runAction(action)
+            let scale = SKAction.scaleBy(scaleFactor, duration: 0.5)
+            self.circle.runAction(scale, completion: {
+                self.label.physicsBody = self.makeCircularBody(CGFloat(goal.weight) / 2)
+            })
+
         }
         updateStrokeColour(goal.endTime)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    private func makeCircularBody(radius: CGFloat) -> SKPhysicsBody {
+        let body = SKPhysicsBody(circleOfRadius: radius)
+        body.allowsRotation = false
+        body.restitution = 0.2
+        body.friction = 0.0
+        body.linearDamping = 0.1
+        return body
     }
 
     /// days are rounded down
