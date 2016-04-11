@@ -8,14 +8,24 @@
 
 import UIKit
 
-class BubbleCell: UICollectionViewCell {
-    @IBOutlet var label: UILabel!
+class BubbleCell: UIView {
+    var label: UILabel!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        layer.cornerRadius = self.frame.size.width/2
+        clipsToBounds = true
+        layer.borderColor = UIColor.blackColor().CGColor
+        layer.borderWidth = 2.0
+        backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.3)
+        label = UILabel(frame: CGRectMake(0, 0, frame.size.width, frame.size.width))
+        label.center = CGPointMake(frame.size.width/2, frame.size.width/2)
+        label.textAlignment = NSTextAlignment.Center
+        addSubview(label)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-
-        // configure the aesthetics of the bubble
-        contentView.layer.borderColor = UIColor.whiteColor().CGColor
-        contentView.layer.borderWidth = CGFloat(1)
-        contentView.backgroundColor = UIColor.whiteColor()
+        fatalError("init(coder:) has not been implemented")
     }
 }

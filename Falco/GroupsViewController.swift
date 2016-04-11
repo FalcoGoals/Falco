@@ -14,6 +14,7 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
     private var _searchedGroups = [Group]()
     let searchController = UISearchController(searchResultsController: nil)
     @IBOutlet var tableView: UITableView!
+    private var numGoalPreview = 3
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,10 +97,13 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
         if cell == nil {
             cell = GroupTableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "groupCell")
         }
+        // init layout params
         cell!.separatorInset = UIEdgeInsetsZero
         cell!.preservesSuperviewLayoutMargins = false
         cell!.layoutMargins = UIEdgeInsetsZero
         cell!.backgroundColor = UIColor(red: 23, green: 72, blue: 147, alpha: 1)
+        
+        // init content of cell
         let selectedGroup: Group
         if searchController.active && searchController.searchBar.text != "" {
             selectedGroup = _searchedGroups[indexPath.row]
@@ -107,6 +111,15 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
             selectedGroup = _groups[indexPath.row]
         }
         cell!.groupNameLabel?.text = selectedGroup.name
+        
+        let goals = selectedGroup.goals
+        goals.sortGoalsByPriority()
+        var topGoalNames = [String]()
+        for i in 0..<min(numGoalPreview, goals.count) {
+            topGoalNames.append(goals.goals[i].name)
+        }
+        cell!.setPreviewGoalNames(topGoalNames)
+        
         //let url = NSURL(string: _groups[indexPath.row].pictureUrl)
         //cell!.groupImageView?.image = UIImage(data: NSData(contentsOfURL: url!)!)
         return cell!

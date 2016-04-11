@@ -153,7 +153,7 @@ class PersonalGoalViewController: UIViewController, GoalEditDelegate, LoginDeleg
     }
 }
 
-extension PersonalGoalViewController: UICollectionViewDataSource {
+/**extension PersonalGoalViewController: UICollectionViewDataSource {
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -187,7 +187,7 @@ extension PersonalGoalViewController: UICollectionViewDataSource {
         self.presentViewController(menuViewController, animated: true, completion: nil)
     }
     
-}
+}*/
 
 extension PersonalGoalViewController: GoalLayoutDelegate {
     func collectionView(collectionView: UICollectionView, diameterForGoalAtIndexPath indexPath: NSIndexPath) -> CGFloat {
