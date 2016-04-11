@@ -24,12 +24,12 @@ class GoalCollection: CustomStringConvertible {
         return goalsData
     }
 
-    var completeGoals: [Goal] {
-        return _goals.filter({$0.isCompleted})
+    var completeGoals: GoalCollection {
+        return GoalCollection(goals: _goals.filter({$0.isCompleted}))
     }
 
-    var incompleteGoals: [Goal] {
-        return _goals.filter({!$0.isCompleted})
+    var incompleteGoals: GoalCollection {
+        return GoalCollection(goals: _goals.filter({!$0.isCompleted}))
     }
 
     var description: String {

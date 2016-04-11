@@ -5,10 +5,10 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Edit Goal-->
         <scene sceneID="RUG-6v-wlc">
             <objects>
-                <navigationController id="UDy-Sm-d4K" sceneMemberID="viewController">
+                <navigationController title="Edit Goal" id="UDy-Sm-d4K" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QwA-Mb-lSP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -293,7 +293,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ua-rC-Q23" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-407" y="-368"/>
+            <point key="canvasLocation" x="-457" y="-407"/>
         </scene>
         <!--Group Chat-->
         <scene sceneID="2vF-Fh-SN6">
@@ -326,6 +326,7 @@
                     <connections>
                         <segue destination="nrW-8I-lzT" kind="relationship" relationship="viewControllers" id="g8h-wD-qvh"/>
                         <segue destination="CAJ-cs-Sje" kind="relationship" relationship="viewControllers" id="Nnt-vh-YHU"/>
+                        <segue destination="NhK-jS-PLZ" kind="presentation" identifier="showLogin" id="rpK-LG-eyh"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AZV-3N-Zbk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -347,7 +348,6 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" id="WOQ-ro-sjB"/>
                     <connections>
-                        <segue destination="NhK-jS-PLZ" kind="presentation" identifier="showLogin" id="P0W-3O-69r"/>
                         <segue destination="UDy-Sm-d4K" kind="popoverPresentation" identifier="showEditView" popoverAnchorView="raG-ce-fmP" id="zq2-nq-fiU">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>

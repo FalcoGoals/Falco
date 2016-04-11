@@ -47,6 +47,7 @@
 		745BC9731C994BFD00204231 /* BubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745BC9721C994BFD00204231 /* BubbleCell.swift */; };
 		74BB5DD71CA1848500695C24 /* GoalEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB5DD61CA1848500695C24 /* GoalEditViewController.swift */; };
 		7B04925A1CBA94BC0080227B /* bubble.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7B0492591CBA94BC0080227B /* bubble.atlas */; };
+		A20EAA951CBB744400BAAEF7 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20EAA941CBB744400BAAEF7 /* Storage.swift */; };
 		A2419F631CB74AD00091319B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2419F621CB74AD00091319B /* Images.xcassets */; };
 		A24F37CC1C9EA468001148FD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24F37CB1C9EA468001148FD /* LoginViewController.swift */; };
 		A2ABCD341CB76A9D00E044A0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2ABCD331CB76A9D00E044A0 /* MainViewController.swift */; };
@@ -110,6 +111,7 @@
 		745BC9721C994BFD00204231 /* BubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleCell.swift; sourceTree = "<group>"; };
 		74BB5DD61CA1848500695C24 /* GoalEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalEditViewController.swift; sourceTree = "<group>"; };
 		7B0492591CBA94BC0080227B /* bubble.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = bubble.atlas; sourceTree = "<group>"; };
+		A20EAA941CBB744400BAAEF7 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		A2419F621CB74AD00091319B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A24F37CB1C9EA468001148FD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A2ABCD331CB76A9D00E044A0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				74C086131C9AD72600BA50C9 /* view */,
 				745957821C9841DE00C3D3C0 /* Main.storyboard */,
 				A2C1C7DD1CACBE6800B6EAFA /* Server.swift */,
+				A20EAA941CBB744400BAAEF7 /* Storage.swift */,
 				7459577E1C9841DE00C3D3C0 /* AppDelegate.swift */,
 				7B0492591CBA94BC0080227B /* bubble.atlas */,
 				745957851C9841DE00C3D3C0 /* Assets.xcassets */,
@@ -459,6 +462,7 @@
 				2528BAED1CA702DD007332FA /* Goal.swift in Sources */,
 				A24F37CC1C9EA468001148FD /* LoginViewController.swift in Sources */,
 				74BB5DD71CA1848500695C24 /* GoalEditViewController.swift in Sources */,
+				A20EAA951CBB744400BAAEF7 /* Storage.swift in Sources */,
 				2528BAEF1CA702DD007332FA /* Group.swift in Sources */,
 				25DC09121CB4F3D600674D29 /* FriendTableViewCell.swift in Sources */,
 				2528BAF11CA702DD007332FA /* PersonalGoal.swift in Sources */,

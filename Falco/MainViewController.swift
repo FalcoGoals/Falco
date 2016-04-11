@@ -8,22 +8,91 @@
 
 import UIKit
 
-class MainViewController: UITabBarController {
+class MainViewController: UITabBarController, LoginDelegate, GoalModelDelegate {
+    private var server = Server.instance
+    private var storage = Storage.instance
+
+    private var homeViewController: BubblesViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        homeViewController = viewControllers![0] as! BubblesViewController
+        homeViewController.delegate = self
+
+        if server.hasToken {
+            didReceiveToken()
+        }
     }
 
-    /*
-    // MARK: - Navigation
+    override func viewDidAppear(animated: Bool) {
+        if !server.hasToken {
+            showLogin()
+        }
+    }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "showLogin" {
+            let lvc = segue.destinationViewController as! LoginViewController
+            lvc.delegate = self
+        }
     }
-    */
+
+    // MARK: LoginDelegate
+
+    func didReceiveToken() {
+        authAndDownloadGoals()
+    }
+
+    // MARK: GoalModelDelegate
+
+    func didUpdateGoal(goal: Goal) {
+        if let goal = goal as? PersonalGoal {
+            storage.personalGoals.updateGoal(goal)
+            server.savePersonalGoal(goal)
+        }
+        // TODO: group goals
+    }
+
+    func didCompleteGoal(goal: Goal) {
+        if var pGoal = goal as? PersonalGoal {
+            pGoal.markComplete()
+            didUpdateGoal(pGoal)
+        } else if var gGoal = goal as? GroupGoal {
+            gGoal.markCompleteByUser(server.user)
+            didUpdateGoal(gGoal)
+        }
+    }
+
+    func getGoalWithIdentifier(goalId: String) -> Goal? {
+        return storage.personalGoals.getGoalWithIdentifier(goalId)
+        // TODO: group goals
+    }
+
+    // MARK: Helper methods
+
+    private func showLogin() {
+        performSegueWithIdentifier("showLogin", sender: nil)
+    }
+
+    private func authAndDownloadGoals() {
+        server.auth() {
+            self.server.getPersonalGoals() { goals in
+                if let goals = goals {
+                    self.storage.personalGoals = goals
+                    self.updateBubblesView()
+                }
+            }
+            self.server.getFriends() { friends in
+                if let friends = friends {
+                    self.storage.friends = friends
+                }
+            }
+        }
+    }
+
+    private func updateBubblesView() {
+        homeViewController.addGoalsToScene(storage.personalGoals.incompleteGoals)
+    }
 
 }

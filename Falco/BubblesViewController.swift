@@ -9,19 +9,23 @@
 import UIKit
 import SpriteKit
 
-class BubblesViewController: UIViewController, LoginDelegate, GoalEditDelegate, UIPopoverPresentationControllerDelegate {
+protocol GoalModelDelegate {
+    func didUpdateGoal(goal: Goal)
+    func didCompleteGoal(goal: Goal)
+    func getGoalWithIdentifier(goalId: String) -> Goal?
+}
 
+class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresentationControllerDelegate {
     private var scene: BubblesScene!
-    private var goals = GoalCollection()
-    private var server = Server.instance
+//    private var goals = GoalCollection()
     private var texture = [SKTexture]()
+
+    var delegate: GoalModelDelegate!
+
+    // MARK: Init
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if server.hasToken {
-            didReceiveToken()
-        }
 
         scene = BubblesScene(size: view.bounds.size)
         scene.scaleMode = .ResizeFill
@@ -42,9 +46,6 @@ class BubblesViewController: UIViewController, LoginDelegate, GoalEditDelegate, 
     }
 
     override func viewDidAppear(animated: Bool) {
-        if !server.hasToken {
-            showLogin()
-        }
         self.becomeFirstResponder()
     }
     
@@ -53,11 +54,7 @@ class BubblesViewController: UIViewController, LoginDelegate, GoalEditDelegate, 
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showLogin" {
-            let lvc = segue.destinationViewController as! LoginViewController
-            lvc.delegate = self
-
-        } else if segue.identifier == "showEditView" {
+        if segue.identifier == "showEditView" {
             let nc = segue.destinationViewController as! UINavigationController
             let evc = nc.topViewController as! GoalEditViewController
 
@@ -75,7 +72,7 @@ class BubblesViewController: UIViewController, LoginDelegate, GoalEditDelegate, 
             nc.popoverPresentationController!.sourceView = sender!.view
             nc.popoverPresentationController!.delegate = self
             if let node = node as? GoalBubble {
-                evc.goal = goals.getGoalWithIdentifier(node.id)
+                evc.goal = delegate.getGoalWithIdentifier(node.id)
                 nc.popoverPresentationController!.sourceRect = CGRect(origin: location, size: node.frame.size)
             } else {
                 evc.goal = nil
@@ -85,6 +82,15 @@ class BubblesViewController: UIViewController, LoginDelegate, GoalEditDelegate, 
             pauseScene()
         }
     }
+
+    // MARK: Public methods
+
+    func addGoalsToScene(goals: GoalCollection) {
+        goals.sortGoalsByWeight()
+        scene.addGoals(goals)
+    }
+
+    // MARK: Gesture recognisers
 
     func bubbleTapped(sender: UITapGestureRecognizer) {
         performSegueWithIdentifier("showEditView", sender: sender)
@@ -115,23 +121,14 @@ class BubblesViewController: UIViewController, LoginDelegate, GoalEditDelegate, 
                 node.removeFromParent()
             }
         }
-        addGoalsToScene(goals)
-    }
-
-    // MARK: LoginDelegate
-
-    func didReceiveToken() {
-        authAndDownloadGoals()
+//        addGoalsToScene(goals)
     }
 
     // MARK: GoalEditDelegate
 
     func didSave(goal: Goal) {
-        goals.updateGoal(goal)
         scene.updateGoal(goal)
-        if let goal = goal as? PersonalGoal {
-            server.savePersonalGoal(goal)
-        }
+        delegate.didUpdateGoal(goal)
         playScene()
     }
 
@@ -146,39 +143,11 @@ class BubblesViewController: UIViewController, LoginDelegate, GoalEditDelegate, 
     @IBAction func cancelGoalEdit(segue: UIStoryboardSegue) { playScene() }
 
     // MARK: Helper methods
-
-    private func showLogin() {
-        performSegueWithIdentifier("showLogin", sender: nil)
-    }
-
-    private func authAndDownloadGoals() {
-        server.auth() {
-            self.server.getPersonalGoals(self.addGoalsToScene)
-            self.server.getFriends(self.addSampleGroup)
-        }
-    }
-
-    private func addGoalsToScene(userGoals: GoalCollection?) {
-        if let userGoals = userGoals {
-            goals = userGoals
-            if userGoals.isEmpty {
-                print("adding sample goals")
-                addSampleGoals(server.user.name)
-            }
-            goals.sortGoalsByWeight()
-            scene.addGoals(GoalCollection(goals: goals.incompleteGoals))
-        }
-    }
     
     private func completeGoal(goalBubble: GoalBubble) {
         let goalId = goalBubble.id
-        let goal = goals.getGoalWithIdentifier(goalId)
-        if var goal = goal as? PersonalGoal {
-            goal.markComplete()
-            server.savePersonalGoal(goal)
-        } else if var goal = goal as? GroupGoal {
-            goal.markCompleteByUser(server.user)
-//            server.saveGroupGoal(goal)
+        if let goal = delegate.getGoalWithIdentifier(goalId) {
+            delegate.didCompleteGoal(goal)
         }
 
         let circle = goalBubble.circle
@@ -194,57 +163,6 @@ class BubblesViewController: UIViewController, LoginDelegate, GoalEditDelegate, 
         circle.runAction(SKAction.sequence([
             SKAction.waitForDuration(1.0),
             SKAction.removeFromParent()]))
-    }
-
-    private func addSampleGoals(name: String) {
-        let dateComponents = NSDateComponents()
-        dateComponents.year = 2016
-        dateComponents.month = 3
-        dateComponents.day = 10
-
-        let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-        let date = calendar!.dateFromComponents(dateComponents)!
-
-        goals.updateGoal(PersonalGoal(name: "\(name)'s goal1", details: "my goal", priority: .High, endTime: date))
-        goals.updateGoal(PersonalGoal(name: "\(name)'s goal2", details: "my goal", priority: .High, endTime: date))
-        goals.updateGoal(PersonalGoal(name: "\(name)'s goal3", details: "my goal", priority: .Low, endTime: date))
-        goals.updateGoal(PersonalGoal(name: "\(name)'s goal4", details: "my goal", priority: .Mid, endTime: date))
-        goals.updateGoal(PersonalGoal(name: "\(name)'s goal5", details: "my goal", priority: .High, endTime: date))
-        goals.updateGoal(PersonalGoal(name: "\(name)'s goal6", details: "my goal", priority: .Mid, endTime: date))
-        goals.updateGoal(PersonalGoal(name: "\(name)'s goal7", details: "my goal", priority: .Mid, endTime: date))
-        goals.updateGoal(PersonalGoal(name: "\(name)'s goal8", details: "my goal", priority: .Low, endTime: date))
-        goals.updateGoal(PersonalGoal(name: "\(name)'s goal9", details: "my goal", priority: .Low, endTime: date))
-        goals.updateGoal(PersonalGoal(name: "\(name)'s goal10", details: "my goal", priority: .Low, endTime: date))
-        goals.updateGoal(PersonalGoal(name: "\(name)'s goal11", details: "my goal", priority: .Mid, endTime: date))
-        goals.updateGoal(PersonalGoal(name: "\(name)'s goal12", details: "my goal", priority: .High, endTime: date))
-
-        server.savePersonalGoals(goals)
-    }
-
-    private func addSampleGroup(friends: [User]?) {
-        if friends == nil {
-            return
-        }
-
-        server.getGroups() { groups in
-            if groups != nil {
-                print("Groups: \(groups!)")
-                return
-            }
-
-            print("adding sample group")
-            let user = self.server.user
-            var g1 = GroupGoal(name: "my task", details: "details", endTime: NSDate())
-            var g2 = GroupGoal(name: "squad goal", details: "details", endTime: NSDate())
-            g1.addUser(user)
-            g2.addUser(user)
-            for friend in friends! {
-                g2.addUser(friend)
-            }
-            let goals = GoalCollection(goals: [g1, g2])
-            let group = Group(creator: user, name: "\(user.name)'s test group", members: friends!, goals: goals)
-            self.server.saveGroup(group)
-        }
     }
 
     private func pauseScene() {
