@@ -347,7 +347,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" id="WOQ-ro-sjB"/>
-                    <value key="contentSizeForViewInPopover" type="size" width="700" height="900"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="700" height="700"/>
                     <connections>
                         <segue destination="UDy-Sm-d4K" kind="popoverPresentation" identifier="showEditView" popoverAnchorView="raG-ce-fmP" id="zq2-nq-fiU">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
