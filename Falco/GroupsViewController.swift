@@ -9,8 +9,11 @@
 import Foundation
 import UIKit
 
-class GroupsViewController: UIViewController, GroupAddDelegate {
+class GroupsViewController: UIViewController, GroupAddDelegate, GoalModelDelegate {
     private let searchController = UISearchController(searchResultsController: nil)
+
+    private var server = Server.instance
+    private var storage = Storage.instance
 
     private var _groups = [Group]()
     private var _searchedGroups = [Group]()
@@ -32,7 +35,10 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
         } else if segue.identifier == "showGroupBubblesView" {
             let bvc = segue.destinationViewController as! BubblesViewController
             bvc.initialGoals = _selectedGroup.goals
-            print(_selectedGroup)
+            bvc.delegate = self
+            if let _ = bvc.popoverPresentationController {
+                bvc.preferredContentSize = view.frame.size
+            }
         }
     }
 
@@ -42,6 +48,34 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
         Server.instance.saveGroup(group) {
             self.refreshData()
         }
+    }
+
+    // MARK: GoalModelDelegate
+
+    func didUpdateGoal(goal: Goal) {
+        if let goal = goal as? PersonalGoal {
+            storage.personalGoals.updateGoal(goal)
+            server.savePersonalGoal(goal)
+        }
+        // TODO: group goals
+    }
+
+    func didCompleteGoal(goal: Goal) {
+        if var pGoal = goal as? PersonalGoal {
+            pGoal.markComplete()
+            didUpdateGoal(pGoal)
+        } else if var gGoal = goal as? GroupGoal {
+            gGoal.markCompleteByUser(server.user)
+            didUpdateGoal(gGoal)
+        }
+    }
+
+    func getGoalWithIdentifier(goalId: String) -> Goal? {
+        return _selectedGroup.goals.getGoalWithIdentifier(goalId)
+    }
+
+    func getGoals() -> GoalCollection {
+        return _selectedGroup.goals.incompleteGoals
     }
 
     // MARK: Helper methods
