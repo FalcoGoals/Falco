@@ -17,6 +17,8 @@ class MainViewController: UITabBarController, LoginDelegate {
     private var groupsNavViewController: UINavigationController!
     private var groupsViewController: GroupsViewController!
 
+    private var background = UIImageView(image: UIImage(named: "wallpaper"))
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,15 +30,20 @@ class MainViewController: UITabBarController, LoginDelegate {
         groupsViewController = groupsNavViewController.topViewController as! GroupsViewController
         groupsViewController.delegate = self
 
+        view.insertSubview(background, atIndex: 0)
+
         if server.hasToken {
             didReceiveToken()
         }
     }
 
     override func viewWillAppear(animated: Bool) {
-        let backgroundImage = UIImageView(image: UIImage(named: "wallpaper"))
-        backgroundImage.frame = view.frame
-        view.insertSubview(backgroundImage, atIndex: 0)
+        background.frame = view.frame
+    }
+
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        background.frame.size = size
     }
 
     override func viewDidAppear(animated: Bool) {

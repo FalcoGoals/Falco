@@ -25,7 +25,11 @@ class GroupTableViewCell: UITableViewCell {
         guard !goals.isEmpty else {
             return
         }
-        
+
+        for subview in subviews where subview is BubbleCell {
+            subview.removeFromSuperview()
+        }
+
         let spacing: CGFloat = 20
         let maxGoalWidth = frame.height - groupNameLabel.frame.height - 2 * spacing
 
