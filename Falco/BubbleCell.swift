@@ -18,7 +18,6 @@ class BubbleCell: UIView {
         clipsToBounds = true
         layer.borderColor = UIColor.blackColor().CGColor
         layer.borderWidth = 2.0
-//        backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.3)
         let backgroundImage = UIImageView(image: UIImage(named: "bubble"))
         backgroundImage.contentMode = .ScaleToFill
         backgroundImage.frame.size = frame.size

@@ -10,7 +10,6 @@ import SpriteKit
 
 class BubblesScene: SKScene {
     private var cam: SKCameraNode!
-    private var cameraMoved = false
 
     private var circlePosition = [[Int]]()
     private var lowestY = 0
@@ -50,7 +49,6 @@ class BubblesScene: SKScene {
     }
 
       override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        cameraMoved = true
         let touch = touches.first
         let positionInScene = touch!.locationInNode(self)
         let previousPosition = touch!.previousLocationInNode(self)
@@ -60,17 +58,7 @@ class BubblesScene: SKScene {
         } else {
             cam.position.y -= translation.y
         }
-//        cam.position.x -= translation.x
-//        cam.position.y -= translation.y
       }
-    
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if (cameraMoved) {
-            cameraMoved = false
-        } else {
-//            presentationDelegate.present(nil)
-        }
-    }
 
     func addGoal(goal: Goal) {
         let weight = goal.weight
