@@ -11,7 +11,7 @@ import UIKit
 
 class GroupsViewController: UIViewController, GroupAddDelegate, GoalModelDelegate {
     private let searchController = UISearchController(searchResultsController: nil)
-
+    
     private var server = Server.instance
     private var storage = Storage.instance
 
@@ -20,6 +20,7 @@ class GroupsViewController: UIViewController, GroupAddDelegate, GoalModelDelegat
     private var _selectedGroup: Group!
 
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var searchBarContainer: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,12 +90,14 @@ class GroupsViewController: UIViewController, GroupAddDelegate, GoalModelDelegat
         searchController.searchBar.placeholder = "Find a group"
         searchController.searchBar.barStyle = .Black
         definesPresentationContext = true
+        searchBarContainer.addSubview(searchController.searchBar)
     }
     
     private func initTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.tableHeaderView = searchController.searchBar
+        tableView.sectionFooterHeight = 20
+        tableView.sectionHeaderHeight = 20
     }
 
     private func refreshData() {
@@ -123,9 +126,9 @@ extension GroupsViewController: UISearchResultsUpdating {
 extension GroupsViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if searchController.active && searchController.searchBar.text != "" {
-            _selectedGroup = _searchedGroups[indexPath.row]
+            _selectedGroup = _searchedGroups[indexPath.section]
         } else {
-            _selectedGroup = _groups[indexPath.row]
+            _selectedGroup = _groups[indexPath.section]
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         performSegueWithIdentifier("showGroupBubblesView", sender: self)
@@ -134,14 +137,14 @@ extension GroupsViewController: UITableViewDelegate {
 
 extension GroupsViewController: UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchController.active && searchController.searchBar.text != "" {
             return _searchedGroups.count
         }
         return _groups.count
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
     }
 
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -156,9 +159,9 @@ extension GroupsViewController: UITableViewDataSource {
         // init content of cell
         let selectedGroup: Group
         if searchController.active && searchController.searchBar.text != "" {
-            selectedGroup = _searchedGroups[indexPath.row]
+            selectedGroup = _searchedGroups[indexPath.section]
         } else {
-            selectedGroup = _groups[indexPath.row]
+            selectedGroup = _groups[indexPath.section]
         }
         cell.groupNameLabel?.text = selectedGroup.name
 
