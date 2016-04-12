@@ -18,7 +18,11 @@ class BubblesScene: SKScene {
 
     override init(size: CGSize) {
         super.init(size: size)
+
         anchorPoint = CGPointMake(0.0, 1.0)
+        scaleMode = .ResizeFill
+        backgroundColor = UIColor.clearColor()
+        
         cam = SKCameraNode()
         cam.position = CGPoint(x: frame.midX, y: frame.midY)
         cam.name = "camera"
@@ -42,15 +46,7 @@ class BubblesScene: SKScene {
             return
         }
 
-        cam.position.y = -frame.height/2
-    }
-
-    override func didMoveToView(view: SKView) {
-        let background = SKSpriteNode(imageNamed: "wallpaper")
-        background.zPosition = -1
-        background.position = CGPoint(x: frame.midX, y: frame.midY)
-        background.name = "background"
-        addChild(background)
+        cam.position = CGPoint(x: frame.midX, y: frame.midY)
     }
 
       override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {

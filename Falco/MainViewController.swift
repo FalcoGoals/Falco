@@ -12,6 +12,7 @@ class MainViewController: UITabBarController, LoginDelegate {
     private var server = Server.instance
     private var storage = Storage.instance
 
+    private var homeNavViewController: UINavigationController!
     private var homeViewController: BubblesViewController!
     private var groupsNavViewController: UINavigationController!
     private var groupsViewController: GroupsViewController!
@@ -19,7 +20,8 @@ class MainViewController: UITabBarController, LoginDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        homeViewController = viewControllers![0] as! BubblesViewController
+        homeNavViewController = viewControllers![0] as! UINavigationController
+        homeViewController = homeNavViewController.topViewController as! BubblesViewController
         homeViewController.delegate = self
 
         groupsNavViewController = viewControllers![1] as! UINavigationController
@@ -34,7 +36,7 @@ class MainViewController: UITabBarController, LoginDelegate {
     override func viewWillAppear(animated: Bool) {
         let backgroundImage = UIImageView(image: UIImage(named: "wallpaper"))
         backgroundImage.frame = view.frame
-        groupsNavViewController.view.insertSubview(backgroundImage, atIndex: 0)
+        view.insertSubview(backgroundImage, atIndex: 0)
     }
 
     override func viewDidAppear(animated: Bool) {

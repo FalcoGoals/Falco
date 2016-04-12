@@ -40,10 +40,10 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
         }
 
         scene = BubblesScene(size: view.bounds.size)
-        scene.scaleMode = .ResizeFill
 
         let skView = view as! SKView
         skView.ignoresSiblingOrder = true
+        skView.allowsTransparency = true
         skView.presentScene(scene)
         skView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(BubblesViewController.bubbleTapped(_:))))
         skView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action:
@@ -185,11 +185,5 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
 
     private func playScene() {
         self.scene.view?.paused = false
-    }
-}
-
-extension BubblesViewController {
-    override func prefersStatusBarHidden() -> Bool {
-        return true
     }
 }
