@@ -6,7 +6,6 @@
 //  Copyright © 2016 nus.cs3217.group04. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import Firebase
 import JSQMessagesViewController
