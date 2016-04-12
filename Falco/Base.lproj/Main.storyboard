@@ -342,10 +342,11 @@
                         <viewControllerLayoutGuide type="bottom" id="a0T-G5-Am7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="raG-ce-fmP" customClass="SKView">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBarItem key="tabBarItem" title="Home" image="home" id="WOQ-ro-sjB"/>
                     <value key="contentSizeForViewInPopover" type="size" width="700" height="700"/>
                     <connections>
@@ -394,7 +395,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendCell" rowHeight="71" id="5V2-gj-EYY" customClass="FriendTableViewCell" customModule="Falco" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="72" width="560" height="71"/>
+                                        <rect key="frame" x="0.0" y="28" width="560" height="71"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5V2-gj-EYY" id="3IV-6s-LYM">
                                             <rect key="frame" x="0.0" y="0.0" width="560" height="70.5"/>

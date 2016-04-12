@@ -20,10 +20,10 @@ class BubblesScene: SKScene {
         super.init(size: size)
         anchorPoint = CGPointMake(0.0, 1.0)
         cam = SKCameraNode()
-        camera = cam
         cam.position = CGPoint(x: frame.midX, y: frame.midY)
         cam.name = "camera"
         addChild(cam)
+        camera = cam
         
         let points = [CGPointMake(0, -9999), CGPointMake(0, 0), CGPointMake(size.width, 0), CGPointMake(size.width, -9999)]
         let screenPath = CGPathCreateMutable()
@@ -35,6 +35,14 @@ class BubblesScene: SKScene {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func didChangeSize(oldSize: CGSize) {
+        guard cam != nil else {
+            return
+        }
+
+        cam.position.y = -frame.height/2
     }
 
     override func didMoveToView(view: SKView) {
