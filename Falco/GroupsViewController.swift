@@ -31,15 +31,14 @@ class GroupsViewController: UIViewController, GroupAddDelegate, GoalModelDelegat
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showGroupAdd" {
-            let gavc = segue.destinationViewController as! GroupAddViewController
+            let nc = segue.destinationViewController as! UINavigationController
+            let gavc = nc.topViewController as! GroupAddViewController
             gavc.delegate = self
         } else if segue.identifier == "showGroupBubblesView" {
             let bvc = segue.destinationViewController as! BubblesViewController
+            bvc.title = _selectedGroup.name
             bvc.initialGoals = _selectedGroup.goals
             bvc.delegate = self
-            if let _ = bvc.popoverPresentationController {
-                bvc.preferredContentSize = view.frame.size
-            }
         }
     }
 
@@ -78,6 +77,10 @@ class GroupsViewController: UIViewController, GroupAddDelegate, GoalModelDelegat
     func getGoals() -> GoalCollection {
         return _selectedGroup.goals.incompleteGoals
     }
+
+    // MARK: IB Actions
+
+    @IBAction func cancelGroupAdd(segue: UIStoryboardSegue) { }
 
     // MARK: Helper methods
     
@@ -128,6 +131,7 @@ extension GroupsViewController: UITableViewDelegate {
         } else {
             _selectedGroup = _groups[indexPath.row]
         }
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         performSegueWithIdentifier("showGroupBubblesView", sender: self)
     }
 }
