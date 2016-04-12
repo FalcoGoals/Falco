@@ -318,7 +318,7 @@
         <scene sceneID="m9B-g4-tmc">
             <objects>
                 <tabBarController title="Falco" id="s4V-6X-cXX" customClass="MainViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="gfU-Ri-iNn">
+                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" id="gfU-Ri-iNn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -346,7 +346,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" id="WOQ-ro-sjB"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="home" id="WOQ-ro-sjB"/>
                     <value key="contentSizeForViewInPopover" type="size" width="700" height="700"/>
                     <connections>
                         <segue destination="UDy-Sm-d4K" kind="popoverPresentation" identifier="showEditView" popoverAnchorView="raG-ce-fmP" id="zq2-nq-fiU">
@@ -515,7 +515,7 @@
                             <constraint firstItem="dt7-Ee-gUt" firstAttribute="leading" secondItem="joa-qc-ziD" secondAttribute="leadingMargin" constant="-20" id="Vcy-w1-qE0"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Groups" id="bsj-wU-1eA"/>
+                    <tabBarItem key="tabBarItem" title="Groups" image="groups" id="bsj-wU-1eA"/>
                     <connections>
                         <outlet property="tableView" destination="dt7-Ee-gUt" id="4zh-XT-y0e"/>
                         <segue destination="uTZ-nm-TtB" kind="presentation" identifier="showGroupChat" id="9w7-gb-STl"/>
@@ -531,6 +531,8 @@
     </scenes>
     <resources>
         <image name="falcoLogo" width="441" height="441"/>
+        <image name="groups" width="50" height="50"/>
+        <image name="home" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="j3E-ck-VKU"/>
