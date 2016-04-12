@@ -23,21 +23,33 @@ class GroupTableViewCell: UITableViewCell {
     
     func setPreviewGoals(goals: GoalCollection) {
         let spacing: CGFloat = 20
-        let goalWidth = frame.height - groupNameLabel.frame.height - 2 * spacing
-        let goalsTotalWidth = CGFloat(goals.count) * (goalWidth + spacing) - spacing
-        var offsetX: CGFloat = (frame.width - goalsTotalWidth) / 2
-        let offsetY = groupNameLabel.frame.height + spacing
+        let maxGoalWidth = frame.height - groupNameLabel.frame.height - 2 * spacing
 
         goals.sortGoalsByWeight()
+        var goalWidths = [CGFloat]()
+        var goalsTotalWidth: CGFloat = 0
+
+        let topGoal = goals.goals[0]
         var topGoals = [Goal]()
         for i in 0..<min(numGoalPreview, goals.count) {
-            topGoals.append(goals.goals[i])
+            let goal = goals.goals[i]
+            let normalisedWeight = CGFloat(goal.weight) / CGFloat(topGoal.weight)
+            let calculatedWidth = maxGoalWidth * normalisedWeight
+            goalsTotalWidth += calculatedWidth + spacing
+            goalWidths.append(calculatedWidth)
+            topGoals.append(goal)
         }
-        for goal in topGoals {
-            let previewGoal = BubbleCell(frame: CGRectMake(offsetX, offsetY, goalWidth, goalWidth), goal: goal)
-            offsetX += goalWidth + spacing
-            self.addSubview(previewGoal)
-            self.bringSubviewToFront(previewGoal)
+        goalsTotalWidth -= spacing
+
+        var offsetX: CGFloat = (frame.width - goalsTotalWidth) / 2
+        let offsetY = groupNameLabel.frame.height + spacing
+        for i in 0..<topGoals.count {
+            let goal = topGoals[i]
+            let width = goalWidths[i]
+            let bubble = BubbleCell(frame: CGRectMake(offsetX, offsetY, width, width), goal: goal)
+            offsetX += width + spacing
+            self.addSubview(bubble)
+            self.bringSubviewToFront(bubble)
         }
     }
 }
