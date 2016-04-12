@@ -8,12 +8,13 @@
 
 import UIKit
 
-class MainViewController: UITabBarController, LoginDelegate, GoalModelDelegate {
+class MainViewController: UITabBarController, LoginDelegate {
     private var server = Server.instance
     private var storage = Storage.instance
 
     private var homeViewController: BubblesViewController!
     private var groupsNavViewController: UINavigationController!
+    private var groupsViewController: GroupsViewController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,8 @@ class MainViewController: UITabBarController, LoginDelegate, GoalModelDelegate {
         homeViewController.delegate = self
 
         groupsNavViewController = viewControllers![1] as! UINavigationController
+        groupsViewController = groupsNavViewController.topViewController as! GroupsViewController
+        groupsViewController.delegate = self
 
         if server.hasToken {
             didReceiveToken()
@@ -53,7 +56,35 @@ class MainViewController: UITabBarController, LoginDelegate, GoalModelDelegate {
         authAndDownloadGoals()
     }
 
-    // MARK: GoalModelDelegate
+    // MARK: Helper methods
+
+    private func showLogin() {
+        performSegueWithIdentifier("showLogin", sender: nil)
+    }
+
+    private func authAndDownloadGoals() {
+        server.auth() {
+            self.server.getPersonalGoals() { goals in
+                if let goals = goals {
+                    self.storage.personalGoals = goals
+                    self.updateBubblesView()
+                }
+            }
+            self.server.getFriends() { friends in
+                if let friends = friends {
+                    self.storage.friends = friends
+                }
+            }
+        }
+    }
+
+    private func updateBubblesView() {
+        homeViewController.addGoalsToScene(storage.personalGoals.incompleteGoals)
+    }
+
+}
+
+extension MainViewController: GoalModelDelegate {
 
     func didUpdateGoal(goal: Goal) {
         if let goal = goal as? PersonalGoal {
@@ -81,31 +112,38 @@ class MainViewController: UITabBarController, LoginDelegate, GoalModelDelegate {
     func getGoals() -> GoalCollection {
         return storage.personalGoals.incompleteGoals
     }
+}
 
-    // MARK: Helper methods
+extension MainViewController: GroupModelDelegate {
 
-    private func showLogin() {
-        performSegueWithIdentifier("showLogin", sender: nil)
+    func getGroups() -> [Group] {
+        return storage.groups
     }
 
-    private func authAndDownloadGoals() {
-        server.auth() {
-            self.server.getPersonalGoals() { goals in
-                if let goals = goals {
-                    self.storage.personalGoals = goals
-                    self.updateBubblesView()
-                }
-            }
-            self.server.getFriends() { friends in
-                if let friends = friends {
-                    self.storage.friends = friends
-                }
+    func didUpdateGroup(group: Group) {
+        for i in 0..<storage.groups.count {
+            let existingGroup = storage.groups[i]
+            if existingGroup.id == group.id {
+                storage.groups[i] = group
+                // TODO: update server
+                return
             }
         }
     }
 
-    private func updateBubblesView() {
-        homeViewController.addGoalsToScene(storage.personalGoals.incompleteGoals)
+    func didAddGroup(group: Group, callback: (() -> ())? = nil) {
+        storage.groups.append(group)
+        server.saveGroup(group) {
+            callback?()
+        }
     }
 
+    func refreshGroups(callback: (() -> ())? = nil) {
+        server.getGroups() { groups in
+            if let groups = groups {
+                self.storage.groups = groups
+            }
+            callback?()
+        }
+    }
 }

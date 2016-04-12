@@ -8,19 +8,27 @@
 
 import UIKit
 
-class GroupsViewController: UIViewController, GroupAddDelegate, GoalModelDelegate {
-    private let searchController = UISearchController(searchResultsController: nil)
-    
-    private var server = Server.instance
-    private var storage = Storage.instance
+protocol GroupModelDelegate {
+    func getGroups() -> [Group]
+    func didAddGroup(group: Group, callback: (() -> ())?)
+    func didUpdateGroup(group: Group)
+    func refreshGroups(callback: (() -> ())?)
+}
 
-    private var _groups = [Group]()
+class GroupsViewController: UIViewController, GroupAddDelegate {
+    private let searchController = UISearchController(searchResultsController: nil)
+
+    private var _groups: [Group] {
+        return delegate.getGroups()
+    }
     private var _searchedGroups = [Group]()
     private var _selectedGroup: Group!
 
+    var delegate: GroupModelDelegate!
+
     @IBOutlet var tableView: UITableView!
     @IBOutlet var searchBarContainer: UIView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         refreshData()
@@ -44,17 +52,54 @@ class GroupsViewController: UIViewController, GroupAddDelegate, GoalModelDelegat
     // MARK: GroupAddDelegate
 
     func didAddGroup(group: Group) {
-        Server.instance.saveGroup(group) {
+        delegate.didAddGroup(group) {
             self.refreshData()
         }
     }
 
-    // MARK: GoalModelDelegate
+    // MARK: IB Actions
+
+    @IBAction func cancelGroupAdd(segue: UIStoryboardSegue) { }
+
+    // MARK: Helper methods
+
+    private func initSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Find a group"
+        searchController.searchBar.barStyle = .Black
+        definesPresentationContext = true
+        searchBarContainer.addSubview(searchController.searchBar)
+    }
+
+    private func initTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.sectionFooterHeight = 20
+        tableView.sectionHeaderHeight = 20
+    }
+
+    private func refreshData() {
+        delegate.refreshGroups() {
+            self.tableView.reloadData()
+        }
+    }
+
+    private func filterContentForSearchText(searchText: String, scope: String = "All") {
+        _searchedGroups = _groups.filter { group in
+            return group.name.lowercaseString.containsString(searchText.lowercaseString)
+        }
+        tableView.reloadData()
+    }
+}
+
+extension GroupsViewController: GoalModelDelegate {
+    // TODO: delegate to MainViewController
 
     func didUpdateGoal(goal: Goal) {
         if let goal = goal as? PersonalGoal {
-            storage.personalGoals.updateGoal(goal)
-            server.savePersonalGoal(goal)
+            Storage.instance.personalGoals.updateGoal(goal)
+            Server.instance.savePersonalGoal(goal)
         }
         // TODO: group goals
     }
@@ -64,7 +109,7 @@ class GroupsViewController: UIViewController, GroupAddDelegate, GoalModelDelegat
             pGoal.markComplete()
             didUpdateGoal(pGoal)
         } else if var gGoal = goal as? GroupGoal {
-            gGoal.markCompleteByUser(server.user)
+            gGoal.markCompleteByUser(Server.instance.user)
             didUpdateGoal(gGoal)
         }
     }
@@ -75,44 +120,6 @@ class GroupsViewController: UIViewController, GroupAddDelegate, GoalModelDelegat
 
     func getGoals() -> GoalCollection {
         return _selectedGroup.goals.incompleteGoals
-    }
-
-    // MARK: IB Actions
-
-    @IBAction func cancelGroupAdd(segue: UIStoryboardSegue) { }
-
-    // MARK: Helper methods
-    
-    private func initSearchController() {
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Find a group"
-        searchController.searchBar.barStyle = .Black
-        definesPresentationContext = true
-        searchBarContainer.addSubview(searchController.searchBar)
-    }
-    
-    private func initTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.sectionFooterHeight = 20
-        tableView.sectionHeaderHeight = 20
-    }
-
-    private func refreshData() {
-        Server.instance.getGroups() { data in
-            if let groups = data {
-                self._groups = groups
-                self.tableView.reloadData()
-            }
-        }
-    }
-    
-    private func filterContentForSearchText(searchText: String, scope: String = "All") {
-        _searchedGroups = _groups.filter { group in
-            return group.name.lowercaseString.containsString(searchText.lowercaseString)
-        }
-        tableView.reloadData()
     }
 }
 
