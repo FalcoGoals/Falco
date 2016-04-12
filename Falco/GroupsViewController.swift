@@ -88,7 +88,7 @@ class GroupsViewController: UIViewController, GroupAddDelegate, GoalModelDelegat
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Find a group"
-        //searchController.searchBar.barStyle = UIBarStyle.Black
+        searchController.searchBar.barStyle = .Black
         definesPresentationContext = true
     }
     
@@ -149,16 +149,13 @@ extension GroupsViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("groupCell", forIndexPath: indexPath) as? GroupTableViewCell
-        if cell == nil {
-            cell = GroupTableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "groupCell")
-        }
+        let cell = tableView.dequeueReusableCellWithIdentifier("groupCell", forIndexPath: indexPath) as! GroupTableViewCell
+
         // init layout params
-        cell!.separatorInset = UIEdgeInsetsZero
-        cell!.preservesSuperviewLayoutMargins = false
-        cell!.layoutMargins = UIEdgeInsetsZero
-        cell!.backgroundColor = UIColor(red: 23, green: 72, blue: 147, alpha: 1)
-        
+//        cell.separatorInset = UIEdgeInsetsZero
+//        cell.preservesSuperviewLayoutMargins = false
+//        cell.layoutMargins = UIEdgeInsetsZero
+
         // init content of cell
         let selectedGroup: Group
         if searchController.active && searchController.searchBar.text != "" {
@@ -166,7 +163,7 @@ extension GroupsViewController: UITableViewDataSource {
         } else {
             selectedGroup = _groups[indexPath.row]
         }
-        cell!.groupNameLabel?.text = selectedGroup.name
+        cell.groupNameLabel?.text = selectedGroup.name
         
         let goals = selectedGroup.goals
         goals.sortGoalsByPriority()
@@ -174,10 +171,15 @@ extension GroupsViewController: UITableViewDataSource {
         for i in 0..<min(numGoalPreview, goals.count) {
             topGoalNames.append(goals.goals[i].name)
         }
-        cell!.setPreviewGoalNames(topGoalNames)
+        cell.setPreviewGoalNames(topGoalNames)
+
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = UIColor(red: 23/255, green: 72/255, blue: 147/255, alpha: 1)
+        bgColorView.alpha = 0.5
+        cell.selectedBackgroundView = bgColorView
         
         //let url = NSURL(string: _groups[indexPath.row].pictureUrl)
         //cell!.groupImageView?.image = UIImage(data: NSData(contentsOfURL: url!)!)
-        return cell!
+        return cell
     }
 }

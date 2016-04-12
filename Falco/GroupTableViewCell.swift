@@ -6,7 +6,6 @@
 //  Copyright © 2016 nus.cs3217.group04. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class GroupTableViewCell: UITableViewCell {
@@ -24,12 +23,15 @@ class GroupTableViewCell: UITableViewCell {
     }
     
     func setPreviewGoalNames(previewGoalNames: [String]) {
-        var offsetX = CGFloat(self.frame.size.width/2)
-        let width = self.frame.height - 2
-        for name in previewGoalNames {            
-            let previewGoal = BubbleCell(frame: CGRectMake(offsetX, 0, width, width))
+        let spacing: CGFloat = 20
+        let goalWidth = frame.height - groupNameLabel.frame.height - 2 * spacing
+        let goalsTotalWidth = CGFloat(previewGoalNames.count) * (goalWidth + spacing) - spacing
+        var offsetX: CGFloat = (frame.width - goalsTotalWidth) / 2
+        let offsetY = groupNameLabel.frame.height + spacing
+        for name in previewGoalNames {
+            let previewGoal = BubbleCell(frame: CGRectMake(offsetX, offsetY, goalWidth, goalWidth))
             previewGoal.label.text = name
-            offsetX += width
+            offsetX += goalWidth + spacing
             self.addSubview(previewGoal)
             self.bringSubviewToFront(previewGoal)
         }

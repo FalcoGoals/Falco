@@ -18,10 +18,18 @@ class BubbleCell: UIView {
         clipsToBounds = true
         layer.borderColor = UIColor.blackColor().CGColor
         layer.borderWidth = 2.0
-        backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.3)
+//        backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.3)
+        let backgroundImage = UIImageView(image: UIImage(named: "bubble"))
+        backgroundImage.contentMode = .ScaleToFill
+        backgroundImage.frame.size = frame.size
+        print(backgroundImage.frame)
+        print(frame)
+        addSubview(backgroundImage)
         label = UILabel(frame: CGRectMake(0, 0, frame.size.width, frame.size.width))
         label.center = CGPointMake(frame.size.width/2, frame.size.width/2)
         label.textAlignment = NSTextAlignment.Center
+        label.font = UIFont.boldSystemFontOfSize(20)
+        label.textColor = UIColor.whiteColor()
         addSubview(label)
     }
     
