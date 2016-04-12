@@ -18,7 +18,7 @@ protocol GoalModelDelegate {
 
 class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresentationControllerDelegate {
     private var scene: BubblesScene!
-    private var texture = [SKTexture]()
+    private var bubblePopTextures = [SKTexture]()
 
     var delegate: GoalModelDelegate!
     var initialGoals: GoalCollection?
@@ -28,9 +28,9 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let bubbleAnimatedAtlas = SKTextureAtlas(named: "bubble")
-        for bubbleTextureName in bubbleAnimatedAtlas.textureNames.sort() {
-            texture.append(SKTexture(imageNamed: bubbleTextureName))
+        let bubblePopAnimatedAtlas = SKTextureAtlas(named: "bubble-pop")
+        for textureName in bubblePopAnimatedAtlas.textureNames.sort() {
+            bubblePopTextures.append(SKTexture(imageNamed: textureName))
         }
     }
 
@@ -162,14 +162,14 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
 
         let circle = goalBubble.circle
         let label = goalBubble.label
-        let bubbleSpriteNode = SKSpriteNode(imageNamed: "default-bubble")
+        let bubbleSpriteNode = SKSpriteNode(imageNamed: "bubble")
         bubbleSpriteNode.size = circle.frame.size
         circle.removeAllChildren()
         circle.addChild(bubbleSpriteNode)
         circle.fillTexture = nil
         circle.fillColor = UIColor.clearColor()
         bubbleSpriteNode.runAction(SKAction.sequence([
-            SKAction.animateWithTextures(texture, timePerFrame: 0.1, resize: false, restore: true),
+            SKAction.animateWithTextures(bubblePopTextures, timePerFrame: 0.1, resize: false, restore: true),
             SKAction.removeFromParent()]))
         circle.runAction(SKAction.sequence([
             SKAction.fadeOutWithDuration(0.5),

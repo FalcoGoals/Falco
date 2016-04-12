@@ -268,7 +268,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="falcoLogo" translatesAutoresizingMaskIntoConstraints="NO" id="vZq-dh-z8F">
+                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="vZq-dh-z8F">
                                 <rect key="frame" x="180" y="65" width="240" height="240"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -530,9 +530,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="falcoLogo" width="441" height="441"/>
-        <image name="groups" width="50" height="50"/>
+        <image name="groups" width="25" height="25"/>
         <image name="home" width="25" height="25"/>
+        <image name="logo" width="441" height="441"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="j3E-ck-VKU"/>
