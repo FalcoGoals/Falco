@@ -142,7 +142,7 @@ class GoalCollection: CustomStringConvertible {
     /// Sorts all goals from highest priority to lowest priority
     func sortGoalsByPriority() {
         _goals.sortInPlace({ (goal1, goal2) -> Bool in
-            return goal1.priority.rawValue > goal2.priority.rawValue
+            return goal1.priority > goal2.priority
         })
     }
     

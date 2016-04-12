@@ -16,7 +16,7 @@ struct PersonalGoal: Goal {
 
     var name: String
     var details: String
-    var priority: PriorityType
+    var priority: Int
     var endTime: NSDate
 
     var id: String { return _id }
@@ -25,7 +25,7 @@ struct PersonalGoal: Goal {
     var serialisedData: [String: AnyObject] {
         let goalData: [String: AnyObject] = [Constants.nameKey: name,
                                              Constants.detailsKey: details,
-                                             Constants.priorityKey: priority.rawValue,
+                                             Constants.priorityKey: priority,
                                              Constants.endTimeKey: endTime.timeIntervalSince1970,
                                              Constants.completionTimeKey: completionTime.timeIntervalSince1970]
         return goalData
@@ -33,7 +33,7 @@ struct PersonalGoal: Goal {
 
     // MARK: Init
 
-    init(id: String = NSUUID().UUIDString, name: String, details: String, priority: PriorityType = .Low, endTime: NSDate, completionTime: NSDate = NSDate.distantPast()) {
+    init(id: String = NSUUID().UUIDString, name: String, details: String, priority: Int = 0, endTime: NSDate, completionTime: NSDate = NSDate.distantPast()) {
         self._id = id
         self.name = name
         self.details = details
@@ -45,7 +45,7 @@ struct PersonalGoal: Goal {
     init(id: String, goalData: [String: AnyObject]) {
         let name = goalData[Constants.nameKey]! as! String
         let details = goalData[Constants.detailsKey]! as! String
-        let priority = PriorityType(rawValue: goalData[Constants.priorityKey]! as! Int)!
+        let priority = goalData[Constants.priorityKey]! as! Int
         let endTime = NSDate(timeIntervalSince1970: NSTimeInterval(goalData[Constants.endTimeKey] as! NSNumber))
         let completionTime = NSDate(timeIntervalSince1970: NSTimeInterval(goalData[Constants.completionTimeKey] as! NSNumber))
         self.init(id: id, name: name, details: details, priority: priority, endTime: endTime, completionTime: completionTime)

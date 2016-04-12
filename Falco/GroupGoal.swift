@@ -16,7 +16,7 @@ struct GroupGoal: Goal {
 
     var name: String
     var details: String
-    var priority: PriorityType
+    var priority: Int
     var endTime: NSDate
 
     var id: String { return _id }
@@ -49,7 +49,7 @@ struct GroupGoal: Goal {
         }
         let goalData: [String: AnyObject] = [Constants.nameKey: name,
                                              Constants.detailsKey: details,
-                                             Constants.priorityKey: priority.rawValue,
+                                             Constants.priorityKey: priority,
                                              Constants.endTimeKey: endTime.timeIntervalSince1970,
                                              Constants.userCompletionTimesKey: serialisedUserData]
         return goalData
@@ -57,7 +57,7 @@ struct GroupGoal: Goal {
 
     // MARK: Init
 
-    init(id: String = NSUUID().UUIDString, name: String, details: String, priority: PriorityType = .Low, endTime: NSDate, userCompletionTimes: [User: NSDate] = [:]) {
+    init(id: String = NSUUID().UUIDString, name: String, details: String, priority: Int = 0, endTime: NSDate, userCompletionTimes: [User: NSDate] = [:]) {
         self._id = id
         self.name = name
         self.details = details
@@ -69,7 +69,7 @@ struct GroupGoal: Goal {
     init(id: String, goalData: [String: AnyObject]) {
         let name = goalData[Constants.nameKey]! as! String
         let details = goalData[Constants.detailsKey]! as! String
-        let priority = PriorityType(rawValue: goalData[Constants.priorityKey]! as! Int)!
+        let priority = goalData[Constants.priorityKey]! as! Int
         let endTime = NSDate(timeIntervalSince1970: NSTimeInterval(goalData[Constants.endTimeKey] as! NSNumber))
         let userData = goalData[Constants.userCompletionTimesKey]! as! [String: NSNumber]
         var userCompletionTimes: [User: NSDate] = [:]

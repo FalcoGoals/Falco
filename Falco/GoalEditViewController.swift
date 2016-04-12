@@ -35,14 +35,14 @@ class GoalEditViewController: UITableViewController {
         // Loading of goal information
 
         if goal == nil {
-            goal = PersonalGoal(name: "", details: "", priority: .Mid, endTime: NSDate())
+            goal = PersonalGoal(name: "", details: "", priority: 1, endTime: NSDate())
             navigationItem.title = "New Goal"
         }
 
         nameField.text = goal.name
         dateLabel.text = getDateString(goal.endTime)
         datePicker.setDate(goal.endTime, animated: false)
-        priorityControl.selectedSegmentIndex = goal.priority.rawValue
+        priorityControl.selectedSegmentIndex = goal.priority
         detailsField.text = goal.details
 
         // UI preparation
@@ -76,7 +76,7 @@ class GoalEditViewController: UITableViewController {
     @IBAction func saveDetails(sender: UIBarButtonItem) {
         goal.name = nameField.text!
         goal.details = detailsField.text!
-        goal.priority = PriorityType(rawValue: priorityControl.selectedSegmentIndex)!
+        goal.priority = priorityControl.selectedSegmentIndex
         goal.endTime = datePicker.date
 
         delegate.didSave(goal)

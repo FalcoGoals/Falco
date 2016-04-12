@@ -11,7 +11,7 @@ import Foundation
 protocol Goal {
     var name: String { get set }
     var details: String { get set }
-    var priority: PriorityType { get set }
+    var priority: Int { get set }
     var endTime: NSDate { get set }
 
     var id: String { get }
@@ -27,10 +27,6 @@ extension Goal {
     }
     /// smallest bubble has 15 point radius
     var weight: Int {
-        return (priority.rawValue + 1) * 50 + 80
+        return (priority + 1) * 50 + 80
     }
-}
-
-enum PriorityType: Int {
-    case Low, Mid, High
 }
