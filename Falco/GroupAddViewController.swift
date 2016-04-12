@@ -85,7 +85,22 @@ class GroupAddViewController: UIViewController {
     }
 }
 
-extension GroupAddViewController: UITableViewDataSource, UITableViewDelegate {
+extension GroupAddViewController: UITableViewDelegate {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as? FriendTableViewCell
+        if !_checkedRows[(cell?.user!)!]! {//cell?.accessoryType == UITableViewCellAccessoryType.None {
+            cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
+            _checkedRows[(cell?.user!)!] = true
+
+        } else {
+            cell?.accessoryType = UITableViewCellAccessoryType.None
+            _checkedRows[(cell?.user!)!] = false
+        }
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+}
+
+extension GroupAddViewController: UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -118,19 +133,6 @@ extension GroupAddViewController: UITableViewDataSource, UITableViewDelegate {
             cell?.accessoryType = UITableViewCellAccessoryType.None
         }
         return cell!
-    }
-    
-
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as? FriendTableViewCell
-        if !_checkedRows[(cell?.user!)!]! {//cell?.accessoryType == UITableViewCellAccessoryType.None {
-            cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
-            _checkedRows[(cell?.user!)!] = true
-            
-        } else {
-            cell?.accessoryType = UITableViewCellAccessoryType.None
-            _checkedRows[(cell?.user!)!] = false
-        }
     }
 }
 
