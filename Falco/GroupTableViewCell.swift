@@ -9,10 +9,9 @@
 import UIKit
 
 class GroupTableViewCell: UITableViewCell {
-    //@IBOutlet weak var groupImageView: UIImageView!
+    private let numGoalPreview = 3
+
     @IBOutlet weak var groupNameLabel: UILabel!
-    //var previewGoalNames: [String]!
-    /// top goals display
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,15 +21,20 @@ class GroupTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func setPreviewGoalNames(previewGoalNames: [String]) {
+    func setPreviewGoals(goals: GoalCollection) {
         let spacing: CGFloat = 20
         let goalWidth = frame.height - groupNameLabel.frame.height - 2 * spacing
-        let goalsTotalWidth = CGFloat(previewGoalNames.count) * (goalWidth + spacing) - spacing
+        let goalsTotalWidth = CGFloat(goals.count) * (goalWidth + spacing) - spacing
         var offsetX: CGFloat = (frame.width - goalsTotalWidth) / 2
         let offsetY = groupNameLabel.frame.height + spacing
-        for name in previewGoalNames {
-            let previewGoal = BubbleCell(frame: CGRectMake(offsetX, offsetY, goalWidth, goalWidth))
-            previewGoal.label.text = name
+
+        goals.sortGoalsByWeight()
+        var topGoals = [Goal]()
+        for i in 0..<min(numGoalPreview, goals.count) {
+            topGoals.append(goals.goals[i])
+        }
+        for goal in topGoals {
+            let previewGoal = BubbleCell(frame: CGRectMake(offsetX, offsetY, goalWidth, goalWidth), goal: goal)
             offsetX += goalWidth + spacing
             self.addSubview(previewGoal)
             self.bringSubviewToFront(previewGoal)

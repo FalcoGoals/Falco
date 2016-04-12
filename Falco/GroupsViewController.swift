@@ -20,7 +20,6 @@ class GroupsViewController: UIViewController, GroupAddDelegate, GoalModelDelegat
     private var _selectedGroup: Group!
 
     @IBOutlet var tableView: UITableView!
-    private var numGoalPreview = 3
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -164,14 +163,8 @@ extension GroupsViewController: UITableViewDataSource {
             selectedGroup = _groups[indexPath.row]
         }
         cell.groupNameLabel?.text = selectedGroup.name
-        
-        let goals = selectedGroup.goals
-        goals.sortGoalsByPriority()
-        var topGoalNames = [String]()
-        for i in 0..<min(numGoalPreview, goals.count) {
-            topGoalNames.append(goals.goals[i].name)
-        }
-        cell.setPreviewGoalNames(topGoalNames)
+
+        cell.setPreviewGoals(selectedGroup.goals)
 
         let bgColorView = UIView()
         bgColorView.backgroundColor = UIColor(red: 23/255, green: 72/255, blue: 147/255, alpha: 1)
