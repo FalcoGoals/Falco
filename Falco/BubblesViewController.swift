@@ -27,14 +27,20 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let bubbleAnimatedAtlas = SKTextureAtlas(named: "bubble")
+        for bubbleTextureName in bubbleAnimatedAtlas.textureNames.sort() {
+            texture.append(SKTexture(imageNamed: bubbleTextureName))
+        }
     }
 
     override func viewWillAppear(animated: Bool) {
+        guard scene == nil else {
+            return
+        }
+
         scene = BubblesScene(size: view.bounds.size)
         scene.scaleMode = .ResizeFill
-        
-        print(view.bounds.size)
-        print(presentingViewController?.presentedViewController?.view.bounds.size)
 
         let skView = view as! SKView
         skView.ignoresSiblingOrder = true
@@ -42,13 +48,6 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
         skView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(BubblesViewController.bubbleTapped(_:))))
         skView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action:
             #selector(BubblesViewController.bubbleLongPressed(_:))))
-
-        let bubbleAnimatedAtlas = SKTextureAtlas(named: "bubble")
-
-        for i in 0...(bubbleAnimatedAtlas.textureNames.count - 1) {
-            let bubbleTextureName = "bubble\(i).png"
-            texture.append(SKTexture(imageNamed: bubbleTextureName))
-        }
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -163,20 +162,20 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
 
         let circle = goalBubble.circle
         let label = goalBubble.label
-        let bubbleSpriteNode = SKSpriteNode(imageNamed: "default-bubble.png")
+        let bubbleSpriteNode = SKSpriteNode(imageNamed: "default-bubble")
         bubbleSpriteNode.size = circle.frame.size
         circle.removeAllChildren()
         circle.addChild(bubbleSpriteNode)
         circle.fillTexture = nil
         circle.fillColor = UIColor.clearColor()
         bubbleSpriteNode.runAction(SKAction.sequence([
-            SKAction.animateWithTextures(texture, timePerFrame: 0.2, resize: false, restore: true),
+            SKAction.animateWithTextures(texture, timePerFrame: 0.1, resize: false, restore: true),
             SKAction.removeFromParent()]))
         circle.runAction(SKAction.sequence([
-            SKAction.waitForDuration(1.0),
+            SKAction.fadeOutWithDuration(0.5),
             SKAction.removeFromParent()]))
         label.runAction(SKAction.sequence([
-            SKAction.waitForDuration(1.0),
+            SKAction.fadeOutWithDuration(0.5),
             SKAction.removeFromParent()]))
     }
 

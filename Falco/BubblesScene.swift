@@ -43,8 +43,6 @@ class BubblesScene: SKScene {
         background.position = CGPoint(x: frame.midX, y: frame.midY)
         background.name = "background"
         addChild(background)
-        print(frame.size)
-        cam.position.y = -frame.height/2
     }
 
       override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {

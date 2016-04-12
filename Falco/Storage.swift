@@ -12,4 +12,5 @@ class Storage {
     static let instance = Storage()
     var personalGoals = GoalCollection()
     var friends = [User]()
+    private init() {}
 }
