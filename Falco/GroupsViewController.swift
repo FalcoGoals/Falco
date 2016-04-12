@@ -95,9 +95,6 @@ class GroupsViewController: UIViewController, GroupAddDelegate, GoalModelDelegat
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableHeaderView = searchController.searchBar
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
-        tableView.separatorColor = UIColor.whiteColor()
-        tableView.tableFooterView = UIView(frame: CGRectZero)
     }
 
     private func refreshData() {
@@ -146,14 +143,15 @@ extension GroupsViewController: UITableViewDataSource {
         }
         return _groups.count
     }
-    
+
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.backgroundColor = UIColor(red: 13/255, green: 41/255, blue: 84/255, alpha: 0.7)
+        cell.layer.cornerRadius = 30
+        cell.layer.masksToBounds = true
+    }
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("groupCell", forIndexPath: indexPath) as! GroupTableViewCell
-
-        // init layout params
-//        cell.separatorInset = UIEdgeInsetsZero
-//        cell.preservesSuperviewLayoutMargins = false
-//        cell.layoutMargins = UIEdgeInsetsZero
 
         // init content of cell
         let selectedGroup: Group
@@ -167,12 +165,9 @@ extension GroupsViewController: UITableViewDataSource {
         cell.setPreviewGoals(selectedGroup.goals)
 
         let bgColorView = UIView()
-        bgColorView.backgroundColor = UIColor(red: 23/255, green: 72/255, blue: 147/255, alpha: 1)
-        bgColorView.alpha = 0.5
+        bgColorView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
         cell.selectedBackgroundView = bgColorView
-        
-        //let url = NSURL(string: _groups[indexPath.row].pictureUrl)
-        //cell!.groupImageView?.image = UIImage(data: NSData(contentsOfURL: url!)!)
+
         return cell
     }
 }

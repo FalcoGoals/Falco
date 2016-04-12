@@ -22,6 +22,10 @@ class GroupTableViewCell: UITableViewCell {
     }
     
     func setPreviewGoals(goals: GoalCollection) {
+        guard !goals.isEmpty else {
+            return
+        }
+        
         let spacing: CGFloat = 20
         let maxGoalWidth = frame.height - groupNameLabel.frame.height - 2 * spacing
 

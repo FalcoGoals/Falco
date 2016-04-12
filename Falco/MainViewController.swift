@@ -13,6 +13,7 @@ class MainViewController: UITabBarController, LoginDelegate, GoalModelDelegate {
     private var storage = Storage.instance
 
     private var homeViewController: BubblesViewController!
+    private var groupsNavViewController: UINavigationController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,9 +21,17 @@ class MainViewController: UITabBarController, LoginDelegate, GoalModelDelegate {
         homeViewController = viewControllers![0] as! BubblesViewController
         homeViewController.delegate = self
 
+        groupsNavViewController = viewControllers![1] as! UINavigationController
+
         if server.hasToken {
             didReceiveToken()
         }
+    }
+
+    override func viewWillAppear(animated: Bool) {
+        let backgroundImage = UIImageView(image: UIImage(named: "wallpaper"))
+        backgroundImage.frame = view.frame
+        groupsNavViewController.view.insertSubview(backgroundImage, atIndex: 0)
     }
 
     override func viewDidAppear(animated: Bool) {
