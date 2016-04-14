@@ -37,22 +37,22 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showGroupAdd" {
+        if segue.identifier == Constants.addGroupSegue {
             let nc = segue.destinationViewController as! UINavigationController
             let gavc = nc.topViewController as! GroupAddViewController
             gavc.delegate = self
-        } else if segue.identifier == "showGroupBubblesView" {
+        } else if segue.identifier == Constants.groupBubblesSegue {
             let bvc = segue.destinationViewController as! BubblesViewController
             bvc.title = _selectedGroup.name
             bvc.initialGoals = _selectedGroup.goals
             bvc.delegate = self
-        } else if segue.identifier == "showChat" {
+        } else if segue.identifier == Constants.groupChatSegue {
             let gcv = segue.destinationViewController as! GroupChatViewController
             let chatButton = sender as! UIButton
             let selectedCell = chatButton.superview?.superview as! GroupTableViewCell
             let indexPath = tableView.indexPathForCell(selectedCell)
             var selectedGroup: Group
-            if searchController.active && searchController.searchBar.text != "" {
+            if searchController.active && searchController.searchBar.text != Constants.emptyString {
                 selectedGroup = _searchedGroups[indexPath!.section]
             } else {
                 selectedGroup = _groups[indexPath!.section]
@@ -84,7 +84,7 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
     private func initSearchController() {
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Find a group"
+        searchController.searchBar.placeholder = Constants.groupSearchbarPlaceholder
         searchController.searchBar.barStyle = .Black
         definesPresentationContext = true
         searchBarContainer.addSubview(searchController.searchBar)
@@ -93,8 +93,8 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
     private func initTableView() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.sectionFooterHeight = 20
-        tableView.sectionHeaderHeight = 20
+        tableView.sectionFooterHeight = Constants.groupFooterHeight
+        tableView.sectionHeaderHeight = Constants.groupHeaderHeight
     }
 
     private func refreshData() {
@@ -103,7 +103,7 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
         }
     }
 
-    private func filterContentForSearchText(searchText: String, scope: String = "All") {
+    private func filterContentForSearchText(searchText: String, scope: String = Constants.groupSearchScope) {
         _searchedGroups = _groups.filter { group in
             return group.name.lowercaseString.containsString(searchText.lowercaseString)
         }
@@ -149,19 +149,19 @@ extension GroupsViewController: UISearchResultsUpdating {
 
 extension GroupsViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if searchController.active && searchController.searchBar.text != "" {
+        if searchController.active && searchController.searchBar.text != Constants.emptyString {
             _selectedGroup = _searchedGroups[indexPath.section]
         } else {
             _selectedGroup = _groups[indexPath.section]
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        performSegueWithIdentifier("showGroupBubblesView", sender: self)
+        performSegueWithIdentifier(Constants.groupBubblesSegue, sender: self)
     }
 }
 
 extension GroupsViewController: UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        if searchController.active && searchController.searchBar.text != "" {
+        if searchController.active && searchController.searchBar.text != Constants.emptyString {
             return _searchedGroups.count
         }
         return _groups.count
@@ -172,17 +172,17 @@ extension GroupsViewController: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        cell.backgroundColor = UIColor(red: 13/255, green: 41/255, blue: 84/255, alpha: 0.7)
-        cell.layer.cornerRadius = 30
+        cell.backgroundColor = Constants.groupCellBgColor
+        cell.layer.cornerRadius = Constants.groupCellCornerRadius
         cell.layer.masksToBounds = true
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("groupCell", forIndexPath: indexPath) as! GroupTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.groupCellID, forIndexPath: indexPath) as! GroupTableViewCell
 
         // init content of cell
         let selectedGroup: Group
-        if searchController.active && searchController.searchBar.text != "" {
+        if searchController.active && searchController.searchBar.text != Constants.emptyString {
             selectedGroup = _searchedGroups[indexPath.section]
         } else {
             selectedGroup = _groups[indexPath.section]

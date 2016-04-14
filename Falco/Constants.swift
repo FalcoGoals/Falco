@@ -6,7 +6,7 @@
 //  Copyright © 2016 nus.cs3217.group04. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Constants {
     // Keys used for serialisation/deserialisation of data
@@ -19,4 +19,20 @@ struct Constants {
     static let userCompletionTimesKey = "userCompletionTimes"
     static let membersKey = "members"
     static let goalsKey = "goals"
+    
+    // Segue identifiers
+    static let addGroupSegue = "showGroupAdd"
+    static let groupChatSegue = "showChat"
+    static let groupBubblesSegue = "showGroupBubblesView"
+    
+    static let emptyString = ""
+    static let groupSearchbarPlaceholder = "Find a group"
+    static let groupSearchScope = "All"
+    
+    // Groups tableview
+    static let groupCellID = "groupCell"
+    static let groupFooterHeight = CGFloat(20)
+    static let groupHeaderHeight = CGFloat(20)
+    static let groupCellCornerRadius = CGFloat(30)
+    static let groupCellBgColor = UIColor(red: 13/255, green: 41/255, blue: 84/255, alpha: 0.7)
 }
