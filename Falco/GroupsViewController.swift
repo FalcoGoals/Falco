@@ -61,6 +61,12 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
         }
     }
 
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        let bar = searchController.searchBar
+        bar.frame.size = CGSize(width: size.width, height: bar.frame.height)
+        tableView.reloadData()
+    }
+
     // MARK: GroupAddDelegate
 
     func didAddGroup(group: Group) {
