@@ -35,6 +35,13 @@ class MainViewController: UITabBarController, LoginDelegate {
         if server.hasToken {
             didReceiveToken()
         }
+        
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(MainViewController.handleSwipe(_:)))
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(MainViewController.handleSwipe(_:)))
+        leftSwipe.direction = .Left
+        rightSwipe.direction = .Right
+        view.addGestureRecognizer(leftSwipe)
+        view.addGestureRecognizer(rightSwipe)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -58,6 +65,17 @@ class MainViewController: UITabBarController, LoginDelegate {
             lvc.delegate = self
         }
     }
+    
+    func handleSwipe(sender: UISwipeGestureRecognizer) {
+        if (sender.direction == .Left) {
+            selectedIndex = 1
+        }
+        
+        if (sender.direction == .Right) {
+            selectedIndex = 0
+        }
+    }
+
 
     // MARK: LoginDelegate
 
@@ -90,7 +108,6 @@ class MainViewController: UITabBarController, LoginDelegate {
     private func updateBubblesView() {
         homeViewController.addGoalsToScene(storage.personalGoals.incompleteGoals)
     }
-
 }
 
 extension MainViewController: GoalModelDelegate {

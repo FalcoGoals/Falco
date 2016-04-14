@@ -164,6 +164,7 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
         let label = goalBubble.label
         let bubbleSpriteNode = SKSpriteNode(imageNamed: "bubble")
         bubbleSpriteNode.size = circle.frame.size
+        bubbleSpriteNode.setScale(1/circle.xScale)
         circle.removeAllChildren()
         circle.addChild(bubbleSpriteNode)
         circle.fillTexture = nil
