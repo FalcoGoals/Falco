@@ -12,6 +12,7 @@ class GroupTableViewCell: UITableViewCell {
     private let numGoalPreview = 3
 
     @IBOutlet weak var groupNameLabel: UILabel!
+    @IBOutlet var chatButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -37,13 +37,21 @@ class GroupChatViewController: JSQMessagesViewController {
         }
     }
     
+    func initialize(group: Group, localUser: User) {
+        groupName = group.name
+        groupID = group.id
+        user = localUser
+        print(user.name)
+        print(localUser.name)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // testing purposes
-        groupName = "test chat"
-        groupID = "testChat"
-        user = User(id: "jy", name: "Jing", pictureUrl: "")
+      //  groupName = "test chat"
+        //groupID = "testChat"
+        //user = User(id: "jy", name: "Jing", pictureUrl: "")
         
         title = groupName
         senderId = user.id
