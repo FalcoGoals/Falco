@@ -108,7 +108,6 @@ class MainViewController: UITabBarController, LoginDelegate {
     private func updateBubblesView() {
         homeViewController.addGoalsToScene(storage.personalGoals.incompleteGoals)
     }
-
 }
 
 extension MainViewController: GoalModelDelegate {
