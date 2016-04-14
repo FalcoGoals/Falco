@@ -41,8 +41,6 @@ class GroupChatViewController: JSQMessagesViewController {
         groupName = group.name
         groupID = group.id
         user = localUser
-        print(user.name)
-        print(localUser.name)
     }
     
     override func viewDidLoad() {
@@ -82,24 +80,32 @@ class GroupChatViewController: JSQMessagesViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-            let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as! JSQMessagesCollectionViewCell
-            
-            let message = messages[indexPath.item]
-            
-            if message.senderId == senderId {
-                cell.textView!.textColor = UIColor.whiteColor()
-            } else {
-                cell.textView!.textColor = UIColor.blackColor()
-            }
-            
-            return cell
+        let cell = super.collectionView(collectionView, cellForItemAtIndexPath: indexPath) as! JSQMessagesCollectionViewCell
+        
+        let message = messages[indexPath.item]
+        
+        if message.senderId == senderId {
+            cell.textView!.textColor = UIColor.whiteColor()
+        } else {
+            cell.textView!.textColor = UIColor.blackColor()
+            cell.messageBubbleTopLabel.text = message.senderDisplayName
+        }
+        return cell
     }
 
     /// Displays avatar of users
     override func collectionView(collectionView: JSQMessagesCollectionView!,
         avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
-            return nil
+        return nil
            // JSQMessagesAvatarImageFactory.avatarImageWithImage(<#T##image: UIImage!##UIImage!#>, diameter: <#T##UInt#>)
+    }
+    
+    override func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        let msg = messages[indexPath.item]
+        if msg.senderId == senderId {
+            return 0
+        }
+        return 20
     }
     
     /// Sets the bubble view for incoming and outgoing messages
