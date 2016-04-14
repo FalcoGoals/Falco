@@ -22,6 +22,8 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
 
     var delegate: GoalModelDelegate!
     var initialGoals: GoalCollection?
+    var isGroup = false
+    var currentGroup: Group?
 
     // MARK: Init
 
@@ -48,6 +50,9 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
         skView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(BubblesViewController.bubbleTapped(_:))))
         skView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action:
             #selector(BubblesViewController.bubbleLongPressed(_:))))
+        if (isGroup) {
+            scene.addChat()
+        }
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -90,6 +95,20 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
             }
             evc.delegate = self
             pauseScene()
+        } else if segue.identifier == "showChatView" {
+            let nc = segue.destinationViewController as! UINavigationController
+            let cvc = nc.topViewController as! GroupChatViewController
+            
+            let location = sender!.locationInView(sender!.view)
+            let touchLocation = scene.convertPointFromView(location)
+            let node = scene.nodeAtPoint(touchLocation)
+            
+            nc.popoverPresentationController!.sourceView = sender!.view
+            nc.popoverPresentationController!.delegate = self
+            nc.popoverPresentationController!.sourceRect = CGRect(origin: location, size: node.frame.size)
+            
+            cvc.initialize(currentGroup!, localUser: Server.instance.user)
+            cvc.preferredContentSize = CGSizeMake(view.frame.width, view.frame.height/2)
         }
     }
 
@@ -103,7 +122,14 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
     // MARK: Gesture recognisers
 
     func bubbleTapped(sender: UITapGestureRecognizer) {
-        performSegueWithIdentifier("showEditView", sender: sender)
+        let location = sender.locationInView(sender.view)
+        let touchLocation = scene.convertPointFromView(location)
+        let node = scene.nodeAtPoint(touchLocation)
+        if (node.name == "chat") {
+            performSegueWithIdentifier("showChatView", sender: sender)
+        } else {
+            performSegueWithIdentifier("showEditView", sender: sender)
+        }
     }
     
     func bubbleLongPressed(sender: UILongPressGestureRecognizer) {
