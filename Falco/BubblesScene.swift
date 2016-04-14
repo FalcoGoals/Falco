@@ -93,6 +93,13 @@ class BubblesScene: SKScene {
         }
     }
     
+    func addChat() {
+        let sampleBubble = SKShapeNode(circleOfRadius: 20)
+        sampleBubble.position = CGPointMake((-size.width/2) + 100, (-size.height/2) + 150)
+        sampleBubble.name = "chat"
+        cam.addChild(sampleBubble)
+    }
+    
     private func calculateNextPosition(diameter: Int) -> (Int, Int){
         var xValue = 0
         var lowestYValue = lowestY
