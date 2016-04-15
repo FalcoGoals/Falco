@@ -58,7 +58,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="bottom" text="(goal name)" placeholder="Goal name" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="sd9-0k-ATJ">
-                                                    <rect key="frame" x="28" y="18" width="544" height="25.5"/>
+                                                    <rect key="frame" x="28" y="0.0" width="544" height="43.5"/>
                                                     <color key="textColor" red="0.0" green="0.46274509803921571" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -72,7 +72,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="sd9-0k-ATJ" secondAttribute="trailing" constant="20" id="0Xu-wQ-6O5"/>
                                                 <constraint firstItem="sd9-0k-ATJ" firstAttribute="leading" secondItem="bSq-EH-1Ao" secondAttribute="leadingMargin" constant="20" id="9hb-AJ-pQO"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="sd9-0k-ATJ" secondAttribute="bottom" constant="-8" id="ZuS-On-2Fc"/>
-                                                <constraint firstItem="sd9-0k-ATJ" firstAttribute="top" secondItem="bSq-EH-1Ao" secondAttribute="topMargin" constant="10" id="uDa-oc-2OZ"/>
+                                                <constraint firstItem="sd9-0k-ATJ" firstAttribute="top" secondItem="bSq-EH-1Ao" secondAttribute="topMargin" constant="-8" id="uDa-oc-2OZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -123,7 +123,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ezu-I3-plq">
+                                                <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Ezu-I3-plq">
                                                     <rect key="frame" x="8" y="0.0" width="584" height="44"/>
                                                     <date key="date" timeIntervalSinceReferenceDate="481806298.80341899">
                                                         <!--2016-04-08 11:04:58 +0000-->
@@ -289,6 +289,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="navbar" destination="vJM-z1-2yX" id="kOg-3b-iQa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="92C-gZ-8WS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Z7J-n2-BNA" userLabel="Exit" sceneMemberID="exit"/>
