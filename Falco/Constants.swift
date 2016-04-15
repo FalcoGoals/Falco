@@ -32,8 +32,7 @@ struct Constants {
     
     // Groups tableview
     static let groupCellID = "groupCell"
-    static let groupFooterHeight = CGFloat(20)
-    static let groupHeaderHeight = CGFloat(20)
+    static let groupFooterHeight = CGFloat(10)
     static let groupCellCornerRadius = CGFloat(30)
     static let groupCellBgColor = UIColor(red: 13/255, green: 41/255, blue: 84/255, alpha: 0.7)
 }

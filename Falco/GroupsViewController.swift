@@ -24,7 +24,6 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        refreshData()
         initSearchController()
         initTableView()
     }
@@ -55,6 +54,14 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
         }
     }
 
+    func refreshData() {
+        delegate.refreshGroups() {
+            if self.tableView != nil {
+                self.tableView.reloadData()
+            }
+        }
+    }
+
     // MARK: GroupAddDelegate
 
     func didAddGroup(group: Group) {
@@ -82,14 +89,7 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.sectionFooterHeight = Constants.groupFooterHeight
-        tableView.sectionHeaderHeight = Constants.groupHeaderHeight
         tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, -15)
-    }
-
-    private func refreshData() {
-        delegate.refreshGroups() {
-            self.tableView.reloadData()
-        }
     }
 
     private func filterContentForSearchText(searchText: String, scope: String = Constants.groupSearchScope) {

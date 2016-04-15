@@ -183,6 +183,7 @@
 				74C086111C9AD71300BA50C9 /* controller */,
 				74C086131C9AD72600BA50C9 /* view */,
 				745957821C9841DE00C3D3C0 /* Main.storyboard */,
+				25E2760D1CABC67C007A26EF /* Constants.swift */,
 				A2C1C7DD1CACBE6800B6EAFA /* Server.swift */,
 				A20EAA941CBB744400BAAEF7 /* Storage.swift */,
 				7459577E1C9841DE00C3D3C0 /* AppDelegate.swift */,
@@ -223,12 +224,11 @@
 			children = (
 				2528BAE71CA702DD007332FA /* Goal.swift */,
 				2528BAEB1CA702DD007332FA /* PersonalGoal.swift */,
-				A2EE6F601CC0D04F00D6ED1F /* ModelDelegate.swift */,
 				2528BAEA1CA702DD007332FA /* GroupGoal.swift */,
 				2528BAE81CA702DD007332FA /* GoalCollection.swift */,
 				2528BAEC1CA702DD007332FA /* User.swift */,
 				2528BAE91CA702DD007332FA /* Group.swift */,
-				25E2760D1CABC67C007A26EF /* Constants.swift */,
+				A2EE6F601CC0D04F00D6ED1F /* ModelDelegate.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
