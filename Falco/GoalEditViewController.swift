@@ -9,8 +9,8 @@
 import UIKit
 
 protocol GoalEditDelegate {
-    var goal: Goal { get set }
-    var members: [User] { get set }
+    var goal: Goal! { get set }
+    var members: [User]? { get set }
 }
 
 class GoalEditViewController: UITableViewController {
