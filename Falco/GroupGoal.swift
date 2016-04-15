@@ -21,6 +21,7 @@ struct GroupGoal: Goal {
     var endTime: NSDate
 
     var id: String { return _id }
+    var groupId: String { return _groupId }
     var completionTime: NSDate {
         var latestCompletionTime = NSDate.distantPast()
         for (_, userCompletionTime) in _userCompletionTimes {

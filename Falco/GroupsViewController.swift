@@ -10,8 +10,7 @@ import UIKit
 
 protocol GroupModelDelegate {
     func getGroups() -> [Group]
-    func didAddGroup(group: Group, callback: (() -> ())?)
-    func didUpdateGroup(group: Group)
+    func didUpdateGroup(group: Group, callback: (() -> ())?)
     func refreshGroups(callback: (() -> ())?)
 }
 
@@ -61,7 +60,7 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
     // MARK: GroupAddDelegate
 
     func didAddGroup(group: Group) {
-        delegate.didAddGroup(group) {
+        delegate.didUpdateGroup(group) {
             self.refreshData()
         }
     }
@@ -110,8 +109,10 @@ extension GroupsViewController: GoalModelDelegate {
         if let goal = goal as? PersonalGoal {
             Storage.instance.personalGoals.updateGoal(goal)
             Server.instance.savePersonalGoal(goal)
+        } else if let goal = goal as? GroupGoal {
+            Storage.instance.groups[goal.groupId]!.goals.updateGoal(goal)
+            Server.instance.saveGroupGoal(goal)
         }
-        // TODO: group goals
     }
 
     func didCompleteGoal(goal: Goal) {

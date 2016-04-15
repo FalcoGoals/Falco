@@ -13,6 +13,8 @@ protocol GoalEditDelegate {
 }
 
 class GoalEditViewController: UITableViewController {
+    private var isGroup: Bool { return group != nil }
+
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var detailsField: UITextView!
     @IBOutlet weak var dateLabel: UILabel!
@@ -27,6 +29,7 @@ class GoalEditViewController: UITableViewController {
     var delegate: GoalEditDelegate!
 
     var goal: Goal!
+    var group: Group?
     var isDatePickerShown = false
 
     override func viewDidLoad() {
@@ -35,7 +38,11 @@ class GoalEditViewController: UITableViewController {
         // Loading of goal information
 
         if goal == nil {
-            goal = PersonalGoal(name: "", details: "", priority: 1, endTime: NSDate())
+            if isGroup {
+                goal = GroupGoal(groupId: group!.id, name: "", details: "", endTime: NSDate())
+            } else {
+                goal = PersonalGoal(name: "", details: "", endTime: NSDate())
+            }
             navigationItem.title = "New Goal"
         }
 

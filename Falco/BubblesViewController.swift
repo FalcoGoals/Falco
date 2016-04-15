@@ -80,6 +80,9 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
         if segue.identifier == Constants.goalEditSegue {
             let nc = segue.destinationViewController as! UINavigationController
             let evc = nc.topViewController as! GoalEditViewController
+            if isGroup {
+                evc.group = currentGroup
+            }
 
             let location = sender!.locationInView(sender!.view)
             let touchLocation = scene.convertPointFromView(location)

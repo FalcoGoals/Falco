@@ -11,7 +11,7 @@ import Foundation
 class Storage {
     static let instance = Storage()
     var personalGoals = GoalCollection()
-    var groups = [Group]()
+    var groups: [String: Group] = [:]
     var friends = [User]()
     private init() {}
 }

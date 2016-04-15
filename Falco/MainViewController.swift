@@ -116,8 +116,10 @@ extension MainViewController: GoalModelDelegate {
         if let goal = goal as? PersonalGoal {
             storage.personalGoals.updateGoal(goal)
             server.savePersonalGoal(goal)
+        } else if let goal = goal as? GroupGoal {
+            storage.groups[goal.groupId]!.goals.updateGoal(goal)
+            server.saveGroupGoal(goal)
         }
-        // TODO: group goals
     }
 
     func didCompleteGoal(goal: Goal) {
@@ -143,22 +145,11 @@ extension MainViewController: GoalModelDelegate {
 extension MainViewController: GroupModelDelegate {
 
     func getGroups() -> [Group] {
-        return storage.groups
+        return Array(storage.groups.values)
     }
 
-    func didUpdateGroup(group: Group) {
-        for i in 0..<storage.groups.count {
-            let existingGroup = storage.groups[i]
-            if existingGroup.id == group.id {
-                storage.groups[i] = group
-                // TODO: update server
-                return
-            }
-        }
-    }
-
-    func didAddGroup(group: Group, callback: (() -> ())? = nil) {
-        storage.groups.append(group)
+    func didUpdateGroup(group: Group, callback: (() -> ())? = nil) {
+        storage.groups[group.id] = group
         server.saveGroup(group) {
             callback?()
         }
@@ -167,7 +158,10 @@ extension MainViewController: GroupModelDelegate {
     func refreshGroups(callback: (() -> ())? = nil) {
         server.getGroups() { groups in
             if let groups = groups {
-                self.storage.groups = groups
+                self.storage.groups = [:]
+                for group in groups {
+                    self.storage.groups[group.id] = group
+                }
             }
             callback?()
         }

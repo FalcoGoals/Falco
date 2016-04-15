@@ -131,6 +131,17 @@ class Server {
         return true
     }
 
+    func saveGroupGoal(goal: GroupGoal) -> Bool {
+        if !isAuth {
+            return false
+        }
+
+        let goalRef = groupsRef.childByAppendingPath("\(goal.groupId)/goals/\(goal.id)")
+        goalRef.updateChildValues(goal.serialisedData)
+
+        return true
+    }
+
     func savePersonalGoals(goals: GoalCollection) -> Bool {
         if !isAuth {
             return false
