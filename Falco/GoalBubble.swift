@@ -44,7 +44,7 @@ class GoalBubble: SKNode {
         self.circle = SKShapeNode(circleOfRadius: circleOfRadius)
         self.label = SKLabelNode(text: text)
         while label.frame.width >= radius * 2 {
-            label.text = label.text!.substringToIndex(label.text!.endIndex.predecessor())
+            label.text = String(label.text!.characters.dropLast())
         }
 
         super.init()
