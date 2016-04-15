@@ -249,10 +249,10 @@
             </objects>
             <point key="canvasLocation" x="2207" y="-498"/>
         </scene>
-        <!--View Controller-->
+        <!--Goal Edit Holder Controller-->
         <scene sceneID="xsp-jP-CWP">
             <objects>
-                <viewController id="5mH-HK-7At" sceneMemberID="viewController">
+                <viewController id="5mH-HK-7At" customClass="GoalEditHolderController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rQI-UD-P2N"/>
                         <viewControllerLayoutGuide type="bottom" id="Py0-4D-AxY"/>
