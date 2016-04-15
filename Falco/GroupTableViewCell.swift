@@ -22,12 +22,12 @@ class GroupTableViewCell: UITableViewCell {
     }
     
     func setPreviewGoals(goals: GoalCollection) {
-        guard !goals.isEmpty else {
-            return
-        }
-
         for subview in subviews where subview is BubbleCell {
             subview.removeFromSuperview()
+        }
+
+        guard !goals.isEmpty else {
+            return
         }
 
         let spacing: CGFloat = 20
