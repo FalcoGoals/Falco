@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class BubblesViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+class BubblesViewController: UIViewController {
     private var scene: BubblesScene!
     private var bubblePopTextures = [SKTexture]()
     private var isGroup: Bool {
@@ -91,14 +91,15 @@ class BubblesViewController: UIViewController, UIPopoverPresentationControllerDe
             nc.popoverPresentationController!.sourceView = sender!.view
             nc.popoverPresentationController!.delegate = self
             if let node = node as? GoalBubble {
+                let size = CGSize(width: 450, height: 380)
                 goalEditHolderController.goal = delegate.getGoal(node.id, groupId: currentGroup?.id)
+                goalEditHolderController.preferredContentSize = size
                 nc.popoverPresentationController!.sourceRect = CGRect(origin: location, size: node.frame.size)
             } else {
                 goalEditHolderController.goal = nil
                 nc.popoverPresentationController!.sourceRect.offsetInPlace(dx: location.x, dy: location.y)
             }
             goalEditHolderController.saveDelegate = self
-            pauseScene()
         } else if segue.identifier == Constants.groupChatSegue {
             let nc = segue.destinationViewController as! UINavigationController
             let cvc = nc.topViewController as! GroupChatViewController
@@ -164,12 +165,6 @@ class BubblesViewController: UIViewController, UIPopoverPresentationControllerDe
         addGoalsToScene(delegate.getGoals())
     }
 
-    // MARK: UIPopoverPresentationControllerDelegate
-
-    func popoverPresentationControllerDidDismissPopover(_: UIPopoverPresentationController) {
-        playScene()
-    }
-
     // MARK: IB Actions
 
     @IBAction func cancelGoalEdit(segue: UIStoryboardSegue) { playScene() }
@@ -205,6 +200,17 @@ class BubblesViewController: UIViewController, UIPopoverPresentationControllerDe
 
     private func playScene() {
         self.scene.view?.paused = false
+    }
+}
+
+private typealias PopoverDelegate = BubblesViewController
+extension PopoverDelegate: UIPopoverPresentationControllerDelegate {
+    func popoverPresentationControllerDidDismissPopover(_: UIPopoverPresentationController) {
+        playScene()
+    }
+
+    func prepareForPopoverPresentation(popoverPresentationController: UIPopoverPresentationController) {
+        pauseScene()
     }
 }
 
