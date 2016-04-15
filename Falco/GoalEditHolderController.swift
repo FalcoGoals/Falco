@@ -20,6 +20,12 @@ class GoalEditHolderController: UIViewController, GoalEditDelegate {
     var saveDelegate: Savable!
     var goalEditController: GoalEditViewController!
 
+    @IBOutlet weak var navbar: UINavigationItem!
+
+    override func viewDidLoad() {
+        navbar.title = goal.name
+    }
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == Constants.goalEditSegue {
             goalEditController = segue.destinationViewController as! GoalEditViewController
