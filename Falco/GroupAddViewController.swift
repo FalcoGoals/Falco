@@ -27,14 +27,14 @@ class GroupAddViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        Server.instance.getFriends() { users in
-            if let contacts = users {
-                self._friends.appendContentsOf(contacts)
-                self.tableView.reloadData()
-                for friend in contacts {
-                    self._checkedRows[friend] = false
-                }
+        if let contacts = Storage.instance.friends {
+            self._friends = contacts
+            self.tableView.reloadData()
+            for friend in contacts {
+                self._checkedRows[friend] = false
             }
+        } else {
+            refreshData()
         }
         tableView.dataSource = self
         tableView.delegate = self
@@ -43,7 +43,23 @@ class GroupAddViewController: UIViewController {
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
     }
-    
+
+    override func viewDidAppear(animated: Bool) {
+        refreshData()
+    }
+
+    func refreshData() {
+        Server.instance.getFriends() { users in
+            if let contacts = users {
+                self._friends = contacts
+                self.tableView.reloadData()
+                for friend in contacts {
+                    self._checkedRows[friend] = false
+                }
+            }
+        }
+    }
+
     func filterContentForSearchText(searchText: String, scope: String = "All") {
         _searchedFriends = _friends.filter { friend in
             return friend.name.lowercaseString.containsString(searchText.lowercaseString)

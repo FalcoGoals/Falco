@@ -229,7 +229,6 @@ class Server {
                 friends.append(friend)
             }
 
-            print("Friends: \(friends)\n")
             callback(friends)
         }
     }

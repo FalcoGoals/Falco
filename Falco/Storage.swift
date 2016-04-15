@@ -12,6 +12,6 @@ class Storage {
     static let instance = Storage()
     var personalGoals = GoalCollection()
     var groups: [String: Group] = [:]
-    var friends = [User]()
+    var friends: [User]? = nil
     private init() {}
 }
