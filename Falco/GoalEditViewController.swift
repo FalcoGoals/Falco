@@ -9,7 +9,8 @@
 import UIKit
 
 protocol GoalEditDelegate {
-    func didSave(goal: Goal)
+    var goal: Goal { get set }
+    var members: [User] { get set }
 }
 
 class GoalEditViewController: UITableViewController {
