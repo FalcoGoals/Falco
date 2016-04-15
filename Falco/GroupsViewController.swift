@@ -29,6 +29,10 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
         initTableView()
     }
 
+    override func viewDidAppear(animated: Bool) {
+        refreshData()
+    }
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == Constants.addGroupSegue {
             let nc = segue.destinationViewController as! UINavigationController
