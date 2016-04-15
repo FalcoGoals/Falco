@@ -10,6 +10,7 @@ import UIKit
 
 protocol GoalEditDelegate {
     var goal: Goal! { get set }
+    var group: Group! { get set }
     var members: [User]? { get set }
 }
 
