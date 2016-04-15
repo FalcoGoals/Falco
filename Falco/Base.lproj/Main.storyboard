@@ -399,7 +399,7 @@
                     <navigationItem key="navigationItem" title="Home" id="Cuz-c2-DYo"/>
                     <value key="contentSizeForViewInPopover" type="size" width="700" height="700"/>
                     <connections>
-                        <segue destination="UDy-Sm-d4K" kind="popoverPresentation" identifier="showEditView" popoverAnchorView="raG-ce-fmP" id="zq2-nq-fiU">
+                        <segue destination="UDy-Sm-d4K" kind="popoverPresentation" identifier="showGoalEditView" popoverAnchorView="raG-ce-fmP" id="zq2-nq-fiU">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
                         <segue destination="hRW-6F-aCl" kind="popoverPresentation" identifier="showChatView" popoverAnchorView="raG-ce-fmP" id="gRB-5C-vdu">
