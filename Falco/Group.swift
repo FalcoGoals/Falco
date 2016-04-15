@@ -55,7 +55,7 @@ class Group: CustomStringConvertible {
         var goals = [Goal]()
         if let goalsData = groupData[Constants.goalsKey] as? [String: [String: AnyObject]] {
             for (goalId, goalData) in goalsData {
-                goals.append(GroupGoal(id: goalId, goalData: goalData))
+                goals.append(GroupGoal(id: goalId, groupId: id, goalData: goalData))
             }
         }
         self.init(id: id, name: name, members: members, goals: GoalCollection(goals: goals))

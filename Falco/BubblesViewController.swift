@@ -19,10 +19,12 @@ protocol GoalModelDelegate {
 class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresentationControllerDelegate {
     private var scene: BubblesScene!
     private var bubblePopTextures = [SKTexture]()
+    private var isGroup: Bool {
+        return currentGroup != nil
+    }
 
     var delegate: GoalModelDelegate!
     var initialGoals: GoalCollection?
-    var isGroup = false
     var currentGroup: Group?
 
     // MARK: Init

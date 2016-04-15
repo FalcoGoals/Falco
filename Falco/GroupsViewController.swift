@@ -45,7 +45,6 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
             let bvc = segue.destinationViewController as! BubblesViewController
             bvc.title = _selectedGroup.name
             bvc.initialGoals = _selectedGroup.goals
-            bvc.isGroup = true
             bvc.currentGroup = _selectedGroup
             bvc.delegate = self
         }

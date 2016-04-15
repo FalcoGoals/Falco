@@ -10,6 +10,7 @@ import Foundation
 
 struct GroupGoal: Goal {
     private let _id: String
+    private let _groupId: String
     private var _userCompletionTimes: [User: NSDate]
 
     // MARK: Properties
@@ -57,8 +58,9 @@ struct GroupGoal: Goal {
 
     // MARK: Init
 
-    init(id: String = NSUUID().UUIDString, name: String, details: String, priority: Int = 0, endTime: NSDate, userCompletionTimes: [User: NSDate] = [:]) {
+    init(id: String = NSUUID().UUIDString, groupId: String, name: String, details: String, priority: Int = 0, endTime: NSDate, userCompletionTimes: [User: NSDate] = [:]) {
         self._id = id
+        self._groupId = groupId
         self.name = name
         self.details = details
         self.priority = priority
@@ -66,7 +68,7 @@ struct GroupGoal: Goal {
         self._userCompletionTimes = userCompletionTimes
     }
 
-    init(id: String, goalData: [String: AnyObject]) {
+    init(id: String, groupId: String, goalData: [String: AnyObject]) {
         let name = goalData[Constants.nameKey]! as! String
         let details = goalData[Constants.detailsKey]! as! String
         let priority = goalData[Constants.priorityKey]! as! Int
@@ -78,7 +80,7 @@ struct GroupGoal: Goal {
             let completionTime = NSDate(timeIntervalSince1970: NSTimeInterval(userCompletionTime))
             userCompletionTimes[user] = completionTime
         }
-        self.init(id: id, name: name, details: details, priority: priority, endTime: endTime, userCompletionTimes: userCompletionTimes)
+        self.init(id: id, groupId: groupId, name: name, details: details, priority: priority, endTime: endTime, userCompletionTimes: userCompletionTimes)
     }
 
     // MARK: Methods (mutating)

@@ -24,7 +24,6 @@ class MainViewController: UITabBarController, LoginDelegate {
 
         homeNavViewController = viewControllers![0] as! UINavigationController
         homeViewController = homeNavViewController.topViewController as! BubblesViewController
-        homeViewController.isGroup = false
         homeViewController.delegate = self
 
         groupsNavViewController = viewControllers![1] as! UINavigationController
