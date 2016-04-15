@@ -39,7 +39,11 @@ class GoalEditViewController: UITableViewController {
 
         if goal == nil {
             if isGroup {
-                goal = GroupGoal(groupId: group!.id, name: "", details: "", endTime: NSDate())
+                var gGoal = GroupGoal(groupId: group!.id, name: "", details: "", endTime: NSDate())
+                for user in group!.members { // by default, every member is assigned
+                    gGoal.addUser(user)
+                }
+                goal = gGoal
             } else {
                 goal = PersonalGoal(name: "", details: "", endTime: NSDate())
             }

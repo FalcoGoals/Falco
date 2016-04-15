@@ -110,7 +110,7 @@ class MainViewController: UITabBarController, LoginDelegate {
     }
 }
 
-extension MainViewController: GoalModelDelegate {
+extension MainViewController: ModelDelegate {
 
     func didUpdateGoal(goal: Goal) {
         if let goal = goal as? PersonalGoal {
@@ -132,17 +132,23 @@ extension MainViewController: GoalModelDelegate {
         }
     }
 
-    func getGoalWithIdentifier(goalId: String) -> Goal? {
-        return storage.personalGoals.getGoalWithIdentifier(goalId)
-        // TODO: group goals
+    func didCompleteGoal(goalId: String, groupId: String?) {
+        if let goal = getGoal(goalId, groupId: groupId) {
+            didCompleteGoal(goal)
+        }
+    }
+
+    func getGoal(goalId: String, groupId: String? = nil) -> Goal? {
+        if let groupId = groupId {
+            return storage.groups[groupId]?.goals.getGoalWithIdentifier(goalId)
+        } else {
+            return storage.personalGoals.getGoalWithIdentifier(goalId)
+        }
     }
 
     func getGoals() -> GoalCollection {
         return storage.personalGoals.incompleteGoals
     }
-}
-
-extension MainViewController: GroupModelDelegate {
 
     func getGroups() -> [Group] {
         return Array(storage.groups.values)

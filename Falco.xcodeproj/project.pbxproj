@@ -52,6 +52,7 @@
 		A24F37CC1C9EA468001148FD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24F37CB1C9EA468001148FD /* LoginViewController.swift */; };
 		A2ABCD341CB76A9D00E044A0 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2ABCD331CB76A9D00E044A0 /* MainViewController.swift */; };
 		A2C1C7DE1CACBE6800B6EAFA /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2C1C7DD1CACBE6800B6EAFA /* Server.swift */; };
+		A2EE6F611CC0D04F00D6ED1F /* ModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EE6F601CC0D04F00D6ED1F /* ModelDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -114,6 +115,7 @@
 		A24F37CB1C9EA468001148FD /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A2ABCD331CB76A9D00E044A0 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A2C1C7DD1CACBE6800B6EAFA /* Server.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		A2EE6F601CC0D04F00D6ED1F /* ModelDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelDelegate.swift; sourceTree = "<group>"; };
 		BD369289AFEF04402F8D94D1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F3EDF817BF16E83523A638C6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -221,6 +223,7 @@
 			children = (
 				2528BAE71CA702DD007332FA /* Goal.swift */,
 				2528BAEB1CA702DD007332FA /* PersonalGoal.swift */,
+				A2EE6F601CC0D04F00D6ED1F /* ModelDelegate.swift */,
 				2528BAEA1CA702DD007332FA /* GroupGoal.swift */,
 				2528BAE81CA702DD007332FA /* GoalCollection.swift */,
 				2528BAEC1CA702DD007332FA /* User.swift */,
@@ -462,6 +465,7 @@
 				25DC09121CB4F3D600674D29 /* FriendTableViewCell.swift in Sources */,
 				2528BAF11CA702DD007332FA /* PersonalGoal.swift in Sources */,
 				740FF7501CABB8A5008A5D1F /* BubblesViewController.swift in Sources */,
+				A2EE6F611CC0D04F00D6ED1F /* ModelDelegate.swift in Sources */,
 				25E463181CB41B1D00847724 /* GroupAddViewController.swift in Sources */,
 				740FF7521CABBB80008A5D1F /* BubblesScene.swift in Sources */,
 				740FF7541CABC253008A5D1F /* GoalBubble.swift in Sources */,

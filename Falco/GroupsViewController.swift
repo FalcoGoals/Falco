@@ -8,12 +8,6 @@
 
 import UIKit
 
-protocol GroupModelDelegate {
-    func getGroups() -> [Group]
-    func didUpdateGroup(group: Group, callback: (() -> ())?)
-    func refreshGroups(callback: (() -> ())?)
-}
-
 class GroupsViewController: UIViewController, GroupAddDelegate {
     private let searchController = UISearchController(searchResultsController: nil)
 
@@ -23,7 +17,7 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
     private var _searchedGroups = [Group]()
     private var _selectedGroup: Group!
 
-    var delegate: GroupModelDelegate!
+    var delegate: ModelDelegate!
 
     @IBOutlet var tableView: UITableView!
     @IBOutlet var searchBarContainer: UIView!
@@ -45,7 +39,7 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
             bvc.title = _selectedGroup.name
             bvc.initialGoals = _selectedGroup.goals
             bvc.currentGroup = _selectedGroup
-            bvc.delegate = self
+            bvc.delegate = delegate
         }
     }
 
@@ -99,38 +93,6 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
             return group.name.lowercaseString.containsString(searchText.lowercaseString)
         }
         tableView.reloadData()
-    }
-}
-
-extension GroupsViewController: GoalModelDelegate {
-    // TODO: delegate to MainViewController
-
-    func didUpdateGoal(goal: Goal) {
-        if let goal = goal as? PersonalGoal {
-            Storage.instance.personalGoals.updateGoal(goal)
-            Server.instance.savePersonalGoal(goal)
-        } else if let goal = goal as? GroupGoal {
-            Storage.instance.groups[goal.groupId]!.goals.updateGoal(goal)
-            Server.instance.saveGroupGoal(goal)
-        }
-    }
-
-    func didCompleteGoal(goal: Goal) {
-        if var pGoal = goal as? PersonalGoal {
-            pGoal.markComplete()
-            didUpdateGoal(pGoal)
-        } else if var gGoal = goal as? GroupGoal {
-            gGoal.markCompleteByUser(Server.instance.user)
-            didUpdateGoal(gGoal)
-        }
-    }
-
-    func getGoalWithIdentifier(goalId: String) -> Goal? {
-        return _selectedGroup.goals.getGoalWithIdentifier(goalId)
-    }
-
-    func getGoals() -> GoalCollection {
-        return _selectedGroup.goals.incompleteGoals
     }
 }
 

@@ -9,13 +9,6 @@
 import UIKit
 import SpriteKit
 
-protocol GoalModelDelegate {
-    func didUpdateGoal(goal: Goal)
-    func didCompleteGoal(goal: Goal)
-    func getGoalWithIdentifier(goalId: String) -> Goal?
-    func getGoals() -> GoalCollection
-}
-
 class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresentationControllerDelegate {
     private var scene: BubblesScene!
     private var bubblePopTextures = [SKTexture]()
@@ -23,7 +16,7 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
         return currentGroup != nil
     }
 
-    var delegate: GoalModelDelegate!
+    var delegate: ModelDelegate!
     var initialGoals: GoalCollection?
     var currentGroup: Group?
 
@@ -98,7 +91,7 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
             nc.popoverPresentationController!.sourceView = sender!.view
             nc.popoverPresentationController!.delegate = self
             if let node = node as? GoalBubble {
-                evc.goal = delegate.getGoalWithIdentifier(node.id)
+                evc.goal = delegate.getGoal(node.id, groupId: currentGroup?.id)
                 nc.popoverPresentationController!.sourceRect = CGRect(origin: location, size: node.frame.size)
             } else {
                 evc.goal = nil
@@ -192,10 +185,7 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
     // MARK: Helper methods
     
     private func completeGoal(goalBubble: GoalBubble) {
-        let goalId = goalBubble.id
-        if let goal = delegate.getGoalWithIdentifier(goalId) {
-            delegate.didCompleteGoal(goal)
-        }
+        delegate.didCompleteGoal(goalBubble.id, groupId: currentGroup?.id)
 
         let circle = goalBubble.circle
         let label = goalBubble.label
