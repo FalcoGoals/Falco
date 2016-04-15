@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol Savable {
+    func didSave(obj: AnyObject)
+}
+
 class GoalEditHolderController: UIViewController {
 
 }
