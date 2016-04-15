@@ -10,12 +10,12 @@ import UIKit
 
 protocol GoalEditDelegate {
     var goal: Goal! { get set }
-    var group: Group! { get set }
+    var group: Group? { get set }
     var members: [User]? { get set }
 }
 
 class GoalEditViewController: UITableViewController {
-    private var isGroup: Bool { return group != nil }
+    private var isGroup: Bool { return delegate.group != nil }
 
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var detailsField: UITextView!
@@ -30,7 +30,7 @@ class GoalEditViewController: UITableViewController {
 
     var delegate: GoalEditDelegate!
 
-    var group: Group?
+//    var group: Group?
     var isDatePickerShown = false
 
     override func viewDidLoad() {
@@ -40,8 +40,8 @@ class GoalEditViewController: UITableViewController {
 
         if delegate.goal == nil {
             if isGroup {
-                var gGoal = GroupGoal(groupId: group!.id, name: "", details: "", endTime: NSDate())
-                for user in group!.members { // by default, every member is assigned
+                var gGoal = GroupGoal(groupId: delegate.group!.id, name: "", details: "", endTime: NSDate())
+                for user in delegate.group!.members { // by default, every member is assigned
                     gGoal.addUser(user)
                 }
                 delegate.goal = gGoal

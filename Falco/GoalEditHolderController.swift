@@ -9,9 +9,31 @@
 import UIKit
 
 protocol Savable {
-    func didSave(obj: AnyObject)
+    func didSave(goal: Goal)
 }
 
-class GoalEditHolderController: UIViewController {
+class GoalEditHolderController: UIViewController, GoalEditDelegate {
+    var goal: Goal!
+    var group: Group?
+    var members: [User]?
 
+    var saveDelegate: Savable!
+    var goalEditController: GoalEditViewController!
+
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == Constants.goalEditSegue {
+            goalEditController = segue.destinationViewController as! GoalEditViewController
+            goalEditController.delegate = self
+        }
+    }
+
+    @IBAction func saveDetails(sender: UIBarButtonItem) {
+        goal.name = goalEditController.nameField.text!
+        goal.details = goalEditController.detailsField.text!
+        goal.priority = goalEditController.priorityControl.selectedSegmentIndex
+        goal.endTime = goalEditController.datePicker.date
+
+        saveDelegate.didSave(goal)
+        dismissViewControllerAnimated(true, completion: nil)
+    }
 }

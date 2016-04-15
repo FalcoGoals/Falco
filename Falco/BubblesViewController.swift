@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresentationControllerDelegate {
+class BubblesViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     private var scene: BubblesScene!
     private var bubblePopTextures = [SKTexture]()
     private var isGroup: Bool {
@@ -72,9 +72,9 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == Constants.goalEditSegue {
             let nc = segue.destinationViewController as! UINavigationController
-            let evc = nc.topViewController as! GoalEditViewController
+            let goalEditHolderController = nc.topViewController as! GoalEditHolderController
             if isGroup {
-                evc.group = currentGroup
+                goalEditHolderController.group = currentGroup
             }
 
             let location = sender!.locationInView(sender!.view)
@@ -91,13 +91,13 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
             nc.popoverPresentationController!.sourceView = sender!.view
             nc.popoverPresentationController!.delegate = self
             if let node = node as? GoalBubble {
-                evc.goal = delegate.getGoal(node.id, groupId: currentGroup?.id)
+                goalEditHolderController.goal = delegate.getGoal(node.id, groupId: currentGroup?.id)
                 nc.popoverPresentationController!.sourceRect = CGRect(origin: location, size: node.frame.size)
             } else {
-                evc.goal = nil
+                goalEditHolderController.goal = nil
                 nc.popoverPresentationController!.sourceRect.offsetInPlace(dx: location.x, dy: location.y)
             }
-            evc.delegate = self
+            goalEditHolderController.saveDelegate = self
             pauseScene()
         } else if segue.identifier == Constants.groupChatSegue {
             let nc = segue.destinationViewController as! UINavigationController
@@ -164,14 +164,6 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
         addGoalsToScene(delegate.getGoals())
     }
 
-    // MARK: GoalEditDelegate
-
-    func didSave(goal: Goal) {
-        scene.updateGoal(goal)
-        delegate.didUpdateGoal(goal)
-        playScene()
-    }
-
     // MARK: UIPopoverPresentationControllerDelegate
 
     func popoverPresentationControllerDidDismissPopover(_: UIPopoverPresentationController) {
@@ -213,5 +205,13 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
 
     private func playScene() {
         self.scene.view?.paused = false
+    }
+}
+
+extension BubblesViewController: Savable {
+    func didSave(goal: Goal) {
+        scene.updateGoal(goal)
+        delegate.didUpdateGoal(goal)
+        playScene()
     }
 }
