@@ -99,6 +99,7 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
         tableView.delegate = self
         tableView.sectionFooterHeight = Constants.groupFooterHeight
         tableView.sectionHeaderHeight = Constants.groupHeaderHeight
+        tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, -15)
     }
 
     private func refreshData() {
