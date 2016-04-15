@@ -62,6 +62,12 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
             addGoalsToScene(goals)
             initialGoals = nil
         }
+
+        playScene()
+    }
+
+    override func viewDidDisappear(animated: Bool) {
+        pauseScene()
     }
 
     override func canBecomeFirstResponder() -> Bool {
