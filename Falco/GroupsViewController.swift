@@ -48,18 +48,6 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
             bvc.isGroup = true
             bvc.currentGroup = _selectedGroup
             bvc.delegate = self
-        } else if segue.identifier == Constants.groupChatSegue {
-            let gcv = segue.destinationViewController as! GroupChatViewController
-            let chatButton = sender as! UIButton
-            let selectedCell = chatButton.superview?.superview as! GroupTableViewCell
-            let indexPath = tableView.indexPathForCell(selectedCell)
-            var selectedGroup: Group
-            if searchController.active && searchController.searchBar.text != Constants.emptyString {
-                selectedGroup = _searchedGroups[indexPath!.section]
-            } else {
-                selectedGroup = _groups[indexPath!.section]
-            }
-            gcv.initialize(selectedGroup, localUser: Server.instance.user)
         }
     }
 

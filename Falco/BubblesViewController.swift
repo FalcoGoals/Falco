@@ -75,7 +75,7 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showEditView" {
+        if segue.identifier == Constants.goalEditSegue {
             let nc = segue.destinationViewController as! UINavigationController
             let evc = nc.topViewController as! GoalEditViewController
 
@@ -101,7 +101,7 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
             }
             evc.delegate = self
             pauseScene()
-        } else if segue.identifier == "showChatView" {
+        } else if segue.identifier == Constants.groupChatSegue {
             let nc = segue.destinationViewController as! UINavigationController
             let cvc = nc.topViewController as! GroupChatViewController
             
@@ -132,9 +132,9 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
         let touchLocation = scene.convertPointFromView(location)
         let node = scene.nodeAtPoint(touchLocation)
         if (node.name == "chat") {
-            performSegueWithIdentifier("showChatView", sender: sender)
+            performSegueWithIdentifier(Constants.groupChatSegue, sender: sender)
         } else {
-            performSegueWithIdentifier("showEditView", sender: sender)
+            performSegueWithIdentifier(Constants.goalEditSegue, sender: sender)
         }
     }
     
