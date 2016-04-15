@@ -264,7 +264,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ije-Ye-Y1s">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <connections>
-                                    <segue destination="6hr-tn-rQP" kind="embed" id="iTU-Rk-Rg8"/>
+                                    <segue destination="6hr-tn-rQP" kind="embed" identifier="showGoalEditView" id="iTU-Rk-Rg8"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -283,7 +283,11 @@
                                 <segue destination="Z7J-n2-BNA" kind="unwind" unwindAction="cancelGoalEdit:" id="60z-Zg-nOr"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="Gyf-6P-t4G"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="Gyf-6P-t4G">
+                            <connections>
+                                <action selector="saveDetails:" destination="5mH-HK-7At" id="kbb-Jv-Xme"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="92C-gZ-8WS" userLabel="First Responder" sceneMemberID="firstResponder"/>
