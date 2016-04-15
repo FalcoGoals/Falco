@@ -48,15 +48,15 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
         if (isGroup) {
             scene.addChat()
         }
-    }
-
-    override func viewDidAppear(animated: Bool) {
-        self.becomeFirstResponder()
 
         if let goals = initialGoals {
             addGoalsToScene(goals)
             initialGoals = nil
         }
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        self.becomeFirstResponder()
 
         playScene()
     }
