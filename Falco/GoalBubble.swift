@@ -13,25 +13,19 @@ class GoalBubble: SKNode {
     var circle: SKShapeNode
     var ring: SKShapeNode?
     var label: SKLabelNode
+    var hasRing: Bool
 
     private var radius: CGFloat {
         didSet {
             let scaleFactor = radius / oldValue
             let scale = SKAction.scaleBy(scaleFactor, duration: 0.5)
             circle.runAction(scale, completion: {
-                self.label.physicsBody = self.makeCircularBody(self.radius)
+                self.label.physicsBody = GoalBubble.makeCircularBody(self.radius)
             })
             if let ring = self.ring {
                 ring.runAction(scale)
             }
         }
-    }
-
-    /// Calculate full circumference in points
-    private var circumference: CGFloat {
-        let PI = CGFloat(M_PI)
-        let circumference = 2 * PI * self.radius
-        return circumference
     }
 
     private var goalName: String {
@@ -50,42 +44,48 @@ class GoalBubble: SKNode {
         return 0.95
     }
 
-    init(id: String, circleOfRadius: CGFloat, text: String, deadline: NSDate) {
+    init(id: String, circleOfRadius: CGFloat, text: String, deadline: NSDate, involved: Int?, completed: Int = 0) {
         self.id = id
         self.radius = circleOfRadius
         self.goalName = text
         self.deadline = deadline
+        self.hasRing = (involved ?? 0) > 0
 
         self.circle = SKShapeNode(circleOfRadius: circleOfRadius * GoalBubble.circleToRingRatio)
+
         self.label = SKLabelNode(text: text)
         while label.frame.width >= radius * 2 {
             label.text = String(label.text!.characters.dropLast())
         }
+
+        if self.hasRing {
+            self.ring =
+                GoalBubble.makeDashedCircle(self.circle.position, radius: circleOfRadius, involved: involved!, completed: completed)
+            self.label.addChild(self.ring!)
+        }
+
+        self.label.addChild(self.circle)
 
         super.init()
 
         self.userInteractionEnabled = true
         self.name = id
 
-        self.ring = makeDashedCircle(self.circle.position, radius: circleOfRadius, completed: 1, involved: 10)
-        self.ring!.strokeColor = UIColor.cyanColor()
-        self.ring!.lineWidth = 2
-
         setCircleProperties(bubbleTexture)
         updateStrokeColour(deadline)
-
-        self.label.physicsBody = makeCircularBody(circleOfRadius)
-
         setLabelProperties()
 
-        addChild(self.label)
+        self.label.physicsBody = GoalBubble.makeCircularBody(circleOfRadius)
 
-        self.label.addChild(self.circle)
-        self.label.addChild(self.ring!)
+        addChild(self.label)
     }
 
     convenience init(goal: Goal) {
-        self.init(id: goal.id, circleOfRadius: CGFloat(goal.weight) / 2, text: goal.name, deadline: goal.endTime)
+        self.init(id: goal.id, circleOfRadius: CGFloat(goal.weight) / 2, text: goal.name, deadline: goal.endTime, involved: nil)
+    }
+
+    convenience init(id: String, radius: CGFloat, text: String, deadline: NSDate) {
+        self.init(id: id, circleOfRadius: radius, text: text, deadline: deadline, involved: nil)
     }
 
     func updateWithGoal(goal: Goal) {
@@ -101,7 +101,7 @@ class GoalBubble: SKNode {
     }
 
     // MARK: Drawing related methods
-    private func makeCircularBody(radius: CGFloat) -> SKPhysicsBody {
+    private static func makeCircularBody(radius: CGFloat) -> SKPhysicsBody {
         let body = SKPhysicsBody(circleOfRadius: radius)
         body.allowsRotation = false
         body.restitution = 0.2
@@ -120,18 +120,19 @@ class GoalBubble: SKNode {
      angle A - angle B goes clockwise
 
      */
-    private func makeDashedCircle(origin: CGPoint, radius: CGFloat, completed: Int, involved: Int) -> SKShapeNode {
+    private static func makeDashedCircle(origin: CGPoint, radius: CGFloat, involved: Int, completed: Int) -> SKShapeNode {
         let startAngle = CGFloat(M_PI_2)
         let endAngle = startAngle - CGFloat(M_PI * 2)
         let completionRatio: CGFloat = CGFloat(completed) / CGFloat(involved)
         let completionRatioToAngle = startAngle - CGFloat(M_PI * 2) * completionRatio
+        let circumference = 2 * CGFloat(M_PI) * radius
         let lineWidth: CGFloat = 2
 
         let arcForCompleted =
             UIBezierPath(arcCenter: origin, radius: radius, startAngle: startAngle, endAngle: completionRatioToAngle, clockwise: false)
         let arcForIncompleted = UIBezierPath(arcCenter: origin, radius: radius, startAngle: completionRatioToAngle, endAngle: endAngle, clockwise: false)
 
-        let pattern = getPattern(self.circumference, segments: involved)
+        let pattern = getPattern(circumference, segments: involved)
 
         let dashedPathForCompleted = CGPathCreateCopyByDashingPath(arcForCompleted.CGPath, nil, 0, pattern, pattern.count)
         let dashedPathForIncompleted = CGPathCreateCopyByDashingPath(arcForIncompleted.CGPath, nil, 0, pattern, pattern.count)
@@ -141,7 +142,7 @@ class GoalBubble: SKNode {
         dashedCircleForCompleted.lineWidth = lineWidth
 
         let dashedCircleForIncompeleted = SKShapeNode(path: dashedPathForIncompleted!)
-        dashedCircleForIncompeleted.strokeColor = UIColor.cyanColor()
+        dashedCircleForIncompeleted.strokeColor = UIColor.grayColor()
         dashedCircleForIncompeleted.lineWidth = lineWidth
 
         let parentNode = SKShapeNode()
@@ -150,7 +151,7 @@ class GoalBubble: SKNode {
         return parentNode
     }
 
-    private func getPattern(points: CGFloat, segments: Int) -> [CGFloat] {
+    private static func getPattern(points: CGFloat, segments: Int) -> [CGFloat] {
         let drawnToGapRatio: CGFloat = 9 / 10
         let pointsPerSegment = points / CGFloat(segments)
         let drawnLength = drawnToGapRatio * pointsPerSegment
@@ -160,19 +161,18 @@ class GoalBubble: SKNode {
     }
 
     private func updateStrokeColour(deadline: NSDate) {
-        if let aShadeOfRed = UIColor.redColor().desaturate(times: daysToDeadline(deadline)) {
+        if let aShadeOfRed = UIColor.redColor().desaturate(times: GoalBubble.daysToDeadline(deadline)) {
             self.circle.strokeColor = aShadeOfRed
         } else {
             self.circle.strokeColor = UIColor.whiteColor()
         }
     }
 
-
     // MARK: Helpers
     private func setCircleProperties(texture: SKTexture) {
-        circle.fillColor = UIColor.whiteColor()
-        circle.fillTexture = texture
-        circle.lineWidth = 2
+        self.circle.fillColor = UIColor.whiteColor()
+        self.circle.fillTexture = texture
+        self.circle.lineWidth = 2
     }
 
     private func setLabelProperties() {
@@ -184,7 +184,7 @@ class GoalBubble: SKNode {
     }
 
     /// days are rounded down
-    private func daysToDeadline(deadline: NSDate) -> Int {
+    private static func daysToDeadline(deadline: NSDate) -> Int {
         let now = NSDate()
         let calendar = NSCalendar.currentCalendar()
 
