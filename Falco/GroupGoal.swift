@@ -23,6 +23,10 @@ struct GroupGoal: Goal {
     var id: String { return _id }
     var groupId: String { return _groupId }
     var completionTime: NSDate {
+        if usersCompletedCount < usersAssignedCount {
+            return NSDate.distantPast()
+        }
+
         var latestCompletionTime = NSDate.distantPast()
         for (_, userCompletionTime) in _userCompletionTimes {
             if latestCompletionTime.compare(userCompletionTime) == .OrderedAscending {
@@ -31,18 +35,19 @@ struct GroupGoal: Goal {
         }
         return latestCompletionTime
     }
-    var userCount: Int { return _userCompletionTimes.keys.count }
     var userCompletionTimes: [User: NSDate] { return _userCompletionTimes }
     var usersAssigned: [User] { return Array(_userCompletionTimes.keys) }
-    var usersWhoCompleted: [User] {
+    var usersAssignedCount: Int { return _userCompletionTimes.keys.count }
+    var usersCompleted: [User] {
         var completedUsers = [User]()
         for user in _userCompletionTimes.keys {
-            if _userCompletionTimes[user] != nil {
+            if _userCompletionTimes[user] != NSDate.distantPast() {
                 completedUsers.append(user)
             }
         }
         return completedUsers
     }
+    var usersCompletedCount: Int { return usersCompleted.count }
 
     var serialisedData: [String: AnyObject] {
         var serialisedUserData: [String: NSNumber] = [:]

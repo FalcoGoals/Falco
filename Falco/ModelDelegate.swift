@@ -10,8 +10,8 @@ import Foundation
 
 protocol GoalModelDelegate {
     func didUpdateGoal(goal: Goal)
-    func didCompleteGoal(goal: Goal)
-    func didCompleteGoal(goalId: String, groupId: String?)
+    func didCompleteGoal(goal: Goal) -> Goal?
+    func didCompleteGoal(goalId: String, groupId: String?) -> Goal?
     func getGoal(goalId: String, groupId: String?) -> Goal?
     func getGoals() -> GoalCollection
 }

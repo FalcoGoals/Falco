@@ -14,7 +14,11 @@ class GoalBubble: SKNode {
     var ring: SKShapeNode?
     var label: SKLabelNode
 
-    private var hasRing: Bool
+    private var involved: Int?
+    private var completed: Int
+    private var hasRing: Bool {
+        return involved != nil
+    }
     private var circleToRingRatio: CGFloat
 
     private var radius: CGFloat {
@@ -42,14 +46,16 @@ class GoalBubble: SKNode {
     }
     private var bubbleTexture = SKTexture(imageNamed: "bubble")
 
-    init(id: String, circleOfRadius: CGFloat, text: String, deadline: NSDate, involved: Int?, completed: Int = 0) {
+    init(id: String, circleOfRadius: CGFloat, text: String, deadline: NSDate, involved: Int? = nil, completed: Int = 0) {
         self.id = id
         self.radius = circleOfRadius
         self.goalName = text
         self.deadline = deadline
-        self.hasRing = (involved ?? 0) > 0
 
-        if self.hasRing {
+        self.involved = involved
+        self.completed = completed
+
+        if involved != nil {
             self.circleToRingRatio = 0.95
         } else {
             self.circleToRingRatio = 1
@@ -62,7 +68,7 @@ class GoalBubble: SKNode {
 
         self.circle = SKShapeNode(circleOfRadius: circleOfRadius * self.circleToRingRatio)
 
-        if self.hasRing {
+        if involved != nil {
             self.ring =
                 GoalBubble.makeDashedCircle(self.circle.position, radius: circleOfRadius, involved: involved!, completed: completed)
             self.label.addChild(self.ring!)
@@ -85,19 +91,28 @@ class GoalBubble: SKNode {
     }
 
     convenience init(goal: Goal) {
-        self.init(id: goal.id, circleOfRadius: CGFloat(goal.weight) / 2, text: goal.name, deadline: goal.endTime, involved: nil)
-    }
-
-    convenience init(id: String, radius: CGFloat, text: String, deadline: NSDate) {
-        self.init(id: id, circleOfRadius: radius, text: text, deadline: deadline, involved: nil)
+        if let goal = goal as? GroupGoal {
+            self.init(id: goal.id, circleOfRadius: CGFloat(goal.weight) / 2, text: goal.name, deadline: goal.endTime, involved: goal.usersAssignedCount, completed: goal.usersCompletedCount)
+        } else {
+            self.init(id: goal.id, circleOfRadius: CGFloat(goal.weight) / 2, text: goal.name, deadline: goal.endTime)
+        }
     }
 
     func updateWithGoal(goal: Goal) {
-        label.text = goal.name
         if CGFloat(goal.weight)/2 != radius {
             radius = CGFloat(goal.weight)/2
         }
+        label.text = goal.name
+        while label.frame.width >= radius * 2 {
+            label.text = String(label.text!.characters.dropLast())
+        }
         deadline = goal.endTime
+        if let goal = goal as? GroupGoal {
+            self.ring!.removeFromParent()
+            self.ring =
+                GoalBubble.makeDashedCircle(self.circle.position, radius: radius, involved: goal.usersAssignedCount, completed: goal.usersCompletedCount)
+            self.label.addChild(self.ring!)
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {

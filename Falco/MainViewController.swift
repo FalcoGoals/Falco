@@ -121,19 +121,25 @@ extension MainViewController: ModelDelegate {
         }
     }
 
-    func didCompleteGoal(goal: Goal) {
+    func didCompleteGoal(goal: Goal) -> Goal? {
         if var pGoal = goal as? PersonalGoal {
             pGoal.markComplete()
             didUpdateGoal(pGoal)
+            return pGoal
         } else if var gGoal = goal as? GroupGoal {
             gGoal.markCompleteByUser(server.user)
             didUpdateGoal(gGoal)
+            return gGoal
+        } else {
+            return nil
         }
     }
 
-    func didCompleteGoal(goalId: String, groupId: String?) {
+    func didCompleteGoal(goalId: String, groupId: String?) -> Goal? {
         if let goal = getGoal(goalId, groupId: groupId) {
-            didCompleteGoal(goal)
+            return didCompleteGoal(goal)
+        } else {
+            return nil
         }
     }
 

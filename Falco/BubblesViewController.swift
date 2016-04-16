@@ -181,28 +181,31 @@ class BubblesViewController: UIViewController {
     // MARK: Helper methods
     
     private func completeGoal(goalBubble: GoalBubble) {
-        delegate.didCompleteGoal(goalBubble.id, groupId: currentGroup?.id)
+        let updatedGoal = delegate.didCompleteGoal(goalBubble.id, groupId: currentGroup?.id)!
+        scene.updateGoal(updatedGoal) // update ring if necessary
 
-        let circle = goalBubble.circle
-        let label = goalBubble.label
-        let bubbleSpriteNode = SKSpriteNode(imageNamed: "bubble")
-        bubbleSpriteNode.size = circle.frame.size
-        bubbleSpriteNode.setScale(1/circle.xScale)
-        
-        circle.removeAllChildren()
-        circle.addChild(bubbleSpriteNode)
-        circle.fillTexture = nil
-        circle.fillColor = UIColor.clearColor()
-        
-        bubbleSpriteNode.runAction(SKAction.sequence([
-            SKAction.animateWithTextures(bubblePopTextures, timePerFrame: 0.1, resize: false, restore: true),
-            SKAction.removeFromParent()]))
-        circle.runAction(SKAction.sequence([
-            SKAction.fadeOutWithDuration(0.5),
-            SKAction.removeFromParent()]))
-        label.runAction(SKAction.sequence([
-            SKAction.fadeOutWithDuration(0.5),
-            SKAction.removeFromParent()]))
+        if updatedGoal.isCompleted { // if fully complete group goal or personal goal - remove bubble
+            let circle = goalBubble.circle
+            let label = goalBubble.label
+            let bubbleSpriteNode = SKSpriteNode(imageNamed: "bubble")
+            bubbleSpriteNode.size = circle.frame.size
+            bubbleSpriteNode.setScale(1/circle.xScale)
+            
+            circle.removeAllChildren()
+            circle.addChild(bubbleSpriteNode)
+            circle.fillTexture = nil
+            circle.fillColor = UIColor.clearColor()
+            
+            bubbleSpriteNode.runAction(SKAction.sequence([
+                SKAction.animateWithTextures(bubblePopTextures, timePerFrame: 0.1, resize: false, restore: true),
+                SKAction.removeFromParent()]))
+            circle.runAction(SKAction.sequence([
+                SKAction.fadeOutWithDuration(0.5),
+                SKAction.removeFromParent()]))
+            label.runAction(SKAction.sequence([
+                SKAction.fadeOutWithDuration(0.5),
+                SKAction.removeFromParent()]))
+        }
     }
 
     private func pauseScene() {
