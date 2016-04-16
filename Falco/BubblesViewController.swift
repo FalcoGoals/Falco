@@ -74,6 +74,7 @@ class BubblesViewController: UIViewController {
         if segue.identifier == Constants.goalEditSegue {
             let nc = segue.destinationViewController as! UINavigationController
             let goalEditHolderController = nc.topViewController as! GoalEditHolderController
+            
             if isGroup {
                 goalEditHolderController.group = currentGroup
             }
@@ -81,7 +82,7 @@ class BubblesViewController: UIViewController {
             let location = sender!.locationInView(sender!.view)
             let touchLocation = scene.convertPointFromView(location)
             var node = scene.nodeAtPoint(touchLocation)
-            while (!(node is GoalBubble) && node.parent != nil) {
+            while !(node is GoalBubble) && node.parent != nil {
                 if let parent = node.parent {
                     node = parent
                 } else {
@@ -97,10 +98,16 @@ class BubblesViewController: UIViewController {
                 goalEditHolderController.goal = delegate.getGoal(node.id, groupId: currentGroup?.id)
                 goalEditHolderController.preferredContentSize = size
                 nc.popoverPresentationController!.sourceRect = CGRect(origin: location, size: node.frame.size)
+                
+                if isGroup {
+                    let groupGoal = goalEditHolderController.goal as! GroupGoal
+                    goalEditHolderController.members = groupGoal.usersAssigned
+                }
             } else {
                 goalEditHolderController.goal = nil
                 nc.popoverPresentationController!.sourceRect.offsetInPlace(dx: location.x, dy: location.y)
             }
+            
             goalEditHolderController.saveDelegate = self
         } else if segue.identifier == Constants.groupChatSegue {
             let nc = segue.destinationViewController as! UINavigationController

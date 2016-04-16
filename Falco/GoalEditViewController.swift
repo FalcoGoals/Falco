@@ -22,12 +22,18 @@ class GoalEditViewController: UITableViewController {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var priorityControl: UISegmentedControl!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var assignedUsersLabel: UILabel!
+    @IBOutlet weak var assignedUsersTable: UITableView!
+    @IBOutlet weak var assignedUsersTableCell: AssignedUsersTableView!
 
     private let nameRow = 0
     private let dateRow = 1
-    private let descriptionRow = 4
+    private let assignedUsersLabelRow = 4
+    private let descriptionRow = 6
     private let datePickerRowHeight: CGFloat = 100
+    private let assignedUsersTableRowHeight: CGFloat = 100
     private var isDatePickerShown = false
+    private var isAssignedUsersTableShown = false
     
     var delegate: GoalEditDelegate!
 //    var group: Group?
@@ -40,6 +46,7 @@ class GoalEditViewController: UITableViewController {
         if delegate.goal == nil {
             if isGroup {
                 var gGoal = GroupGoal(groupId: delegate.group!.id, name: "", details: "", endTime: NSDate())
+                delegate.members = delegate.group!.members
                 for user in delegate.group!.members { // by default, every member is assigned
                     gGoal.addUser(user)
                 }
@@ -55,6 +62,12 @@ class GoalEditViewController: UITableViewController {
         datePicker.setDate(delegate.goal.endTime, animated: false)
         priorityControl.selectedSegmentIndex = delegate.goal.priority
         detailsField.text = delegate.goal.details
+        
+        if isGroup {
+            assignedUsersTable.delegate = assignedUsersTableCell
+            assignedUsersTable.dataSource = assignedUsersTableCell
+            assignedUsersTableCell.setUpUsers(delegate.members!)
+        }
 
         // UI preparation
 
@@ -107,6 +120,12 @@ class GoalEditViewController: UITableViewController {
         } else {
             hideDatePicker()
         }
+        
+        if isGroup && indexPath.row == assignedUsersLabelRow && !isAssignedUsersTableShown {
+            showAssignedUsersTable()
+        } else {
+            hideAssignedUsersTable()
+        }
 
         if indexPath.row == nameRow {
             nameField.becomeFirstResponder()
@@ -117,14 +136,26 @@ class GoalEditViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        guard indexPath.section == 0 && indexPath.row == dateRow + 1 else {
-            return self.tableView.rowHeight
-        }
-
-        if !isDatePickerShown {
-            return 0
+        if indexPath.section == 0 && indexPath.row == dateRow + 1 {
+            if !isDatePickerShown {
+                return 0
+            } else {
+                return datePickerRowHeight
+            }
+        } else if indexPath.section == 0 && indexPath.row == assignedUsersLabelRow {
+            if isGroup {
+                return self.tableView.rowHeight
+            } else {
+                return 0
+            }
+        } else if indexPath.section == 0 && indexPath.row == assignedUsersLabelRow + 1 {
+            if isGroup && isAssignedUsersTableShown {
+                return assignedUsersTableRowHeight
+            } else {
+                return 0
+            }
         } else {
-            return datePickerRowHeight
+            return self.tableView.rowHeight
         }
     }
 
@@ -154,7 +185,6 @@ class GoalEditViewController: UITableViewController {
         }, completion: { finished in
             self.updatePopupSize()
         })
-
     }
 
     private func hideDatePicker() {
@@ -174,6 +204,42 @@ class GoalEditViewController: UITableViewController {
             self.updatePopupSize()
         })
     }
+    
+    private func showAssignedUsersTable() {
+        guard !isAssignedUsersTableShown else {
+            return
+        }
+        isAssignedUsersTableShown = true
+        
+        // idiom to animate row height changes
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        
+        assignedUsersTable.hidden = false
+        UIView.animateWithDuration(0.2, animations: {
+            self.assignedUsersTable.alpha = 1
+            }, completion: { finished in
+                self.updatePopupSize()
+        })
+    }
+    
+    private func hideAssignedUsersTable() {
+        guard isAssignedUsersTableShown else {
+            return
+        }
+        isAssignedUsersTableShown = false
+        
+        // idiom to animate row height changes
+        tableView.beginUpdates()
+        tableView.endUpdates()
+        
+        UIView.animateWithDuration(0.2, animations: {
+            self.assignedUsersTable.alpha = 0
+            }, completion: { finished in
+                self.assignedUsersTable.hidden = true
+                self.updatePopupSize()
+        })
+    }
 
     private func updatePopupSize() {
         tableView.layoutIfNeeded()
@@ -185,6 +251,7 @@ class GoalEditViewController: UITableViewController {
 extension GoalEditViewController: UITextFieldDelegate {
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         hideDatePicker()
+        hideAssignedUsersTable()
         return true
     }
 }
@@ -192,6 +259,7 @@ extension GoalEditViewController: UITextFieldDelegate {
 extension GoalEditViewController: UITextViewDelegate {
     func textViewShouldBeginEditing(textView: UITextView) -> Bool {
         hideDatePicker()
+        hideAssignedUsersTable()
         return true
     }
 }
