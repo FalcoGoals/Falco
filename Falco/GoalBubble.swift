@@ -21,6 +21,9 @@ class GoalBubble: SKNode {
             circle.runAction(scale, completion: {
                 self.label.physicsBody = self.makeCircularBody(self.radius)
             })
+            if let ring = self.ring {
+                ring.runAction(scale)
+            }
         }
     }
 
@@ -77,8 +80,8 @@ class GoalBubble: SKNode {
 
         addChild(self.label)
 
-        self.circle.addChild(self.ring!)
         self.label.addChild(self.circle)
+        self.label.addChild(self.ring!)
     }
 
     convenience init(goal: Goal) {
