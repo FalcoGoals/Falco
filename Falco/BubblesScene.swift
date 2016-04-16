@@ -10,6 +10,7 @@ import SpriteKit
 
 class BubblesScene: SKScene {
     private var cam: SKCameraNode!
+    private var chat: Chat?
 
     private var circlePosition = [[Int]]()
     private var lowestY = 0
@@ -44,8 +45,12 @@ class BubblesScene: SKScene {
         guard cam != nil else {
             return
         }
-
         cam.position = CGPoint(x: frame.midX, y: frame.midY)
+        
+        guard chat != nil else {
+            return
+        }
+        chat?.position = CGPointMake(size.width/2 - 100, (-size.height/2) + 100)
     }
 
       override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -94,10 +99,9 @@ class BubblesScene: SKScene {
     }
     
     func addChat() {
-        let sampleBubble = SKShapeNode(circleOfRadius: 20)
-        sampleBubble.position = CGPointMake((-size.width/2) + 100, (-size.height/2) + 150)
-        sampleBubble.name = "chat"
-        cam.addChild(sampleBubble)
+        chat = Chat(radius: 40)
+        chat!.position = CGPointMake(size.width/2 - 100, (-size.height/2) + 100)
+        cam.addChild(chat!)
     }
     
     private func calculateNextPosition(diameter: Int) -> (Int, Int){
