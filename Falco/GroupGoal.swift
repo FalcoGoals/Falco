@@ -139,6 +139,6 @@ struct GroupGoal: Goal {
         if !isUserAssigned(user) {
             return false
         }
-        return _userCompletionTimes[user] != nil
+        return _userCompletionTimes[user] != NSDate.distantPast()
     }
 }
