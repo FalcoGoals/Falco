@@ -11,6 +11,7 @@ import SpriteKit
 class GoalBubble: SKNode {
     var id: String
     var circle: SKShapeNode
+    var ring: SKShapeNode?
     var label: SKLabelNode
 
     private var radius: CGFloat {
@@ -22,6 +23,14 @@ class GoalBubble: SKNode {
             })
         }
     }
+
+    /// Calculate full circumference in points
+    private var circumference: CGFloat {
+        let PI = CGFloat(M_PI)
+        let circumference = 2 * PI * self.radius
+        return circumference
+    }
+
     private var goalName: String {
         didSet {
             label.text = goalName
@@ -40,7 +49,7 @@ class GoalBubble: SKNode {
         self.goalName = text
         self.deadline = deadline
 
-        self.circle = SKShapeNode(circleOfRadius: circleOfRadius)
+        self.circle = SKShapeNode(circleOfRadius: circleOfRadius - 5)
         self.label = SKLabelNode(text: text)
         while label.frame.width >= radius * 2 {
             label.text = String(label.text!.characters.dropLast())
@@ -50,6 +59,10 @@ class GoalBubble: SKNode {
 
         self.userInteractionEnabled = true
         self.name = id
+
+        self.ring = makeDashedCircle(self.circle.position, radius: circleOfRadius, completed: 1, involved: 10)
+        self.ring!.strokeColor = UIColor.cyanColor()
+        self.ring!.lineWidth = 2
 
         setCircleProperties(bubbleTexture)
         updateStrokeColour(deadline)
@@ -62,7 +75,10 @@ class GoalBubble: SKNode {
         self.label.name = "label"
         self.label.addChild(circle)
 
-        addChild(label)
+        addChild(self.label)
+
+        self.circle.addChild(self.ring!)
+        self.label.addChild(self.circle)
     }
 
     convenience init(goal: Goal) {
@@ -88,6 +104,36 @@ class GoalBubble: SKNode {
         body.friction = 0.0
         body.linearDamping = 0.1
         return body
+    }
+
+    private func makeDashedCircle(origin: CGPoint, radius: CGFloat, completed: Int, involved: Int) -> SKShapeNode {
+        let startAngle = CGFloat(M_PI_2)
+        let endAngle = CGFloat(M_PI_2 + M_PI * 2)
+        let completionRatio: CGFloat = CGFloat(completed) / CGFloat(involved)
+        print(completionRatio)
+
+        let completionRatioToAngle = CGFloat(M_PI * 2) * completionRatio + startAngle
+//        let completionArc =
+//            UIBezierPath(arcCenter: origin, radius: radius, startAngle: startAngle, endAngle: completionRatioToAngle, clockwise: true)
+
+        let remainingArc = UIBezierPath(arcCenter: origin, radius: radius, startAngle: completionRatioToAngle, endAngle: endAngle, clockwise: true)
+
+        let pattern = getPattern(self.circumference, segments: 20)
+        let completionArc =
+            UIBezierPath(arcCenter: origin, radius: radius, startAngle: 0, endAngle: CGFloat(M_PI * 2), clockwise: true)
+
+        let dashed = CGPathCreateCopyByDashingPath(completionArc.CGPath, nil, 0, pattern, pattern.count)
+        let dashedCircle = SKShapeNode(path: dashed!)
+        return dashedCircle
+    }
+
+    private func getPattern(points: CGFloat, segments: Int) -> [CGFloat] {
+        let drawnToGapRatio: CGFloat = 9 / 10
+        let pointsPerSegment = points / CGFloat(segments)
+        let drawnLength = drawnToGapRatio * pointsPerSegment
+        let gapLength = (1 - drawnToGapRatio) * pointsPerSegment
+
+        return [drawnLength, gapLength]
     }
 
     private func setCircleProperties(texture: SKTexture) {
