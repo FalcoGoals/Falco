@@ -13,7 +13,9 @@ class GoalBubble: SKNode {
     var circle: SKShapeNode
     var ring: SKShapeNode?
     var label: SKLabelNode
-    var hasRing: Bool
+
+    private var hasRing: Bool
+    private var circleToRingRatio: CGFloat
 
     private var radius: CGFloat {
         didSet {
@@ -40,10 +42,6 @@ class GoalBubble: SKNode {
     }
     private var bubbleTexture = SKTexture(imageNamed: "bubble")
 
-    private class var circleToRingRatio: CGFloat {
-        return 0.95
-    }
-
     init(id: String, circleOfRadius: CGFloat, text: String, deadline: NSDate, involved: Int?, completed: Int = 0) {
         self.id = id
         self.radius = circleOfRadius
@@ -51,12 +49,18 @@ class GoalBubble: SKNode {
         self.deadline = deadline
         self.hasRing = (involved ?? 0) > 0
 
-        self.circle = SKShapeNode(circleOfRadius: circleOfRadius * GoalBubble.circleToRingRatio)
+        if self.hasRing {
+            self.circleToRingRatio = 0.95
+        } else {
+            self.circleToRingRatio = 1
+        }
 
         self.label = SKLabelNode(text: text)
         while label.frame.width >= radius * 2 {
             label.text = String(label.text!.characters.dropLast())
         }
+
+        self.circle = SKShapeNode(circleOfRadius: circleOfRadius * self.circleToRingRatio)
 
         if self.hasRing {
             self.ring =
