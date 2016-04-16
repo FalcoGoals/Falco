@@ -9,7 +9,7 @@
 import UIKit
 
 class BubbleCell: UIView {
-    var label: UILabel!
+    private var label: UILabel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,10 +18,12 @@ class BubbleCell: UIView {
         clipsToBounds = true
         layer.borderColor = UIColor.blackColor().CGColor
         layer.borderWidth = 2.0
+        
         let backgroundImage = UIImageView(image: UIImage(named: "bubble"))
         backgroundImage.contentMode = .ScaleToFill
         backgroundImage.frame.size = frame.size
         addSubview(backgroundImage)
+        
         label = UILabel(frame: CGRectMake(0, 0, frame.size.width, frame.size.width))
         label.center = CGPointMake(frame.size.width/2, frame.size.width/2)
         label.textAlignment = NSTextAlignment.Center
@@ -45,7 +47,8 @@ class BubbleCell: UIView {
         let now = NSDate()
         let calendar = NSCalendar.currentCalendar()
 
-        let days = calendar.components(.Day, fromDate: now, toDate: deadline, options: .MatchNextTimePreservingSmallerUnits).day
+        let days = calendar.components(.Day, fromDate: now, toDate: deadline,
+                                       options: .MatchNextTimePreservingSmallerUnits).day
 
         if days < 0 {
             return 0

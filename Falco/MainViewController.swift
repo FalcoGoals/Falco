@@ -9,8 +9,8 @@
 import UIKit
 
 class MainViewController: UITabBarController, LoginDelegate {
-    private var server = Server.instance
-    private var storage = Storage.instance
+    private let server = Server.instance
+    private let storage = Storage.instance
 
     private var homeNavViewController: UINavigationController!
     private var homeViewController: BubblesViewController!
@@ -67,11 +67,9 @@ class MainViewController: UITabBarController, LoginDelegate {
     }
     
     func handleSwipe(sender: UISwipeGestureRecognizer) {
-        if (sender.direction == .Left) {
+        if sender.direction == .Left {
             selectedIndex = 1
-        }
-        
-        if (sender.direction == .Right) {
+        } else if sender.direction == .Right {
             selectedIndex = 0
         }
     }

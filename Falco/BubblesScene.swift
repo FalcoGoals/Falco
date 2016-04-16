@@ -58,7 +58,7 @@ class BubblesScene: SKScene {
         let positionInScene = touch!.locationInNode(self)
         let previousPosition = touch!.previousLocationInNode(self)
         let translation = CGPoint(x: positionInScene.x - previousPosition.x, y: positionInScene.y - previousPosition.y)
-        if (cam.position.y - translation.y > -frame.height/2) {
+        if cam.position.y - translation.y > -frame.height/2 {
             cam.position.y = -frame.height/2
         } else {
             cam.position.y -= translation.y
@@ -68,7 +68,7 @@ class BubblesScene: SKScene {
     func addGoal(goal: Goal) {
         let weight = goal.weight
         let (x,y) = calculateNextPosition(weight)
-        if (y - weight/2 < lowestY) {
+        if y - weight/2 < lowestY {
             lowestY = y - weight/2
         }
         circlePosition.append([x, y, weight])
@@ -84,7 +84,7 @@ class BubblesScene: SKScene {
         offset = CGFloat(100)
         for goal in goals.goals {
             runAction(SKAction.sequence([
-                SKAction.waitForDuration(1.0),
+                SKAction.waitForDuration(0.5),
                 SKAction.runBlock({self.addGoal(goal)})
                 ]))
         }
@@ -113,7 +113,7 @@ class BubblesScene: SKScene {
         for currX in 0..<maxXValue {
             var currY = lowestYValue
             var intersection = false
-            while (currY < 0) {
+            while currY < 0 {
                 for circle in circlePosition {
                     if (circleIntersection(circle[0], y1: circle[1],
                         r1: circle[2]/2, x2: currX+diameter/2, y2: currY+diameter/2, r2: diameter/2)) {
@@ -121,13 +121,13 @@ class BubblesScene: SKScene {
                         break
                     }
                 }
-                if (intersection) {
+                if intersection {
                     break
                 } else {
                     currY += 1
                 }
             }
-            if (currY > lowestYValue) {
+            if currY > lowestYValue {
                 xValue = currX
                 lowestYValue = currY
             }
@@ -141,7 +141,7 @@ class BubblesScene: SKScene {
         let dy = Double(y1) - Double(y2);
         let distance = sqrt(dx * dx + dy * dy);
 
-        if distance <= (Double(r1) + Double(r2)) {
+        if distance <= Double(r1) + Double(r2) {
             return true
         } else {
             return false

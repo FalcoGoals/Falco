@@ -15,24 +15,23 @@ class GoalBubble: SKNode {
 
     private var radius: CGFloat {
         didSet {
-            let scaleFactor = self.radius / oldValue
+            let scaleFactor = radius / oldValue
             let scale = SKAction.scaleBy(scaleFactor, duration: 0.5)
-            self.circle.runAction(scale, completion: {
+            circle.runAction(scale, completion: {
                 self.label.physicsBody = self.makeCircularBody(self.radius)
             })
         }
     }
     private var goalName: String {
         didSet {
-            self.label.text = self.goalName
+            label.text = goalName
         }
     }
     private var deadline: NSDate {
         didSet {
-            updateStrokeColour(self.deadline)
+            updateStrokeColour(deadline)
         }
     }
-
     private var bubbleTexture = SKTexture(imageNamed: "bubble")
 
     init(id: String, circleOfRadius: CGFloat, text: String, deadline: NSDate) {
@@ -56,16 +55,14 @@ class GoalBubble: SKNode {
         updateStrokeColour(deadline)
 
         self.label.physicsBody = makeCircularBody(circleOfRadius)
-
         self.label.horizontalAlignmentMode = .Center
         self.label.verticalAlignmentMode = .Baseline
         self.label.fontSize = 25
         self.label.fontName = "System-Bold"
         self.label.name = "label"
+        self.label.addChild(circle)
 
-        addChild(self.label)
-
-        self.label.addChild(self.circle)
+        addChild(label)
     }
 
     convenience init(goal: Goal) {
@@ -74,10 +71,10 @@ class GoalBubble: SKNode {
 
     func updateWithGoal(goal: Goal) {
         label.text = goal.name
-        if (CGFloat(goal.weight)/2 != radius) {
+        if CGFloat(goal.weight)/2 != radius {
             radius = CGFloat(goal.weight)/2
         }
-        self.deadline = goal.endTime
+        deadline = goal.endTime
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -94,9 +91,9 @@ class GoalBubble: SKNode {
     }
 
     private func setCircleProperties(texture: SKTexture) {
-        self.circle.fillColor = UIColor.whiteColor()
-        self.circle.fillTexture = texture
-        self.circle.lineWidth = 2
+        circle.fillColor = UIColor.whiteColor()
+        circle.fillTexture = texture
+        circle.lineWidth = 2
     }
 
     /// days are rounded down
@@ -104,7 +101,8 @@ class GoalBubble: SKNode {
         let now = NSDate()
         let calendar = NSCalendar.currentCalendar()
 
-        let days = calendar.components(.Day, fromDate: now, toDate: deadline, options: .MatchNextTimePreservingSmallerUnits).day
+        let days = calendar.components(.Day, fromDate: now, toDate: deadline,
+                                       options: .MatchNextTimePreservingSmallerUnits).day
 
         if days < 0 {
             return 0
@@ -115,9 +113,9 @@ class GoalBubble: SKNode {
 
     private func updateStrokeColour(deadline: NSDate) {
         if let aShadeOfRed = UIColor.redColor().desaturate(times: daysToDeadline(deadline)) {
-            self.circle.strokeColor = aShadeOfRed
+            circle.strokeColor = aShadeOfRed
         } else {
-            self.circle.strokeColor = UIColor.whiteColor()
+            circle.strokeColor = UIColor.whiteColor()
         }
     }
 }
@@ -134,7 +132,7 @@ extension UIColor {
         b = 0.0
         a = 0.0
 
-        if self.getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
+        if getHue(&h, saturation: &s, brightness: &b, alpha: &a) {
             let factor = CGFloat(pow(multiplier, Double(times)))
             let color = UIColor(hue: h,
                                 saturation: min(s * factor, 1.0),

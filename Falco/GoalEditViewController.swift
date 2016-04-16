@@ -21,16 +21,15 @@ class GoalEditViewController: UITableViewController {
     @IBOutlet weak var priorityControl: UISegmentedControl!
     @IBOutlet weak var datePicker: UIDatePicker!
 
-    let nameRow = 0
-    let dateRow = 1
-    let descriptionRow = 4
-    let datePickerRowHeight: CGFloat = 100
-
+    private let nameRow = 0
+    private let dateRow = 1
+    private let descriptionRow = 4
+    private let datePickerRowHeight: CGFloat = 100
+    private var isDatePickerShown = false
+    
     var delegate: GoalEditDelegate!
-
     var goal: Goal!
     var group: Group?
-    var isDatePickerShown = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,8 +57,8 @@ class GoalEditViewController: UITableViewController {
 
         // UI preparation
 
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 45
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 45
 
         detailsField.layer.borderWidth = 1
         detailsField.layer.cornerRadius = 5
@@ -94,7 +93,8 @@ class GoalEditViewController: UITableViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
 
-    /// Listening for primary action, in this case .ValueChanged. Therefore tapping on already selected segment does not hide date picker
+    //  Listening for primary action, in this case .ValueChanged. Therefore tapping on already selected segment 
+    //  does not hide date picker
     @IBAction func priorityTap(sender: UISegmentedControl) {
         hideDatePicker()
     }
@@ -156,8 +156,8 @@ class GoalEditViewController: UITableViewController {
         isDatePickerShown = true
 
         // idiom to animate row height changes
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
+        tableView.beginUpdates()
+        tableView.endUpdates()
 
         datePicker.hidden = false
         UIView.animateWithDuration(0.2, animations: {
@@ -175,8 +175,8 @@ class GoalEditViewController: UITableViewController {
         isDatePickerShown = false
 
         // idiom to animate row height changes
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
+        tableView.beginUpdates()
+        tableView.endUpdates()
 
         UIView.animateWithDuration(0.2, animations: {
             self.datePicker.alpha = 0

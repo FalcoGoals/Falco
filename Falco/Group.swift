@@ -72,7 +72,7 @@ class Group: CustomStringConvertible {
     }
 
     func removeMember(member: User) {
-        if (containsMember(member)) {
+        if containsMember(member) {
             _members.removeAtIndex(_members.indexOf(member)!)
         }
     }

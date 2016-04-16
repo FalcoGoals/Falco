@@ -199,7 +199,6 @@ class Server {
                 callback?()
             }
         }
-
         return true
     }
 
@@ -228,7 +227,6 @@ class Server {
                 let friend = User(id: id, name: name, pictureUrl: pictureUrl)
                 friends.append(friend)
             }
-
             callback(friends)
         }
     }

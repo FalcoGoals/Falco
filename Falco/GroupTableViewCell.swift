@@ -56,8 +56,8 @@ class GroupTableViewCell: UITableViewCell {
             let width = goalWidths[i]
             let bubble = BubbleCell(frame: CGRectMake(offsetX, offsetY, width, width), goal: goal)
             offsetX += width + spacing
-            self.addSubview(bubble)
-            self.bringSubviewToFront(bubble)
+            addSubview(bubble)
+            bringSubviewToFront(bubble)
         }
     }
 }

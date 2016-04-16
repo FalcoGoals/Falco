@@ -28,10 +28,10 @@ class GroupAddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let contacts = Storage.instance.friends {
-            self._friends = contacts
-            self.tableView.reloadData()
+            _friends = contacts
+            tableView.reloadData()
             for friend in contacts {
-                self._checkedRows[friend] = false
+                _checkedRows[friend] = false
             }
         } else {
             refreshData()
@@ -60,7 +60,7 @@ class GroupAddViewController: UIViewController {
         }
     }
 
-    func filterContentForSearchText(searchText: String, scope: String = "All") {
+    private func filterContentForSearchText(searchText: String, scope: String = "All") {
         _searchedFriends = _friends.filter { friend in
             return friend.name.lowercaseString.containsString(searchText.lowercaseString)
         }
@@ -77,10 +77,12 @@ class GroupAddViewController: UIViewController {
             }
         }
         if _groupName == nil || _groupName == "" {
-            let alert = UIAlertController(title: "Failed to create group", message: "A group name is required", preferredStyle: .Alert)
+            let alert = UIAlertController(title: "Failed to create group", message: "A group name is required",
+                                          preferredStyle: .Alert)
             warn(alert)
         } else if groupMembers.isEmpty {
-            let alert = UIAlertController(title: "Failed to create group", message: "Please select members to join the group", preferredStyle: .Alert)
+            let alert = UIAlertController(title: "Failed to create group", message: "Please select members to join the group",
+                                          preferredStyle: .Alert)
             warn(alert)
         } else {
             let group = Group(creator: Server.instance.user, name: _groupName!, members: groupMembers)
@@ -106,7 +108,6 @@ extension GroupAddViewController: UITableViewDelegate {
         if !_checkedRows[(cell?.user!)!]! {//cell?.accessoryType == UITableViewCellAccessoryType.None {
             cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
             _checkedRows[(cell?.user!)!] = true
-
         } else {
             cell?.accessoryType = UITableViewCellAccessoryType.None
             _checkedRows[(cell?.user!)!] = false
@@ -128,7 +129,8 @@ extension GroupAddViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("friendCell", forIndexPath: indexPath) as? FriendTableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier("friendCell",
+                                                               forIndexPath: indexPath) as? FriendTableViewCell
         if cell == nil {
             cell = FriendTableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "friendCell")
         }
@@ -136,12 +138,14 @@ extension GroupAddViewController: UITableViewDataSource {
         cell!.preservesSuperviewLayoutMargins = false
         cell!.layoutMargins = UIEdgeInsetsZero
         let selectedFriend: User
+        
         if searchController.active && searchController.searchBar.text != "" {
             selectedFriend = _searchedFriends[indexPath.row]
         } else {
             selectedFriend = _friends[indexPath.row]
         }
         cell!.setUser(selectedFriend)
+        
         if _checkedRows[selectedFriend]! {
             cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
         } else {

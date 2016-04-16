@@ -12,22 +12,22 @@ import JSQMessagesViewController
 
 class GroupChatViewController: JSQMessagesViewController {
     // to be set before the controller loads
-    var groupName: String!
-    var groupID: String!
-    var user: User!
+    private var groupName: String!
+    private var groupID: String!
+    private var user: User!
     
-    var messages = [JSQMessage]()
-    var outgoingBubbleImageView: JSQMessagesBubbleImage!
-    var incomingBubbleImageView: JSQMessagesBubbleImage!
+    private var messages = [JSQMessage]()
+    private var outgoingBubbleImageView: JSQMessagesBubbleImage!
+    private var incomingBubbleImageView: JSQMessagesBubbleImage!
     
-    var usersTypingQuery: FQuery!
-    let messagesRef = Firebase(url: "https://amber-torch-6648.firebaseio.com/messages")
-    let typingRef = Firebase(url: "https://amber-torch-6648.firebaseio.com/typing")
-    var groupMsgsRef: Firebase!
-    var groupTypingRef: Firebase!
-    var userIsTypingRef: Firebase!
+    private var usersTypingQuery: FQuery!
+    private let messagesRef = Firebase(url: "https://amber-torch-6648.firebaseio.com/messages")
+    private let typingRef = Firebase(url: "https://amber-torch-6648.firebaseio.com/typing")
+    private var groupMsgsRef: Firebase!
+    private var groupTypingRef: Firebase!
+    private var userIsTypingRef: Firebase!
     private var localTyping = false
-    var isTyping: Bool {
+    private var isTyping: Bool {
         get {
             return localTyping
         }
@@ -70,7 +70,8 @@ class GroupChatViewController: JSQMessagesViewController {
             return messages.count
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
+    override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath
+        indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
             let message = messages[indexPath.item]
             if message.senderId == senderId {   //local user
                 return outgoingBubbleImageView
@@ -116,7 +117,7 @@ class GroupChatViewController: JSQMessagesViewController {
     }
     
     /// Adds a message
-    func addMessage(userID: String, userName: String, text: String) {
+    private func addMessage(userID: String, userName: String, text: String) {
         let message = JSQMessage(senderId: userID, displayName: userName, text: text)
         messages.append(message)
     }
@@ -137,8 +138,8 @@ class GroupChatViewController: JSQMessagesViewController {
             isTyping = false
     }
     
-    func observeMessages() {
-        self.getMessage() { JSQMessage in
+    private func observeMessages() {
+        getMessage() { JSQMessage in
             if let message = JSQMessage {
                 self.messages.append(message)
                 self.finishReceivingMessage()
@@ -146,7 +147,7 @@ class GroupChatViewController: JSQMessagesViewController {
         }
     }
     
-    func getMessage(callback: (JSQMessage?) -> ()) {
+    private func getMessage(callback: (JSQMessage?) -> ()) {
         groupMsgsRef.observeEventType(.ChildAdded, withBlock: { snapshot in
             if snapshot.value is NSNull {
                 callback(JSQMessage())
@@ -158,7 +159,6 @@ class GroupChatViewController: JSQMessagesViewController {
             let name = msgData["senderName"]
             
             callback(JSQMessage(senderId: id, displayName: name, text: text))
-            
             }, withCancelBlock: { error in
                 print(error.description)
         })

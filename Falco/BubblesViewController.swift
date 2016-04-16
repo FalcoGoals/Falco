@@ -42,10 +42,12 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
         skView.ignoresSiblingOrder = true
         skView.allowsTransparency = true
         skView.presentScene(scene)
+        
         skView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(BubblesViewController.bubbleTapped(_:))))
         skView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action:
             #selector(BubblesViewController.bubbleLongPressed(_:))))
-        if (isGroup) {
+        
+        if isGroup {
             scene.addChat()
         }
 
@@ -57,7 +59,6 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
 
     override func viewDidAppear(animated: Bool) {
         self.becomeFirstResponder()
-
         playScene()
     }
 
@@ -80,7 +81,7 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
             let location = sender!.locationInView(sender!.view)
             let touchLocation = scene.convertPointFromView(location)
             var node = scene.nodeAtPoint(touchLocation)
-            while !(node is GoalBubble) && node.parent != nil {
+            while (!(node is GoalBubble) && node.parent != nil) {
                 if let parent = node.parent {
                     node = parent
                 } else {
@@ -90,6 +91,7 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
 
             nc.popoverPresentationController!.sourceView = sender!.view
             nc.popoverPresentationController!.delegate = self
+            
             if let node = node as? GoalBubble {
                 evc.goal = delegate.getGoal(node.id, groupId: currentGroup?.id)
                 nc.popoverPresentationController!.sourceRect = CGRect(origin: location, size: node.frame.size)
@@ -129,7 +131,7 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
         let location = sender.locationInView(sender.view)
         let touchLocation = scene.convertPointFromView(location)
         let node = scene.nodeAtPoint(touchLocation)
-        if (node.name == "chat") {
+        if node.name == "chat" {
             performSegueWithIdentifier(Constants.groupChatSegue, sender: sender)
         } else {
             performSegueWithIdentifier(Constants.goalEditSegue, sender: sender)
@@ -157,7 +159,7 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
     override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent?) {
         let children = scene.children
         for node in children {
-            if (node.name != "background" && node.name != "camera") {
+            if node.name != "background" && node.name != "camera" {
                 node.removeFromParent()
             }
         }
@@ -192,10 +194,12 @@ class BubblesViewController: UIViewController, GoalEditDelegate, UIPopoverPresen
         let bubbleSpriteNode = SKSpriteNode(imageNamed: "bubble")
         bubbleSpriteNode.size = circle.frame.size
         bubbleSpriteNode.setScale(1/circle.xScale)
+        
         circle.removeAllChildren()
         circle.addChild(bubbleSpriteNode)
         circle.fillTexture = nil
         circle.fillColor = UIColor.clearColor()
+        
         bubbleSpriteNode.runAction(SKAction.sequence([
             SKAction.animateWithTextures(bubblePopTextures, timePerFrame: 0.1, resize: false, restore: true),
             SKAction.removeFromParent()]))

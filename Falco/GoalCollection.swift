@@ -202,7 +202,7 @@ class GoalCollection: CustomStringConvertible {
     func getGoalsBeforeEndTime(endTime: NSDate) -> [Goal] {
         var goalList = [Goal]()
         for goal in _goals {
-            if (!goal.endTime.earlierDate(endTime).isEqualToDate(endTime)) {
+            if !goal.endTime.earlierDate(endTime).isEqualToDate(endTime) {
                 goalList.append(goal)
             }
         }
