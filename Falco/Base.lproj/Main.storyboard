@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="s4V-6X-cXX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="s4V-6X-cXX">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -30,19 +30,19 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="5mH-HK-7At" kind="relationship" relationship="rootViewController" id="j6o-eN-62N"/>
+                        <segue destination="6hr-tn-rQP" kind="relationship" relationship="rootViewController" id="ndp-0Z-5n1"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WPx-JN-Vvu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="577" y="-267"/>
         </scene>
-        <!--Goal Edit View Controller-->
+        <!--Edit Goal-->
         <scene sceneID="3WW-cE-nJt">
             <objects>
                 <tableViewController storyboardIdentifier="GoalDetailViewController" modalPresentationStyle="overCurrentContext" id="6hr-tn-rQP" customClass="GoalEditViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="cye-cd-Lbr">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -51,7 +51,7 @@
                             <tableViewSection id="Wv7-aX-wpy">
                                 <cells>
                                     <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="V9V-4E-0oW">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="V9V-4E-0oW" id="bSq-EH-1Ao">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -78,7 +78,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="23D-G9-JDX" userLabel="DateCell">
-                                        <rect key="frame" x="0.0" y="44" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="108" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="23D-G9-JDX" id="181-QA-orA">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -117,7 +117,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="qfd-bh-Byv" userLabel="DatePickerCell">
-                                        <rect key="frame" x="0.0" y="88" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="152" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qfd-bh-Byv" id="5x0-Y5-vqK">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -143,7 +143,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="48" id="znh-xS-Z8p" userLabel="PriorityCell">
-                                        <rect key="frame" x="0.0" y="132" width="600" height="48"/>
+                                        <rect key="frame" x="0.0" y="196" width="600" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="znh-xS-Z8p" id="5k4-2E-Cx0">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="48"/>
@@ -190,29 +190,24 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Hjx-ml-hEh" userLabel="AssignedUsersCell">
-                                        <rect key="frame" x="0.0" y="180" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="244" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hjx-ml-hEh" id="gyt-wU-2xM">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Assigned Users" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VU5-iQ-SdV">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Assigned Users" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VU5-iQ-SdV">
                                                     <rect key="frame" x="28" y="10" width="119.5" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="VU5-iQ-SdV" firstAttribute="top" secondItem="gyt-wU-2xM" secondAttribute="topMargin" constant="2" id="LLx-SV-dJe"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="VU5-iQ-SdV" secondAttribute="bottom" constant="2" id="LWW-qM-8ZO"/>
-                                                <constraint firstItem="VU5-iQ-SdV" firstAttribute="leading" secondItem="gyt-wU-2xM" secondAttribute="leadingMargin" constant="20" id="qBL-Ul-GA6"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="2yt-ZW-hg7" userLabel="AssignedUsersTableCell" customClass="AssignedUsersTableView" customModule="Falco" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="224" width="600" height="100"/>
+                                        <rect key="frame" x="0.0" y="288" width="600" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2yt-ZW-hg7" id="x71-iK-2Aj">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
@@ -258,7 +253,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="150" id="tOl-1l-gpn" userLabel="DescriptionCell">
-                                        <rect key="frame" x="0.0" y="324" width="600" height="150"/>
+                                        <rect key="frame" x="0.0" y="388" width="600" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tOl-1l-gpn" id="Yol-4Q-LuT">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
@@ -304,6 +299,18 @@
                             <outlet property="delegate" destination="6hr-tn-rQP" id="g22-Av-xMT"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Edit Goal" id="UEu-HZ-d2l">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="WAC-De-Hr7">
+                            <connections>
+                                <segue destination="DgV-Zg-e3R" kind="unwind" unwindAction="cancelGoalEdit:" id="8zL-t2-0sG"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="Ihn-mL-cZJ">
+                            <connections>
+                                <action selector="saveDetails:" destination="6hr-tn-rQP" id="xdE-bx-qc9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <value key="contentSizeForViewInPopover" type="size" width="450" height="380"/>
                     <connections>
                         <outlet property="assignedUsersLabel" destination="VU5-iQ-SdV" id="Spd-9A-i9J"/>
@@ -317,57 +324,9 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wrp-Gi-sji" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="DgV-Zg-e3R" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2207" y="-498"/>
-        </scene>
-        <!--Goal Edit Holder Controller-->
-        <scene sceneID="xsp-jP-CWP">
-            <objects>
-                <viewController id="5mH-HK-7At" customClass="GoalEditHolderController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="rQI-UD-P2N"/>
-                        <viewControllerLayoutGuide type="bottom" id="Py0-4D-AxY"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="1jK-fi-qpx">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ije-Ye-Y1s">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
-                                <connections>
-                                    <segue destination="6hr-tn-rQP" kind="embed" identifier="showGoalEditView" id="iTU-Rk-Rg8"/>
-                                </connections>
-                            </containerView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="ije-Ye-Y1s" firstAttribute="top" secondItem="rQI-UD-P2N" secondAttribute="bottom" id="7EQ-kx-hN9"/>
-                            <constraint firstItem="Py0-4D-AxY" firstAttribute="top" secondItem="ije-Ye-Y1s" secondAttribute="bottom" id="OE7-7b-XgJ"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ije-Ye-Y1s" secondAttribute="trailing" constant="-20" id="YHG-tm-Mq1"/>
-                            <constraint firstItem="ije-Ye-Y1s" firstAttribute="leading" secondItem="1jK-fi-qpx" secondAttribute="leadingMargin" constant="-20" id="ab1-Bb-xkq"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="vJM-z1-2yX">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="VqC-oD-NDL">
-                            <color key="tintColor" red="1" green="0.22334637660000001" blue="0.3805677496" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <segue destination="Z7J-n2-BNA" kind="unwind" unwindAction="cancelGoalEdit:" id="60z-Zg-nOr"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="Gyf-6P-t4G">
-                            <connections>
-                                <action selector="saveDetails:" destination="5mH-HK-7At" id="kbb-Jv-Xme"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="navbar" destination="vJM-z1-2yX" id="kOg-3b-iQa"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="92C-gZ-8WS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="Z7J-n2-BNA" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="1364" y="-407"/>
+            <point key="canvasLocation" x="674" y="-140"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="OV1-Rn-aHs">

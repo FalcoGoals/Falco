@@ -12,11 +12,11 @@ class AssignedUsersTableView: UITableViewCell {
     private var assignedUsers: [User]?
     private var checkedUsers = [User: Bool]()
     
-    func setUpUsers(members: [User]) {
-        assignedUsers = members
+    func setUpUsers(goal: GroupGoal) {
+        assignedUsers = goal.usersAssigned
         
         for assignedUser in assignedUsers! {
-            checkedUsers[assignedUser] = true
+            checkedUsers[assignedUser] = goal.isCompletedByUser(assignedUser)
         }
     }
 }

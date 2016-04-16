@@ -22,5 +22,9 @@ protocol GroupModelDelegate {
     func refreshGroups(callback: (() -> ())?)
 }
 
+protocol Savable {
+    func didSave(goal: Goal)
+}
+
 protocol ModelDelegate: GoalModelDelegate, GroupModelDelegate {
 }

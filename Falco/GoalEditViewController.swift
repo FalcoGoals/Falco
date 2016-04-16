@@ -8,14 +8,7 @@
 
 import UIKit
 
-protocol GoalEditDelegate {
-    var goal: Goal! { get set }
-    var group: Group? { get set }
-    var members: [User]? { get set }
-}
-
 class GoalEditViewController: UITableViewController {
-    private var isGroup: Bool { return delegate.group != nil }
 
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var detailsField: UITextView!
@@ -34,39 +27,42 @@ class GoalEditViewController: UITableViewController {
     private let assignedUsersTableRowHeight: CGFloat = 100
     private var isDatePickerShown = false
     private var isAssignedUsersTableShown = false
-    
-    var delegate: GoalEditDelegate!
-//    var group: Group?
+    private var isGroup: Bool {
+        return group != nil
+    }
+
+    var delegate: Savable!
+    var goal: Goal!
+    var group: Group?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Loading of goal information
 
-        if delegate.goal == nil {
-            if isGroup {
-                var gGoal = GroupGoal(groupId: delegate.group!.id, name: "", details: "", endTime: NSDate())
-                delegate.members = delegate.group!.members
-                for user in delegate.group!.members { // by default, every member is assigned
+        if goal == nil {
+            if let group = group {
+                var gGoal = GroupGoal(groupId: group.id, name: "", details: "", endTime: NSDate())
+                for user in group.members { // by default, every member is assigned
                     gGoal.addUser(user)
                 }
-                delegate.goal = gGoal
+                goal = gGoal
             } else {
-                delegate.goal = PersonalGoal(name: "", details: "", endTime: NSDate())
+                goal = PersonalGoal(name: "", details: "", endTime: NSDate())
             }
             navigationItem.title = "New Goal"
         }
 
-        nameField.text = delegate.goal.name
-        dateLabel.text = getDateString(delegate.goal.endTime)
-        datePicker.setDate(delegate.goal.endTime, animated: false)
-        priorityControl.selectedSegmentIndex = delegate.goal.priority
-        detailsField.text = delegate.goal.details
+        nameField.text = goal.name
+        dateLabel.text = getDateString(goal.endTime)
+        datePicker.setDate(goal.endTime, animated: false)
+        priorityControl.selectedSegmentIndex = goal.priority
+        detailsField.text = goal.details
         
         if isGroup {
             assignedUsersTable.delegate = assignedUsersTableCell
             assignedUsersTable.dataSource = assignedUsersTableCell
-            assignedUsersTableCell.setUpUsers(delegate.members!)
+            assignedUsersTableCell.setUpUsers(goal! as! GroupGoal)
         }
 
         // UI preparation
@@ -93,6 +89,18 @@ class GoalEditViewController: UITableViewController {
         detailsField.scrollEnabled = true
         nameField.becomeFirstResponder()
         updatePopupSize()
+    }
+
+    // MARK: IB Actions
+
+    @IBAction func saveDetails(sender: UIBarButtonItem) {
+        goal.name = nameField.text!
+        goal.details = detailsField.text!
+        goal.priority = priorityControl.selectedSegmentIndex
+        goal.endTime = datePicker.date
+
+        delegate.didSave(goal)
+        dismissViewControllerAnimated(true, completion: nil)
     }
 
     //  Listening for primary action, in this case .ValueChanged. Therefore tapping on

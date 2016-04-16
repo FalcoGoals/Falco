@@ -73,10 +73,10 @@ class BubblesViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == Constants.goalEditSegue {
             let nc = segue.destinationViewController as! UINavigationController
-            let goalEditHolderController = nc.topViewController as! GoalEditHolderController
-            
+            let evc = nc.topViewController as! GoalEditViewController
+
             if isGroup {
-                goalEditHolderController.group = currentGroup
+                evc.group = currentGroup
             }
 
             let location = sender!.locationInView(sender!.view)
@@ -94,21 +94,13 @@ class BubblesViewController: UIViewController {
             nc.popoverPresentationController!.delegate = self
             
             if let node = node as? GoalBubble {
-                let size = CGSize(width: 450, height: 380)
-                goalEditHolderController.goal = delegate.getGoal(node.id, groupId: currentGroup?.id)
-                goalEditHolderController.preferredContentSize = size
+                evc.goal = delegate.getGoal(node.id, groupId: currentGroup?.id)
                 nc.popoverPresentationController!.sourceRect = CGRect(origin: location, size: node.frame.size)
-                
-                if isGroup {
-                    let groupGoal = goalEditHolderController.goal as! GroupGoal
-                    goalEditHolderController.members = groupGoal.usersAssigned
-                }
             } else {
-                goalEditHolderController.goal = nil
+                evc.goal = nil
                 nc.popoverPresentationController!.sourceRect.offsetInPlace(dx: location.x, dy: location.y)
             }
-            
-            goalEditHolderController.saveDelegate = self
+            evc.delegate = self
         } else if segue.identifier == Constants.groupChatSegue {
             let nc = segue.destinationViewController as! UINavigationController
             let cvc = nc.topViewController as! GroupChatViewController
