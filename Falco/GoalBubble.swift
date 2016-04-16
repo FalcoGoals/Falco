@@ -100,6 +100,7 @@ class GoalBubble: SKNode {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: Drawing related methods
     private func makeCircularBody(radius: CGFloat) -> SKPhysicsBody {
         let body = SKPhysicsBody(circleOfRadius: radius)
         body.allowsRotation = false
@@ -158,6 +159,16 @@ class GoalBubble: SKNode {
         return [drawnLength, gapLength]
     }
 
+    private func updateStrokeColour(deadline: NSDate) {
+        if let aShadeOfRed = UIColor.redColor().desaturate(times: daysToDeadline(deadline)) {
+            self.circle.strokeColor = aShadeOfRed
+        } else {
+            self.circle.strokeColor = UIColor.whiteColor()
+        }
+    }
+
+
+    // MARK: Helpers
     private func setCircleProperties(texture: SKTexture) {
         circle.fillColor = UIColor.whiteColor()
         circle.fillTexture = texture
@@ -186,16 +197,9 @@ class GoalBubble: SKNode {
             return days
         }
     }
-
-    private func updateStrokeColour(deadline: NSDate) {
-        if let aShadeOfRed = UIColor.redColor().desaturate(times: daysToDeadline(deadline)) {
-            circle.strokeColor = aShadeOfRed
-        } else {
-            circle.strokeColor = UIColor.whiteColor()
-        }
-    }
 }
 
+// MARK: 
 extension UIColor {
     func changeSaturation(multiplier: Double, times: Int = 1) -> UIColor? {
         guard times > 0 else {
