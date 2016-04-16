@@ -43,13 +43,17 @@ class GoalBubble: SKNode {
     }
     private var bubbleTexture = SKTexture(imageNamed: "bubble")
 
+    private class var circleToRingRatio: CGFloat {
+        return 0.95
+    }
+
     init(id: String, circleOfRadius: CGFloat, text: String, deadline: NSDate) {
         self.id = id
         self.radius = circleOfRadius
         self.goalName = text
         self.deadline = deadline
 
-        self.circle = SKShapeNode(circleOfRadius: circleOfRadius - 5)
+        self.circle = SKShapeNode(circleOfRadius: circleOfRadius * GoalBubble.circleToRingRatio)
         self.label = SKLabelNode(text: text)
         while label.frame.width >= radius * 2 {
             label.text = String(label.text!.characters.dropLast())
@@ -68,12 +72,8 @@ class GoalBubble: SKNode {
         updateStrokeColour(deadline)
 
         self.label.physicsBody = makeCircularBody(circleOfRadius)
-        self.label.horizontalAlignmentMode = .Center
-        self.label.verticalAlignmentMode = .Baseline
-        self.label.fontSize = 25
-        self.label.fontName = "System-Bold"
-        self.label.name = "label"
-        self.label.addChild(circle)
+
+        setLabelProperties()
 
         addChild(self.label)
 
@@ -140,6 +140,14 @@ class GoalBubble: SKNode {
         circle.fillColor = UIColor.whiteColor()
         circle.fillTexture = texture
         circle.lineWidth = 2
+    }
+
+    private func setLabelProperties() {
+        self.label.horizontalAlignmentMode = .Center
+        self.label.verticalAlignmentMode = .Baseline
+        self.label.fontSize = 25
+        self.label.fontName = "System-Bold"
+        self.label.name = "label"
     }
 
     /// days are rounded down
