@@ -109,25 +109,44 @@ class GoalBubble: SKNode {
         return body
     }
 
+    /**
+     As UIKit and SpriteKit coordinate system is opposite, some calculations and parameters passed in here may
+     not make sense initially
+     
+     - note: 
+     clockwise: false is equivalent to clockwise
+     
+     angle A - angle B goes clockwise
+
+     */
     private func makeDashedCircle(origin: CGPoint, radius: CGFloat, completed: Int, involved: Int) -> SKShapeNode {
         let startAngle = CGFloat(M_PI_2)
-        let endAngle = CGFloat(M_PI_2 + M_PI * 2)
+        let endAngle = startAngle - CGFloat(M_PI * 2)
         let completionRatio: CGFloat = CGFloat(completed) / CGFloat(involved)
-        print(completionRatio)
+        let completionRatioToAngle = startAngle - CGFloat(M_PI * 2) * completionRatio
+        let lineWidth: CGFloat = 2
 
-        let completionRatioToAngle = CGFloat(M_PI * 2) * completionRatio + startAngle
-//        let completionArc =
-//            UIBezierPath(arcCenter: origin, radius: radius, startAngle: startAngle, endAngle: completionRatioToAngle, clockwise: true)
+        let arcForCompleted =
+            UIBezierPath(arcCenter: origin, radius: radius, startAngle: startAngle, endAngle: completionRatioToAngle, clockwise: false)
+        let arcForIncompleted = UIBezierPath(arcCenter: origin, radius: radius, startAngle: completionRatioToAngle, endAngle: endAngle, clockwise: false)
 
-        let remainingArc = UIBezierPath(arcCenter: origin, radius: radius, startAngle: completionRatioToAngle, endAngle: endAngle, clockwise: true)
+        let pattern = getPattern(self.circumference, segments: involved)
 
-        let pattern = getPattern(self.circumference, segments: 20)
-        let completionArc =
-            UIBezierPath(arcCenter: origin, radius: radius, startAngle: 0, endAngle: CGFloat(M_PI * 2), clockwise: true)
+        let dashedPathForCompleted = CGPathCreateCopyByDashingPath(arcForCompleted.CGPath, nil, 0, pattern, pattern.count)
+        let dashedPathForIncompleted = CGPathCreateCopyByDashingPath(arcForIncompleted.CGPath, nil, 0, pattern, pattern.count)
 
-        let dashed = CGPathCreateCopyByDashingPath(completionArc.CGPath, nil, 0, pattern, pattern.count)
-        let dashedCircle = SKShapeNode(path: dashed!)
-        return dashedCircle
+        let dashedCircleForCompleted = SKShapeNode(path: dashedPathForCompleted!)
+        dashedCircleForCompleted.strokeColor = UIColor.greenColor()
+        dashedCircleForCompleted.lineWidth = lineWidth
+
+        let dashedCircleForIncompeleted = SKShapeNode(path: dashedPathForIncompleted!)
+        dashedCircleForIncompeleted.strokeColor = UIColor.cyanColor()
+        dashedCircleForIncompeleted.lineWidth = lineWidth
+
+        let parentNode = SKShapeNode()
+        parentNode.addChild(dashedCircleForCompleted)
+        parentNode.addChild(dashedCircleForIncompeleted)
+        return parentNode
     }
 
     private func getPattern(points: CGFloat, segments: Int) -> [CGFloat] {
