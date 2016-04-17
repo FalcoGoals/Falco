@@ -621,7 +621,7 @@
                                                             </constraints>
                                                             <state key="normal" title="Button"/>
                                                             <connections>
-                                                                <segue destination="qyK-3t-oat" kind="presentation" identifier="showGroupEditView" id="y09-zI-dy0"/>
+                                                                <segue destination="qyK-3t-oat" kind="presentation" identifier="showGroupEditView" modalPresentationStyle="formSheet" id="y09-zI-dy0"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
