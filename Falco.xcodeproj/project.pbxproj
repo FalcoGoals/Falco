@@ -45,6 +45,7 @@
 		745957941C9841DE00C3D3C0 /* FalcoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745957931C9841DE00C3D3C0 /* FalcoTests.swift */; };
 		7459579F1C9841DE00C3D3C0 /* FalcoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7459579E1C9841DE00C3D3C0 /* FalcoUITests.swift */; };
 		745BC9731C994BFD00204231 /* BubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745BC9721C994BFD00204231 /* BubbleCell.swift */; };
+		74B0CF0A1CC3841D00CF45A8 /* GroupEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B0CF091CC3841D00CF45A8 /* GroupEditViewController.swift */; };
 		74BB5DD71CA1848500695C24 /* GoalEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB5DD61CA1848500695C24 /* GoalEditViewController.swift */; };
 		7BC0687D1CC27C0A00A0921A /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0687C1CC27C0A00A0921A /* UserCell.swift */; };
 		7BC0687E1CC27C0A00A0921A /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0687C1CC27C0A00A0921A /* UserCell.swift */; };
@@ -112,6 +113,7 @@
 		7459579E1C9841DE00C3D3C0 /* FalcoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FalcoUITests.swift; sourceTree = "<group>"; };
 		745957A01C9841DE00C3D3C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		745BC9721C994BFD00204231 /* BubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleCell.swift; sourceTree = "<group>"; };
+		74B0CF091CC3841D00CF45A8 /* GroupEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupEditViewController.swift; sourceTree = "<group>"; };
 		74BB5DD61CA1848500695C24 /* GoalEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalEditViewController.swift; sourceTree = "<group>"; };
 		7BC0687C1CC27C0A00A0921A /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		7BC068801CC2819E00A0921A /* UsersCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersCell.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 			children = (
 				A2ABCD331CB76A9D00E044A0 /* MainViewController.swift */,
 				A24F37CB1C9EA468001148FD /* LoginViewController.swift */,
+				74B0CF091CC3841D00CF45A8 /* GroupEditViewController.swift */,
 				740FF74F1CABB8A5008A5D1F /* BubblesViewController.swift */,
 				74BB5DD61CA1848500695C24 /* GoalEditViewController.swift */,
 				2586F12B1CB69226002809F5 /* GroupsViewController.swift */,
@@ -494,6 +497,7 @@
 				25BB93621CB0028F0008E0B8 /* GroupChatViewController.swift in Sources */,
 				A2C1C7DE1CACBE6800B6EAFA /* Server.swift in Sources */,
 				25E2760E1CABC67C007A26EF /* Constants.swift in Sources */,
+				74B0CF0A1CC3841D00CF45A8 /* GroupEditViewController.swift in Sources */,
 				2528BAF01CA702DD007332FA /* GroupGoal.swift in Sources */,
 				7459577F1C9841DE00C3D3C0 /* AppDelegate.swift in Sources */,
 			);
