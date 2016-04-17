@@ -224,9 +224,12 @@ extension PopoverDelegate: UIPopoverPresentationControllerDelegate {
 }
 
 extension BubblesViewController: Savable {
-    func didSave(goal: Goal) {
+    func didSaveGoal(goal: Goal) {
         scene.updateGoal(goal)
         delegate.didUpdateGoal(goal)
         playScene()
+    }
+    func didSaveGroup(group: Group) {
+        // nil
     }
 }

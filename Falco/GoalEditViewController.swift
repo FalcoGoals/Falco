@@ -118,7 +118,7 @@ class GoalEditViewController: UITableViewController {
             goal = gGoal
         }
 
-        delegate.didSave(goal)
+        delegate.didSaveGoal(goal)
         dismissViewControllerAnimated(true, completion: nil)
     }
 
