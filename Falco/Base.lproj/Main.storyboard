@@ -755,7 +755,7 @@
                                                                         <constraint firstAttribute="width" secondItem="2i3-e0-Oh2" secondAttribute="height" multiplier="1:1" id="cvs-OW-rNK"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vd-nL-ZP5">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vd-nL-ZP5">
                                                                     <rect key="frame" x="90" y="25" width="470" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -772,8 +772,8 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
-                                                    <outlet property="friendImageView" destination="2i3-e0-Oh2" id="sFP-i6-ACd"/>
-                                                    <outlet property="friendNameLabel" destination="2Vd-nL-ZP5" id="Dr6-tj-qVF"/>
+                                                    <outlet property="friendImageView" destination="2i3-e0-Oh2" id="b0x-Uk-mNZ"/>
+                                                    <outlet property="friendNameLabel" destination="2Vd-nL-ZP5" id="73k-Ty-h20"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
