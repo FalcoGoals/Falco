@@ -9,17 +9,15 @@
 import UIKit
 
 class GroupEditViewController: UIViewController {
-    var group: Group {
-        return delegate.getGroups().first!
-    }
-    var groupName: String {
+    var group: Group!
+    var delegate: Savable!
+
+    private var groupName: String {
         return group.name
     }
-    var members: [User] {
+    private var members: [User] {
         return group.members
     }
-
-    var delegate: GroupModelDelegate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
