@@ -21,6 +21,8 @@ class GroupEditViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        print(group)
     }
 }
 
@@ -44,7 +46,11 @@ extension GroupEditViewController: UITableViewDataSource {
         }
 
         //set image and name
-        cell.setUser(members[indexPath.row])
+//        cell.setUser(members[indexPath.row])
+        let stubMember = User(id: "awdawd", name: "fOoo", pictureUrl: "https://scontent.xx.fbcdn.net/hprofile-frc1/v/t1.0-1/p100x100/10418966_10152342769803655_3656733882909337602_n.jpg?oh=4354526ff1cea06d54d96e4752bef323&oe=5772A9B9")
+
+        cell.setUser(stubMember)
+
 
         return cell
     }
