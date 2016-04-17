@@ -685,10 +685,10 @@
             </objects>
             <point key="canvasLocation" x="-191" y="789"/>
         </scene>
-        <!--Goal Edit View Controller-->
+        <!--Group Edit View Controller-->
         <scene sceneID="v9P-Ox-qQo">
             <objects>
-                <viewController id="HJF-m1-yF9" customClass="GoalEditViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="HJF-m1-yF9" customClass="GroupEditViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="e9k-bc-1wW"/>
                         <viewControllerLayoutGuide type="bottom" id="CRw-lX-ZNJ"/>
@@ -760,6 +760,10 @@
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                         </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="HJF-m1-yF9" id="lJZ-3z-sau"/>
+                                            <outlet property="delegate" destination="HJF-m1-yF9" id="iQp-DJ-LGZ"/>
+                                        </connections>
                                     </tableView>
                                 </subviews>
                             </stackView>
