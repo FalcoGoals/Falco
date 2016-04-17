@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class Chat: SKNode {
+class ChatBubble: SKNode {
     
     init (radius: CGFloat) {
         super.init()

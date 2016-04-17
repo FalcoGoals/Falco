@@ -95,10 +95,13 @@ class MainViewController: UITabBarController, LoginDelegate {
                     self.updateBubblesView()
                 }
             }
-            self.groupsViewController.refreshData()
             self.server.getFriends() { friends in
                 if let friends = friends {
-                    self.storage.friends = friends
+                    for friend in friends {
+                        self.storage.friends[friend.id] = friend
+                    }
+                    self.storage.isFriendListPopulated = true
+                    self.groupsViewController.refreshData()
                 }
             }
         }
@@ -151,8 +154,12 @@ extension MainViewController: ModelDelegate {
         }
     }
 
-    func getGoals() -> GoalCollection {
-        return storage.personalGoals.incompleteGoals
+    func getGoals(groupId: String? = nil) -> GoalCollection? {
+        if let groupId = groupId {
+            return storage.groups[groupId]?.goals
+        } else {
+            return storage.personalGoals
+        }
     }
 
     func getGroups() -> [Group] {

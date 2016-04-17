@@ -50,7 +50,13 @@ class Group: CustomStringConvertible {
         var members = [User]()
         let memberData = groupData[Constants.membersKey]! as! [String: AnyObject]
         for (memberId, _) in memberData {
-            members.append(User(id: memberId))
+            let member: User
+            if let knownUser = Storage.instance.getKnownUser(memberId) {
+                member = knownUser
+            } else {
+                member = User(id: memberId)
+            }
+            members.append(member)
         }
         var goals = [Goal]()
         if let goalsData = groupData[Constants.goalsKey] as? [String: [String: AnyObject]] {

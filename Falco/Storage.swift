@@ -10,8 +10,18 @@ import Foundation
 
 class Storage {
     static let instance = Storage()
+    var isFriendListPopulated = false
     var personalGoals = GoalCollection()
     var groups: [String: Group] = [:]
-    var friends: [User]? = nil
+    var friends: [String: User] = [:]
     private init() {}
+    func getKnownUser(userId: String) -> User? {
+        if userId == Server.instance.user.id {
+            return Server.instance.user
+        } else if let friend = friends[userId] {
+            return friend
+        } else {
+            return nil
+        }
+    }
 }

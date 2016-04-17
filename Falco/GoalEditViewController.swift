@@ -15,10 +15,10 @@ class GoalEditViewController: UITableViewController {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var priorityControl: UISegmentedControl!
     @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var assignedUsersLabel: UILabel!
-    @IBOutlet weak var assignedUsersTable: UITableView!
-    @IBOutlet weak var assignedUsersTableCell: AssignedUsersTableView!
+    @IBOutlet weak var usersCell: UsersCell!
+    @IBOutlet weak var usersCellTable: UITableView!
 
+    private var isNewGoal = false
     private let nameRow = 0
     private let dateRow = 1
     private let assignedUsersLabelRow = 4
@@ -51,6 +51,7 @@ class GoalEditViewController: UITableViewController {
                 goal = PersonalGoal(name: "", details: "", endTime: NSDate())
             }
             navigationItem.title = "New Goal"
+            isNewGoal = true
         }
 
         nameField.text = goal.name
@@ -60,13 +61,11 @@ class GoalEditViewController: UITableViewController {
         detailsField.text = goal.details
         
         if isGroup {
-            assignedUsersTable.delegate = assignedUsersTableCell
-            assignedUsersTable.dataSource = assignedUsersTableCell
-            assignedUsersTableCell.setUpUsers(goal! as! GroupGoal)
+            usersCellTable.layer.borderWidth = 1
+            usersCellTable.layer.cornerRadius = 5
+            usersCellTable.layer.borderColor = UIColor(red: 0, green: 118/255, blue: 1, alpha: 1).CGColor
 
-            assignedUsersTable.layer.borderWidth = 1
-            assignedUsersTable.layer.cornerRadius = 5
-            assignedUsersTable.layer.borderColor = UIColor(red: 0, green: 118/255, blue: 1, alpha: 1).CGColor
+            usersCell.initUsers(goal as! GroupGoal, groupMembers: group!.members, isNewGoal: isNewGoal)
         }
 
         // UI preparation
@@ -103,13 +102,29 @@ class GoalEditViewController: UITableViewController {
         goal.priority = priorityControl.selectedSegmentIndex
         goal.endTime = datePicker.date
 
+        if isGroup {
+            var gGoal = goal as! GroupGoal
+            for member in group!.members {
+                if usersCell.isUserAssigned[member]! {
+                    if !gGoal.isUserAssigned(member) {
+                        gGoal.addUser(member)
+                    }
+                } else {
+                    if gGoal.isUserAssigned(member) {
+                        gGoal.removeUser(member)
+                    }
+                }
+            }
+            goal = gGoal
+        }
+
         delegate.didSave(goal)
         dismissViewControllerAnimated(true, completion: nil)
     }
 
     //  Listening for primary action, in this case .ValueChanged. Therefore tapping on
     //  already selected segment does not hide date picker
-    @IBAction func priorityTap(sender: UISegmentedControl) {
+    @IBAction func priorityTapped(sender: UISegmentedControl) {
         hideDatePicker()
     }
 
@@ -162,7 +177,7 @@ class GoalEditViewController: UITableViewController {
             }
         } else if indexPath.row == assignedUsersLabelRow + 1 {
             if isGroup && isAssignedUsersTableShown {
-                return assignedUsersTable.contentSize.height
+                return usersCellTable.contentSize.height
             } else {
                 return 0
             }
@@ -227,9 +242,9 @@ class GoalEditViewController: UITableViewController {
         tableView.beginUpdates()
         tableView.endUpdates()
         
-        assignedUsersTable.hidden = false
+        usersCellTable.hidden = false
         UIView.animateWithDuration(0.2, animations: {
-            self.assignedUsersTable.alpha = 1
+            self.usersCellTable.alpha = 1
             }, completion: { finished in
                 self.updatePopupSize()
         })
@@ -246,9 +261,9 @@ class GoalEditViewController: UITableViewController {
         tableView.endUpdates()
         
         UIView.animateWithDuration(0.2, animations: {
-            self.assignedUsersTable.alpha = 0
+            self.usersCellTable.alpha = 0
             }, completion: { finished in
-                self.assignedUsersTable.hidden = true
+                self.usersCellTable.hidden = true
                 self.updatePopupSize()
         })
     }

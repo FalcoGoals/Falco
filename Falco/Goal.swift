@@ -23,7 +23,7 @@ protocol Goal {
 
 extension Goal {
     var isCompleted: Bool {
-        return completionTime != NSDate.distantPast()
+        return completionTime != Constants.incompleteTimeValue
     }
     /// smallest bubble has 15 point radius
     var weight: Int {
