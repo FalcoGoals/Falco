@@ -27,6 +27,7 @@ struct Constants {
     // Segue identifiers
     static let addGroupSegue = "showGroupAdd"
     static let goalEditSegue = "showGoalEditView"
+    static let groupEditSegue = "showGroupEditView"
     static let groupChatSegue = "showChatView"
     static let groupBubblesSegue = "showGroupBubblesView"
     

@@ -74,9 +74,6 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
 
     @IBAction func cancelGroupAdd(segue: UIStoryboardSegue) { }
 
-    @IBAction func groupSettings(sender: UIButton) {
-        print("settings tapped")
-    }
     // MARK: Helper methods
 
     private func initSearchController() {

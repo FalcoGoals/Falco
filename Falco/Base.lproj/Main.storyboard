@@ -621,7 +621,7 @@
                                                             </constraints>
                                                             <state key="normal" title="Button"/>
                                                             <connections>
-                                                                <action selector="groupSettings:" destination="CAJ-cs-Sje" eventType="touchUpInside" id="5pS-ml-47u"/>
+                                                                <segue destination="qyK-3t-oat" kind="presentation" identifier="showGroupEditView" id="y09-zI-dy0"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -685,10 +685,10 @@
             </objects>
             <point key="canvasLocation" x="-191" y="789"/>
         </scene>
-        <!--View Controller-->
+        <!--Goal Edit View Controller-->
         <scene sceneID="v9P-Ox-qQo">
             <objects>
-                <viewController id="HJF-m1-yF9" sceneMemberID="viewController">
+                <viewController id="HJF-m1-yF9" customClass="GoalEditViewController" customModule="Falco" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="e9k-bc-1wW"/>
                         <viewControllerLayoutGuide type="bottom" id="CRw-lX-ZNJ"/>
