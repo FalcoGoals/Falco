@@ -605,21 +605,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="560" height="250"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vyW-Sn-P7T">
-                                                    <rect key="frame" x="39" y="16" width="482" height="46"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="vyW-Sn-P7T">
+                                                    <rect key="frame" x="39" y="16" width="482" height="27"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="THy-ld-msz">
-                                                            <rect key="frame" x="0.0" y="0.0" width="436" height="46"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="THy-ld-msz">
+                                                            <rect key="frame" x="0.0" y="0.0" width="455" height="27"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                             <color key="textColor" red="0.58435285091400146" green="0.80647295713424683" blue="0.91941982507705688" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73I-QR-Jtw">
-                                                            <rect key="frame" x="436" y="0.0" width="46" height="46"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="73I-QR-Jtw" secondAttribute="height" multiplier="1:1" id="OfO-f6-btb"/>
-                                                            </constraints>
-                                                            <state key="normal" title="Button"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73I-QR-Jtw">
+                                                            <rect key="frame" x="460" y="0.0" width="22" height="27"/>
                                                             <connections>
                                                                 <segue destination="qyK-3t-oat" kind="presentation" identifier="showGroupEditView" modalPresentationStyle="formSheet" id="y09-zI-dy0"/>
                                                             </connections>
