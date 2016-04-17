@@ -10,7 +10,8 @@ import UIKit
 
 class UsersCell: UITableViewCell {
     private var allGroupMembers: [User]!
-    private var isUserAssigned = [User: Bool]()
+
+    var isUserAssigned = [User: Bool]()
     
     func initUsers(goal: GroupGoal, groupMembers: [User]) {
         allGroupMembers = groupMembers

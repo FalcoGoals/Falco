@@ -100,6 +100,22 @@ class GoalEditViewController: UITableViewController {
         goal.priority = priorityControl.selectedSegmentIndex
         goal.endTime = datePicker.date
 
+        if isGroup {
+            var gGoal = goal as! GroupGoal
+            for member in group!.members {
+                if usersCell.isUserAssigned[member]! {
+                    if !gGoal.isUserAssigned(member) {
+                        gGoal.addUser(member)
+                    }
+                } else {
+                    if gGoal.isUserAssigned(member) {
+                        gGoal.removeUser(member)
+                    }
+                }
+            }
+            goal = gGoal
+        }
+
         delegate.didSave(goal)
         dismissViewControllerAnimated(true, completion: nil)
     }
