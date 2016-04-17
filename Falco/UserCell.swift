@@ -8,20 +8,20 @@
 
 import UIKit
 
-class AssignedUserTableViewCell: UITableViewCell {
+class UserCell: UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     private var _user: User!
-    var user: User? { return _user }
-    
+    var user: User { return _user }
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
+
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
+
     func setUser(user: User) {
         _user = user
         nameLabel.text = user.name

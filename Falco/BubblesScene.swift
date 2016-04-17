@@ -10,7 +10,7 @@ import SpriteKit
 
 class BubblesScene: SKScene {
     private var cam: SKCameraNode!
-    private var chat: Chat?
+    private var chat: ChatBubble?
 
     private var circlePosition = [[Int]]()
     private var lowestY = 0
@@ -99,7 +99,7 @@ class BubblesScene: SKScene {
     }
     
     func addChat() {
-        chat = Chat(radius: 40)
+        chat = ChatBubble(radius: 40)
         chat!.position = CGPointMake(size.width/2 - 100, (-size.height/2) + 100)
         cam.addChild(chat!)
     }

@@ -214,7 +214,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="2yt-ZW-hg7" userLabel="AssignedUsersTableCell" customClass="AssignedUsersTableView" customModule="Falco" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="2yt-ZW-hg7" customClass="UsersCell" customModule="Falco" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="288" width="600" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2yt-ZW-hg7" id="x71-iK-2Aj">
@@ -225,7 +225,7 @@
                                                     <rect key="frame" x="28" y="0.0" width="544" height="100"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <prototypes>
-                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userCell" id="Nbx-RY-kko" customClass="AssignedUserTableViewCell" customModule="Falco" customModuleProvider="target">
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userCell" id="Nbx-RY-kko" customClass="UserCell" customModule="Falco" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="28" width="544" height="44"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nbx-RY-kko" id="eaH-cL-Ofj">
@@ -323,14 +323,13 @@
                     </navigationItem>
                     <value key="contentSizeForViewInPopover" type="size" width="450" height="380"/>
                     <connections>
-                        <outlet property="assignedUsersLabel" destination="VU5-iQ-SdV" id="Spd-9A-i9J"/>
-                        <outlet property="assignedUsersTable" destination="ixx-Ci-5KA" id="dMc-OG-oBo"/>
-                        <outlet property="assignedUsersTableCell" destination="2yt-ZW-hg7" id="BOX-bV-ViI"/>
                         <outlet property="dateLabel" destination="ReF-ci-rM3" id="tR1-Vr-7pN"/>
                         <outlet property="datePicker" destination="Ezu-I3-plq" id="uue-z6-5up"/>
                         <outlet property="detailsField" destination="Bk9-dc-Q94" id="Ic5-1K-wWd"/>
                         <outlet property="nameField" destination="sd9-0k-ATJ" id="byA-Ij-VVR"/>
                         <outlet property="priorityControl" destination="JbF-wM-MeN" id="GEh-tw-4g9"/>
+                        <outlet property="usersCell" destination="2yt-ZW-hg7" id="Tu5-d5-D3v"/>
+                        <outlet property="usersCellTable" destination="ixx-Ci-5KA" id="7sF-NJ-hrs"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wrp-Gi-sji" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AssignedUsersTableView: UITableViewCell {
+class UsersCell: UITableViewCell {
     private var assignedUsers: [User]?
     private var checkedUsers = [User: Bool]()
     
@@ -21,25 +21,25 @@ class AssignedUsersTableView: UITableViewCell {
     }
 }
 
-extension AssignedUsersTableView: UITableViewDelegate {
+extension UsersCell: UITableViewDelegate {
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         cell.backgroundColor = UIColor.clearColor()
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as? AssignedUserTableViewCell
-        if !checkedUsers[(cell?.user!)!]! {
-            cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
-            checkedUsers[(cell?.user!)!] = true
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! UserCell
+        if !checkedUsers[cell.user]! {
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
+            checkedUsers[cell.user] = true
         } else {
-            cell?.accessoryType = UITableViewCellAccessoryType.None
-            checkedUsers[(cell?.user!)!] = false
+            cell.accessoryType = UITableViewCellAccessoryType.None
+            checkedUsers[cell.user] = false
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }
 
-extension AssignedUsersTableView: UITableViewDataSource {
+extension UsersCell: UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -49,23 +49,21 @@ extension AssignedUsersTableView: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("userCell",
-                                                               forIndexPath: indexPath) as? AssignedUserTableViewCell
-        if cell == nil {
-            cell = AssignedUserTableViewCell()
-        }
-        cell!.separatorInset = UIEdgeInsetsZero
-        cell!.preservesSuperviewLayoutMargins = false
-        cell!.layoutMargins = UIEdgeInsetsZero
+        let cell = tableView.dequeueReusableCellWithIdentifier("userCell",
+                                                               forIndexPath: indexPath) as! UserCell
+
+        cell.separatorInset = UIEdgeInsetsZero
+        cell.preservesSuperviewLayoutMargins = false
+        cell.layoutMargins = UIEdgeInsetsZero
         let selectedUser = assignedUsers![indexPath.row]
         
-        cell!.setUser(selectedUser)
+        cell.setUser(selectedUser)
         
         if checkedUsers[selectedUser]! {
-            cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
+            cell.accessoryType = UITableViewCellAccessoryType.Checkmark
         } else {
-            cell?.accessoryType = UITableViewCellAccessoryType.None
+            cell.accessoryType = UITableViewCellAccessoryType.None
         }
-        return cell!
+        return cell
     }
 }
