@@ -759,6 +759,10 @@
                                                         <constraint firstItem="eCc-iI-5WN" firstAttribute="top" secondItem="CxH-Sh-T9F" secondAttribute="topMargin" constant="-8" id="qcS-Ss-JHF"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="friendImageView" destination="2i3-e0-Oh2" id="sFP-i6-ACd"/>
+                                                    <outlet property="friendNameLabel" destination="2Vd-nL-ZP5" id="Dr6-tj-qVF"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                         <connections>
