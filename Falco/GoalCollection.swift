@@ -105,11 +105,9 @@ class GoalCollection: CustomStringConvertible {
             pGoal.markComplete()
             updateGoal(pGoal)
         } else if var gGoal = existingGoal as? GroupGoal {
-            print("BEFORE: \(gGoal)")
             if gGoal.markCompleteByUser(user) {
                 updateGoal(gGoal)
             }
-            print("AFTER: \(gGoal)")
         }
     }
     
