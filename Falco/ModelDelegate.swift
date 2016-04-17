@@ -13,7 +13,7 @@ protocol GoalModelDelegate {
     func didCompleteGoal(goal: Goal) -> Goal?
     func didCompleteGoal(goalId: String, groupId: String?) -> Goal?
     func getGoal(goalId: String, groupId: String?) -> Goal?
-    func getGoals() -> GoalCollection
+    func getGoals(groupId: String?) -> GoalCollection?
 }
 
 protocol GroupModelDelegate {

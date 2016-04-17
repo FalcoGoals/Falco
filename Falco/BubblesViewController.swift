@@ -48,7 +48,7 @@ class BubblesViewController: UIViewController {
             #selector(BubblesViewController.bubbleLongPressed(_:))))
         
         if isGroup {
-            scene.addChat()
+            scene.addChatBubble()
         }
 
         if let goals = initialGoals {
@@ -101,6 +101,7 @@ class BubblesViewController: UIViewController {
                 nc.popoverPresentationController!.sourceRect.offsetInPlace(dx: location.x, dy: location.y)
             }
             evc.delegate = self
+
         } else if segue.identifier == Constants.groupChatSegue {
             let nc = segue.destinationViewController as! UINavigationController
             let cvc = nc.topViewController as! GroupChatViewController
@@ -163,10 +164,8 @@ class BubblesViewController: UIViewController {
                 node.removeFromParent()
             }
         }
-        if isGroup {
-            addGoalsToScene((currentGroup?.goals)!)
-        } else {
-            addGoalsToScene(delegate.getGoals())
+        if let reloadedGoals = delegate.getGoals(currentGroup?.id)?.incompleteGoals {
+            addGoalsToScene(reloadedGoals)
         }
     }
 

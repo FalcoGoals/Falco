@@ -154,8 +154,12 @@ extension MainViewController: ModelDelegate {
         }
     }
 
-    func getGoals() -> GoalCollection {
-        return storage.personalGoals.incompleteGoals
+    func getGoals(groupId: String? = nil) -> GoalCollection? {
+        if let groupId = groupId {
+            return storage.groups[groupId]?.goals
+        } else {
+            return storage.personalGoals
+        }
     }
 
     func getGroups() -> [Group] {
