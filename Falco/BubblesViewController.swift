@@ -114,7 +114,7 @@ class BubblesViewController: UIViewController {
             nc.popoverPresentationController!.delegate = self
             nc.popoverPresentationController!.sourceRect = CGRect(origin: location, size: node.frame.size)
             
-            cvc.initialize(currentGroup!, localUser: Server.instance.user)
+            cvc.initialize(currentGroup!, localUser: Storage.instance.user)
             cvc.preferredContentSize = CGSizeMake(view.frame.width, view.frame.height/2)
         }
     }

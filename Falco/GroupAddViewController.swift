@@ -85,7 +85,7 @@ class GroupAddViewController: UIViewController {
                                           preferredStyle: .Alert)
             warn(alert)
         } else {
-            let group = Group(creator: Server.instance.user, name: _groupName!, members: groupMembers)
+            let group = Group(creator: Storage.instance.user, name: _groupName!, members: groupMembers)
             delegate.didAddGroup(group)
             dismissViewControllerAnimated(true, completion: nil)
         }

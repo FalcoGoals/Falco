@@ -88,11 +88,18 @@ class MainViewController: UITabBarController, LoginDelegate {
     }
 
     private func authAndDownloadGoals() {
+        storage.loadFromCache()
+        homeViewController.initialGoals = storage.personalGoals.incompleteGoals
+        let cacheDoesExist = !storage.personalGoals.isEmpty
         server.auth() {
+            self.storage.user = self.server.user
             self.server.getPersonalGoals() { goals in
                 if let goals = goals {
                     self.storage.personalGoals = goals
-                    self.updateBubblesView()
+                    if !cacheDoesExist {
+                        self.updateBubblesView()
+                    }
+                    self.storage.writeToCache()
                 }
             }
             self.server.getFriends() { friends in
@@ -101,6 +108,7 @@ class MainViewController: UITabBarController, LoginDelegate {
                         self.storage.friends[friend.id] = friend
                     }
                     self.storage.isFriendListPopulated = true
+                    self.storage.saveUsersData()
                     self.groupsViewController.refreshData()
                 }
             }
@@ -130,7 +138,7 @@ extension MainViewController: ModelDelegate {
             didUpdateGoal(pGoal)
             return pGoal
         } else if var gGoal = goal as? GroupGoal {
-            gGoal.markCompleteByUser(server.user)
+            gGoal.markCompleteByUser(storage.user)
             didUpdateGoal(gGoal)
             return gGoal
         } else {
@@ -180,6 +188,7 @@ extension MainViewController: ModelDelegate {
                 for group in groups {
                     self.storage.groups[group.id] = group
                 }
+                self.storage.writeToCache()
             }
             callback?()
         }
