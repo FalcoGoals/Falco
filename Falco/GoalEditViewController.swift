@@ -63,6 +63,10 @@ class GoalEditViewController: UITableViewController {
             assignedUsersTable.delegate = assignedUsersTableCell
             assignedUsersTable.dataSource = assignedUsersTableCell
             assignedUsersTableCell.setUpUsers(goal! as! GroupGoal)
+
+            assignedUsersTable.layer.borderWidth = 1
+            assignedUsersTable.layer.cornerRadius = 5
+            assignedUsersTable.layer.borderColor = UIColor(red: 0, green: 118/255, blue: 1, alpha: 1).CGColor
         }
 
         // UI preparation
@@ -144,26 +148,26 @@ class GoalEditViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 0 && indexPath.row == dateRow + 1 {
-            if !isDatePickerShown {
-                return 0
-            } else {
+        if indexPath.row == dateRow + 1 {
+            if isDatePickerShown {
                 return datePickerRowHeight
-            }
-        } else if indexPath.section == 0 && indexPath.row == assignedUsersLabelRow {
-            if isGroup {
-                return self.tableView.rowHeight
             } else {
                 return 0
             }
-        } else if indexPath.section == 0 && indexPath.row == assignedUsersLabelRow + 1 {
+        } else if indexPath.row == assignedUsersLabelRow {
+            if isGroup {
+                return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+            } else {
+                return 0
+            }
+        } else if indexPath.row == assignedUsersLabelRow + 1 {
             if isGroup && isAssignedUsersTableShown {
-                return assignedUsersTableRowHeight
+                return assignedUsersTable.contentSize.height
             } else {
                 return 0
             }
         } else {
-            return self.tableView.rowHeight
+            return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
         }
     }
 

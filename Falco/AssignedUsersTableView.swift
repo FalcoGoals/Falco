@@ -22,6 +22,10 @@ class AssignedUsersTableView: UITableViewCell {
 }
 
 extension AssignedUsersTableView: UITableViewDelegate {
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.backgroundColor = UIColor.clearColor()
+    }
+
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as? AssignedUserTableViewCell
         if !checkedUsers[(cell?.user!)!]! {

@@ -196,13 +196,21 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Assigned Users" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VU5-iQ-SdV">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Assigned Users" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VU5-iQ-SdV">
                                                     <rect key="frame" x="28" y="10" width="119.5" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="119.5" id="XiR-EN-Y8g"/>
+                                                        <constraint firstAttribute="height" constant="24" id="YAq-BN-khG"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="VU5-iQ-SdV" firstAttribute="leading" secondItem="gyt-wU-2xM" secondAttribute="leadingMargin" constant="20" id="8Ad-HX-YLI"/>
+                                                <constraint firstItem="VU5-iQ-SdV" firstAttribute="centerY" secondItem="gyt-wU-2xM" secondAttribute="centerY" id="pcG-RH-ghi"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
@@ -214,29 +222,31 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ixx-Ci-5KA">
-                                                    <rect key="frame" x="8" y="0.0" width="584" height="100"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <rect key="frame" x="28" y="0.0" width="544" height="100"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <prototypes>
                                                         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="userCell" id="Nbx-RY-kko" customClass="AssignedUserTableViewCell" customModule="Falco" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="28" width="584" height="44"/>
+                                                            <rect key="frame" x="0.0" y="28" width="544" height="44"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Nbx-RY-kko" id="eaH-cL-Ofj">
-                                                                <rect key="frame" x="0.0" y="0.0" width="584" height="43.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="544" height="43.5"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JA7-im-hHf">
                                                                         <rect key="frame" x="28" y="10" width="45" height="23.5"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstItem="JA7-im-hHf" firstAttribute="top" secondItem="eaH-cL-Ofj" secondAttribute="topMargin" constant="2" id="Kiz-uE-uzY"/>
                                                                     <constraint firstAttribute="bottomMargin" secondItem="JA7-im-hHf" secondAttribute="bottom" constant="2" id="LGu-p4-VD1"/>
                                                                     <constraint firstItem="JA7-im-hHf" firstAttribute="leading" secondItem="eaH-cL-Ofj" secondAttribute="leadingMargin" constant="20" id="vrI-3h-o0u"/>
                                                                 </constraints>
                                                             </tableViewCellContentView>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <connections>
                                                                 <outlet property="nameLabel" destination="JA7-im-hHf" id="aLZ-OR-Xsg"/>
                                                             </connections>
@@ -247,8 +257,8 @@
                                             <constraints>
                                                 <constraint firstItem="ixx-Ci-5KA" firstAttribute="top" secondItem="x71-iK-2Aj" secondAttribute="topMargin" constant="-8" id="YCI-Vf-TQs"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="ixx-Ci-5KA" secondAttribute="bottom" constant="-8" id="cZn-vH-Jdy"/>
-                                                <constraint firstItem="ixx-Ci-5KA" firstAttribute="leading" secondItem="x71-iK-2Aj" secondAttribute="leadingMargin" id="hEC-cD-GKA"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="ixx-Ci-5KA" secondAttribute="trailing" id="svk-6Z-tK4"/>
+                                                <constraint firstItem="ixx-Ci-5KA" firstAttribute="leading" secondItem="x71-iK-2Aj" secondAttribute="leadingMargin" constant="20" id="hEC-cD-GKA"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ixx-Ci-5KA" secondAttribute="trailing" constant="20" id="svk-6Z-tK4"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -270,7 +280,7 @@
                                                 </label>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="(description text)" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Bk9-dc-Q94">
                                                     <rect key="frame" x="28" y="41" width="544" height="99"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <color key="textColor" red="0.0" green="0.46274509800000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
