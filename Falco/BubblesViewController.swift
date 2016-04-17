@@ -163,7 +163,11 @@ class BubblesViewController: UIViewController {
                 node.removeFromParent()
             }
         }
-        addGoalsToScene(delegate.getGoals())
+        if isGroup {
+            addGoalsToScene((currentGroup?.goals)!)
+        } else {
+            addGoalsToScene(delegate.getGoals())
+        }
     }
 
     // MARK: IB Actions
