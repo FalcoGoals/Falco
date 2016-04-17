@@ -95,10 +95,13 @@ class MainViewController: UITabBarController, LoginDelegate {
                     self.updateBubblesView()
                 }
             }
-            self.groupsViewController.refreshData()
             self.server.getFriends() { friends in
                 if let friends = friends {
-                    self.storage.friends = friends
+                    for friend in friends {
+                        self.storage.friends[friend.id] = friend
+                    }
+                    self.storage.isFriendListPopulated = true
+                    self.groupsViewController.refreshData()
                 }
             }
         }

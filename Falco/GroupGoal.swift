@@ -82,7 +82,12 @@ struct GroupGoal: Goal {
         let userData = goalData[Constants.userCompletionTimesKey]! as! [String: NSNumber]
         var userCompletionTimes: [User: NSDate] = [:]
         for (userId, userCompletionTime) in userData {
-            let user = User(id: userId)
+            let user: User
+            if let knownUser = Storage.instance.getKnownUser(userId) {
+                user = knownUser
+            } else {
+                user = User(id: userId)
+            }
             let completionTime = NSDate(timeIntervalSince1970: NSTimeInterval(userCompletionTime))
             userCompletionTimes[user] = completionTime
         }

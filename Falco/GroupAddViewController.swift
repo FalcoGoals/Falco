@@ -27,12 +27,12 @@ class GroupAddViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let contacts = Storage.instance.friends {
-            _friends = contacts
-            tableView.reloadData()
-            for friend in contacts {
+        if Storage.instance.isFriendListPopulated {
+            _friends = Array(Storage.instance.friends.values)
+            for friend in _friends {
                 _checkedRows[friend] = false
             }
+            tableView.reloadData()
         } else {
             refreshData()
         }
