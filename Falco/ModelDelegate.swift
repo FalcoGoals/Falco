@@ -23,7 +23,8 @@ protocol GroupModelDelegate {
 }
 
 protocol Savable {
-    func didSave(goal: Goal)
+    func didSaveGoal(goal: Goal)
+    func didSaveGroup(group: Group)
 }
 
 protocol ModelDelegate: GoalModelDelegate, GroupModelDelegate {
