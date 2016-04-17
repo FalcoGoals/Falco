@@ -40,7 +40,7 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
         } else if segue.identifier == Constants.groupBubblesSegue {
             let bvc = segue.destinationViewController as! BubblesViewController
             bvc.title = _selectedGroup.name
-            bvc.initialGoals = _selectedGroup.goals
+            bvc.initialGoals = _selectedGroup.goals.incompleteGoals
             bvc.currentGroup = _selectedGroup
             bvc.delegate = delegate
         }
@@ -148,7 +148,7 @@ extension GroupsViewController: UITableViewDataSource {
         }
         cell.groupNameLabel?.text = selectedGroup.name
 
-        cell.setPreviewGoals(selectedGroup.goals)
+        cell.setPreviewGoals(selectedGroup.goals.incompleteGoals)
 
         let bgColorView = UIView()
         bgColorView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
