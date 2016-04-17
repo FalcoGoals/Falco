@@ -727,7 +727,7 @@
                                         <rect key="frame" x="0.0" y="68" width="560" height="460"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="groupMemberCell" rowHeight="70" id="yWr-qX-rvf">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="groupMemberCell" rowHeight="70" id="yWr-qX-rvf" customClass="FriendTableViewCell" customModule="Falco" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="560" height="70"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yWr-qX-rvf" id="CxH-Sh-T9F">
