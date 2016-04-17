@@ -9,14 +9,14 @@
 import UIKit
 
 class UsersCell: UITableViewCell {
-    private var assignedUsers: [User]?
-    private var checkedUsers = [User: Bool]()
+    private var allGroupMembers: [User]!
+    private var isUserAssigned = [User: Bool]()
     
-    func setUpUsers(goal: GroupGoal) {
-        assignedUsers = goal.usersAssigned
-        
-        for assignedUser in assignedUsers! {
-            checkedUsers[assignedUser] = goal.isCompletedByUser(assignedUser)
+    func initUsers(goal: GroupGoal, groupMembers: [User]) {
+        allGroupMembers = groupMembers
+
+        for groupMember in groupMembers {
+            isUserAssigned[groupMember] = goal.isUserAssigned(groupMember)
         }
     }
 }
@@ -28,12 +28,12 @@ extension UsersCell: UITableViewDelegate {
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! UserCell
-        if !checkedUsers[cell.user]! {
+        if !isUserAssigned[cell.user]! {
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
-            checkedUsers[cell.user] = true
+            isUserAssigned[cell.user] = true
         } else {
             cell.accessoryType = UITableViewCellAccessoryType.None
-            checkedUsers[cell.user] = false
+            isUserAssigned[cell.user] = false
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
@@ -45,7 +45,7 @@ extension UsersCell: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (assignedUsers?.count)!
+        return isUserAssigned.keys.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -55,11 +55,11 @@ extension UsersCell: UITableViewDataSource {
         cell.separatorInset = UIEdgeInsetsZero
         cell.preservesSuperviewLayoutMargins = false
         cell.layoutMargins = UIEdgeInsetsZero
-        let selectedUser = assignedUsers![indexPath.row]
+        let selectedUser = allGroupMembers[indexPath.row]
         
         cell.setUser(selectedUser)
         
-        if checkedUsers[selectedUser]! {
+        if isUserAssigned[selectedUser]! {
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
         } else {
             cell.accessoryType = UITableViewCellAccessoryType.None

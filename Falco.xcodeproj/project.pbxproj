@@ -262,8 +262,8 @@
 				745BC9721C994BFD00204231 /* BubbleCell.swift */,
 				25DC09111CB4F3D600674D29 /* FriendTableViewCell.swift */,
 				2586F12D1CB69339002809F5 /* GroupTableViewCell.swift */,
-				7BC0687C1CC27C0A00A0921A /* UserCell.swift */,
 				7BC068801CC2819E00A0921A /* UsersCell.swift */,
+				7BC0687C1CC27C0A00A0921A /* UserCell.swift */,
 			);
 			name = view;
 			sourceTree = "<group>";

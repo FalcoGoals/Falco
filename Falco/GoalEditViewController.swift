@@ -59,13 +59,11 @@ class GoalEditViewController: UITableViewController {
         detailsField.text = goal.details
         
         if isGroup {
-            usersCellTable.delegate = usersCell
-            usersCellTable.dataSource = usersCell
-            usersCell.setUpUsers(goal! as! GroupGoal)
-
             usersCellTable.layer.borderWidth = 1
             usersCellTable.layer.cornerRadius = 5
             usersCellTable.layer.borderColor = UIColor(red: 0, green: 118/255, blue: 1, alpha: 1).CGColor
+
+            usersCell.initUsers(goal as! GroupGoal, groupMembers: group!.members)
         }
 
         // UI preparation

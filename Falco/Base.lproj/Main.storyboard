@@ -189,7 +189,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Hjx-ml-hEh" userLabel="AssignedUsersCell">
+                                    <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Hjx-ml-hEh" userLabel="UsersLabelCell">
                                         <rect key="frame" x="0.0" y="244" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hjx-ml-hEh" id="gyt-wU-2xM">
@@ -252,6 +252,10 @@
                                                             </connections>
                                                         </tableViewCell>
                                                     </prototypes>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="2yt-ZW-hg7" id="V31-pz-Q6y"/>
+                                                        <outlet property="delegate" destination="2yt-ZW-hg7" id="Z8j-jl-Sb8"/>
+                                                    </connections>
                                                 </tableView>
                                             </subviews>
                                             <constraints>
