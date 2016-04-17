@@ -165,7 +165,7 @@
                                                         </mask>
                                                     </variation>
                                                     <connections>
-                                                        <action selector="priorityTap:" destination="6hr-tn-rQP" eventType="primaryActionTriggered" id="gc1-G7-blW"/>
+                                                        <action selector="priorityTapped:" destination="6hr-tn-rQP" eventType="primaryActionTriggered" id="acL-uc-alZ"/>
                                                     </connections>
                                                 </segmentedControl>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Priority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cmZ-Ls-nFr">
