@@ -12,8 +12,8 @@ class ModelTest_GoalCollection: XCTestCase {
     let localUser = User(id: "uid1", name: "ladybug")
     let userB = User(id: "uid2", name: "beetle")
     let userC = User(id: "uid3", name: "grasshopper")
-    var goal1 = GroupGoal(groupId: "gid1", name: "score", details: "chips", endTime: NSDate())//(uid: "gid1", name: "score", details: "bubbletea", endTime: NSDate(), priority: .Low)
-    var goal2 = GroupGoal(groupId: "gid2", name: "whistle", details: "chips", endTime: NSDate())//(uid: "gid2", name: "whistle", details: "chips", endTime: NSDate(), priority: .Mid)
+    var goal1 = GroupGoal(groupId: "gid1", name: "score", details: "chips", endTime: NSDate())
+    var goal2 = GroupGoal(groupId: "gid2", name: "whistle", details: "chips", endTime: NSDate())
     var goal3: PersonalGoal?
     var gc: GoalCollection?
     var date: NSDate?
@@ -27,7 +27,7 @@ class ModelTest_GoalCollection: XCTestCase {
         goal2.addUser(userC)
         goal2.priority = 7
         date = NSDate()
-        goal3 = PersonalGoal(name: "score", details: "fish", endTime: NSDate())//(user: userA, uid: "pid1", name: "score", details: "fish", endTime: NSDate(), priority: .High)
+        goal3 = PersonalGoal(name: "score", details: "fish", endTime: NSDate())
         gc = GoalCollection(goals: [goal1, goal2, goal3!])
     }
     
@@ -36,6 +36,7 @@ class ModelTest_GoalCollection: XCTestCase {
         super.tearDown()
     }
     
+    /// Helper function for comparing two arrays of goals to be identical based on goal IDs
     func compareGoals(a: [Goal], b: [Goal]) -> Bool {
         if a.count != b.count {
             return false
@@ -56,6 +57,7 @@ class ModelTest_GoalCollection: XCTestCase {
         }
     }
     
+    /// Helper function to compare two arrays of ordered goals
     func compareGoalsWithOrder(a: [Goal], b: [Goal]) -> Bool {
         if a.count != b.count {
             return false
@@ -201,7 +203,7 @@ class ModelTest_GoalCollection: XCTestCase {
     }
     
     func testGetGoalWithIdentifier() {
-        if let goal = gc!.getGoalWithIdentifier("blah") {
+        if let _ = gc!.getGoalWithIdentifier("blah") {
             XCTFail()
         }
         XCTAssert(compareGoals([goal2], b: [gc!.getGoalWithIdentifier(goal2.id)!]))

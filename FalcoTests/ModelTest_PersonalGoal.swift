@@ -14,7 +14,7 @@ class ModelTest_PersonalGoal: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        a = PersonalGoal(name: "buggy", details: "no details", endTime: NSDate())//(user: userA, uid: "goal1", name: "buggy", details: "none", endTime: NSDate())
+        a = PersonalGoal(name: "buggy", details: "no details", endTime: NSDate())
     }
     
     override func tearDown() {

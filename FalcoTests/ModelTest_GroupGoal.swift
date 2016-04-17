@@ -12,7 +12,7 @@ class ModelTest_GroupGoal: XCTestCase {
     let userA = User(id: "uid1", name: "ladybug")
     let userB = User(id: "uid2", name: "beetle")
     let userC = User(id: "uid3", name: "grasshopper")
-    var goal = GroupGoal(groupId: "gid1", name: "score", details: "arsenal dood", endTime: NSDate())// GroupGoal(uid: "gid1", name: "score", details: "bood", endTime: NSDate())
+    var goal = GroupGoal(groupId: "gid1", name: "score", details: "arsenal dood", endTime: NSDate())
 
     override func setUp() {
         super.setUp()
@@ -48,7 +48,6 @@ class ModelTest_GroupGoal: XCTestCase {
         XCTAssertEqual([userC], goal.usersAssigned)
     }
     
-    /// Checks whether the goal has been assigned to the input user
     func testUserIsAssigned() {
         goal.addUser(userB)
         goal.addUser(userC)
@@ -87,7 +86,6 @@ class ModelTest_GroupGoal: XCTestCase {
         XCTAssertEqual([userC], goal.usersCompleted)
     }
     
-    // yet to test date is correct
     func testGetCompletedDate() {
         goal.addUser(userB)
         goal.addUser(userC)
@@ -100,7 +98,6 @@ class ModelTest_GroupGoal: XCTestCase {
         XCTAssertEqual(goal.completionTime, goal.completionTime.laterDate(firstDate))
     }
     
-    /// Returns true if all assigned users completed the task, false otherwise
     func testIsCompleted() {
         goal.addUser(userB)
         goal.addUser(userC)

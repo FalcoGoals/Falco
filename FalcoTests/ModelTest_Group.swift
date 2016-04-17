@@ -41,7 +41,5 @@ class ModelTest_Group: XCTestCase {
     func testContainsMember() {
         XCTAssert(group!.containsMember(userB))
         XCTAssert(!group!.containsMember(userC))
-    }
-
-    
+    }    
 }
