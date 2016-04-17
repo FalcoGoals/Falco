@@ -731,7 +731,7 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="eCc-iI-5WN">
-                                                            <rect key="frame" x="18" y="0.0" width="524" height="70"/>
+                                                            <rect key="frame" x="8" y="0.0" width="544" height="70"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2i3-e0-Oh2">
                                                                     <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
@@ -740,7 +740,7 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vd-nL-ZP5">
-                                                                    <rect key="frame" x="90" y="25" width="434" height="21"/>
+                                                                    <rect key="frame" x="90" y="25" width="454" height="21"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -750,8 +750,8 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstAttribute="bottomMargin" secondItem="eCc-iI-5WN" secondAttribute="bottom" constant="-8" id="AkE-S4-trW"/>
-                                                        <constraint firstAttribute="trailingMargin" secondItem="eCc-iI-5WN" secondAttribute="trailing" constant="10" id="L1a-xg-L4F"/>
-                                                        <constraint firstItem="eCc-iI-5WN" firstAttribute="leading" secondItem="CxH-Sh-T9F" secondAttribute="leadingMargin" constant="10" id="p0u-5l-aUN"/>
+                                                        <constraint firstAttribute="trailingMargin" secondItem="eCc-iI-5WN" secondAttribute="trailing" id="L1a-xg-L4F"/>
+                                                        <constraint firstItem="eCc-iI-5WN" firstAttribute="leading" secondItem="CxH-Sh-T9F" secondAttribute="leadingMargin" id="p0u-5l-aUN"/>
                                                         <constraint firstItem="eCc-iI-5WN" firstAttribute="top" secondItem="CxH-Sh-T9F" secondAttribute="topMargin" constant="-8" id="qcS-Ss-JHF"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
