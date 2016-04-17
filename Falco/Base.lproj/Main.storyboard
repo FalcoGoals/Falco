@@ -637,6 +637,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="groupNameLabel" destination="THy-ld-msz" id="FSn-oq-7ro"/>
+                                            <outlet property="groupSettingsButton" destination="73I-QR-Jtw" id="qU1-gk-Mp4"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
