@@ -72,6 +72,9 @@ extension UsersCell: UITableViewDataSource {
         if _isNewGoal! {
             cell.initUser(selectedUser)
         } else {
+            if _goal.userCompletionTimes[selectedUser] == nil {
+                _goal.addUser(selectedUser)
+            }
             cell.initUser(selectedUser, completionTime: _goal.userCompletionTimes[selectedUser]!)
         }
         
