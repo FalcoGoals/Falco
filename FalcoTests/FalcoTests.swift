@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import Falco
+//@testable import Falco
 
 class FalcoTests: XCTestCase {
     
