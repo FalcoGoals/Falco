@@ -48,13 +48,10 @@
 		74BB5DD71CA1848500695C24 /* GoalEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BB5DD61CA1848500695C24 /* GoalEditViewController.swift */; };
 		7BC0687D1CC27C0A00A0921A /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0687C1CC27C0A00A0921A /* UserCell.swift */; };
 		7BC0687E1CC27C0A00A0921A /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0687C1CC27C0A00A0921A /* UserCell.swift */; };
-		7BC0687F1CC27C0A00A0921A /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC0687C1CC27C0A00A0921A /* UserCell.swift */; };
 		7BC068811CC2819E00A0921A /* UsersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC068801CC2819E00A0921A /* UsersCell.swift */; };
 		7BC068821CC2819E00A0921A /* UsersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC068801CC2819E00A0921A /* UsersCell.swift */; };
-		7BC068831CC2819E00A0921A /* UsersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BC068801CC2819E00A0921A /* UsersCell.swift */; };
 		7BE033B41CC00E93005CC91C /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE033B31CC00E93005CC91C /* ChatBubble.swift */; };
 		7BE033B51CC00E93005CC91C /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE033B31CC00E93005CC91C /* ChatBubble.swift */; };
-		7BE033B61CC00E93005CC91C /* ChatBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE033B31CC00E93005CC91C /* ChatBubble.swift */; };
 		A20EAA951CBB744400BAAEF7 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20EAA941CBB744400BAAEF7 /* Storage.swift */; };
 		A2419F631CB74AD00091319B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2419F621CB74AD00091319B /* Images.xcassets */; };
 		A24F37CC1C9EA468001148FD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A24F37CB1C9EA468001148FD /* LoginViewController.swift */; };
@@ -532,10 +529,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7BC0687F1CC27C0A00A0921A /* UserCell.swift in Sources */,
 				7459579F1C9841DE00C3D3C0 /* FalcoUITests.swift in Sources */,
-				7BC068831CC2819E00A0921A /* UsersCell.swift in Sources */,
-				7BE033B61CC00E93005CC91C /* ChatBubble.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -703,7 +697,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = FalcoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.PegasusTests;
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.FalcoTests;
 				PRODUCT_NAME = Falco;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Falco.app/Falco";
 			};
@@ -715,7 +709,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = FalcoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.PegasusTests;
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.FalcoTests;
 				PRODUCT_NAME = Falco;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Falco.app/Falco";
 			};
@@ -724,11 +718,11 @@
 		745957AA1C9841DE00C3D3C0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = PegasusUITests/Info.plist;
+				INFOPLIST_FILE = FalcoUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.PegasusUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.FalcoUITests;
 				PRODUCT_NAME = Falco;
-				TEST_TARGET_NAME = Pegasus;
+				TEST_TARGET_NAME = Falco;
 				USES_XCTRUNNER = YES;
 			};
 			name = Debug;
@@ -736,11 +730,11 @@
 		745957AB1C9841DE00C3D3C0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				INFOPLIST_FILE = PegasusUITests/Info.plist;
+				INFOPLIST_FILE = FalcoUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.PegasusUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.FalcoUITests;
 				PRODUCT_NAME = Falco;
-				TEST_TARGET_NAME = Pegasus;
+				TEST_TARGET_NAME = Falco;
 				USES_XCTRUNNER = YES;
 			};
 			name = Release;
