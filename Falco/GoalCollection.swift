@@ -96,30 +96,34 @@ class GoalCollection: CustomStringConvertible {
     
     /// Marks a goal as complete
     func markGoalComplete(goal: Goal, user: User) {
-        if !containsGoal(goal) {
+        let existingGoal = getGoalWithIdentifier(goal.id)
+        guard existingGoal != nil else {
             return
         }
 
-        if var pGoal = goal as? PersonalGoal {
+        if var pGoal = existingGoal as? PersonalGoal {
             pGoal.markComplete()
             updateGoal(pGoal)
-        } else if var gGoal = goal as? GroupGoal {
+        } else if var gGoal = existingGoal as? GroupGoal {
+            print("BEFORE: \(gGoal)")
             if gGoal.markCompleteByUser(user) {
                 updateGoal(gGoal)
             }
+            print("AFTER: \(gGoal)")
         }
     }
     
     /// Marks a goal as incomplete
     func markGoalIncomplete(goal: Goal, user: User) {
-        if !containsGoal(goal) {
+        let existingGoal = getGoalWithIdentifier(goal.id)
+        guard existingGoal != nil else {
             return
         }
 
-        if var pGoal = goal as? PersonalGoal {
+        if var pGoal = existingGoal as? PersonalGoal {
             pGoal.markIncomplete()
             updateGoal(pGoal)
-        } else if var gGoal = goal as? GroupGoal {
+        } else if var gGoal = existingGoal as? GroupGoal {
             if gGoal.markIncompleteByUser(user) {
                 updateGoal(gGoal)
             }
