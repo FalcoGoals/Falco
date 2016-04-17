@@ -147,32 +147,28 @@ class ModelTest_GoalCollection: XCTestCase {
     }
     
     func testGetCompletedGoals() {
-    //    XCTAssert(compareGoals([], b: gc!.completeGoals.goals))
-      //  gc!.markGoalComplete(goal3!, user: localUser)
-       // XCTAssert(compareGoals([goal3!], b: gc!.completeGoals.goals))
+        // complete a personal goal
+        XCTAssert(compareGoals([], b: gc!.completeGoals.goals))
+        gc!.markGoalComplete(goal3!, user: localUser)
+        XCTAssert(compareGoals([goal3!], b: gc!.completeGoals.goals))
         
+        // one user completes a group goal which is assigned to two users
         gc!.markGoalComplete(goal1, user: localUser)
-     //   XCTAssert(compareGoals([goal3!], b: gc!.completeGoals.goals))
+        XCTAssert(compareGoals([goal3!], b: gc!.completeGoals.goals))
 
-        gc!.markGoalComplete(goal1, user: userC)  //userC is not assigned to goal1
-      //  XCTAssert(compareGoals([goal3!], b: gc!.completeGoals.goals))
+        // both assigned user complete the group goal
         gc!.markGoalComplete(goal1, user: userB)
-        print("HEHRE")
-        for goal in gc!.completeGoals.goals {
-            print(goal.name)
-        }
         XCTAssert(compareGoals([goal3!, goal1], b: gc!.completeGoals.goals))
         
         // test unmarking -> group goal
-     /**   gc!.markGoalIncomplete(goal1, user: userC)    //unassigned user
+        gc!.markGoalIncomplete(goal1, user: userC)    //unassigned user
         XCTAssert(compareGoals([goal3!, goal1], b: gc!.completeGoals.goals))
         gc!.markGoalIncomplete(goal1, user: userB)
         XCTAssert(compareGoals([goal3!], b: gc!.completeGoals.goals))
 
-        gc!.markGoalIncomplete(goal3!, user: userC)   //unassigned user
-        XCTAssert(compareGoals([goal3!], b: gc!.completeGoals.goals))
+        // test unmarking -> personal goal
         gc!.markGoalIncomplete(goal3!, user: localUser)
-        XCTAssert(compareGoals([], b: gc!.completeGoals.goals))*/
+        XCTAssert(compareGoals([], b: gc!.completeGoals.goals))
     }
     
     func testGetUncompletedGoals() {
@@ -194,8 +190,6 @@ class ModelTest_GoalCollection: XCTestCase {
         XCTAssert(compareGoals([goal1, goal2], b: gc!.incompleteGoals.goals))
         
         // test unmarking -> personal goal
-        gc!.markGoalIncomplete(goal3!, user: userC)   //unassigned user
-        XCTAssert(compareGoals([goal1, goal2], b: gc!.incompleteGoals.goals))
         gc!.markGoalIncomplete(goal3!, user: localUser)
         XCTAssert(compareGoals([goal1, goal2, goal3!], b: gc!.incompleteGoals.goals))
     }
