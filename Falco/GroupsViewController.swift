@@ -92,6 +92,7 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
         tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, -15)
     }
 
+    /// Displays cells of groups which names match with the search text
     private func filterContentForSearchText(searchText: String, scope: String = Constants.groupSearchScope) {
         _searchedGroups = _groups.filter { group in
             return group.name.lowercaseString.containsString(searchText.lowercaseString)
