@@ -19,6 +19,7 @@ struct Constants {
     static let userCompletionTimesKey = "userCompletionTimes"
     static let membersKey = "members"
     static let goalsKey = "goals"
+    static let pictureUrlKey = "pictureUrl"
 
     // Special values
     static let incompleteTimeValue = NSDate.distantPast()
