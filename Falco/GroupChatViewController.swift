@@ -21,8 +21,8 @@ class GroupChatViewController: JSQMessagesViewController {
     private var incomingBubbleImageView: JSQMessagesBubbleImage!
     
     private var usersTypingQuery: FQuery!
-    private let messagesRef = Firebase(url: "https://amber-torch-6648.firebaseio.com/messages")
-    private let typingRef = Firebase(url: "https://amber-torch-6648.firebaseio.com/typing")
+    private let messagesRef = Firebase(url: Constants.messagesRefURL)
+    private let typingRef = Firebase(url: Constants.typingRefURL)
     private var groupMsgsRef: Firebase!
     private var groupTypingRef: Firebase!
     private var userIsTypingRef: Firebase!
@@ -45,20 +45,15 @@ class GroupChatViewController: JSQMessagesViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // testing purposes
-      //  groupName = "test chat"
-        //groupID = "testChat"
-        //user = User(id: "jy", name: "Jing", pictureUrl: "")
-        
         title = groupName
         senderId = user.id
         senderDisplayName = user.name
         groupMsgsRef = messagesRef.childByAppendingPath(groupID)
         groupTypingRef = typingRef.childByAppendingPath(groupID)
         userIsTypingRef = groupTypingRef.childByAppendingPath(user.id)
-        collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero//(width: 2, height: 2)
-        collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero//(width: 2, height: 2)
+        collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
+        collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
+        inputToolbar.contentView.leftBarButtonItem = nil;
         setMessageViews()
     }
     
@@ -98,7 +93,6 @@ class GroupChatViewController: JSQMessagesViewController {
     override func collectionView(collectionView: JSQMessagesCollectionView!,
         avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
         return nil
-           // JSQMessagesAvatarImageFactory.avatarImageWithImage(<#T##image: UIImage!##UIImage!#>, diameter: <#T##UInt#>)
     }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, layout collectionViewLayout: JSQMessagesCollectionViewFlowLayout!, heightForMessageBubbleTopLabelAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
@@ -127,10 +121,9 @@ class GroupChatViewController: JSQMessagesViewController {
         senderDisplayName: String!, date: NSDate!) {
             let itemRef = groupMsgsRef.childByAutoId()
             let messageItem = [
-                "text": text,
-                "senderID": senderId,
-                "senderName": senderDisplayName
-                //"date": date
+                Constants.textKey: text,
+                Constants.senderIDKey: senderId,
+                Constants.senderNameKey: senderDisplayName
             ]
             itemRef.setValue(messageItem)
             JSQSystemSoundPlayer.jsq_playMessageSentSound()
@@ -138,6 +131,7 @@ class GroupChatViewController: JSQMessagesViewController {
             isTyping = false
     }
     
+    /// Ovserve for messages
     private func observeMessages() {
         getMessage() { JSQMessage in
             if let message = JSQMessage {
@@ -147,6 +141,7 @@ class GroupChatViewController: JSQMessagesViewController {
         }
     }
     
+    /// Retrieve messages from server
     private func getMessage(callback: (JSQMessage?) -> ()) {
         groupMsgsRef.observeEventType(.ChildAdded, withBlock: { snapshot in
             if snapshot.value is NSNull {
@@ -154,9 +149,9 @@ class GroupChatViewController: JSQMessagesViewController {
                 return
             }
             let msgData = snapshot.value as! [String: String]
-            let id = msgData["senderID"]
-            let text = msgData["text"]
-            let name = msgData["senderName"]
+            let id = msgData[Constants.senderIDKey]
+            let text = msgData[Constants.textKey]
+            let name = msgData[Constants.senderNameKey]
             
             callback(JSQMessage(senderId: id, displayName: name, text: text))
             }, withCancelBlock: { error in
@@ -188,7 +183,7 @@ class GroupChatViewController: JSQMessagesViewController {
     /// Checks whether user is entering input into the message bar
     override func textViewDidChange(textView: UITextView) {
         super.textViewDidChange(textView)
-        if textView.text != "" {
+        if textView.text != Constants.emptyString {
             isTyping = true
         } else {
             isTyping = false

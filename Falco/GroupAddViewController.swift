@@ -60,14 +60,15 @@ class GroupAddViewController: UIViewController {
         }
     }
 
-    private func filterContentForSearchText(searchText: String, scope: String = "All") {
+    /// Displays cells of friends whose names match with the search text
+    private func filterContentForSearchText(searchText: String, scope: String = Constants.groupSearchScope) {
         _searchedFriends = _friends.filter { friend in
             return friend.name.lowercaseString.containsString(searchText.lowercaseString)
         }
         tableView.reloadData()
     }
     
-    /// Creates a group. Checks for missing inputs
+    /// Creates a group. Checks and alerts for missing inputs
     @IBAction func createGroup(sender: AnyObject) {
         _groupName = nameInput.text
         var groupMembers = [User]()
@@ -76,12 +77,12 @@ class GroupAddViewController: UIViewController {
                 groupMembers.append(friend)
             }
         }
-        if _groupName == nil || _groupName == "" {
-            let alert = UIAlertController(title: "Failed to create group", message: "A group name is required",
+        if _groupName == nil || _groupName == Constants.emptyString {
+            let alert = UIAlertController(title: Constants.groupCreationFailMsg, message: Constants.nameReqMsg,
                                           preferredStyle: .Alert)
             warn(alert)
         } else if groupMembers.isEmpty {
-            let alert = UIAlertController(title: "Failed to create group", message: "Please select members to join the group",
+            let alert = UIAlertController(title: Constants.groupCreationFailMsg, message: Constants.membersReqMsg,
                                           preferredStyle: .Alert)
             warn(alert)
         } else {
@@ -94,7 +95,7 @@ class GroupAddViewController: UIViewController {
     /// Does pop up for warning alerts for missing input
     private func warn(alert: UIAlertController) {
         searchController.active = false
-        let okayAction = UIAlertAction(title: "Okay", style: .Default) {
+        let okayAction = UIAlertAction(title: Constants.okayMessage, style: .Default) {
             (action: UIAlertAction) -> Void in
         }
         alert.addAction(okayAction)
@@ -122,24 +123,24 @@ extension GroupAddViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.active && searchController.searchBar.text != "" {
+        if searchController.active && searchController.searchBar.text != Constants.emptyString {
             return _searchedFriends.count
         }
         return _friends.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCellWithIdentifier("friendCell",
+        var cell = tableView.dequeueReusableCellWithIdentifier(Constants.friendCellID,
                                                                forIndexPath: indexPath) as? FriendTableViewCell
         if cell == nil {
-            cell = FriendTableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "friendCell")
+            cell = FriendTableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: Constants.friendCellID)
         }
         cell!.separatorInset = UIEdgeInsetsZero
         cell!.preservesSuperviewLayoutMargins = false
         cell!.layoutMargins = UIEdgeInsetsZero
         let selectedFriend: User
         
-        if searchController.active && searchController.searchBar.text != "" {
+        if searchController.active && searchController.searchBar.text != Constants.emptyString {
             selectedFriend = _searchedFriends[indexPath.row]
         } else {
             selectedFriend = _friends[indexPath.row]

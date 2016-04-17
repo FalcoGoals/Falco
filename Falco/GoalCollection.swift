@@ -184,7 +184,6 @@ class GoalCollection: CustomStringConvertible {
     }
 
     /// Returns list of goals assigned to a particular user
-    /// currently at O(n^2) can be better hm
     func getGoalsAssignedToUser(user: User) -> [Goal] {
         var goalList = [Goal]()
         for goal in _goals {

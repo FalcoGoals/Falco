@@ -38,4 +38,20 @@ struct Constants {
     static let groupFooterHeight = CGFloat(10)
     static let groupCellCornerRadius = CGFloat(30)
     static let groupCellBgColor = UIColor(red: 13/255, green: 41/255, blue: 84/255, alpha: 0.7)
+    
+    // GroupAdd tableview
+    static let friendCellID = "friendCell"
+    static let okayMessage = "Okay"
+    static let groupCreationFailMsg = "Failed to create group"
+    static let nameReqMsg = "A group name is required"
+    static let membersReqMsg = "Please select members to join the group"
+    
+    // Firebase
+    static let messagesRefURL = "https://amber-torch-6648.firebaseio.com/messages"
+    static let typingRefURL = "https://amber-torch-6648.firebaseio.com/typing"
+    
+    // Messages
+    static let textKey = "text"
+    static let senderIDKey = "senderID"
+    static let senderNameKey = "senderName"
 }

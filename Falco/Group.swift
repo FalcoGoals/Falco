@@ -69,14 +69,17 @@ class Group: CustomStringConvertible {
 
     // MARK: Methods
 
+    /// Returns whether the group contains a particular member
     func containsMember(member: User) -> Bool {
         return _members.contains(member)
     }
 
+    /// Adds a new user to the group
     func addMember(member: User) {
         _members.append(member)
     }
 
+    /// Removes an existing member from the group
     func removeMember(member: User) {
         if containsMember(member) {
             _members.removeAtIndex(_members.indexOf(member)!)
