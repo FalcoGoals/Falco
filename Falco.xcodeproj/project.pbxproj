@@ -17,7 +17,6 @@
 		2528BAF01CA702DD007332FA /* GroupGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAEA1CA702DD007332FA /* GroupGoal.swift */; };
 		2528BAF11CA702DD007332FA /* PersonalGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAEB1CA702DD007332FA /* PersonalGoal.swift */; };
 		2528BAF21CA702DD007332FA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAEC1CA702DD007332FA /* User.swift */; };
-		2528BAF91CA702F2007332FA /* ModelTest_Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAF31CA702F2007332FA /* ModelTest_Goal.swift */; };
 		2528BAFA1CA702F2007332FA /* ModelTest_GoalCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAF41CA702F2007332FA /* ModelTest_GoalCollection.swift */; };
 		2528BAFB1CA702F2007332FA /* ModelTest_Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAF51CA702F2007332FA /* ModelTest_Group.swift */; };
 		2528BAFC1CA702F2007332FA /* ModelTest_GroupGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528BAF61CA702F2007332FA /* ModelTest_GroupGoal.swift */; };
@@ -89,7 +88,6 @@
 		2528BAEA1CA702DD007332FA /* GroupGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupGoal.swift; sourceTree = "<group>"; };
 		2528BAEB1CA702DD007332FA /* PersonalGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalGoal.swift; sourceTree = "<group>"; };
 		2528BAEC1CA702DD007332FA /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		2528BAF31CA702F2007332FA /* ModelTest_Goal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTest_Goal.swift; sourceTree = "<group>"; };
 		2528BAF41CA702F2007332FA /* ModelTest_GoalCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTest_GoalCollection.swift; sourceTree = "<group>"; };
 		2528BAF51CA702F2007332FA /* ModelTest_Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTest_Group.swift; sourceTree = "<group>"; };
 		2528BAF61CA702F2007332FA /* ModelTest_GroupGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTest_GroupGoal.swift; sourceTree = "<group>"; };
@@ -209,7 +207,6 @@
 		745957921C9841DE00C3D3C0 /* FalcoTests */ = {
 			isa = PBXGroup;
 			children = (
-				2528BAF31CA702F2007332FA /* ModelTest_Goal.swift */,
 				2528BAF41CA702F2007332FA /* ModelTest_GoalCollection.swift */,
 				2528BAF51CA702F2007332FA /* ModelTest_Group.swift */,
 				2528BAF61CA702F2007332FA /* ModelTest_GroupGoal.swift */,
@@ -523,7 +520,6 @@
 				2528BB041CA70568007332FA /* GoalCollection.swift in Sources */,
 				2528BB071CA70576007332FA /* User.swift in Sources */,
 				7BC0687E1CC27C0A00A0921A /* UserCell.swift in Sources */,
-				2528BAF91CA702F2007332FA /* ModelTest_Goal.swift in Sources */,
 				25E2760F1CABC8FE007A26EF /* Constants.swift in Sources */,
 				2528BB061CA70572007332FA /* GroupGoal.swift in Sources */,
 				7BE033B51CC00E93005CC91C /* ChatBubble.swift in Sources */,
