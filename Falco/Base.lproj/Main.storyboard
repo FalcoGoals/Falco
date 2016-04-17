@@ -528,16 +528,30 @@
                                             <rect key="frame" x="0.0" y="0.0" width="560" height="70.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AEo-Fz-ZYS">
-                                                    <rect key="frame" x="25" y="0.0" width="72" height="69"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zxx-vR-a4W">
-                                                    <rect key="frame" x="135" y="13" width="242" height="45"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="lpo-dI-6L9">
+                                                    <rect key="frame" x="8" y="0.0" width="544" height="69"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AEo-Fz-ZYS">
+                                                            <rect key="frame" x="0.0" y="0.0" width="69" height="69"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="AEo-Fz-ZYS" secondAttribute="height" multiplier="1:1" id="wXc-xg-W00"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zxx-vR-a4W">
+                                                            <rect key="frame" x="89" y="0.0" width="455" height="69"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="lpo-dI-6L9" secondAttribute="trailing" id="6os-Tv-whf"/>
+                                                <constraint firstItem="lpo-dI-6L9" firstAttribute="leading" secondItem="3IV-6s-LYM" secondAttribute="leadingMargin" id="QPx-vW-rVM"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="lpo-dI-6L9" secondAttribute="bottom" constant="-6.5" id="VJR-2J-msf"/>
+                                                <constraint firstItem="lpo-dI-6L9" firstAttribute="top" secondItem="3IV-6s-LYM" secondAttribute="topMargin" constant="-8" id="wGw-xf-FBx"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="friendImageView" destination="AEo-Fz-ZYS" id="Tr2-Kc-gei"/>
