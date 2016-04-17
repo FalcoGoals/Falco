@@ -77,6 +77,7 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
     // MARK: IB Actions
 
     @IBAction func cancelGroupAdd(segue: UIStoryboardSegue) { }
+    @IBAction func cancelGroupEdit(segue: UIStoryboardSegue) { }
 
     // MARK: Helper methods
 
