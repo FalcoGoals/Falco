@@ -43,6 +43,10 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
             bvc.initialGoals = _selectedGroup.goals.incompleteGoals
             bvc.currentGroup = _selectedGroup
             bvc.delegate = delegate
+        } else if segue.identifier == Constants.groupEditSegue {
+            let navController = segue.destinationViewController as! UINavigationController
+            let groupEditViewController = navController.topViewController as! GroupEditViewController
+            groupEditViewController.group = _groups[sender!.tag]
         }
     }
 
@@ -150,6 +154,8 @@ extension GroupsViewController: UITableViewDataSource {
         cell.groupNameLabel?.text = selectedGroup.name
 
         cell.setPreviewGoals(selectedGroup.goals.incompleteGoals)
+
+        cell.groupSettingsButton.tag = indexPath.section
 
         let bgColorView = UIView()
         bgColorView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.3)
