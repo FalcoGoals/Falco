@@ -46,6 +46,9 @@ struct Constants {
     static let groupCreationFailMsg = "Failed to create group"
     static let nameReqMsg = "A group name is required"
     static let membersReqMsg = "Please select members to join the group"
+
+    // Group members tableview
+    static let groupMemberCellID = "groupMemberCell"
     
     // Firebase
     static let messagesRefURL = "https://amber-torch-6648.firebaseio.com/messages"
@@ -55,4 +58,5 @@ struct Constants {
     static let textKey = "text"
     static let senderIDKey = "senderID"
     static let senderNameKey = "senderName"
+
 }
