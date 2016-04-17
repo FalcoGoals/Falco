@@ -18,6 +18,7 @@ class GoalEditViewController: UITableViewController {
     @IBOutlet weak var usersCell: UsersCell!
     @IBOutlet weak var usersCellTable: UITableView!
 
+    private var isNewGoal = false
     private let nameRow = 0
     private let dateRow = 1
     private let assignedUsersLabelRow = 4
@@ -50,6 +51,7 @@ class GoalEditViewController: UITableViewController {
                 goal = PersonalGoal(name: "", details: "", endTime: NSDate())
             }
             navigationItem.title = "New Goal"
+            isNewGoal = true
         }
 
         nameField.text = goal.name
@@ -63,7 +65,7 @@ class GoalEditViewController: UITableViewController {
             usersCellTable.layer.cornerRadius = 5
             usersCellTable.layer.borderColor = UIColor(red: 0, green: 118/255, blue: 1, alpha: 1).CGColor
 
-            usersCell.initUsers(goal as! GroupGoal, groupMembers: group!.members)
+            usersCell.initUsers(goal as! GroupGoal, groupMembers: group!.members, isNewGoal: isNewGoal)
         }
 
         // UI preparation

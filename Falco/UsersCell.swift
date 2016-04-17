@@ -9,12 +9,16 @@
 import UIKit
 
 class UsersCell: UITableViewCell {
-    private var allGroupMembers: [User]!
+    private var _groupMembers: [User]!
+    private var _goal: GroupGoal!
+    private var _isNewGoal: Bool!
 
     var isUserAssigned = [User: Bool]()
     
-    func initUsers(goal: GroupGoal, groupMembers: [User]) {
-        allGroupMembers = groupMembers
+    func initUsers(goal: GroupGoal, groupMembers: [User], isNewGoal: Bool) {
+        _groupMembers = groupMembers
+        _goal = goal
+        _isNewGoal = isNewGoal
 
         for groupMember in groupMembers {
             isUserAssigned[groupMember] = goal.isUserAssigned(groupMember)
@@ -36,6 +40,7 @@ extension UsersCell: UITableViewDelegate {
             cell.accessoryType = UITableViewCellAccessoryType.None
             isUserAssigned[cell.user] = false
         }
+        cell.updateCompletionStatus(_goal.userCompletionTimes[cell.user]!)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 }
@@ -56,15 +61,20 @@ extension UsersCell: UITableViewDataSource {
         cell.separatorInset = UIEdgeInsetsZero
         cell.preservesSuperviewLayoutMargins = false
         cell.layoutMargins = UIEdgeInsetsZero
-        let selectedUser = allGroupMembers[indexPath.row]
-        
-        cell.setUser(selectedUser)
+        let selectedUser = _groupMembers[indexPath.row]
         
         if isUserAssigned[selectedUser]! {
             cell.accessoryType = UITableViewCellAccessoryType.Checkmark
         } else {
             cell.accessoryType = UITableViewCellAccessoryType.None
         }
+
+        if _isNewGoal! {
+            cell.initUser(selectedUser)
+        } else {
+            cell.initUser(selectedUser, completionTime: _goal.userCompletionTimes[selectedUser]!)
+        }
+        
         return cell
     }
 }

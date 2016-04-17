@@ -238,16 +238,26 @@
                                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(completion date)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gSk-xI-6hD">
+                                                                        <rect key="frame" x="391" y="10" width="135" height="23"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
+                                                                    <constraint firstAttribute="bottomMargin" secondItem="gSk-xI-6hD" secondAttribute="bottom" constant="2" id="GXH-gh-znu"/>
                                                                     <constraint firstItem="JA7-im-hHf" firstAttribute="top" secondItem="eaH-cL-Ofj" secondAttribute="topMargin" constant="2" id="Kiz-uE-uzY"/>
                                                                     <constraint firstAttribute="bottomMargin" secondItem="JA7-im-hHf" secondAttribute="bottom" constant="2" id="LGu-p4-VD1"/>
+                                                                    <constraint firstAttribute="trailingMargin" secondItem="gSk-xI-6hD" secondAttribute="trailing" constant="10" id="UMT-q9-9VK"/>
+                                                                    <constraint firstItem="gSk-xI-6hD" firstAttribute="top" secondItem="eaH-cL-Ofj" secondAttribute="topMargin" constant="2" id="dBY-Bx-yso"/>
                                                                     <constraint firstItem="JA7-im-hHf" firstAttribute="leading" secondItem="eaH-cL-Ofj" secondAttribute="leadingMargin" constant="20" id="vrI-3h-o0u"/>
                                                                 </constraints>
                                                             </tableViewCellContentView>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <connections>
+                                                                <outlet property="dateLabel" destination="gSk-xI-6hD" id="pnU-Fy-O5c"/>
                                                                 <outlet property="nameLabel" destination="JA7-im-hHf" id="aLZ-OR-Xsg"/>
                                                             </connections>
                                                         </tableViewCell>

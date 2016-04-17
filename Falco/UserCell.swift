@@ -9,9 +9,12 @@
 import UIKit
 
 class UserCell: UITableViewCell {
-    
-    @IBOutlet weak var nameLabel: UILabel!
     private var _user: User!
+    private var _isNewGoal: Bool!
+
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+
     var user: User { return _user }
 
     override func awakeFromNib() {
@@ -22,8 +25,38 @@ class UserCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    func setUser(user: User) {
+    func initUser(user: User, completionTime: NSDate? = nil) {
         _user = user
         nameLabel.text = user.name
+        if let completionTime = completionTime {
+            _isNewGoal = false
+            updateCompletionStatus(completionTime)
+        } else {
+            _isNewGoal = true
+            dateLabel.text = ""
+        }
+    }
+
+    func updateCompletionStatus(completionTime: NSDate) {
+        guard !_isNewGoal! else {
+            return
+        }
+
+        if accessoryType == .None {
+            dateLabel.text = ""
+        } else if completionTime != NSDate.distantPast() {
+            dateLabel.text = getDateString(completionTime)
+        } else {
+            dateLabel.text = "(not done)"
+        }
+    }
+
+    /// Uses medium style date
+    private func getDateString(date: NSDate) -> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = .MediumStyle
+        dateFormatter.timeStyle = .ShortStyle
+        dateFormatter.locale = NSLocale.currentLocale()
+        return dateFormatter.stringFromDate(date)
     }
 }
