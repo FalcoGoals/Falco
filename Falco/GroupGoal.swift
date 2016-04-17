@@ -24,7 +24,7 @@ struct GroupGoal: Goal {
     var groupId: String { return _groupId }
     var completionTime: NSDate {
         if usersCompletedCount < usersAssignedCount {
-            return NSDate.distantPast()
+            return Constants.incompleteTimeValue
         }
 
         var latestCompletionTime = NSDate.distantPast()
@@ -41,7 +41,7 @@ struct GroupGoal: Goal {
     var usersCompleted: [User] {
         var completedUsers = [User]()
         for user in _userCompletionTimes.keys {
-            if _userCompletionTimes[user] != NSDate.distantPast() {
+            if _userCompletionTimes[user] != Constants.incompleteTimeValue {
                 completedUsers.append(user)
             }
         }
@@ -98,7 +98,7 @@ struct GroupGoal: Goal {
 
     /// Assigns the input user to the goal
     mutating func addUser(user: User) {  //check if is group goal
-        _userCompletionTimes[user] = NSDate.distantPast()
+        _userCompletionTimes[user] = Constants.incompleteTimeValue
     }
 
     /// Unassign the input user from the goal
@@ -126,7 +126,7 @@ struct GroupGoal: Goal {
     /// Returns indicator whether operation was successful
     mutating func markIncompleteByUser(user: User) -> Bool {
         if isUserAssigned(user) {
-            _userCompletionTimes[user] = NSDate.distantPast()
+            _userCompletionTimes[user] = Constants.incompleteTimeValue
             return true
         }
         return false
@@ -144,6 +144,6 @@ struct GroupGoal: Goal {
         if !isUserAssigned(user) {
             return false
         }
-        return _userCompletionTimes[user] != NSDate.distantPast()
+        return _userCompletionTimes[user] != Constants.incompleteTimeValue
     }
 }

@@ -33,7 +33,7 @@ struct PersonalGoal: Goal {
 
     // MARK: Init
 
-    init(id: String = NSUUID().UUIDString, name: String, details: String, priority: Int = 0, endTime: NSDate, completionTime: NSDate = NSDate.distantPast()) {
+    init(id: String = NSUUID().UUIDString, name: String, details: String, priority: Int = 0, endTime: NSDate, completionTime: NSDate = Constants.incompleteTimeValue) {
         self._id = id
         self.name = name
         self.details = details
@@ -58,6 +58,6 @@ struct PersonalGoal: Goal {
     }
 
     mutating func markIncomplete() {
-        _completionTime = NSDate.distantPast()
+        _completionTime = Constants.incompleteTimeValue
     }
 }
