@@ -9,14 +9,14 @@
 import XCTest
 
 class ModelTest_Group: XCTestCase {
-    let userA = User(uid: "uid1", name: "ladybug")
-    let userB = User(uid: "uid2", name: "beetle")
-    let userC = User(uid: "uid3", name: "grasshopper")
+    let userA = User(id: "uid1", name: "ladybug")
+    let userB = User(id: "uid2", name: "beetle")
+    let userC = User(id: "uid3", name: "grasshopper")
     var group: Group?
     
     override func setUp() {
         super.setUp()
-        group = Group(uid: "groupid1", name: "insects", users: [userA, userB])
+        group = Group(name: "insects", members: [userA, userB])
     }
     
     override func tearDown() {

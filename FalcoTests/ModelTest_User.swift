@@ -9,14 +9,18 @@
 import XCTest
 
 class ModelTest_User: XCTestCase {
-    var A = User(uid: "id1", name: "ladybug")
-
+    var A = User(id: "id1", name: "ladybug")
+    var B = User(id: "id2", name: "grasshopper", pictureUrl: "grasshopper.png")
+    
     func testName() {
         XCTAssertEqual("ladybug", A.name)
     }
     
     func testIdentifier() {
-        XCTAssertEqual("id1", A.identifier)
+        XCTAssertEqual("id1", A.id)
     }
     
+    func testPicture() {
+        XCTAssertEqual("grasshopper.png", B.pictureUrl)
+    }
 }

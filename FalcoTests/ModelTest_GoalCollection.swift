@@ -9,23 +9,25 @@
 import XCTest
 
 class ModelTest_GoalCollection: XCTestCase {
-    let userA = User(uid: "uid1", name: "ladybug")
-    let userB = User(uid: "uid2", name: "beetle")
-    let userC = User(uid: "uid3", name: "grasshopper")
-    let goal1 = GroupGoal(uid: "gid1", name: "score", details: "bubbletea", endTime: NSDate(), priority: .Low)
-    let goal2 = GroupGoal(uid: "gid2", name: "whistle", details: "chips", endTime: NSDate(), priority: .Mid)
+    let localUser = User(id: "uid1", name: "ladybug")
+    let userB = User(id: "uid2", name: "beetle")
+    let userC = User(id: "uid3", name: "grasshopper")
+    var goal1 = GroupGoal(groupId: "gid1", name: "score", details: "chips", endTime: NSDate())//(uid: "gid1", name: "score", details: "bubbletea", endTime: NSDate(), priority: .Low)
+    var goal2 = GroupGoal(groupId: "gid2", name: "whistle", details: "chips", endTime: NSDate())//(uid: "gid2", name: "whistle", details: "chips", endTime: NSDate(), priority: .Mid)
     var goal3: PersonalGoal?
     var gc: GoalCollection?
     var date: NSDate?
 
     override func setUp() {
         super.setUp()
-        goal1.addUser(userA)
+        goal1.addUser(localUser)
         goal1.addUser(userB)
+        goal1.priority = 4
         goal2.addUser(userB)
         goal2.addUser(userC)
+        goal2.priority = 7
         date = NSDate()
-        goal3 = PersonalGoal(user: userA, uid: "pid1", name: "score", details: "fish", endTime: NSDate(), priority: .High)
+        goal3 = PersonalGoal(name: "score", details: "fish", endTime: NSDate())//(user: userA, uid: "pid1", name: "score", details: "fish", endTime: NSDate(), priority: .High)
         gc = GoalCollection(goals: [goal1, goal2, goal3!])
     }
     
@@ -34,40 +36,73 @@ class ModelTest_GoalCollection: XCTestCase {
         super.tearDown()
     }
     
+    func compareGoals(a: [Goal], b: [Goal]) -> Bool {
+        if a.count != b.count {
+            return false
+        } else {
+            for goal1 in a {
+                var containsGoal = false
+                for goal2 in b {
+                    if goal1.id == goal2.id {
+                        containsGoal = true
+                        break
+                    }
+                }
+                if !containsGoal {
+                    return false
+                }
+            }
+            return true
+        }
+    }
+    
+    func compareGoalsWithOrder(a: [Goal], b: [Goal]) -> Bool {
+        if a.count != b.count {
+            return false
+        } else {
+            for i in 0..<a.count {
+                if a[i].id != b[i].id {
+                    return false
+                }
+            }
+            return true
+        }
+    }
+    
     func testAddGoal() {
         // test init with empty array
         gc = GoalCollection(goals: [])
         gc!.updateGoal(goal1)
-        XCTAssertEqual([goal1], gc!.goals)
+        XCTAssert(compareGoals([goal1], b: gc!.goals))
         
         gc = GoalCollection(goals: [goal1])
-        XCTAssertEqual([goal1], gc!.goals)
+        XCTAssert(compareGoals([goal1], b: gc!.goals))
         gc!.updateGoal(goal1)
-        XCTAssertEqual([goal1], gc!.goals)
+        XCTAssert(compareGoals([goal1], b: gc!.goals))
         gc!.updateGoal(goal2)
-        XCTAssertEqual(Set([goal1, goal2]), Set(gc!.goals))
+        XCTAssert(compareGoals([goal1, goal2], b: gc!.goals))
     }
     
     func testGetAllGoals() {
-        XCTAssertEqual(Set(arrayLiteral: goal1, goal2, goal3!), Set(gc!.goals))
+        XCTAssert(compareGoals([goal1, goal2, goal3!], b: gc!.goals))
     }
     
     func testRemoveGoal() {
         gc!.removeGoal(goal2)
-        XCTAssertEqual(Set(arrayLiteral: goal1, goal3!), Set(gc!.goals))
+        XCTAssert(compareGoals([goal1, goal3!], b: gc!.goals))
     }
     
     func testRemoveAllGoals() {
         gc!.removeAllGoals()
-        XCTAssert(gc!.isEmpty())
+        XCTAssert(gc!.isEmpty)
     }
     
     func testIsEmpty() {
-        XCTAssert(!gc!.isEmpty())
+        XCTAssert(!gc!.isEmpty)
         gc!.removeGoal(goal2)
-        XCTAssert(!gc!.isEmpty())
+        XCTAssert(!gc!.isEmpty)
         gc!.removeAllGoals()
-        XCTAssert(gc!.isEmpty())
+        XCTAssert(gc!.isEmpty)
     }
     
     func testContainsGoal() {
@@ -81,93 +116,102 @@ class ModelTest_GoalCollection: XCTestCase {
     }
     
     func testGetGoalsAssignedToUser() {
-        XCTAssertEqual(Set(arrayLiteral: goal1, goal3!), Set(gc!.getGoalsAssignedToUser(userA)))
-        XCTAssertEqual(Set(arrayLiteral: goal1, goal2), Set(gc!.getGoalsAssignedToUser(userB)))
-        XCTAssertEqual(Set(arrayLiteral: goal2), Set(gc!.getGoalsAssignedToUser(userC)))
+        XCTAssert(compareGoals([goal1,goal3!], b: gc!.getGoalsAssignedToUser(localUser)))
+        XCTAssert(compareGoals([goal1,goal2, goal3!], b: gc!.getGoalsAssignedToUser(userB)))
+        XCTAssert(compareGoals([goal2, goal3!], b: gc!.getGoalsAssignedToUser(userC)))
     }
     
     func testSortGoalsByPriority() {
         var array = [Goal]()
-        array.append(goal3!)
         array.append(goal2)
         array.append(goal1)
-        XCTAssertEqual(array, gc!.sortGoalsByPriority())
+        array.append(goal3!)
+        gc!.sortGoalsByPriority()
+        XCTAssert(compareGoalsWithOrder(array, b: gc!.goals))
     }
     
     func testSortGoalsByEndTime() {
-        goal1.setEndTime(NSDate(timeIntervalSinceNow: 10))
-        goal2.setEndTime(NSDate(timeIntervalSinceNow: 11))
-        goal3!.setEndTime(NSDate(timeIntervalSinceNow: 12))
+        goal1.endTime = NSDate(timeIntervalSinceNow: 10)
+        goal2.endTime = NSDate(timeIntervalSinceNow: 11)
+        goal3!.endTime = NSDate(timeIntervalSinceNow: 12)
         var array = [Goal]()
         array.append(goal1)
         array.append(goal2)
         array.append(goal3!)
-        XCTAssertEqual(array, gc!.sortGoalsByEndTime())
+        gc!.sortGoalsByEndTime()
+        XCTAssert(compareGoalsWithOrder(array, b: gc!.goals))
     }
     
     func testGetGoalsBeforeEndTime() {
-        XCTAssertEqual(Set([goal1, goal2]), Set(gc!.getGoalsBeforeEndTime(date!)))
+        XCTAssert(compareGoals([goal1, goal2], b: gc!.getGoalsBeforeEndTime(date!)))
     }
     
     func testGetCompletedGoals() {
-        XCTAssertEqual([], gc!.getCompletedGoals())
-        gc!.markGoalAsComplete(goal3!, user: goal3!.user)
-        XCTAssertEqual([goal3!], gc!.getCompletedGoals())
+        XCTAssert(compareGoals([], b: gc!.completeGoals.goals))
+        gc!.markGoalComplete(goal3!, user: localUser)
+        XCTAssert(compareGoals([goal3!], b: gc!.completeGoals.goals))
         
-        gc!.markGoalAsComplete(goal1, user: userA)
-        XCTAssertEqual([goal3!], gc!.getCompletedGoals())
-        gc!.markGoalAsComplete(goal1, user: userC)  //userC is not assigned to goal1
-        XCTAssertEqual([goal3!], gc!.getCompletedGoals())
-        gc!.markGoalAsComplete(goal1, user: userB)
-        XCTAssertEqual(Set([goal3!, goal1]), Set(gc!.getCompletedGoals()))
+        gc!.markGoalComplete(goal1, user: localUser)
+        XCTAssert(compareGoals([goal3!], b: gc!.completeGoals.goals))
+
+        gc!.markGoalComplete(goal1, user: userC)  //userC is not assigned to goal1
+        XCTAssert(compareGoals([goal3!], b: gc!.completeGoals.goals))
+        gc!.markGoalComplete(goal1, user: userB)
+        print("HEHRE")
+        for goal in gc!.completeGoals.goals {
+            print(goal.name)
+        }
+        XCTAssert(compareGoals([goal3!, goal1], b: gc!.completeGoals.goals))
         
         // test unmarking -> group goal
-        gc!.unmarkGoalAsComplete(goal1, user: userC)    //unassigned user
-        XCTAssertEqual(Set([goal3!, goal1]), Set(gc!.getCompletedGoals()))
-        gc!.unmarkGoalAsComplete(goal1, user: userB)
-        XCTAssertEqual([goal3!], gc!.getCompletedGoals())
+        gc!.markGoalIncomplete(goal1, user: userC)    //unassigned user
+        XCTAssert(compareGoals([goal3!, goal1], b: gc!.completeGoals.goals))
+        gc!.markGoalIncomplete(goal1, user: userB)
+        XCTAssert(compareGoals([goal3!], b: gc!.completeGoals.goals))
 
-        gc!.unmarkGoalAsComplete(goal3!, user: userC)   //unassigned user
-        XCTAssertEqual([goal3!], gc!.getCompletedGoals())
-        gc!.unmarkGoalAsComplete(goal3!, user: goal3!.user)
-        XCTAssertEqual([], gc!.getCompletedGoals())
+        gc!.markGoalIncomplete(goal3!, user: userC)   //unassigned user
+        XCTAssert(compareGoals([goal3!], b: gc!.completeGoals.goals))
+        gc!.markGoalIncomplete(goal3!, user: localUser)
+        XCTAssert(compareGoals([], b: gc!.completeGoals.goals))
     }
     
     func testGetUncompletedGoals() {
-        XCTAssertEqual(Set([goal1, goal2, goal3!]), Set(gc!.getUncompletedGoals()))
-        gc!.markGoalAsComplete(goal3!, user: goal3!.user)
-        XCTAssertEqual(Set([goal1, goal2]), Set(gc!.getUncompletedGoals()))
+        XCTAssert(compareGoals([goal3!, goal1, goal2], b: gc!.incompleteGoals.goals))
+        gc!.markGoalComplete(goal3!, user: localUser)
+        XCTAssert(compareGoals([goal1, goal2], b: gc!.incompleteGoals.goals))
         
-        gc!.markGoalAsComplete(goal1, user: userA)
-        XCTAssertEqual(Set([goal1, goal2]), Set(gc!.getUncompletedGoals()))
-        gc!.markGoalAsComplete(goal1, user: userC)  //userC is not assigned to goal1
-        XCTAssertEqual(Set([goal1, goal2]), Set(gc!.getUncompletedGoals()))
-        gc!.markGoalAsComplete(goal1, user: userB)
-        XCTAssertEqual(Set([goal2]), Set(gc!.getUncompletedGoals()))
+        gc!.markGoalComplete(goal1, user: localUser)
+        XCTAssert(compareGoals([goal1, goal2], b: gc!.incompleteGoals.goals))
+        gc!.markGoalComplete(goal1, user: userC)  //userC is not assigned to goal1
+        XCTAssert(compareGoals([goal1, goal2], b: gc!.incompleteGoals.goals))
+        gc!.markGoalComplete(goal1, user: userB)
+        XCTAssert(compareGoals([goal2], b: gc!.incompleteGoals.goals))
         
         // test unmarking -> group goal
-        gc!.unmarkGoalAsComplete(goal1, user: userC)    //unassigned user
-        XCTAssertEqual(Set([goal2]), Set(gc!.getUncompletedGoals()))
-        gc!.unmarkGoalAsComplete(goal1, user: userB)
-        XCTAssertEqual(Set([goal1, goal2]), Set(gc!.getUncompletedGoals()))
+        gc!.markGoalIncomplete(goal1, user: userC)    //unassigned user
+        XCTAssert(compareGoals([goal2], b: gc!.incompleteGoals.goals))
+        gc!.markGoalIncomplete(goal1, user: userB)
+        XCTAssert(compareGoals([goal1, goal2], b: gc!.incompleteGoals.goals))
         
         // test unmarking -> personal goal
-        gc!.unmarkGoalAsComplete(goal3!, user: userC)   //unassigned user
-        XCTAssertEqual(Set([goal1, goal2]), Set(gc!.getUncompletedGoals()))
-        gc!.unmarkGoalAsComplete(goal3!, user: goal3!.user)
-        XCTAssertEqual(Set([goal1, goal2, goal3!]), Set(gc!.getUncompletedGoals()))
+        gc!.markGoalIncomplete(goal3!, user: userC)   //unassigned user
+        XCTAssert(compareGoals([goal1, goal2], b: gc!.incompleteGoals.goals))
+        gc!.markGoalIncomplete(goal3!, user: localUser)
+        XCTAssert(compareGoals([goal1, goal2, goal3!], b: gc!.incompleteGoals.goals))
     }
     
     func testGetGoalsWithName() {
-        XCTAssertEqual([], gc!.getGoalsWithName("blah"))
-        XCTAssertEqual([goal2], gc!.getGoalsWithName("whistle"))
-        XCTAssertEqual(Set([goal1, goal3!]), Set(gc!.getGoalsWithName("score")))
+        XCTAssert(compareGoals([], b: gc!.getGoalsWithName("blah")))
+        XCTAssert(compareGoals([goal2], b: gc!.getGoalsWithName("whistle")))
+        XCTAssert(compareGoals([goal1, goal3!], b: gc!.getGoalsWithName("score")))
     }
     
     func testGetGoalWithIdentifier() {
-        XCTAssertEqual(nil, gc!.getGoalWithIdentifier("blah"))
-        XCTAssertEqual(goal2, gc!.getGoalWithIdentifier("gid2"))
-        XCTAssertEqual(goal3!, gc!.getGoalWithIdentifier("pid1"))
+        if let goal = gc!.getGoalWithIdentifier("blah") {
+            XCTFail()
+        }
+        XCTAssert(compareGoals([goal2], b: [gc!.getGoalWithIdentifier(goal2.id)!]))
+        XCTAssert(compareGoals([goal3!], b: [gc!.getGoalWithIdentifier((goal3?.id)!)!]))
     }
 
 }

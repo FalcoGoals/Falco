@@ -8,7 +8,7 @@
 
 import XCTest
 
-class ModelTest_Goal: XCTestCase {
+/**class ModelTest_Goal: XCTestCase {
     let timeA = NSDate(timeIntervalSinceReferenceDate: 500000000)
     let timeB = NSDate(timeIntervalSinceReferenceDate: 450000000)
     let timeC = NSDate(timeIntervalSinceReferenceDate: 550000000)
@@ -44,4 +44,4 @@ class ModelTest_Goal: XCTestCase {
         
     }
     
-}
+}*/
