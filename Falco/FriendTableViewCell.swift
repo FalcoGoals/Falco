@@ -29,3 +29,13 @@ class FriendTableViewCell: UITableViewCell {
         friendImageView.image = UIImage(data: NSData(contentsOfURL: url!)!)
     }
 }
+
+extension FriendTableViewCell {
+    func toggleCheck() {
+        if self.accessoryType == .Checkmark {
+            self.accessoryType = .None
+        } else if self.accessoryType == .None {
+            self.accessoryType = .Checkmark
+        }
+    }
+}
