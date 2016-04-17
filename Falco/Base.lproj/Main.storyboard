@@ -785,6 +785,9 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="hLC-6J-xgP"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="groupNameLabel" destination="edl-t8-ZM5" id="GKg-8Q-oDq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mhP-rZ-aH0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="pNS-hW-WCJ" userLabel="Exit" sceneMemberID="exit"/>

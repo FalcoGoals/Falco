@@ -9,6 +9,8 @@
 import UIKit
 
 class GroupEditViewController: UIViewController {
+    @IBOutlet weak var groupNameLabel: UILabel!
+
     var group: Group!
     var delegate: Savable!
 
@@ -22,7 +24,7 @@ class GroupEditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print(group)
+        groupNameLabel.text = groupName
     }
 }
 
