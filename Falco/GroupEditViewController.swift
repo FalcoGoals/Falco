@@ -18,8 +18,13 @@ class GroupEditViewController: UIViewController {
     private var groupName: String {
         return group.name
     }
-    private var members: [User] {
+    private var allMembers: [User] {
         return group.members
+    }
+    private var otherMembers: [User] {
+        return allMembers.filter {
+            return Server.instance.user.id != $0.id
+        }
     }
 
     override func viewDidLoad() {
@@ -60,24 +65,24 @@ extension GroupEditViewController: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return members.count
+        return otherMembers.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(Constants.groupMemberCellID, forIndexPath: indexPath) as! FriendTableViewCell
 
-        guard members.count > 0 else {
+        guard otherMembers.count > 0 else {
             return cell
         }
 
-        cell.setUser(members[indexPath.row])
+        cell.setUser(otherMembers[indexPath.row])
         return cell
     }
 
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // update data
-            group.removeMember(members[indexPath.row])
+            group.removeMember(otherMembers[indexPath.row])
             delegate.didSaveGroup(group)
 
             // update view
