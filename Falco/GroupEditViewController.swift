@@ -20,11 +20,8 @@ class GroupEditViewController: UIViewController {
     private var groupName: String {
         return group.name
     }
-    private var allMembers: [User] {
-        return group.members
-    }
     private var otherMembers: [User] {
-        return allMembers.filter {
+        return group.members.filter {
             return Server.instance.user.id != $0.id
         }
     }
@@ -42,12 +39,11 @@ class GroupEditViewController: UIViewController {
         groupNameLabel.text = groupName
     }
 
-
     @IBAction func saveMembers(sender: UIBarButtonItem) {
-        for member in otherMembers {
+        for member in otherMembersSet.subtract(checked) {
             group.removeMember(member)
         }
-        for member in checked {
+        for member in checked.subtract(otherMembersSet) {
             group.addMember(member)
         }
         delegate.didSaveGroup(group)
