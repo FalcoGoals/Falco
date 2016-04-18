@@ -517,7 +517,7 @@
                                 <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="71" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jmc-dp-ln8">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jmc-dp-ln8">
                                 <rect key="frame" x="20" y="128" width="560" height="452"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -628,7 +628,7 @@
                                                             <color key="textColor" red="0.58435285091400146" green="0.80647295713424683" blue="0.91941982507705688" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73I-QR-Jtw">
+                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="73I-QR-Jtw">
                                                             <rect key="frame" x="460" y="0.0" width="22" height="27"/>
                                                             <connections>
                                                                 <segue destination="qyK-3t-oat" kind="presentation" identifier="showGroupEditView" modalPresentationStyle="formSheet" id="y09-zI-dy0"/>
@@ -735,11 +735,11 @@
                                             <constraint firstItem="edl-t8-ZM5" firstAttribute="leading" secondItem="O36-UR-WgW" secondAttribute="leading" id="y1z-wW-nDK"/>
                                         </constraints>
                                     </stackView>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="117" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SE8-4y-laG">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SE8-4y-laG">
                                         <rect key="frame" x="0.0" y="68" width="560" height="480"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="groupMemberCell" rowHeight="70" id="yWr-qX-rvf" customClass="FriendTableViewCell" customModule="Falco" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="groupMemberCell" id="yWr-qX-rvf" customClass="FriendTableViewCell" customModule="Falco" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="560" height="70"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yWr-qX-rvf" id="CxH-Sh-T9F">
@@ -753,6 +753,7 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="2i3-e0-Oh2" secondAttribute="height" multiplier="1:1" id="cvs-OW-rNK"/>
+                                                                        <constraint firstAttribute="width" constant="70" id="k8b-1p-bZO"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vd-nL-ZP5">
@@ -771,6 +772,9 @@
                                                         <constraint firstItem="eCc-iI-5WN" firstAttribute="top" secondItem="CxH-Sh-T9F" secondAttribute="topMargin" constant="-8" id="qcS-Ss-JHF"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" secondItem="2i3-e0-Oh2" secondAttribute="height" id="vlq-2j-OHS"/>
+                                                </constraints>
                                                 <connections>
                                                     <outlet property="friendImageView" destination="2i3-e0-Oh2" id="b0x-Uk-mNZ"/>
                                                     <outlet property="friendNameLabel" destination="2Vd-nL-ZP5" id="73k-Ty-h20"/>
