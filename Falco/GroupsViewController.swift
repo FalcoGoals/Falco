@@ -47,6 +47,7 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
             let navController = segue.destinationViewController as! UINavigationController
             let groupEditViewController = navController.topViewController as! GroupEditViewController
             groupEditViewController.group = _groups[sender!.tag]
+            groupEditViewController.delegate = self
         }
     }
 
@@ -163,5 +164,14 @@ extension GroupsViewController: UITableViewDataSource {
         cell.selectedBackgroundView = bgColorView
 
         return cell
+    }
+}
+
+extension GroupsViewController: Savable {
+    func didSaveGroup(group: Group) {
+        delegate.didUpdateGroup(group, callback: nil)
+    }
+    func didSaveGoal(goal: Goal) {
+        // nil
     }
 }

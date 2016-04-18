@@ -77,6 +77,8 @@ extension GroupEditViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // update data
+            group.removeMember(members[indexPath.row])
+            delegate.didSaveGroup(group)
 
             // update view
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
