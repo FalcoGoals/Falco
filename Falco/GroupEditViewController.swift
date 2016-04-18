@@ -30,7 +30,7 @@ class GroupEditViewController: UIViewController {
 
 extension GroupEditViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.groupMemberCellID, forIndexPath: indexPath) as! FriendTableViewCell
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! FriendTableViewCell
 
         cell.toggleCheck()
 
