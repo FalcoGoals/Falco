@@ -10,6 +10,7 @@ import UIKit
 
 class GroupEditViewController: UIViewController {
     @IBOutlet weak var groupNameLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
 
     var group: Group!
     var delegate: Savable!
@@ -25,6 +26,13 @@ class GroupEditViewController: UIViewController {
         super.viewDidLoad()
 
         groupNameLabel.text = groupName
+
+        navigationItem.rightBarButtonItem = editButtonItem()
+    }
+
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        tableView.setEditing(editing, animated: animated)
     }
 }
 
@@ -35,6 +43,14 @@ extension GroupEditViewController: UITableViewDelegate {
         cell.toggleCheck()
 
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+
+    func tableView(tableView: UITableView, willBeginEditingRowAtIndexPath indexPath: NSIndexPath) {
+        setEditing(true, animated: true)
+    }
+
+    func tableView(tableView: UITableView, didEndEditingRowAtIndexPath indexPath: NSIndexPath) {
+        setEditing(false, animated: true)
     }
 }
 
@@ -56,5 +72,14 @@ extension GroupEditViewController: UITableViewDataSource {
 
         cell.setUser(members[indexPath.row])
         return cell
+    }
+
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            // update data
+
+            // update view
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
+        }
     }
 }

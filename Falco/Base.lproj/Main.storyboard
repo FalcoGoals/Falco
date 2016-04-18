@@ -803,10 +803,10 @@
                                 <segue destination="pNS-hW-WCJ" kind="unwind" unwindAction="cancelGroupEdit:" id="nGg-hL-YBN"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="hLC-6J-xgP"/>
                     </navigationItem>
                     <connections>
                         <outlet property="groupNameLabel" destination="edl-t8-ZM5" id="GKg-8Q-oDq"/>
+                        <outlet property="tableView" destination="SE8-4y-laG" id="IJJ-H9-RPp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mhP-rZ-aH0" userLabel="First Responder" sceneMemberID="firstResponder"/>
