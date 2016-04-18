@@ -15,6 +15,8 @@ class GroupEditViewController: UIViewController {
     var group: Group!
     var delegate: Savable!
 
+    private var checked: Set<User>!
+
     private var groupName: String {
         return group.name
     }
@@ -26,37 +28,48 @@ class GroupEditViewController: UIViewController {
             return Server.instance.user.id != $0.id
         }
     }
+    private var otherMembersSet: Set<User> {
+        return Set(otherMembers)
+    }
+    private var friends: [User] {
+        return Array(Storage.instance.friends.values)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        checked = Set(group.members)
         groupNameLabel.text = groupName
-
-        navigationItem.rightBarButtonItem = editButtonItem()
     }
 
-    override func setEditing(editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        tableView.setEditing(editing, animated: animated)
+
+    @IBAction func saveMembers(sender: UIBarButtonItem) {
+        for member in otherMembers {
+            group.removeMember(member)
+        }
+        for member in checked {
+            group.addMember(member)
+        }
+        delegate.didSaveGroup(group)
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }
 
 extension GroupEditViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! FriendTableViewCell
-
         cell.toggleCheck()
+
+        let friend = friends[indexPath.row]
+        if checked.contains(friend) {
+            checked.remove(friend)
+        } else {
+            checked.insert(friend)
+        }
 
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
-    func tableView(tableView: UITableView, willBeginEditingRowAtIndexPath indexPath: NSIndexPath) {
-        setEditing(true, animated: true)
-    }
-
-    func tableView(tableView: UITableView, didEndEditingRowAtIndexPath indexPath: NSIndexPath) {
-        setEditing(false, animated: true)
-    }
 }
 
 extension GroupEditViewController: UITableViewDataSource {
@@ -65,7 +78,7 @@ extension GroupEditViewController: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return otherMembers.count
+        return friends.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -75,18 +88,10 @@ extension GroupEditViewController: UITableViewDataSource {
             return cell
         }
 
-        cell.setUser(otherMembers[indexPath.row])
+        let friend = friends[indexPath.row]
+        cell.setUser(friend)
+        cell.accessoryType = otherMembersSet.contains(friend) ? .Checkmark : .None
+
         return cell
-    }
-
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // update data
-            group.removeMember(otherMembers[indexPath.row])
-            delegate.didSaveGroup(group)
-
-            // update view
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
-        }
     }
 }

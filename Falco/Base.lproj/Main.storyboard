@@ -803,6 +803,11 @@
                                 <segue destination="pNS-hW-WCJ" kind="unwind" unwindAction="cancelGroupEdit:" id="nGg-hL-YBN"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="xNB-Jk-kQD">
+                            <connections>
+                                <action selector="saveMembers:" destination="HJF-m1-yF9" id="Y3j-Gu-PJt"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="groupNameLabel" destination="edl-t8-ZM5" id="GKg-8Q-oDq"/>
