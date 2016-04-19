@@ -169,7 +169,9 @@ extension GroupsViewController: UITableViewDataSource {
 
 extension GroupsViewController: Savable {
     func didSaveGroup(group: Group) {
-        delegate.didUpdateGroup(group, callback: nil)
+        delegate.didUpdateGroup(group) {
+            self.refreshData()
+        }
     }
     func didSaveGoal(goal: Goal) {
         // nil

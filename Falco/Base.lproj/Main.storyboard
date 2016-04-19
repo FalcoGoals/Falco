@@ -727,6 +727,9 @@
                                                 <state key="normal" title="Leave Group">
                                                     <color key="titleColor" red="1" green="0.22334637660000001" blue="0.3805677496" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="leaveGroup:" destination="HJF-m1-yF9" eventType="touchUpInside" id="kjB-KB-Qv3"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>

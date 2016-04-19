@@ -22,7 +22,7 @@ class GroupEditViewController: UIViewController {
     }
     private var otherMembers: [User] {
         return group.members.filter {
-            return Server.instance.user.id != $0.id
+            return Storage.instance.user.id != $0.id
         }
     }
     private var otherMembersSet: Set<User> {
@@ -39,6 +39,12 @@ class GroupEditViewController: UIViewController {
         groupNameLabel.text = groupName
     }
 
+    @IBAction func leaveGroup(sender: UIButton) {
+        group.removeMember(Storage.instance.user)
+        delegate.didSaveGroup(group)
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     @IBAction func saveMembers(sender: UIBarButtonItem) {
         for member in otherMembersSet.subtract(checked) {
             group.removeMember(member)
