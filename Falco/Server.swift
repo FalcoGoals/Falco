@@ -260,7 +260,7 @@ class Server {
     }
 
     private func getPictureUrl(fbId: String) -> String {
-        return "https://graph.facebook.com/\(fbId)/picture?width=70&height=70"
+        return fbId //"https://graph.facebook.com/\(fbId)/picture?width=70&height=70"
     }
 
     private func currentAccessToken() -> FBSDKAccessToken? {

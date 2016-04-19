@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import FBSDKShareKit
 
 class FriendTableViewCell: UITableViewCell {
-    @IBOutlet weak var friendImageView: UIImageView!
+    @IBOutlet weak var friendProfilePictureView: FBSDKProfilePictureView!
     @IBOutlet weak var friendNameLabel: UILabel!
     private var _user: User!
     var user: User? { return _user }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -25,8 +26,7 @@ class FriendTableViewCell: UITableViewCell {
     func setUser(user: User) {
         _user = user
         friendNameLabel.text = user.name
-        let url = NSURL(string: user.pictureUrl)
-        friendImageView.image = UIImage(data: NSData(contentsOfURL: url!)!)
+        friendProfilePictureView.profileID = user.pictureUrl
     }
 }
 

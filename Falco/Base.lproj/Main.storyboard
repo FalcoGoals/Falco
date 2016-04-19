@@ -531,12 +531,13 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="lpo-dI-6L9">
                                                     <rect key="frame" x="0.0" y="0.0" width="560" height="69"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AEo-Fz-ZYS">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GbR-92-tqQ" customClass="FBSDKProfilePictureView">
                                                             <rect key="frame" x="0.0" y="0.0" width="69" height="69"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" secondItem="AEo-Fz-ZYS" secondAttribute="height" multiplier="1:1" id="wXc-xg-W00"/>
+                                                                <constraint firstAttribute="width" secondItem="GbR-92-tqQ" secondAttribute="height" multiplier="1:1" id="IGg-xV-hbZ"/>
                                                             </constraints>
-                                                        </imageView>
+                                                        </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zxx-vR-a4W">
                                                             <rect key="frame" x="89" y="0.0" width="471" height="69"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -554,8 +555,8 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="friendImageView" destination="AEo-Fz-ZYS" id="Tr2-Kc-gei"/>
                                             <outlet property="friendNameLabel" destination="Zxx-vR-a4W" id="1LR-le-Cap"/>
+                                            <outlet property="friendProfilePictureView" destination="GbR-92-tqQ" id="FXZ-Rj-6bh"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -753,13 +754,13 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="eCc-iI-5WN">
                                                             <rect key="frame" x="0.0" y="0.0" width="552" height="70"/>
                                                             <subviews>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2i3-e0-Oh2">
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eyF-d5-Rjx" customClass="FBSDKProfilePictureView">
                                                                     <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" secondItem="2i3-e0-Oh2" secondAttribute="height" multiplier="1:1" id="cvs-OW-rNK"/>
-                                                                        <constraint firstAttribute="width" constant="70" id="k8b-1p-bZO"/>
+                                                                        <constraint firstAttribute="width" secondItem="eyF-d5-Rjx" secondAttribute="height" multiplier="1:1" id="u08-Je-mc1"/>
                                                                     </constraints>
-                                                                </imageView>
+                                                                </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vd-nL-ZP5">
                                                                     <rect key="frame" x="90" y="25" width="462" height="20"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -769,6 +770,7 @@
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="2Vd-nL-ZP5" firstAttribute="top" secondItem="eCc-iI-5WN" secondAttribute="top" constant="25" id="HJb-GP-86e"/>
+                                                                <constraint firstItem="eyF-d5-Rjx" firstAttribute="width" secondItem="eyF-d5-Rjx" secondAttribute="height" multiplier="1:1" id="mP6-Ph-k48"/>
                                                                 <constraint firstAttribute="bottom" secondItem="2Vd-nL-ZP5" secondAttribute="bottom" constant="25" id="rG9-hx-gyc"/>
                                                             </constraints>
                                                         </stackView>
@@ -780,12 +782,9 @@
                                                         <constraint firstItem="eCc-iI-5WN" firstAttribute="top" secondItem="CxH-Sh-T9F" secondAttribute="topMargin" constant="-8" id="qcS-Ss-JHF"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" secondItem="2i3-e0-Oh2" secondAttribute="height" id="vlq-2j-OHS"/>
-                                                </constraints>
                                                 <connections>
-                                                    <outlet property="friendImageView" destination="2i3-e0-Oh2" id="b0x-Uk-mNZ"/>
                                                     <outlet property="friendNameLabel" destination="2Vd-nL-ZP5" id="73k-Ty-h20"/>
+                                                    <outlet property="friendProfilePictureView" destination="eyF-d5-Rjx" id="qLn-Dr-wQJ"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
