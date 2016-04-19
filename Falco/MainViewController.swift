@@ -97,6 +97,7 @@ class MainViewController: UITabBarController, LoginDelegate {
                 if let goals = goals {
                     self.storage.personalGoals = goals
                     if !cacheDoesExist {
+                        self.homeViewController.viewDidAppear(false)
                         self.updateBubblesView()
                     }
                     self.storage.writeToCache()
