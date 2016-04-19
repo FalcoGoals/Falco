@@ -46,6 +46,7 @@ class GroupAddViewController: UIViewController {
 
     override func viewDidAppear(animated: Bool) {
         refreshFriends()
+        nameInput.becomeFirstResponder()
     }
 
     private func refreshFriends() {

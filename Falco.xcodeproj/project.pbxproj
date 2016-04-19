@@ -248,8 +248,8 @@
 				740FF74F1CABB8A5008A5D1F /* BubblesViewController.swift */,
 				74BB5DD61CA1848500695C24 /* GoalEditViewController.swift */,
 				2586F12B1CB69226002809F5 /* GroupsViewController.swift */,
-				74B0CF091CC3841D00CF45A8 /* GroupEditViewController.swift */,
 				25E463171CB41B1D00847724 /* GroupAddViewController.swift */,
+				74B0CF091CC3841D00CF45A8 /* GroupEditViewController.swift */,
 				25BB93611CB0028F0008E0B8 /* GroupChatViewController.swift */,
 			);
 			name = controller;
