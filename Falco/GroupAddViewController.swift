@@ -28,13 +28,13 @@ class GroupAddViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if Storage.instance.isFriendListPopulated {
-            _friends = Array(Storage.instance.friends.values)
+            _friends = Storage.instance.friendsSortedByName
             for friend in _friends {
                 _checkedRows[friend] = false
             }
             tableView.reloadData()
         } else {
-            refreshData()
+            refreshFriends()
         }
         tableView.dataSource = self
         tableView.delegate = self
@@ -45,15 +45,16 @@ class GroupAddViewController: UIViewController {
     }
 
     override func viewDidAppear(animated: Bool) {
-        refreshData()
+        refreshFriends()
     }
 
-    func refreshData() {
-        Server.instance.getFriends() { users in
-            if let contacts = users {
-                self._friends = contacts
+    private func refreshFriends() {
+        Server.instance.getFriends() { friends in
+            if let friends = friends {
+                Storage.instance.updateFriends(friends)
+                self._friends = Storage.instance.friendsSortedByName
                 self.tableView.reloadData()
-                for friend in contacts {
+                for friend in self._friends {
                     self._checkedRows[friend] = false
                 }
             }

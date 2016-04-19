@@ -9,14 +9,17 @@
 import Foundation
 
 class Storage {
+    private var dataFilePath = ""
+    private var usersFilePath = ""
     static let instance = Storage()
     var isFriendListPopulated = false
     var personalGoals = GoalCollection()
     var groups: [String: Group] = [:]
     var user: User!
     var friends: [String: User] = [:]
-    var dataFilePath = ""
-    var usersFilePath = ""
+    var friendsSortedByName: [User] {
+        return Array(friends.values).sort({$0.name < $1.name})
+    }
     private init() {
         let paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)
         if (paths.count > 0) {
@@ -32,6 +35,14 @@ class Storage {
                 friends[friendId] = User(userData: friendData)
             }
         }
+    }
+    func updateFriends(updatedFriends: [User]) {
+        friends.removeAll()
+        for friend in updatedFriends {
+            friends[friend.id] = friend
+        }
+        isFriendListPopulated = true
+        saveUsersData()
     }
     func saveUsersData() {
         let dictionary = NSMutableDictionary()

@@ -170,12 +170,24 @@ class Server {
 
             let groupIdsDict = snapshot.value as! [String : AnyObject]
             var groups = [Group]()
+            var groupIdsToBeRemoved = [String]()
             for (groupId, _) in groupIdsDict {
                 let groupRef = self.groupsRef.childByAppendingPath(groupId)
                 groupRef.observeSingleEventOfType(.Value, withBlock: { snapshot2 in
-                    let groupData = snapshot2.value as! [String: AnyObject]
-                    groups.append(Group(id: groupId, groupData: groupData))
-                    if groups.count == groupIdsDict.keys.count {
+                    if let groupData = snapshot2.value as? [String: AnyObject] {
+                        let group = Group(id: groupId, groupData: groupData)
+                        if group.containsMember(self.user) {
+                            groups.append(group)
+                        } else {
+                            groupIdsToBeRemoved.append(groupId)
+                        }
+                    } else {
+                        groupIdsToBeRemoved.append(groupId)
+                    }
+                    if groups.count == groupIdsDict.keys.count - groupIdsToBeRemoved.count {
+                        for groupIdToBeRemoved in groupIdsToBeRemoved {
+                            self.userGroupsRef.updateChildValues([groupIdToBeRemoved: NSNull()])
+                        }
                         callback(groups)
                         return
                     }
@@ -220,10 +232,10 @@ class Server {
             var friends = [User]()
             let friendsData = result.valueForKey("data")! as! [[String: AnyObject]]
             for friendData in friendsData {
-                let id = "facebook:\(friendData["id"] as! String)"
+                let fbId = friendData["id"] as! String
+                let id = "facebook:\(fbId)"
                 let name = friendData["name"] as! String
-                let pictureData = (friendData["picture"] as! [String: AnyObject])["data"] as! [String: AnyObject]
-                let pictureUrl = pictureData["url"] as! String
+                let pictureUrl = self.getPictureUrl(fbId)
                 let friend = User(id: id, name: name, pictureUrl: pictureUrl)
                 friends.append(friend)
             }
@@ -233,8 +245,9 @@ class Server {
 
     private func authSuccess(authData: FAuthData) {
         let uid = authData.uid
+        let fbId = authData.providerData["id"] as! String
         let name = authData.providerData["displayName"] as! String
-        let pictureUrl = authData.providerData["profileImageURL"] as! String
+        let pictureUrl = getPictureUrl(fbId)
 
         user = User(id: uid, name: name, pictureUrl: pictureUrl)
         userRef = usersRef.childByAppendingPath(uid)
@@ -244,6 +257,10 @@ class Server {
         userGroupsRef = userRef.childByAppendingPath("groups")
 
         print("Logged in as: \(user)\n")
+    }
+
+    private func getPictureUrl(fbId: String) -> String {
+        return "https://graph.facebook.com/\(fbId)/picture?width=70&height=70"
     }
 
     private func currentAccessToken() -> FBSDKAccessToken? {

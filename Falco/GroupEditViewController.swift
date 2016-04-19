@@ -29,7 +29,7 @@ class GroupEditViewController: UIViewController {
         return Set(otherMembers)
     }
     private var friends: [User] {
-        return Array(Storage.instance.friends.values)
+        return Storage.instance.friendsSortedByName
     }
 
     override func viewDidLoad() {
