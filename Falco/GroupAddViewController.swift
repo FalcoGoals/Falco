@@ -36,12 +36,20 @@ class GroupAddViewController: UIViewController {
         } else {
             refreshFriends()
         }
+
         tableView.dataSource = self
         tableView.delegate = self
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
-        definesPresentationContext = true
+        searchController.searchBar.barStyle = .Black
         tableView.tableHeaderView = searchController.searchBar
+
+        nameInput.attributedPlaceholder = NSAttributedString(string: nameInput.placeholder!, attributes: [NSForegroundColorAttributeName: Constants.groupNamePlaceholderColor])
+
+        tableView.backgroundColor = UIColor.clearColor()
+        let blurEffect = UIBlurEffect(style: .ExtraLight)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        tableView.backgroundView = blurEffectView
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -106,6 +114,10 @@ class GroupAddViewController: UIViewController {
 }
 
 extension GroupAddViewController: UITableViewDelegate {
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.backgroundColor = UIColor.clearColor()
+    }
+
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as? FriendTableViewCell
         if !_checkedRows[(cell?.user!)!]! {//cell?.accessoryType == UITableViewCellAccessoryType.None {

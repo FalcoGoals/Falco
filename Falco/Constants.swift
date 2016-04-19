@@ -47,6 +47,7 @@ struct Constants {
     static let groupCreationFailMsg = "Failed to create group"
     static let nameReqMsg = "A group name is required"
     static let membersReqMsg = "Please select members to join the group"
+    static let groupNamePlaceholderColor = UIColor(red: 0/255, green: 128/255, blue: 255/255, alpha: 1)
 
     // Group members tableview
     static let groupMemberCellID = "groupMemberCell"

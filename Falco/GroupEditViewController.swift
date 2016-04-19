@@ -37,6 +37,12 @@ class GroupEditViewController: UIViewController {
 
         checked = Set(group.members)
         groupNameField.text = groupName
+        groupNameField.attributedPlaceholder = NSAttributedString(string: groupNameField.placeholder!, attributes: [NSForegroundColorAttributeName: Constants.groupNamePlaceholderColor])
+
+        tableView.backgroundColor = UIColor.clearColor()
+        let blurEffect = UIBlurEffect(style: .ExtraLight)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        tableView.backgroundView = blurEffectView
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -63,6 +69,10 @@ class GroupEditViewController: UIViewController {
 }
 
 extension GroupEditViewController: UITableViewDelegate {
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        cell.backgroundColor = UIColor.clearColor()
+    }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as! FriendTableViewCell
         cell.toggleCheck()
