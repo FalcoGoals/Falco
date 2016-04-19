@@ -15,6 +15,7 @@ class BubblesViewController: UIViewController {
     private var isGroup: Bool {
         return currentGroup != nil
     }
+    private var pinchedBubble: GoalBubble?
 
     var delegate: ModelDelegate!
     var initialGoals: GoalCollection?
@@ -159,28 +160,33 @@ class BubblesViewController: UIViewController {
     }
 
     func bubblePinched(sender: UIPinchGestureRecognizer) {
-        let pinchRecognizerView = sender.view
-        let pinchPoint = sender.locationInView(pinchRecognizerView)
-        let scenePoint = scene.convertPointFromView(pinchPoint)
-        var node = scene.nodeAtPoint(scenePoint)
-        while !(node is GoalBubble) && node.parent != nil {
-            if let parent = node.parent {
-                node = parent
-            } else {
-                break
+        if sender.state == .Began {
+            let pinchRecognizerView = sender.view
+            let pinchPoint = sender.locationInView(pinchRecognizerView)
+            let scenePoint = scene.convertPointFromView(pinchPoint)
+            var node = scene.nodeAtPoint(scenePoint)
+            while !(node is GoalBubble) && node.parent != nil {
+                if let parent = node.parent {
+                    node = parent
+                } else {
+                    break
+                }
             }
-        }
-
-        if let node = node as? GoalBubble {
-            if sender.state == .Began {
-                node.beginScaling(sender.scale)
-            } else if sender.state == .Changed {
-                node.scaleTo(sender.scale)
-            } else {
-                node.finishScaling(sender.scale)
-                if var goal = delegate.getGoal(node.id, groupId: currentGroup?.id) {
-                    goal.priority = priorityForTargetRadius(node.radius)
-                    delegate.didUpdateGoal(goal)
+            if let bubble = node as? GoalBubble {
+                pinchedBubble = bubble
+                bubble.beginScaling(sender.scale)
+            }
+        } else {
+            if let bubble = pinchedBubble {
+                if sender.state == .Changed {
+                    bubble.scaleTo(sender.scale)
+                } else {
+                    bubble.finishScaling(sender.scale)
+                    if var goal = delegate.getGoal(bubble.id, groupId: currentGroup?.id) {
+                        goal.priority = priorityForTargetRadius(bubble.radius)
+                        delegate.didUpdateGoal(goal)
+                    }
+                    pinchedBubble = nil
                 }
             }
         }
