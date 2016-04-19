@@ -9,7 +9,7 @@
 import UIKit
 
 class GroupEditViewController: UIViewController {
-    @IBOutlet weak var groupNameLabel: UILabel!
+    @IBOutlet weak var groupNameField: UITextField!
     @IBOutlet weak var tableView: UITableView!
 
     var group: Group!
@@ -36,7 +36,11 @@ class GroupEditViewController: UIViewController {
         super.viewDidLoad()
 
         checked = Set(group.members)
-        groupNameLabel.text = groupName
+        groupNameField.text = groupName
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        groupNameField.becomeFirstResponder()
     }
 
     @IBAction func leaveGroup(sender: UIButton) {
@@ -45,13 +49,14 @@ class GroupEditViewController: UIViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @IBAction func saveMembers(sender: UIBarButtonItem) {
+    @IBAction func saveGroup(sender: UIBarButtonItem) {
         for member in otherMembersSet.subtract(checked) {
             group.removeMember(member)
         }
         for member in checked.subtract(otherMembersSet) {
             group.addMember(member)
         }
+        group.name = groupNameField.text!
         delegate.didSaveGroup(group)
         dismissViewControllerAnimated(true, completion: nil)
     }
