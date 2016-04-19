@@ -20,17 +20,24 @@ class GoalBubble: SKNode {
         return involved != nil
     }
     private var circleToRingRatio: CGFloat
+    private var initialRadius: CGFloat!
+    private var _radius: CGFloat
+    private var initialScale: CGFloat
 
     private var radius: CGFloat {
-        didSet {
-            let scaleFactor = radius / oldValue
+        get {
+            return _radius
+        }
+        set(newRadius) {
+            let scaleFactor = newRadius / _radius
             let scale = SKAction.scaleBy(scaleFactor, duration: 0.5)
             circle.runAction(scale, completion: {
-                self.label.physicsBody = GoalBubble.makeCircularBody(self.radius)
+                self.label.physicsBody = GoalBubble.makeCircularBody(newRadius)
             })
             if let ring = self.ring {
                 ring.runAction(scale)
             }
+            _radius = newRadius
         }
     }
 
@@ -48,7 +55,7 @@ class GoalBubble: SKNode {
 
     init(id: String, circleOfRadius: CGFloat, text: String, deadline: NSDate, involved: Int? = nil, completed: Int = 0) {
         self.id = id
-        self.radius = circleOfRadius
+        self._radius = circleOfRadius
         self.goalName = text
         self.deadline = deadline
 
@@ -62,11 +69,12 @@ class GoalBubble: SKNode {
         }
 
         self.label = SKLabelNode(text: text)
-        while label.frame.width >= radius * 2 {
+        while label.frame.width >= _radius * 2 {
             label.text = String(label.text!.characters.dropLast())
         }
 
         self.circle = SKShapeNode(circleOfRadius: circleOfRadius * self.circleToRingRatio)
+        self.initialScale = self.circle.xScale
 
         if involved != nil {
             self.ring =
@@ -96,6 +104,27 @@ class GoalBubble: SKNode {
         } else {
             self.init(id: goal.id, circleOfRadius: CGFloat(goal.weight) / 2, text: goal.name, deadline: goal.endTime)
         }
+    }
+
+    func beginScaling(scale: CGFloat) {
+        initialScale = circle.xScale
+        scaleTo(scale)
+    }
+
+    func scaleTo(scale: CGFloat) {
+        let scaleAction = SKAction.scaleTo(scale * initialScale, duration: 0)
+        circle.runAction(scaleAction)
+        ring?.runAction(scaleAction)
+    }
+
+    func finishScaling(scale: CGFloat) {
+        let scaleAction = SKAction.scaleTo(scale * initialScale, duration: 0)
+        circle.runAction(scaleAction) {
+            self.initialScale *= scale
+            self._radius *= scale
+            self.label.physicsBody = GoalBubble.makeCircularBody(self._radius)
+        }
+        ring?.runAction(scaleAction)
     }
 
     func updateWithGoal(goal: Goal) {

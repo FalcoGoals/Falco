@@ -46,6 +46,7 @@ class BubblesViewController: UIViewController {
         skView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(BubblesViewController.bubbleTapped(_:))))
         skView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action:
             #selector(BubblesViewController.bubbleLongPressed(_:))))
+        skView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(BubblesViewController.bubblePinched(_:))))
         
         if isGroup {
             scene.addChatBubble()
@@ -154,6 +155,30 @@ class BubblesViewController: UIViewController {
 
         if let node = node as? GoalBubble {
             completeGoal(node)
+        }
+    }
+
+    func bubblePinched(sender: UIPinchGestureRecognizer) {
+        let pinchRecognizerView = sender.view
+        let pinchPoint = sender.locationInView(pinchRecognizerView)
+        let scenePoint = scene.convertPointFromView(pinchPoint)
+        var node = scene.nodeAtPoint(scenePoint)
+        while !(node is GoalBubble) && node.parent != nil {
+            if let parent = node.parent {
+                node = parent
+            } else {
+                break
+            }
+        }
+
+        if let node = node as? GoalBubble {
+            if sender.state == .Began {
+                node.beginScaling(sender.scale)
+            } else if sender.state == .Changed {
+                node.scaleTo(sender.scale)
+            } else {
+                node.finishScaling(sender.scale)
+            }
         }
     }
     
