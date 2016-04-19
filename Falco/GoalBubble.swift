@@ -24,7 +24,7 @@ class GoalBubble: SKNode {
     private var _radius: CGFloat
     private var initialScale: CGFloat
 
-    private var radius: CGFloat {
+    var radius: CGFloat {
         get {
             return _radius
         }
@@ -119,9 +119,9 @@ class GoalBubble: SKNode {
 
     func finishScaling(scale: CGFloat) {
         let scaleAction = SKAction.scaleTo(scale * initialScale, duration: 0)
+        initialScale *= scale
+        _radius *= scale
         circle.runAction(scaleAction) {
-            self.initialScale *= scale
-            self._radius *= scale
             self.label.physicsBody = GoalBubble.makeCircularBody(self._radius)
         }
         ring?.runAction(scaleAction)

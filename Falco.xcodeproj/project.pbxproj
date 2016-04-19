@@ -358,7 +358,7 @@
 				TargetAttributes = {
 					7459577A1C9841DE00C3D3C0 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 655C42239R;
+						DevelopmentTeam = KNW32ZMGE3;
 					};
 					7459578E1C9841DE00C3D3C0 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -669,7 +669,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Falco/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.Falco;
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.john.Falco;
 				PRODUCT_NAME = Falco;
 				PROVISIONING_PROFILE = "";
 			};
@@ -689,7 +689,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Falco/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.Falco;
+				PRODUCT_BUNDLE_IDENTIFIER = nus.cs3217.group04.john.Falco;
 				PRODUCT_NAME = Falco;
 				PROVISIONING_PROFILE = "";
 			};

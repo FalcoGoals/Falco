@@ -178,6 +178,10 @@ class BubblesViewController: UIViewController {
                 node.scaleTo(sender.scale)
             } else {
                 node.finishScaling(sender.scale)
+                if var goal = delegate.getGoal(node.id, groupId: currentGroup?.id) {
+                    goal.priority = priorityForTargetRadius(node.radius)
+                    delegate.didUpdateGoal(goal)
+                }
             }
         }
     }
@@ -234,6 +238,10 @@ class BubblesViewController: UIViewController {
 
     private func playScene() {
         self.scene.view?.paused = false
+    }
+
+    private func priorityForTargetRadius(radius: CGFloat) -> Double {
+        return (Double(radius * 2) - 80) / 50 - 1
     }
 }
 

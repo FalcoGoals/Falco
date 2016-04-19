@@ -30,6 +30,7 @@ class GoalEditViewController: UITableViewController {
     private var isGroup: Bool {
         return group != nil
     }
+    private var isPriorityModified = false
 
     var delegate: Savable!
     var goal: Goal!
@@ -57,7 +58,13 @@ class GoalEditViewController: UITableViewController {
         nameField.text = goal.name
         dateLabel.text = getDateString(goal.endTime)
         datePicker.setDate(goal.endTime, animated: false)
-        priorityControl.selectedSegmentIndex = goal.priority
+        if goal.priority < 1 {
+            priorityControl.selectedSegmentIndex = 0
+        } else if goal.priority < 2 {
+            priorityControl.selectedSegmentIndex = 1
+        } else {
+            priorityControl.selectedSegmentIndex = 2
+        }
         detailsField.text = goal.details
         
         if isGroup {
@@ -99,7 +106,9 @@ class GoalEditViewController: UITableViewController {
     @IBAction func saveDetails(sender: UIBarButtonItem) {
         goal.name = nameField.text!
         goal.details = detailsField.text!
-        goal.priority = priorityControl.selectedSegmentIndex
+        if isPriorityModified {
+            goal.priority = Double(priorityControl.selectedSegmentIndex)
+        }
         goal.endTime = datePicker.date
 
         if isGroup {
@@ -125,6 +134,7 @@ class GoalEditViewController: UITableViewController {
     //  Listening for primary action, in this case .ValueChanged. Therefore tapping on
     //  already selected segment does not hide date picker
     @IBAction func priorityTapped(sender: UISegmentedControl) {
+        isPriorityModified = true
         hideDatePicker()
     }
 
