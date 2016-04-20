@@ -10,6 +10,7 @@ import SpriteKit
 
 class GoalBubble: SKNode {
     var id: String
+    var groupId: String?
     var circle: SKShapeNode
     var ring: SKShapeNode?
     var label: SKLabelNode
@@ -56,8 +57,9 @@ class GoalBubble: SKNode {
     }
     private var bubbleTexture = SKTexture(imageNamed: "bubble")
 
-    init(id: String, circleOfRadius: CGFloat, text: String, deadline: NSDate, involved: Int? = nil, completed: Int = 0) {
+    init(id: String, groupId: String? = nil, circleOfRadius: CGFloat, text: String, deadline: NSDate, involved: Int? = nil, completed: Int = 0) {
         self.id = id
+        self.groupId = groupId
         self._radius = circleOfRadius
         self.goalName = text
         self.deadline = deadline
@@ -103,7 +105,7 @@ class GoalBubble: SKNode {
 
     convenience init(goal: Goal) {
         if let goal = goal as? GroupGoal {
-            self.init(id: goal.id, circleOfRadius: CGFloat(goal.weight) / 2, text: goal.name, deadline: goal.endTime, involved: goal.usersAssignedCount, completed: goal.usersCompletedCount)
+            self.init(id: goal.id, groupId: goal.groupId, circleOfRadius: CGFloat(goal.weight) / 2, text: goal.name, deadline: goal.endTime, involved: goal.usersAssignedCount, completed: goal.usersCompletedCount)
         } else {
             self.init(id: goal.id, circleOfRadius: CGFloat(goal.weight) / 2, text: goal.name, deadline: goal.endTime)
         }

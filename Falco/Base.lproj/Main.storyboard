@@ -447,15 +447,44 @@
                         <viewControllerLayoutGuide type="top" id="LyX-e8-mcT"/>
                         <viewControllerLayoutGuide type="bottom" id="a0T-G5-Am7"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="raG-ce-fmP" customClass="SKView">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                    <view key="view" contentMode="scaleToFill" id="raG-ce-fmP">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="X77-lF-pzK">
+                                <rect key="frame" x="194.5" y="72" width="211" height="29"/>
+                                <color key="backgroundColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="K37-6k-PnA"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Personal Goals"/>
+                                    <segment title="All Goals"/>
+                                </segments>
+                                <color key="tintColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="selectionChanged:" destination="nrW-8I-lzT" eventType="primaryActionTriggered" id="t00-6R-qP2"/>
+                                </connections>
+                            </segmentedControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aR0-q9-txF" customClass="SKView">
+                                <rect key="frame" x="8" y="108" width="584" height="443"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="X77-lF-pzK" firstAttribute="centerX" secondItem="raG-ce-fmP" secondAttribute="centerX" id="ABw-Kp-m6i"/>
+                            <constraint firstItem="aR0-q9-txF" firstAttribute="leading" secondItem="raG-ce-fmP" secondAttribute="leadingMargin" constant="-12" id="EoM-3w-Jav"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="aR0-q9-txF" secondAttribute="trailing" constant="-12" id="Xa8-2A-3o2"/>
+                            <constraint firstItem="aR0-q9-txF" firstAttribute="top" secondItem="X77-lF-pzK" secondAttribute="bottom" constant="8" id="YLw-x5-hL7"/>
+                            <constraint firstItem="X77-lF-pzK" firstAttribute="top" secondItem="LyX-e8-mcT" secondAttribute="bottom" constant="8" id="jar-9i-Q5B"/>
+                            <constraint firstItem="a0T-G5-Am7" firstAttribute="top" secondItem="aR0-q9-txF" secondAttribute="bottom" id="o2R-oc-3MY"/>
+                        </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Home" id="Cuz-c2-DYo"/>
-                    <value key="contentSizeForViewInPopover" type="size" width="700" height="700"/>
                     <connections>
+                        <outlet property="personalOrAllSelector" destination="X77-lF-pzK" id="JSc-bF-Q4a"/>
+                        <outlet property="sceneView" destination="aR0-q9-txF" id="ntA-3m-Pyp"/>
                         <segue destination="UDy-Sm-d4K" kind="popoverPresentation" identifier="showGoalEditView" popoverAnchorView="raG-ce-fmP" id="zq2-nq-fiU">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>

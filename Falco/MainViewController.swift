@@ -12,12 +12,12 @@ class MainViewController: UITabBarController, LoginDelegate {
     private let server = Server.instance
     private let storage = Storage.instance
 
+    private let background = UIImageView(image: UIImage(named: "wallpaper"))
+
     private var homeNavViewController: UINavigationController!
     private var homeViewController: BubblesViewController!
     private var groupsNavViewController: UINavigationController!
     private var groupsViewController: GroupsViewController!
-
-    private var background = UIImageView(image: UIImage(named: "wallpaper"))
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -169,6 +169,19 @@ extension MainViewController: ModelDelegate {
         } else {
             return storage.personalGoals
         }
+    }
+
+    func getAllGoals() -> GoalCollection? {
+        var allGoals = [Goal]()
+        allGoals += storage.personalGoals.goals
+        for group in storage.groups.values {
+            allGoals += group.goals.goals
+        }
+        return GoalCollection(goals: allGoals)
+    }
+
+    func getGroup(groupId: String) -> Group? {
+        return storage.groups[groupId]
     }
 
     func getGroups() -> [Group] {

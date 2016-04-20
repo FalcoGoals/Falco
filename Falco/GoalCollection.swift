@@ -32,6 +32,14 @@ class GoalCollection: CustomStringConvertible {
         return GoalCollection(goals: _goals.filter({!$0.isCompleted}))
     }
 
+    var assignedGroupGoals: GoalCollection {
+        return GoalCollection(goals: _goals.filter({$0 is GroupGoal && ($0 as! GroupGoal).isUserAssigned(Storage.instance.user)}))
+    }
+
+    var relevantGoals: GoalCollection {
+        return GoalCollection(goals: _goals.filter({!($0 is GroupGoal && !($0 as! GroupGoal).isUserAssigned(Storage.instance.user))}))
+    }
+
     var description: String {
         return goals.description
     }

@@ -16,6 +16,13 @@ class BubblesScene: SKScene {
     private var lowestY = 0
     private var offset = CGFloat(100)
 
+    private var screenPath: CGMutablePath {
+        let points = [CGPointMake(0, -9999), CGPointMake(0, 0), CGPointMake(size.width, 0), CGPointMake(size.width, -9999)]
+        let path = CGPathCreateMutable()
+        CGPathAddLines(path, nil, points, 4)
+        return path
+    }
+
     override init(size: CGSize) {
         super.init(size: size)
 
@@ -29,10 +36,6 @@ class BubblesScene: SKScene {
         addChild(cam)
         camera = cam
         
-        let points = [CGPointMake(0, -9999), CGPointMake(0, 0), CGPointMake(size.width, 0), CGPointMake(size.width, -9999)]
-        let screenPath = CGPathCreateMutable()
-        CGPathAddLines(screenPath, nil, points, 4)
-        
         physicsBody = SKPhysicsBody(edgeChainFromPath: screenPath)
         physicsWorld.gravity = CGVectorMake(0, 4)
     }
@@ -42,18 +45,12 @@ class BubblesScene: SKScene {
     }
 
     override func didChangeSize(oldSize: CGSize) {
-        guard cam != nil else {
-            return
-        }
-        cam.position = CGPoint(x: frame.midX, y: frame.midY)
-        
-        guard chatBubble != nil else {
-            return
-        }
+        physicsBody = SKPhysicsBody(edgeChainFromPath: screenPath)
+        cam?.position = CGPoint(x: frame.midX, y: frame.midY)
         chatBubble?.position = CGPointMake(size.width/2 - 100, (-size.height/2) + 100)
     }
 
-      override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first
         let positionInScene = touch!.locationInNode(self)
         let previousPosition = touch!.previousLocationInNode(self)
@@ -63,7 +60,7 @@ class BubblesScene: SKScene {
         } else {
             cam.position.y -= translation.y
         }
-      }
+    }
 
     func addGoal(goal: Goal) {
         let weight = goal.weight

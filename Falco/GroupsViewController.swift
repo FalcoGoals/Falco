@@ -41,7 +41,7 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
             let bvc = segue.destinationViewController as! BubblesViewController
             bvc.title = _selectedGroup.name
             bvc.initialGoals = _selectedGroup.goals.incompleteGoals
-            bvc.currentGroup = _selectedGroup
+            bvc.groupId = _selectedGroup.id
             bvc.delegate = delegate
         } else if segue.identifier == Constants.groupEditSegue {
             let navController = segue.destinationViewController as! UINavigationController

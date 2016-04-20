@@ -14,9 +14,11 @@ protocol GoalModelDelegate {
     func didCompleteGoal(goalId: String, groupId: String?) -> Goal?
     func getGoal(goalId: String, groupId: String?) -> Goal?
     func getGoals(groupId: String?) -> GoalCollection?
+    func getAllGoals() -> GoalCollection?
 }
 
 protocol GroupModelDelegate {
+    func getGroup(groupId: String) -> Group?
     func getGroups() -> [Group]
     func didUpdateGroup(group: Group, callback: (() -> ())?)
     func refreshGroups(callback: (() -> ())?)
