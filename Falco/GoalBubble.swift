@@ -290,15 +290,6 @@ extension UIColor {
     }
 
     /**
-     - parameters:
-        - times: number of times to call this method
-    */
-    func saturate(times times: Int = 1) -> UIColor? {
-        let multiplier = 1.1
-        return changeSaturation(multiplier, times: times)
-    }
-
-    /**
      - todo: configurable setting to change multiplier such that the number of times to reach saturation is 0
      can be tweaked by users. use case: 10 days might be long for some goals but too short for a big goal
      - parameters:
