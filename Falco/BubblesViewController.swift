@@ -206,7 +206,8 @@ class BubblesViewController: UIViewController {
                 if sender.state == .Changed {
                     bubble.scaleTo(sender.scale)
                 } else {
-                    bubble.finishScaling(sender.scale)
+                    let goal = delegate.getGoal(bubble.id, groupId: bubble.groupId)!
+                    bubble.finishScaling(sender.scale, goal: goal)
                     if var goal = delegate.getGoal(bubble.id, groupId: bubble.groupId) {
                         goal.priority = priorityForTargetRadius(bubble.radius)
                         delegate.didUpdateGoal(goal)

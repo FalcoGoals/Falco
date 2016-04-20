@@ -116,7 +116,7 @@ class GoalBubble: SKNode {
         scaleTo(scale)
     }
 
-    func scaleTo(scale: CGFloat, commit: Bool = false) {
+    func scaleTo(scale: CGFloat, commit: Bool = false, labelText: String = "") {
         let newRadius = scale * _radius
         var curatedScale = scale
         if newRadius > maxRadius {
@@ -132,13 +132,17 @@ class GoalBubble: SKNode {
         circle.runAction(scaleAction) {
             if commit {
                 self.label.physicsBody = GoalBubble.makeCircularBody(self._radius)
+                self.label.text = labelText
+                while self.label.frame.width >= self._radius * 2 {
+                    self.label.text = String(self.label.text!.characters.dropLast())
+                }
             }
         }
         ring?.runAction(scaleAction)
     }
 
-    func finishScaling(scale: CGFloat) {
-        scaleTo(scale, commit: true)
+    func finishScaling(scale: CGFloat, goal: Goal) {
+        scaleTo(scale, commit: true, labelText: goal.name)
     }
 
     func updateWithGoal(goal: Goal) {
