@@ -81,7 +81,6 @@ class BubblesViewController: UIViewController {
             for child in self.scene.children where child is GoalBubble {
                 let bubble = child as! GoalBubble
                 if !self.scene.intersectsNode(bubble.circle) {
-                    print("readding \(bubble.name)")
                     bubble.removeFromParent()
                     if let goal = self.delegate.getGoal(bubble.id, groupId: bubble.groupId) {
                         self.scene.addGoal(goal)
