@@ -358,7 +358,7 @@
 				TargetAttributes = {
 					7459577A1C9841DE00C3D3C0 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = KNW32ZMGE3;
+						DevelopmentTeam = 655C42239R;
 					};
 					7459578E1C9841DE00C3D3C0 = {
 						CreatedOnToolsVersion = 7.2.1;
