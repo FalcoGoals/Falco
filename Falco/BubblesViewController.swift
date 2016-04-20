@@ -250,9 +250,9 @@ class BubblesViewController: UIViewController {
             }
         } else {
             if selectionIndex == 0 {
-                reloadedGoals = delegate.getGoals(nil)
-            } else {
                 reloadedGoals = delegate.getAllGoals()?.relevantGoals
+            } else {
+                reloadedGoals = delegate.getGoals(nil)
             }
         }
         if let reloadedGoals = reloadedGoals {

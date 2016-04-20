@@ -255,8 +255,6 @@ class Server {
 
         userGoalsRef = userRef.childByAppendingPath("goals")
         userGroupsRef = userRef.childByAppendingPath("groups")
-
-        print("Logged in as: \(user)\n")
     }
 
     private func getPictureUrl(fbId: String) -> String {

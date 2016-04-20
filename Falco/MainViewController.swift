@@ -89,7 +89,7 @@ class MainViewController: UITabBarController, LoginDelegate {
 
     private func authAndDownloadGoals() {
         storage.loadFromCache()
-        homeViewController.initialGoals = storage.personalGoals.incompleteGoals
+        homeViewController.initialGoals = getAllGoals()?.relevantGoals
         let cacheDoesExist = !storage.personalGoals.isEmpty
         server.auth() {
             self.storage.user = self.server.user
