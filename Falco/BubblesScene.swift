@@ -13,11 +13,12 @@ class BubblesScene: SKScene {
     private var chatBubble: ChatBubble?
 
     private var circlePosition = [[Int]]()
-    private var lowestY = 0
-    private var offset = CGFloat(100)
+    private var lowestY = Constants.lowestYValue
+    private var offset = Constants.bubbleOffsetValue
 
     private var screenPath: CGMutablePath {
-        let points = [CGPointMake(0, -9999), CGPointMake(0, 0), CGPointMake(size.width, 0), CGPointMake(size.width, -9999)]
+        let points = [CGPointMake(0, Constants.lowestPathPoint), CGPointMake(0, 0),
+                      CGPointMake(size.width, 0), CGPointMake(size.width, Constants.lowestPathPoint)]
         let path = CGPathCreateMutable()
         CGPathAddLines(path, nil, points, 4)
         return path
@@ -44,12 +45,15 @@ class BubblesScene: SKScene {
         fatalError("init(coder:) has not been implemented")
     }
 
+    /// Repositions the camera and chatBubble when orientation(size) changes
     override func didChangeSize(oldSize: CGSize) {
         physicsBody = SKPhysicsBody(edgeChainFromPath: screenPath)
         cam?.position = CGPoint(x: frame.midX, y: frame.midY)
-        chatBubble?.position = CGPointMake(size.width/2 - 100, (-size.height/2) + 100)
+        chatBubble?.position = CGPointMake(size.width/2 - Constants.chatBubbleOffset,
+                                           (-size.height/2) + Constants.chatBubbleOffset)
     }
 
+    /// Allows for panning of camera in y direction (cannot go further top than first bubble)
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         let touch = touches.first
         let positionInScene = touch!.locationInNode(self)
@@ -62,6 +66,7 @@ class BubblesScene: SKScene {
         }
     }
 
+    /// Adds goal based on calculated next position, and with an offset of the y value to make bubble rise from top
     func addGoal(goal: Goal) {
         let weight = goal.weight
         let (x,y) = calculateNextPosition(weight)
@@ -71,14 +76,14 @@ class BubblesScene: SKScene {
         circlePosition.append([x, y, weight])
         let goalBubble = GoalBubble(goal: goal)
         goalBubble.position = CGPointMake(CGFloat(x), CGFloat(y) - offset)
-        offset += 50
+        offset += Constants.bubbleOffsetIncrement
         addChild(goalBubble)
     }
 
     func addGoals(goals: GoalCollection) {
         circlePosition.removeAll()
-        lowestY = 0
-        offset = CGFloat(100)
+        lowestY = Constants.lowestYValue
+        offset = Constants.bubbleOffsetValue
         for goal in goals.goals {
             runAction(SKAction.sequence([
                 SKAction.waitForDuration(0.5),
@@ -96,11 +101,13 @@ class BubblesScene: SKScene {
     }
     
     func addChatBubble() {
-        chatBubble = ChatBubble(radius: 40)
-        chatBubble!.position = CGPointMake(size.width/2 - 100, (-size.height/2) + 100)
+        chatBubble = ChatBubble(radius: Constants.chatBubbleRadius)
+        chatBubble!.position = CGPointMake(size.width/2 - Constants.chatBubbleOffset,
+                                           (-size.height/2) + Constants.chatBubbleOffset)
         cam.addChild(chatBubble!)
     }
     
+    /// Calculates approximately where the next bubble should be placed in scene
     private func calculateNextPosition(diameter: Int) -> (Int, Int){
         var xValue = 0
         var lowestYValue = lowestY

@@ -55,7 +55,7 @@ extension UsersCell: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("userCell",
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.userCellID,
                                                                forIndexPath: indexPath) as! UserCell
 
         cell.separatorInset = UIEdgeInsetsZero

@@ -9,7 +9,6 @@
 import UIKit
 
 class GroupTableViewCell: UITableViewCell {
-    private let numGoalPreview = 3
 
     @IBOutlet weak var groupNameLabel: UILabel!
     @IBOutlet weak var groupSettingsButton: UIButton!
@@ -31,8 +30,7 @@ class GroupTableViewCell: UITableViewCell {
             return
         }
 
-        let spacing: CGFloat = 20
-        let maxGoalWidth = frame.height - groupNameLabel.frame.height - 2 * spacing
+        let maxGoalWidth = frame.height - groupNameLabel.frame.height - 2 * Constants.goalPreviewSpacing
 
         goals.sortGoalsByWeight()
         var goalWidths = [CGFloat]()
@@ -40,23 +38,23 @@ class GroupTableViewCell: UITableViewCell {
 
         let topGoal = goals.goals[0]
         var topGoals = [Goal]()
-        for i in 0..<min(numGoalPreview, goals.count) {
+        for i in 0..<min(Constants.numGoalPreview, goals.count) {
             let goal = goals.goals[i]
             let normalisedWeight = CGFloat(goal.weight) / CGFloat(topGoal.weight)
             let calculatedWidth = maxGoalWidth * normalisedWeight
-            goalsTotalWidth += calculatedWidth + spacing
+            goalsTotalWidth += calculatedWidth + Constants.goalPreviewSpacing
             goalWidths.append(calculatedWidth)
             topGoals.append(goal)
         }
-        goalsTotalWidth -= spacing
+        goalsTotalWidth -= Constants.goalPreviewSpacing
 
         var offsetX: CGFloat = (frame.width - goalsTotalWidth) / 2
-        let offsetY = groupNameLabel.frame.height + spacing
+        let offsetY = groupNameLabel.frame.height + Constants.goalPreviewSpacing
         for i in 0..<topGoals.count {
             let goal = topGoals[i]
             let width = goalWidths[i]
-            let bubble = BubbleCell(frame: CGRectMake(offsetX, offsetY, width, width), goal: goal)
-            offsetX += width + spacing
+            let bubble = BubbleCell(frame: CGRect(x: offsetX, y: offsetY, width: width, height: width), goal: goal)
+            offsetX += width + Constants.goalPreviewSpacing
             addSubview(bubble)
             bringSubviewToFront(bubble)
         }

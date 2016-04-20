@@ -95,7 +95,7 @@ class GroupsViewController: UIViewController, GroupAddDelegate {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.sectionFooterHeight = Constants.groupFooterHeight
-        tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 0, -15)
+        tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -15)
     }
 
     /// Displays cells of groups which names match with the search text

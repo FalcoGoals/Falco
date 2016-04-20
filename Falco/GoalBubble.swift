@@ -25,9 +25,6 @@ class GoalBubble: SKNode {
     private var _radius: CGFloat
     private var initialScale: CGFloat
 
-    private let minRadius: CGFloat = 50
-    private let maxRadius: CGFloat = 300
-
     var radius: CGFloat {
         get {
             return _radius
@@ -38,7 +35,7 @@ class GoalBubble: SKNode {
             circle.runAction(scale, completion: {
                 self.label.physicsBody = GoalBubble.makeCircularBody(newRadius)
             })
-            if let ring = self.ring {
+            if let ring = ring {
                 ring.runAction(scale)
             }
             _radius = newRadius
@@ -57,50 +54,51 @@ class GoalBubble: SKNode {
     }
     private var bubbleTexture = SKTexture(imageNamed: "bubble")
 
-    init(id: String, groupId: String? = nil, circleOfRadius: CGFloat, text: String, deadline: NSDate, involved: Int? = nil, completed: Int = 0) {
+    init(id: String, groupId: String? = nil, circleOfRadius: CGFloat, text: String, deadline: NSDate,
+         involved: Int? = nil, completed: Int = 0) {
         self.id = id
         self.groupId = groupId
-        self._radius = circleOfRadius
-        self.goalName = text
+        _radius = circleOfRadius
+        goalName = text
         self.deadline = deadline
 
         self.involved = involved
         self.completed = completed
 
         if involved != nil {
-            self.circleToRingRatio = 0.95
+            circleToRingRatio = 0.95
         } else {
-            self.circleToRingRatio = 1
+            circleToRingRatio = 1
         }
 
-        self.label = SKLabelNode(text: text)
+        label = SKLabelNode(text: text)
         while label.frame.width >= _radius * 2 {
             label.text = String(label.text!.characters.dropLast())
         }
 
-        self.circle = SKShapeNode(circleOfRadius: circleOfRadius * self.circleToRingRatio)
-        self.initialScale = self.circle.xScale
+        circle = SKShapeNode(circleOfRadius: circleOfRadius * circleToRingRatio)
+        initialScale = circle.xScale
 
         if involved != nil {
-            self.ring =
-                GoalBubble.makeDashedCircle(self.circle.position, radius: circleOfRadius, involved: involved!, completed: completed)
-            self.label.addChild(self.ring!)
+            ring = GoalBubble.makeDashedCircle(circle.position, radius: circleOfRadius,
+                                               involved: involved!, completed: completed)
+            label.addChild(ring!)
         }
 
-        self.label.addChild(self.circle)
+        label.addChild(circle)
 
         super.init()
 
-        self.userInteractionEnabled = true
-        self.name = id
+        userInteractionEnabled = true
+        name = id
 
         setCircleProperties(bubbleTexture)
         updateStrokeColour(deadline)
         setLabelProperties()
 
-        self.label.physicsBody = GoalBubble.makeCircularBody(circleOfRadius)
+        label.physicsBody = GoalBubble.makeCircularBody(circleOfRadius)
 
-        addChild(self.label)
+        addChild(label)
     }
 
     convenience init(goal: Goal) {
@@ -119,10 +117,10 @@ class GoalBubble: SKNode {
     func scaleTo(scale: CGFloat, commit: Bool = false, labelText: String = "") {
         let newRadius = scale * _radius
         var curatedScale = scale
-        if newRadius > maxRadius {
-            curatedScale = maxRadius / _radius
-        } else if newRadius < minRadius {
-            curatedScale = minRadius / _radius
+        if newRadius > Constants.maxRadius {
+            curatedScale = Constants.maxRadius / _radius
+        } else if newRadius < Constants.minRadius {
+            curatedScale = Constants.minRadius / _radius
         }
         let scaleAction = SKAction.scaleTo(curatedScale * initialScale, duration: 0)
         if commit {
@@ -155,10 +153,11 @@ class GoalBubble: SKNode {
         }
         deadline = goal.endTime
         if let goal = goal as? GroupGoal {
-            self.ring!.removeFromParent()
-            self.ring =
-                GoalBubble.makeDashedCircle(self.circle.position, radius: radius, involved: goal.usersAssignedCount, completed: goal.usersCompletedCount)
-            self.label.addChild(self.ring!)
+            ring!.removeFromParent()
+            ring = GoalBubble.makeDashedCircle(circle.position, radius: radius,
+                                               involved: goal.usersAssignedCount,
+                                               completed: goal.usersCompletedCount)
+            label.addChild(ring!)
         }
     }
 
@@ -170,9 +169,6 @@ class GoalBubble: SKNode {
     private static func makeCircularBody(radius: CGFloat) -> SKPhysicsBody {
         let body = SKPhysicsBody(circleOfRadius: radius)
         body.allowsRotation = false
-        body.restitution = 0.2
-        body.friction = 0.0
-        body.linearDamping = 0.1
         return body
     }
 
@@ -218,35 +214,34 @@ class GoalBubble: SKNode {
     }
 
     private static func getPattern(points: CGFloat, segments: Int) -> [CGFloat] {
-        let drawnToGapRatio: CGFloat = 9 / 10
         let pointsPerSegment = points / CGFloat(segments)
-        let drawnLength = drawnToGapRatio * pointsPerSegment
-        let gapLength = (1 - drawnToGapRatio) * pointsPerSegment
+        let drawnLength = Constants.drawnToGapRatio * pointsPerSegment
+        let gapLength = (1 - Constants.drawnToGapRatio) * pointsPerSegment
 
         return [drawnLength, gapLength]
     }
 
     private func updateStrokeColour(deadline: NSDate) {
         if let aShadeOfRed = UIColor.redColor().desaturate(times: GoalBubble.daysToDeadline(deadline)) {
-            self.circle.strokeColor = aShadeOfRed
+            circle.strokeColor = aShadeOfRed
         } else {
-            self.circle.strokeColor = UIColor.whiteColor()
+            circle.strokeColor = UIColor.whiteColor()
         }
     }
 
     // MARK: Helpers
     private func setCircleProperties(texture: SKTexture) {
-        self.circle.fillColor = UIColor.whiteColor()
-        self.circle.fillTexture = texture
-        self.circle.lineWidth = 2
+        circle.fillColor = UIColor.whiteColor()
+        circle.fillTexture = texture
+        circle.lineWidth = Constants.bubbleBorderWidth
     }
 
     private func setLabelProperties() {
-        self.label.horizontalAlignmentMode = .Center
-        self.label.verticalAlignmentMode = .Baseline
-        self.label.fontSize = 25
-        self.label.fontName = "System-Bold"
-        self.label.name = "label"
+        label.horizontalAlignmentMode = .Center
+        label.verticalAlignmentMode = .Baseline
+        label.fontSize = Constants.labelFontSize
+        label.fontName = Constants.labelFontName
+        label.name = Constants.labelName
     }
 
     /// days are rounded down
@@ -297,7 +292,6 @@ extension UIColor {
      10 times gives close to a value of 0
      */
     func desaturate(times times: Int = 1) -> UIColor? {
-        let multiplier = 0.8
-        return changeSaturation(multiplier, times: times)
+        return changeSaturation(Constants.desaturateMultiplier, times: times)
     }
 }

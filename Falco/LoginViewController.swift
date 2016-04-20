@@ -32,8 +32,8 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate {
         } else if result.isCancelled {
             print("Facebook login was cancelled.")
         } else {
-            self.delegate.didReceiveToken()
-            self.dismissViewControllerAnimated(true, completion: nil)
+            delegate.didReceiveToken()
+            dismissViewControllerAnimated(true, completion: nil)
         }
     }
 

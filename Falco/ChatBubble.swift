@@ -15,10 +15,10 @@ class ChatBubble: SKNode {
         
         let circle = SKShapeNode(circleOfRadius: radius)
         circle.fillColor = UIColor.whiteColor()
-        circle.name = "chat"
+        circle.name = Constants.chatName
         let chat = SKSpriteNode(imageNamed: "chat")
-        chat.size = CGSizeMake(radius * 1.5, radius * 1.5)
-        chat.name = "chat"
+        chat.size = CGSize(width: radius * Constants.chatScaleFactor, height: radius * Constants.chatScaleFactor)
+        chat.name = Constants.chatName
         
         circle.addChild(chat)
         addChild(circle)

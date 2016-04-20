@@ -47,7 +47,7 @@ class UserCell: UITableViewCell {
         } else if completionTime != Constants.incompleteTimeValue {
             dateLabel.text = getDateString(completionTime)
         } else {
-            dateLabel.text = "(not done)"
+            dateLabel.text = Constants.uncompletedDateLabel
         }
     }
 

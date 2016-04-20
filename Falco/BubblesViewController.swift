@@ -142,7 +142,7 @@ class BubblesViewController: UIViewController {
 
             let group = delegate.getGroup(groupId!)!
             cvc.initialize(group, localUser: Storage.instance.user)
-            cvc.preferredContentSize = CGSizeMake(view.frame.width, view.frame.height/2)
+            cvc.preferredContentSize = CGSize(width: view.frame.width, height: view.frame.height/2)
         }
     }
 

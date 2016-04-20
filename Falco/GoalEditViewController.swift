@@ -19,12 +19,6 @@ class GoalEditViewController: UITableViewController {
     @IBOutlet weak var usersCellTable: UITableView!
 
     private var isNewGoal = false
-    private let nameRow = 0
-    private let dateRow = 1
-    private let assignedUsersLabelRow = 4
-    private let descriptionRow = 6
-    private let datePickerRowHeight: CGFloat = 100
-    private let assignedUsersTableRowHeight: CGFloat = 100
     private var isDatePickerShown = false
     private var isAssignedUsersTableShown = false
     private var isGroup: Bool {
@@ -51,26 +45,26 @@ class GoalEditViewController: UITableViewController {
             } else {
                 goal = PersonalGoal(name: "", details: "", endTime: NSDate())
             }
-            navigationItem.title = "New Goal"
+            navigationItem.title = Constants.newGoalTitle
             isNewGoal = true
         }
 
         nameField.text = goal.name
         dateLabel.text = getDateString(goal.endTime)
         datePicker.setDate(goal.endTime, animated: false)
-        if goal.priority < 1 {
-            priorityControl.selectedSegmentIndex = 0
-        } else if goal.priority < 2 {
-            priorityControl.selectedSegmentIndex = 1
+        if goal.priority < Double(Constants.mediumPriorityIndex) {
+            priorityControl.selectedSegmentIndex = Constants.lowPriorityIndex
+        } else if goal.priority < Double(Constants.highPriorityIndex) {
+            priorityControl.selectedSegmentIndex = Constants.mediumPriorityIndex
         } else {
-            priorityControl.selectedSegmentIndex = 2
+            priorityControl.selectedSegmentIndex = Constants.highPriorityIndex
         }
         detailsField.text = goal.details
         
         if isGroup {
-            usersCellTable.layer.borderWidth = 1
-            usersCellTable.layer.cornerRadius = 5
-            usersCellTable.layer.borderColor = UIColor(red: 0, green: 118/255, blue: 1, alpha: 1).CGColor
+            usersCellTable.layer.borderWidth = Constants.usersCellTableBorderWidth
+            usersCellTable.layer.cornerRadius = Constants.usersCellTableCornerRadius
+            usersCellTable.layer.borderColor = Constants.usersCellTableBorderColor
 
             usersCell.initUsers(goal as! GroupGoal, groupMembers: group!.members, isNewGoal: isNewGoal)
         }
@@ -78,11 +72,11 @@ class GoalEditViewController: UITableViewController {
         // UI preparation
 
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 45
+        tableView.estimatedRowHeight = Constants.tableViewEstimatedRowHeight
 
-        detailsField.layer.borderWidth = 1
-        detailsField.layer.cornerRadius = 5
-        detailsField.layer.borderColor = UIColor(red: 0, green: 118/255, blue: 1, alpha: 1).CGColor
+        detailsField.layer.borderWidth = Constants.detailsFieldBorderWidth
+        detailsField.layer.cornerRadius = Constants.detailsFieldCornerRadius
+        detailsField.layer.borderColor = Constants.detailsFieldBorderColor
         detailsField.scrollEnabled = false
 
         tableView.backgroundColor = UIColor.clearColor()
@@ -152,40 +146,40 @@ class GoalEditViewController: UITableViewController {
         // hide any opened keyboard
         self.tableView.endEditing(true)
 
-        if indexPath.row == dateRow && !isDatePickerShown {
+        if indexPath.row == Constants.dateRow && !isDatePickerShown {
             showDatePicker()
         } else {
             hideDatePicker()
         }
         
-        if isGroup && indexPath.row == assignedUsersLabelRow && !isAssignedUsersTableShown {
+        if isGroup && indexPath.row == Constants.assignedUsersLabelRow && !isAssignedUsersTableShown {
             showAssignedUsersTable()
         } else {
             hideAssignedUsersTable()
         }
 
-        if indexPath.row == nameRow {
+        if indexPath.row == Constants.nameRow {
             nameField.becomeFirstResponder()
-        } else if indexPath.row == descriptionRow {
+        } else if indexPath.row == Constants.descriptionRow {
             detailsField.becomeFirstResponder()
         }
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == dateRow + 1 {
+        if indexPath.row == Constants.dateRow + 1 {
             if isDatePickerShown {
-                return datePickerRowHeight
+                return Constants.datePickerRowHeight
             } else {
                 return 0
             }
-        } else if indexPath.row == assignedUsersLabelRow {
+        } else if indexPath.row == Constants.assignedUsersLabelRow {
             if isGroup {
                 return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
             } else {
                 return 0
             }
-        } else if indexPath.row == assignedUsersLabelRow + 1 {
+        } else if indexPath.row == Constants.assignedUsersLabelRow + 1 {
             if isGroup && isAssignedUsersTableShown {
                 return usersCellTable.contentSize.height
             } else {
@@ -280,7 +274,7 @@ class GoalEditViewController: UITableViewController {
 
     private func updatePopupSize() {
         tableView.layoutIfNeeded()
-        preferredContentSize = tableView.sizeThatFits(CGSizeMake(preferredContentSize.width, CGFloat.max))
+        preferredContentSize = tableView.sizeThatFits(CGSize(width: preferredContentSize.width, height: CGFloat.max))
         presentingViewController?.presentedViewController?.preferredContentSize = preferredContentSize
     }
 }

@@ -120,7 +120,7 @@ extension GroupAddViewController: UITableViewDelegate {
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as? FriendTableViewCell
-        if !_checkedRows[(cell?.user!)!]! {//cell?.accessoryType == UITableViewCellAccessoryType.None {
+        if !_checkedRows[(cell?.user!)!]! {
             cell?.accessoryType = UITableViewCellAccessoryType.Checkmark
             _checkedRows[(cell?.user!)!] = true
         } else {

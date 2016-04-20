@@ -14,20 +14,19 @@ class BubbleCell: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        layer.cornerRadius = self.frame.size.width/2
-//        clipsToBounds = true
+        layer.cornerRadius = frame.size.width/2
         layer.borderColor = UIColor.blackColor().CGColor
-        layer.borderWidth = 2.0
+        layer.borderWidth = Constants.bubbleBorderWidth
         
         let backgroundImage = UIImageView(image: UIImage(named: "bubble"))
         backgroundImage.contentMode = .ScaleToFill
         backgroundImage.frame.size = frame.size
         addSubview(backgroundImage)
         
-        label = UILabel(frame: CGRectMake(0, 0, frame.size.width, frame.size.width))
-        label.center = CGPointMake(frame.size.width/2, frame.size.width/2)
+        label = UILabel(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.width))
+        label.center = CGPoint(x: frame.size.width/2, y: frame.size.width/2)
         label.textAlignment = NSTextAlignment.Center
-        label.font = UIFont.boldSystemFontOfSize(20)
+        label.font = UIFont.boldSystemFontOfSize(Constants.bubbleCellLabelFontSize)
         label.textColor = UIColor.whiteColor()
         addSubview(label)
     }
@@ -37,23 +36,24 @@ class BubbleCell: UIView {
         label.text = goal.name
         updateStrokeColour(goal.endTime)
         if let goal = goal as? GroupGoal {
-            let center = CGPointMake(frame.size.width/2, frame.size.width/2)
-            let radius = frame.size.width / 2 * 1.05
+            let center = CGPoint(x: frame.size.width/2, y: frame.size.width/2)
+            let radius = frame.size.width / 2 * Constants.bubbleScaleFactor
             let (cPath, iPath) = BubbleCell.makeDashedCircle(center, radius: radius, involved: goal.usersAssignedCount, completed: goal.usersCompletedCount)
             let cRing = CAShapeLayer()
             cRing.path = cPath
             cRing.fillColor = nil
             cRing.strokeColor = UIColor.greenColor().CGColor
-            cRing.lineWidth = 2
+            cRing.lineWidth = Constants.bubbleBorderWidth
             let iRing = CAShapeLayer()
             iRing.path = iPath
             iRing.fillColor = nil
             iRing.strokeColor = UIColor.grayColor().CGColor
-            iRing.lineWidth = 2
-            let ring = UIView(frame: CGRectMake(0, 0, radius * 2, radius * 2))
+            iRing.lineWidth = Constants.bubbleBorderWidth
+            let ring = UIView(frame: CGRect(x: 0, y: 0, width: radius * 2, height: radius * 2))
             ring.layer.addSublayer(cRing)
             ring.layer.addSublayer(iRing)
-            ring.center = CGPointMake(frame.size.width/2 * 1.05, frame.size.width/2 * 1.05)
+            ring.center = CGPoint(x: frame.size.width/2 * Constants.bubbleScaleFactor,
+                                  y: frame.size.width/2 * Constants.bubbleScaleFactor)
             addSubview(ring)
         }
     }
@@ -118,10 +118,9 @@ class BubbleCell: UIView {
     }
 
     private static func getPattern(points: CGFloat, segments: Int) -> [CGFloat] {
-        let drawnToGapRatio: CGFloat = 9 / 10
         let pointsPerSegment = points / CGFloat(segments)
-        let drawnLength = drawnToGapRatio * pointsPerSegment
-        let gapLength = (1 - drawnToGapRatio) * pointsPerSegment
+        let drawnLength = Constants.drawnToGapRatio * pointsPerSegment
+        let gapLength = (1 - Constants.drawnToGapRatio) * pointsPerSegment
 
         return [drawnLength, gapLength]
     }

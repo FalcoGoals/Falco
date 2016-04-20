@@ -32,10 +32,10 @@ class FriendTableViewCell: UITableViewCell {
 
 extension FriendTableViewCell {
     func toggleCheck() {
-        if self.accessoryType == .Checkmark {
-            self.accessoryType = .None
-        } else if self.accessoryType == .None {
-            self.accessoryType = .Checkmark
+        if accessoryType == .Checkmark {
+            accessoryType = .None
+        } else if accessoryType == .None {
+            accessoryType = .Checkmark
         }
     }
 }
