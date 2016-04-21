@@ -84,6 +84,7 @@ struct Constants {
     static let lowestYValue = 0
     static let chatBubbleRadius: CGFloat = 40
     static let chatBubbleOffset: CGFloat = 100
+    static let cameraName = "camera"
     
     // BubbleCell special values
     static let drawnToGapRatio: CGFloat = 9 / 10

@@ -33,7 +33,7 @@ class BubblesScene: SKScene {
         
         cam = SKCameraNode()
         cam.position = CGPoint(x: frame.midX, y: frame.midY)
-        cam.name = "camera"
+        cam.name = Constants.cameraName
         addChild(cam)
         camera = cam
         

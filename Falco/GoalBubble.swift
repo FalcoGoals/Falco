@@ -285,8 +285,7 @@ extension UIColor {
     }
 
     /**
-     - todo: configurable setting to change multiplier such that the number of times to reach saturation is 0
-     can be tweaked by users. use case: 10 days might be long for some goals but too short for a big goal
+     use case: 10 days might be long for some goals but too short for a big goal
      - parameters:
         - times: number of times to call this method 
      10 times gives close to a value of 0

@@ -102,19 +102,6 @@ class BubbleCell: UIView {
         let dashedPathForIncompleted = CGPathCreateCopyByDashingPath(arcForIncompleted.CGPath, nil, 0, pattern, pattern.count)
 
         return (dashedPathForCompleted!, dashedPathForIncompleted!)
-
-//        let dashedCircleForCompleted = SKShapeNode(path: dashedPathForCompleted!)
-//        dashedCircleForCompleted.strokeColor = UIColor.greenColor()
-//        dashedCircleForCompleted.lineWidth = lineWidth
-//
-//        let dashedCircleForIncompeleted = SKShapeNode(path: dashedPathForIncompleted!)
-//        dashedCircleForIncompeleted.strokeColor = UIColor.grayColor()
-//        dashedCircleForIncompeleted.lineWidth = lineWidth
-//
-//        let parentNode = SKShapeNode()
-//        parentNode.addChild(dashedCircleForCompleted)
-//        parentNode.addChild(dashedCircleForIncompeleted)
-//        return parentNode
     }
 
     private static func getPattern(points: CGFloat, segments: Int) -> [CGFloat] {
