@@ -8,6 +8,17 @@
 
 import Foundation
 
+/**
+ Overview: Struct representing a personal goal, which involves only one user
+ SpecFields:
+ _id (String):                Is unique, goals are referenced by this id
+ _completionTime (NSDate):    The date in which the goal was completed
+ name (String):               Stores the name of the goal object
+ details (String):            Stores the details of the goal object
+ priority (Double):           A numerical value representing the priority of the goal object
+ endTime (NSDate):            Stores the goal's deadline
+ isCompleted (Bool):          Whether the goal has been completed based on the completion time
+ */
 struct PersonalGoal: Goal {
     private let _id: String
     private var _completionTime: NSDate

@@ -8,6 +8,14 @@
 
 import Foundation
 
+/**
+ Overview: Class representing a group of users
+ SpecFields:
+ _id (String):              Is unique, groups are referenced by this id
+ _members ([User]):         An array of all users associated with the group
+ name (String):             Stores the name of the group
+ goals (GoalCollection):    Stores a GoalCollection object of all the goals associated to the group
+ */
 class Group: CustomStringConvertible {
     private let _id: String
     private var _members: [User]

@@ -6,6 +6,13 @@
 //  Copyright © 2016 nus.cs3217.group04. All rights reserved.
 //
 
+/**
+ Overview: Struct representing a user object
+ SpecFields:
+ _id (String):                Is unique, users are referenced by this id
+ name (String):               Stores the name of the user
+ pictureUrl (String):         Stores the url to the user's Facebook profile picture
+ */
 struct User: Hashable {
     private let _id: String
 

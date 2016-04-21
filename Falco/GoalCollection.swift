@@ -8,6 +8,11 @@
 
 import Foundation
 
+/**
+ Overview: Class representing a collection of Goal objects
+ SpecFields:
+ _goals ([Goal]):  Stores an array of all the goal objects in the collection
+ */
 class GoalCollection: CustomStringConvertible {
     private var _goals: [Goal]
 

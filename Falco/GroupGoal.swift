@@ -8,6 +8,17 @@
 
 import Foundation
 
+/**
+ Overview: Struct representing a group goal, which involves multiple user
+ SpecFields:
+ _id (String):                      Is unique, goals are referenced by this id
+ _groupId (String):                 Stores a reference id to the group the goal belongs to
+ _userCompletionTimes (Dictionary): The date in which each user completed the goal [User: NSDate]
+ name (String):                     Stores the name of the goal object
+ details (String):                  Stores the details of the goal object
+ priority (Double):                 A numerical value representing the priority of the goal object
+ endTime (NSDate):                  Stores the goal's deadline
+ */
 struct GroupGoal: Goal {
     private let _id: String
     private let _groupId: String
