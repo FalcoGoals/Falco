@@ -9,3 +9,5 @@ We use cocoapods to manage all the dependecies. To install the dependecies local
 `pod setup`
 
 `pod install`
+
+Repository migrated from Bitbucket
